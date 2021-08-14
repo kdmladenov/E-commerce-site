@@ -1,0 +1,51 @@
+{
+  "name": "full-stack-e-commerce-site",
+  "version": "1.0.0",
+  "description": "E-commerce site with React",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run index\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdmladenov/Full-Stack-Ecommerce-Site.git"
+  },
+  "keywords": [],
+  "author": "Krasimir Mladenov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdmladenov/E-Commerce-Site/issues"
+  },
+  "homepage": "https://github.com/kdmladenov/E-Commerce-Site#readme",
+  "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/eslint": "^7.28.0",
+    "@types/helmet": "^4.0.0",
+    "@types/jsonwebtoken": "^8.5.4",
+    "@types/multer": "^1.4.7",
+    "@types/passport": "^1.0.7",
+    "@types/passport-jwt": "^3.0.6",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^2.5.4",
+    "multer": "^1.4.3",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12"
+  }
+}
