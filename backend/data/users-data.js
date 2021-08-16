@@ -318,7 +318,7 @@ const loginUser = async (email) => {
 //   `;
 
 //   return db.query(sql, [points, userId]);
-// };
+// }
 
 export default {
   getBy,
