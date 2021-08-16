@@ -3,20 +3,20 @@ import errors from '../constants/service-errors.js';
 // import rolesEnum from '../common/roles.enum.js';
 // import { readingPoints, user as userConstants } from '../common/constants.js';
 
-// const getUser = usersData => async (userId, isProfileOwner, role) => {
-//   const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
-//   if (!user) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+const getUser = usersData => async (userId, isProfileOwner, role) => {
+  const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
+  if (!user) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   return {
-//     error: null,
-//     result: user,
-//   };
-// };
+  return {
+    error: null,
+    result: user,
+  };
+};
 
 // const getUserTimeline = usersData => async (userId) => {
 //   const userTimeline = await usersData.getTimeline(userId);
@@ -230,7 +230,7 @@ const login = usersData => async (email, password) => {
 // };
 
 export default {
-  // getUser,
+  getUser,
   // getUserTimeline,
   getAllUsers,
   createUser,

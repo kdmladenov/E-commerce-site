@@ -48,7 +48,7 @@ usersController
     '/',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
+    errorHandler(
       async (req, res) => {
       const { role } = req.user;
       const {
@@ -75,13 +75,14 @@ usersController
       );
       res.status(200).send(result);
     })
-  // )
+  )
 
   // .get(
   //   '/:userId/timeline',
   //   authMiddleware,
   //   loggedUserGuard,
-  //   errorHandler(async (req, res) => {
+  //   // errorHandler(
+  //     async (req, res) => {
   //     const { role } = req.user;
   //     const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
   //     const { error, result } = await usersService.getUserTimeline(usersData)(+id);
@@ -94,7 +95,8 @@ usersController
   //       res.status(200).send(result);
   //     }
   //   })
-  // );
+  // // )
+  // ;
 
 // // upload avatar
 // .put('/:userId/avatar', authMiddleware, uploadAvatar.single('avatar'), validateFile('uploads', uploadFileSchema), errorHandler(async (req, res) => {
@@ -134,21 +136,24 @@ usersController
 //   }
 // }))
 
-// // get a single user
-// .get('/:userId', authMiddleware, loggedUserGuard, errorHandler(async (req, res) => {
-//   const { userId } = req.params;
-//   const { role } = req.user;
-//   const isProfileOwner = +userId === req.user.userId;
-//   const { error, result } = await usersService.getUser(usersData)(userId, isProfileOwner, role);
+// get a single user
+.get('/:userId', authMiddleware, loggedUserGuard, 
+// errorHandler(
+  async (req, res) => {
+  const { userId } = req.params;
+  const { role } = req.user;
+  const isProfileOwner = +userId === req.user.userId;
+  const { error, result } = await usersService.getUser(usersData)(userId, isProfileOwner, role);
 
-//   if (error === errors.RECORD_NOT_FOUND) {
-//     res.status(404).send({
-//       message: `User ${userId} is not found.`,
-//     });
-//   } else {
-//     res.status(200).send(result);
-//   }
-// }))
+  if (error === errors.RECORD_NOT_FOUND) {
+    res.status(404).send({
+      message: `User ${userId} is not found.`,
+    });
+  } else {
+    res.status(200).send(result);
+  }
+})
+// )
 
 // // Change password
 // .patch('/:userId/change-password', authMiddleware, loggedUserGuard, validateBody('user', updatePasswordSchema), errorHandler(async (req, res) => {

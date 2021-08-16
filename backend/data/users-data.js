@@ -7,10 +7,10 @@ const getBy = async (column, value, isProfileOwner, role) => {
       user_id as userId, 
       full_name as fullName,
       role,
-      avatar,
+      avatar
       ${
-        role === rolesEnum.admin || isProfileOwner
-          ? `address ,
+        role === 'admin' || isProfileOwner
+          ? `,address ,
           address2,
           city,
           zip,
@@ -21,7 +21,7 @@ const getBy = async (column, value, isProfileOwner, role) => {
           : ''
       }
     FROM users
-    WHERE ${role === rolesEnum.admin ? `` : `is_deleted = 0 AND`} ${column} = ?
+    WHERE ${role === 'admin' ? `` : `is_deleted = 0 AND`} ${column} = ?
   `;
 
   const result = await db.query(sql, value);
