@@ -83,33 +83,33 @@ const login = usersData => async (email, password) => {
   };
 };
 
-// // change password
-// const changePassword = usersData => async (passwordData, userId, role) => {
-//   const existingUser = await usersData.getBy('user_id', userId);
-//   if (!existingUser) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+// change password
+const changePassword = usersData => async (passwordData, userId, role) => {
+  const existingUser = await usersData.getBy('user_id', userId);
+  if (!existingUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
-//   const { password, reenteredPassword, currentPassword } = passwordData;
+  const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
+  const { password, reenteredPassword, currentPassword } = passwordData;
+  // not matching passwords or the user is not admin
+  if (password !== reenteredPassword || (!await bcrypt.compare(currentPassword, savedPassword) && role !== rolesEnum.admin)) {
+    return {
+      error: errors.BAD_REQUEST,
+      result: null,
+    };
+  }
 
-//   if (password !== reenteredPassword || (!await bcrypt.compare(currentPassword, savedPassword) && role !== rolesEnum.admin)) {
-//     return {
-//       error: errors.BAD_REQUEST,
-//       result: null,
-//     };
-//   }
-
-//   const update = await bcrypt.hash(password, 10);
-//   const _ = await usersData.updatePassword(userId, update);
-//   return {
-//     error: null,
-//     result: { message: 'The password was successfully changed' },
-//   };
-// };
+  const update = await bcrypt.hash(password, 10);
+  await usersData.updatePassword(userId, update);
+  return {
+    error: null,
+    result: { message: 'The password was successfully changed' },
+  };
+};
 
 // update profile
 const update = usersData => async (userUpdate, userId) => {
@@ -214,7 +214,7 @@ export default {
   getAllUsers,
   createUser,
   login,
-  // changePassword,
+  changePassword,
   update,
   deleteUser,
   logout,

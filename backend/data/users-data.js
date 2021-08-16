@@ -159,6 +159,25 @@ const updateData = async (user) => {
   ]);
 };
 
+const getPasswordBy = async (column, value) => {
+  const sql = `
+    SELECT password
+    FROM users
+    WHERE ${column} = ?
+  `;
+  const result = await db.query(sql, [value]);
+  return result[0];
+};
+
+const updatePassword = async (userId, password) => {
+  const sql = `
+  UPDATE users SET  
+    password = ?
+  WHERE user_id = ?
+  `;
+  return db.query(sql, [password, userId]);
+};
+
 const remove = async userId => {
   const sql = `
     UPDATE users SET
@@ -227,6 +246,8 @@ export default {
   remove,
   loginUser,
   logoutUser,
+  getPasswordBy,
+  updatePassword,
   // avatarChange,
   // getAvatar
 };

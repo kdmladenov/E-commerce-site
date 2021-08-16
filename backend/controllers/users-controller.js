@@ -6,7 +6,7 @@ import usersService from '../services/users-service.js';
 import createUserSchema from '../validator/create-user-schema.js';
 import updateUserSchema from '../validator/update-user-schema.js';
 import deleteUserSchema from '../validator/delete-user-schema.js';
-// import updatePasswordSchema from '../validator/update-password-schema.js';
+import updatePasswordSchema from '../validator/update-password-schema.js';
 import {
   authMiddleware
   // , roleMiddleware
@@ -24,7 +24,9 @@ const usersController = express.Router();
 
 usersController
 
-  // register
+  // @desc Register new user
+  // @route POST /users
+  // @access Public - guest
   .post(
     '/',
     validateBody('user', createUserSchema),
@@ -44,21 +46,17 @@ usersController
     })
   )
 
-  // get all users
+  // @desc Get all users
+  // @route GET /users
+  // @access Private - logged
   .get(
     '/',
     authMiddleware,
     loggedUserGuard,
     errorHandler(async (req, res) => {
       const { role } = req.user;
-      const {
-        search = '',
-        searchBy = 'fullName',
-        sort = 'fullName',
-        order = 'ASC'
-      } = req.query;
-      let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } =
-        req.query;
+      const { search = '', searchBy = 'fullName', sort = 'fullName', order = 'ASC' } = req.query;
+      let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
       if (+pageSize > paging.MAX_USERS_PAGESIZE) pageSize = paging.MAX_USERS_PAGESIZE;
       if (+pageSize < paging.MIN_USERS_PAGESIZE) pageSize = paging.MIN_USERS_PAGESIZE;
@@ -136,7 +134,9 @@ usersController
   //   }
   // }))
 
-  // get a single user
+  // @desc Get user by ID
+  // @route GET /users/:userId
+  // @access Private - logged
   .get(
     '/:userId',
     authMiddleware,
@@ -145,11 +145,7 @@ usersController
       const { userId } = req.params;
       const { role } = req.user;
       const isProfileOwner = +userId === req.user.userId;
-      const { error, result } = await usersService.getUser(usersData)(
-        userId,
-        isProfileOwner,
-        role
-      );
+      const { error, result } = await usersService.getUser(usersData)(userId, isProfileOwner, role);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -161,35 +157,51 @@ usersController
     })
   )
 
-  // // Change password
-  // .patch('/:userId/change-password', authMiddleware, loggedUserGuard, validateBody('user', updatePasswordSchema), errorHandler(async (req, res) => {
-  //   const { role } = req.user;
-  //   const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-  //   const passwordData = req.body;
+  // @desc Get user by ID
+  // @route GET /users/:userId
+  // @access Private - logged
+  .patch(
+    '/:userId/change-password',
+    authMiddleware,
+    loggedUserGuard,
+    validateBody('user', updatePasswordSchema),
+    // errorHandler(
+    async (req, res) => {
+      const { role } = req.user;
+      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+      const passwordData = req.body;
 
-  //   const { error, result } = await usersService.changePassword(usersData)(passwordData, id, role);
+      const { error, result } = await usersService.changePassword(usersData)(
+        passwordData,
+        id,
+        role
+      );
 
-  //   if (error === errors.BAD_REQUEST) {
-  //     res.status(400).send({
-  //       message: 'The request was invalid. Passwords do not match.',
-  //     });
-  //   } else if (error === errors.RECORD_NOT_FOUND) {
-  //     res.status(404).send({
-  //       message: `User ${id} is not found.`,
-  //     });
-  //   } else {
-  //     res.status(200).send(result);
-  //   }
-  // }))
+      if (error === errors.BAD_REQUEST) {
+        res.status(400).send({
+          message: 'The request was invalid. Passwords do not match.'
+        });
+      } else if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${id} is not found.`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    }
+  )
+  // )
 
-  // Update user
+  // @desc EDIT user data
+  // @route PUT /users/:id
+  // @access Private - logged
   .put(
     '/:userId',
     authMiddleware,
     loggedUserGuard,
     validateBody('user', updateUserSchema),
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const update = req.body;
@@ -211,10 +223,13 @@ usersController
       } else {
         res.status(200).send(result);
       }
-    })
+    }
+  )
   // )
 
-  // Delete user
+  // @desc EDIT user data
+  // @route PUT /users/:id
+  // @access Private - logged
   .delete(
     '/:userId',
     authMiddleware,
