@@ -1,20 +1,24 @@
 import bcrypt from 'bcrypt';
 import errors from '../constants/service-errors.js';
-// import rolesEnum from '../common/roles.enum.js';
-// import { readingPoints, user as userConstants } from '../common/constants.js';
+import rolesEnum from '../constants/roles.enum.js';
+// import { user as userConstants } from '../common/constants.js';
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import { DB_CONFIG, PRIVATE_KEY } from '../../config.js';
+import { forgotPassword } from '../constants/constants.js';
 
-const getUser = usersData => async (userId, isProfileOwner, role) => {
+const getUser = (usersData) => async (userId, isProfileOwner, role) => {
   const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
   if (!user) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
   return {
     error: null,
-    result: user,
+    result: user
   };
 };
 
@@ -34,18 +38,18 @@ const getUser = usersData => async (userId, isProfileOwner, role) => {
 //   };
 // };
 
-const getAllUsers = usersData => async (search, searchBy, sort, order, page, pageSize, role) => {
+const getAllUsers = (usersData) => async (search, searchBy, sort, order, page, pageSize, role) => {
   const result = await usersData.getAll(search, searchBy, sort, order, page, pageSize, role);
 
   return result;
 };
 
 // register
-const createUser = usersData => async user => {
+const createUser = (usersData) => async (user) => {
   if (user.password !== user.reenteredPassword) {
     return {
       error: errors.BAD_REQUEST,
-      result: null,
+      result: null
     };
   }
 
@@ -54,7 +58,7 @@ const createUser = usersData => async user => {
   if (existingUser) {
     return {
       error: errors.DUPLICATE_RECORD,
-      result: null,
+      result: null
     };
   }
 
@@ -62,44 +66,47 @@ const createUser = usersData => async user => {
 
   return {
     error: null,
-    result: await usersData.create({ ...user, password }),
+    result: await usersData.create({ ...user, password })
   };
 };
 
 // login
-const login = usersData => async (email, password) => {
+const login = (usersData) => async (email, password) => {
   const user = await usersData.loginUser(email);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return {
       error: errors.INVALID_LOGIN,
-      result: null,
+      result: null
     };
   }
 
   return {
     error: null,
-    result: user,
+    result: user
   };
 };
 
 // change password
-const changePassword = usersData => async (passwordData, userId, role) => {
+const changePassword = (usersData) => async (passwordData, userId, role) => {
   const existingUser = await usersData.getBy('user_id', userId);
   if (!existingUser) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
   const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
   const { password, reenteredPassword, currentPassword } = passwordData;
   // not matching passwords or the user is not admin
-  if (password !== reenteredPassword || (!await bcrypt.compare(currentPassword, savedPassword) && role !== rolesEnum.admin)) {
+  if (
+    password !== reenteredPassword ||
+    (!(await bcrypt.compare(currentPassword, savedPassword)) && role !== rolesEnum.admin)
+  ) {
     return {
       error: errors.BAD_REQUEST,
-      result: null,
+      result: null
     };
   }
 
@@ -107,17 +114,17 @@ const changePassword = usersData => async (passwordData, userId, role) => {
   await usersData.updatePassword(userId, update);
   return {
     error: null,
-    result: { message: 'The password was successfully changed' },
+    result: { message: 'The password was successfully changed' }
   };
 };
 
 // update profile
-const update = usersData => async (userUpdate, userId) => {
+const update = (usersData) => async (userUpdate, userId) => {
   const { email, reenteredEmail } = userUpdate;
   if (email && email !== reenteredEmail) {
     return {
       error: errors.BAD_REQUEST,
-      result: null,
+      result: null
     };
   }
 
@@ -125,7 +132,7 @@ const update = usersData => async (userUpdate, userId) => {
   if (!existingUser) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
@@ -144,17 +151,17 @@ const update = usersData => async (userUpdate, userId) => {
 
   return {
     error: null,
-    result: updatedUser,
+    result: updatedUser
   };
 };
 
 // delete user
-const deleteUser = usersData => async (userId) => {
+const deleteUser = (usersData) => async (userId) => {
   const existingUser = await usersData.getBy('user_id', userId);
   if (!existingUser) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
@@ -162,13 +169,116 @@ const deleteUser = usersData => async (userId) => {
 
   return {
     error: null,
-    result: existingUser,
+    result: existingUser
   };
 };
 
-
-const logout = usersData => async (token) => {
+const logout = (usersData) => async (token) => {
   await usersData.logoutUser(token);
+};
+
+// forgotten password
+const forgottenPassword = (usersData) => async (email) => {
+  const existingUser = await usersData.getBy('email', email);
+  if (!existingUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+  const { password: savedPassword } = await usersData.getPasswordBy('user_id', existingUser.userId);
+  const newPrivateKey = PRIVATE_KEY + savedPassword;
+  const payload = {
+    email: existingUser.email,
+    id: existingUser.userId
+  };
+
+  const token = jwt.sign(payload, newPrivateKey, {
+    expiresIn: forgotPassword.tokenExpiration
+  });
+  const link = `http://${DB_CONFIG.host}:${forgotPassword.frontEndPort}/reset-password/${existingUser.userId}/${token}`;
+
+  // Sending mail with reset link
+  const transporter = nodemailer.createTransport({
+    service: forgotPassword.emailService,
+    auth: {
+      user: forgotPassword.emailUser,
+      pass: forgotPassword.emailPassword
+    }
+  });
+
+  const options = {
+    from: forgotPassword.emailUser,
+    to: `${existingUser.email}`,
+    subject: 'Password reset link.',
+    text: `Dear ${existingUser.firstName},\nA request has been received to reset yor password. You can do that by clicking on the below link.\n
+${link}\nIf you did not initiate the request, just ignore this email - your password will not be changed.`
+  };
+
+  transporter.sendMail(options, (err, info) => {
+    if (err) {
+      return;
+    }
+    console.log(`Sent: + ${info.response}`);
+  });
+
+  return {
+    error: null,
+    result: { message: `The password reset link has been send to ${email}` }
+  };
+};
+
+// reset password
+const resetPassword = (usersData) => async (password, reenteredPassword, userId, token) => {
+  const existingUser = await usersData.getBy('user_id', userId);
+  if (!existingUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+
+  const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
+  const newPrivateKey = PRIVATE_KEY + savedPassword;
+  const payload = jwt.verify(token, newPrivateKey);
+
+  if (password !== reenteredPassword || !payload) {
+    return {
+      error: errors.BAD_REQUEST,
+      result: null
+    };
+  }
+
+  const updated = await bcrypt.hash(password, 10);
+  await usersData.updatePassword(userId, updated);
+
+  // Sending confirmation mail for the reset password
+  const transporter = nodemailer.createTransport({
+    service: forgotPassword.emailService,
+    auth: {
+      user: forgotPassword.emailUser,
+      pass: forgotPassword.emailPassword
+    }
+  });
+
+  const options = {
+    from: forgotPassword.emailUser,
+    to: `${existingUser.email}`,
+    subject: 'Your password has been reset.',
+    text: `Dear ${existingUser.firstName},\nYour password has been reset.\nThank you!`
+  };
+
+  transporter.sendMail(options, (err, info) => {
+    if (err) {
+      return;
+    }
+    console.log(`Sent: + ${info.response}`);
+  });
+
+  return {
+    error: null,
+    result: { message: 'The password was successfully reset' }
+  };
 };
 
 // const changeAvatar = usersData => async (userId, path) => {
@@ -218,6 +328,8 @@ export default {
   update,
   deleteUser,
   logout,
+  forgottenPassword,
+  resetPassword,
   // changeAvatar,
   // getUserAvatar,
   // deleteUserAvatar,

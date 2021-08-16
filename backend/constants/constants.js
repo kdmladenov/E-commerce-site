@@ -31,3 +31,11 @@ export const uploads = {
   MAX_FILE_SIZE: 102400, //   divide by 1000 for KB
   MIN_FILE_SIZE: 0
 };
+
+export const forgotPassword = {
+  tokenExpiration: '15m',
+  emailService: 'hotmail',
+  emailUser: 'fullstackecommercestore@outlook.com',
+  emailPassword: 'Sekretenklu4',
+  frontEndPort: 3000
+};

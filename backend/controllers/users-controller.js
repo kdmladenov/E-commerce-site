@@ -7,6 +7,8 @@ import createUserSchema from '../validator/create-user-schema.js';
 import updateUserSchema from '../validator/update-user-schema.js';
 import deleteUserSchema from '../validator/delete-user-schema.js';
 import updatePasswordSchema from '../validator/update-password-schema.js';
+import forgottenPasswordSchema from '../validator/forgotten-password-schema.js'
+import resetPasswordSchema from '../validator/reset-password-schema.js'
 import {
   authMiddleware
   // , roleMiddleware
@@ -250,6 +252,50 @@ usersController
         res.status(200).send(result);
       }
     })
-  );
+  )
+  // Forgotten password with mail password reset
+  .post(
+    '/forgotten-password',
+    validateBody('user', forgottenPasswordSchema),
+    // errorHandler(
+      async (req, res) => {
+      const { email } = req.body;
 
+      const { error, result } = await usersService.forgottenPassword(usersData)(email);
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `A user with email ${email} is not found`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  // )
+  // Reset password
+  .post(
+    '/reset-password/:userId/:token',
+    validateBody('user', resetPasswordSchema),
+    errorHandler(async (req, res) => {
+      const { password, reenteredPassword } = req.body;
+      const { userId, token } = req.params;
+
+      const { error, result } = await usersService.resetPassword(usersData)(
+        password,
+        reenteredPassword,
+        +userId,
+        token
+      );
+      if (error === errors.BAD_REQUEST) {
+        res.status(400).send({
+          message: 'The request was invalid. Passwords do not match or the token has been changed.'
+        });
+      } else if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${userId} is not found.`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  );
 export default usersController;
