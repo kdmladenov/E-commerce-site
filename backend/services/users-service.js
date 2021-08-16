@@ -167,30 +167,10 @@ const login = usersData => async (email, password) => {
 //   };
 // };
 
-// // ban an user
-// const banUser = usersData => async (userId, duration, description) => {
-//   const user = await usersData.getBy('user_id', userId);
 
-//   if (!user) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
-
-//   const points = Math.floor(duration * readingPoints.GET_BANNED_MULTIPLIER);
-//   const p = await usersData.updatePoints(userId, points);
-//   const _ = await usersData.ban(userId, duration, description);
-
-//   return {
-//     error: null,
-//     result: { message: `Successfully banned user ${userId}.` },
-//   };
-// };
-
-// const logout = usersData => async (token) => {
-//   const _ = await usersData.logoutUser(token);
-// };
+const logout = usersData => async (token) => {
+  await usersData.logoutUser(token);
+};
 
 // const changeAvatar = usersData => async (userId, path) => {
 //   const _ = await usersData.avatarChange(+userId, path);
@@ -239,7 +219,7 @@ export default {
   // update,
   // deleteUser,
   // banUser,
-  // logout,
+  logout,
   // changeAvatar,
   // getUserAvatar,
   // deleteUserAvatar,
