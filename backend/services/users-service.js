@@ -149,23 +149,23 @@ const login = usersData => async (email, password) => {
 //   };
 // };
 
-// // delete profile
-// const deleteUser = usersData => async (userId) => {
-//   const existingUser = await usersData.getBy('user_id', userId);
-//   if (!existingUser) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+// delete user
+const deleteUser = usersData => async (userId) => {
+  const existingUser = await usersData.getBy('user_id', userId);
+  if (!existingUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   const _ = await usersData.remove(userId);
+  await usersData.remove(userId);
 
-//   return {
-//     error: null,
-//     result: existingUser,
-//   };
-// };
+  return {
+    error: null,
+    result: existingUser,
+  };
+};
 
 
 const logout = usersData => async (token) => {
@@ -217,8 +217,7 @@ export default {
   login,
   // changePassword,
   // update,
-  // deleteUser,
-  // banUser,
+  deleteUser,
   logout,
   // changeAvatar,
   // getUserAvatar,

@@ -150,17 +150,17 @@ const create = async (user) => {
 //   ]);
 // };
 
-// const remove = async userId => {
-//   const sql = `
-//     UPDATE users SET
-//       is_deleted = 1,
-//       username = 'DELETED USER',
-//       email = 'DELETED USER EMAIL'
-//     WHERE user_id = ?
-//   `;
+const remove = async userId => {
+  const sql = `
+    UPDATE users SET
+      is_deleted = 1,
+      full_name = 'DELETED USER',
+      email = 'DELETED USER EMAIL'
+    WHERE user_id = ?
+  `;
 
-//   return db.query(sql, [userId]);
-// };
+  return db.query(sql, [userId]);
+};
 
 const loginUser = async (email) => {
   const sql = `
@@ -215,7 +215,7 @@ export default {
   getAll,
   create,
   // updateData,
-  // remove,
+  remove,
   loginUser,
   logoutUser,
   // avatarChange,
