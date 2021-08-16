@@ -118,33 +118,66 @@ const getBy = async (column, value, isProfileOwner, role) => {
 //   return db.query(sql, []);
 // };
 
-// const getAll = async (search, searchBy, sort, order, page, pageSize, role) => {
-//   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'asc';
-//   const searchColumn = [
-//     'user_id', 'username', 'first_name', 'reading_points', 'last_name', 'gender', 'email', 'last_name'].includes(searchBy) ? searchBy : 'title';
-//   const offset = page ? (page - 1) * pageSize : 0;
+const getAll = async (search, searchBy, sort, order, page, pageSize, role) => {
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'asc';
+  const searchColumn = [
+    'user_id',
+    'full_name',
+    'address',
+    'address2',
+    'city',
+    'zip',
+    'state',
+    'country',
+    'email',
+    'phone'
+  ].includes(searchBy)
+    ? searchBy
+    : 'full_name';
+  const sortColumn = [
+    'user_id',
+    'full_name',
+    'address',
+    'address2',
+    'city',
+    'zip',
+    'state',
+    'country',
+    'email',
+    'phone'
+  ].includes(sort)
+    ? sort
+    : 'full_name';
+  const offset = page ? (page - 1) * pageSize : 0;
 
-//   const sql = `
-//     SELECT
-//       u.avatar,
-//       u.user_id as userId,
-//       u.username as username,
-//       u.first_name as firstName,
-//       r.type as role,
-//       u.reading_points as readingPoints,
-//       u.last_name as lastName,
-//       g.gender as gender,
-//       DATE_FORMAT(u.birth_date, "%Y-%m-%d") as birthDate,
-//       u.email as email,
-//       u.phone as phone
-//     FROM users u
-//     LEFT JOIN gender g USING (gender_id)
-//     LEFT JOIN roles r USING(role_id)
-//     LIMIT ? OFFSET ?
-//   `;
+  const sql = `
+    SELECT
+      user_id as userId, 
+      full_name as fullName,
+      role,
+      avatar
+      ${
+        role === rolesEnum.admin
+          ? `,address ,
+          address2,
+          city,
+          zip,
+          state,
+          country,
+          email,
+          phone`
+          : ''
+      }
+    FROM users
+    WHERE ${
+      role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''
+    } ${searchColumn} Like '%${search}%'
+    ORDER BY ${sortColumn} ${direction} 
+    LIMIT ? OFFSET ?
+  `;
 
-//   return db.query(sql, [pageSize, offset]);
-// };
+  return db.query(sql, [pageSize, offset]);
+};
 
 const create = async (user) => {
   const sql = `
@@ -323,7 +356,7 @@ const loginUser = async (email) => {
 export default {
   getBy,
   // getTimeline,
-  // getAll,
+  getAll,
   create,
   // getPasswordBy,
   // updatePassword,

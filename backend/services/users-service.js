@@ -34,11 +34,11 @@ import errors from '../constants/service-errors.js';
 //   };
 // };
 
-// const getAllUsers = usersData => async (search, searchBy, sort, order, page, pageSize, role) => {
-//   const result = await usersData.getAll(search, searchBy, sort, order, page, pageSize, role);
+const getAllUsers = usersData => async (search, searchBy, sort, order, page, pageSize, role) => {
+  const result = await usersData.getAll(search, searchBy, sort, order, page, pageSize, role);
 
-//   return result;
-// };
+  return result;
+};
 
 // register
 const createUser = usersData => async user => {
@@ -232,7 +232,7 @@ const login = usersData => async (email, password) => {
 export default {
   // getUser,
   // getUserTimeline,
-  // getAllUsers,
+  getAllUsers,
   createUser,
   login,
   // changePassword,
