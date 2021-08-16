@@ -127,28 +127,37 @@ const create = async (user) => {
   return getBy('user_id', result.insertId, true);
 };
 
-// const updateData = async (user) => {
-//   const sql = `
-//     UPDATE users SET
-//       first_name = ?,
-//       last_name = ?,
-//       gender_id = (SELECT gender_id FROM gender WHERE gender = ?),
-//       birth_date = ?,
-//       email = ?,
-//       phone = ?
-//     WHERE user_id = ?
-//   `;
+const updateData = async (user) => {
+  console.log(user);
+  const sql = `
+    UPDATE users SET
+      full_name = ?,
+      email = ?,
+      phone = ?,
+      address = ?,
+      address2 = ?,
+      city = ?,
+      zip = ?,
+      state = ?,
+      country = ?,
+      role = ?
+    WHERE user_id = ?
+  `;
 
-//   return db.query(sql, [
-//     user.firstName,
-//     user.lastName,
-//     user.gender,
-//     user.birthDate,
-//     user.email,
-//     user.phone,
-//     user.userId,
-//   ]);
-// };
+  return db.query(sql, [
+    user.fullName,
+    user.email,
+    user.phone,
+    user.address,
+    user.address2,
+    user.city,
+    user.zip,
+    user.state,
+    user.country,
+    user.role,
+    user.userId
+  ]);
+};
 
 const remove = async userId => {
   const sql = `
@@ -214,7 +223,7 @@ export default {
   getBy,
   getAll,
   create,
-  // updateData,
+  updateData,
   remove,
   loginUser,
   logoutUser,

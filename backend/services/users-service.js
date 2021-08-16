@@ -111,43 +111,42 @@ const login = usersData => async (email, password) => {
 //   };
 // };
 
-// // update profile
-// const update = usersData => async (userUpdate, userId) => {
-//   const { email, reenteredEmail } = userUpdate;
-//   if (email && email !== reenteredEmail) {
-//     return {
-//       error: errors.BAD_REQUEST,
-//       result: null,
-//     };
-//   }
+// update profile
+const update = usersData => async (userUpdate, userId) => {
+  const { email, reenteredEmail } = userUpdate;
+  if (email && email !== reenteredEmail) {
+    return {
+      error: errors.BAD_REQUEST,
+      result: null,
+    };
+  }
 
-//   const existingUser = await usersData.getBy('user_id', userId, true);
-//   if (!existingUser) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+  const existingUser = await usersData.getBy('user_id', userId, true);
+  if (!existingUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   if (email) {
-//     const user = await usersData.getBy('email', email, true);
-//     if (user && user.userId !== userId) {
-//       return {
-//         error: errors.DUPLICATE_RECORD,
-//         result: null,
-//       };
-//     }
-//   }
+  if (email) {
+    const user = await usersData.getBy('email', email, true);
+    if (user && user.userId !== userId) {
+      return {
+        error: errors.DUPLICATE_RECORD,
+        result: null
+      };
+    }
+  }
 
-//   const updatedUser = { ...existingUser, ...userUpdate, userId };
-//   updatedUser.birthDate = new Date(updatedUser.birthDate).toLocaleDateString('af-ZA');
-//   const _ = await usersData.updateData(updatedUser);
+  const updatedUser = { ...existingUser, ...userUpdate, userId };
+  await usersData.updateData(updatedUser);
 
-//   return {
-//     error: null,
-//     result: updatedUser,
-//   };
-// };
+  return {
+    error: null,
+    result: updatedUser,
+  };
+};
 
 // delete user
 const deleteUser = usersData => async (userId) => {
@@ -216,7 +215,7 @@ export default {
   createUser,
   login,
   // changePassword,
-  // update,
+  update,
   deleteUser,
   logout,
   // changeAvatar,

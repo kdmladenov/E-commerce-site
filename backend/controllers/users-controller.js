@@ -4,7 +4,7 @@ import validateBody from '../middleware/validate-body.js';
 import errors from '../constants/service-errors.js';
 import usersService from '../services/users-service.js';
 import createUserSchema from '../validator/create-user-schema.js';
-// import updateUserSchema from '../validator/update-user-schema.js';
+import updateUserSchema from '../validator/update-user-schema.js';
 import deleteUserSchema from '../validator/delete-user-schema.js';
 // import updatePasswordSchema from '../validator/update-password-schema.js';
 import {
@@ -182,31 +182,37 @@ usersController
   //   }
   // }))
 
-  // // Update user
-  // .put('/:userId/edit-profile', authMiddleware, loggedUserGuard, validateBody('user', updateUserSchema), errorHandler(async (req, res) => {
-  //   const { role } = req.user;
-  //   const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-  //   const update = req.body;
-  //   update.birthDate = update.birthDate ? new Date(update.birthDate).toLocaleDateString('af-ZA') : null; // yyyy/mm/dd
+  // Update user
+  .put(
+    '/:userId',
+    authMiddleware,
+    loggedUserGuard,
+    validateBody('user', updateUserSchema),
+    // errorHandler(
+      async (req, res) => {
+      const { role } = req.user;
+      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+      const update = req.body;
 
-  //   const { error, result } = await usersService.update(usersData)(update, +id);
+      const { error, result } = await usersService.update(usersData)(update, +id);
 
-  //   if (error === errors.BAD_REQUEST) {
-  //     res.status(400).send({
-  //       message: 'The request was invalid. Emails are required or do not match.',
-  //     });
-  //   } else if (error === errors.RECORD_NOT_FOUND) {
-  //     res.status(404).send({
-  //       message: `User ${id} is not found.`,
-  //     });
-  //   } else if (error === errors.DUPLICATE_RECORD) {
-  //     res.status(409).send({
-  //       message: 'User with same email already exists.',
-  //     });
-  //   } else {
-  //     res.status(200).send(result);
-  //   }
-  // }))
+      if (error === errors.BAD_REQUEST) {
+        res.status(400).send({
+          message: 'The request was invalid. Emails are required or do not match.'
+        });
+      } else if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${id} is not found.`
+        });
+      } else if (error === errors.DUPLICATE_RECORD) {
+        res.status(409).send({
+          message: 'User with same email already exists.'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  // )
 
   // Delete user
   .delete(
@@ -214,8 +220,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     validateBody('user', deleteUserSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       // case admin-delete every user, case: basic user - delete only itself
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
@@ -229,24 +234,7 @@ usersController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   );
-// )
-
-// // Ban user
-// .post('/:userId/ban', authMiddleware, loggedUserGuard, roleMiddleware(rolesEnum.admin), validateBody('ban', banUserSchema), errorHandler(async (req, res) => {
-//   const { userId } = req.params;
-//   const { duration, description } = req.body;
-
-//   const { error, result } = await usersService.banUser(usersData)(+userId, +duration, description);
-
-//   if (error === errors.RECORD_NOT_FOUND) {
-//     res.status(404).send({
-//       message: `User ${userId} is not found.`,
-//     });
-//   } else {
-//     res.status(200).send(result);
-//   }
-// }));
 
 export default usersController;
