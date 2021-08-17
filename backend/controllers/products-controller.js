@@ -73,7 +73,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -93,7 +93,8 @@ productsController
       } else {
         res.status(200).send(result);
       }
-    })
+    }
+  )
   // )
   // change product
   .put(
@@ -102,8 +103,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -124,7 +124,7 @@ productsController
         res.status(200).send(result);
       }
     })
-  // )
+  )
   // create product
   .post(
     '/',
@@ -145,6 +145,26 @@ productsController
         res.status(201).send(product);
       }
     })
-  );
+  )
+  // delete product
+  .delete(
+    '/:productId',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    // errorHandler(
+      async (req, res) => {
+      const { productId } = req.params;
+      const { error, product } = await productsServices.deleteProduct(productsData)(productId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product with this id is not found!'
+        });
+      } else {
+        res.status(200).send(product);
+      }
+    })
+  // );
 
 export default productsController;

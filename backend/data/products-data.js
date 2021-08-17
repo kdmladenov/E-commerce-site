@@ -142,9 +142,20 @@ const update = async (updatedProduct) => {
   return getBy('product_id', updatedProduct.productId);
 };
 
+const remove = async (productToDelete) => {
+  const sql = `
+        UPDATE products 
+        SET is_deleted = true
+        WHERE product_id = ?
+    `;
+
+  return db.query(sql, [productToDelete.productId]);
+};
+
 export default {
   getAllProducts,
   getBy,
   create,
-  update
+  update,
+  remove
 };

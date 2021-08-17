@@ -78,9 +78,29 @@ const updateProduct = (productsData) => async (productId, updatedData) => {
     result
   };
 };
+
+const deleteProduct = (productsData) => async (productId) => {
+  const productToDelete = await productsData.getBy('product_id', productId);
+
+  if (!productToDelete) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  await productsData.remove(productToDelete);
+
+  return {
+    error: null,
+    product: { ...productToDelete, isDeleted: 1 }
+  };
+};
+
 export default {
   getAllProducts,
   getProductById,
   createProduct,
-  updateProduct
+  updateProduct,
+  deleteProduct
 };
