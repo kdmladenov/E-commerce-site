@@ -7,17 +7,17 @@ const getBy = async (column, value, isProfileOwner, role) => {
       user_id as userId, 
       full_name as fullName,
       role,
+      email,
       avatar
       ${
         role === 'admin' || isProfileOwner
-          ? `,address ,
-          address2,
-          city,
-          zip,
-          state,
-          country,
-          email,
-          phone`
+        ? `,address ,
+        address2,
+        city,
+        zip,
+        state,
+        country,
+        phone`
           : ''
       }
     FROM users
