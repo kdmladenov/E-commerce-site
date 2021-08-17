@@ -19,7 +19,7 @@ export default {
     isDeleted: `Expected boolean`
   },
   product: {
-    name: `Expected valid name string with length in the range [${PRODUCT.MIN_NAME_LENGTH}-${PRODUCT.MAX_NAME_LENGTH}]`,
+    title: `Expected valid name string with length in the range [${PRODUCT.MIN_NAME_LENGTH}-${PRODUCT.MAX_NAME_LENGTH}]`,
     brand: `Expected valid brand string with length in the range [${PRODUCT.MIN_BRAND_LENGTH}-${PRODUCT.MAX_BRAND_LENGTH}]`,
     image: `Expected valid image path string`,
     product_category: `Expected valid string from the product_category enum`,

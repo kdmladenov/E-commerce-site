@@ -2,7 +2,7 @@ import productCategoriesEnum from '../constants/product-categories.enum.js';
 import { product as PRODUCT } from '../constants/constants.js';
 
 export default {
-  name: (value) =>
+  title: (value) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_NAME_LENGTH &&
     value.length <= PRODUCT.MAX_NAME_LENGTH,
