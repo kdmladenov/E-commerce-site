@@ -10,7 +10,6 @@ import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
 import { paging } from '../constants/constants.js';
 
-
 const productsController = express.Router();
 
 productsController
@@ -19,8 +18,7 @@ productsController
     '/',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { search = '', searchBy = 'title', sort = 'title', order = 'asc' } = req.query;
       const { role } = req.user;
 
@@ -41,6 +39,30 @@ productsController
       );
 
       res.status(200).send(product);
+    })
+  )
+  // get by id
+  .get(
+    '/:productId',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+      async (req, res) => {
+      const { productId } = req.params;
+      const { role } = req.user;
+
+      const { error, product } = await productsServices.getProductById(productsData)(
+        productId,
+        role
+      );
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product with this number is not found!'
+        });
+      } else {
+        res.status(200).send(product);
+      }
     })
   // )
   // create product

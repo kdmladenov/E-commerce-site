@@ -15,7 +15,23 @@ const getAllProducts =
     return result;
   };
 
-const createProduct = productsData => async (data) => {
+const getProductById = (productsData) => async (productId, role) => {
+  const product = await productsData.getBy('product_id', productId, role);
+
+  if (!product) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  return {
+    error: null,
+    product
+  };
+};
+
+const createProduct = (productsData) => async (data) => {
   const { title } = data;
 
   const existingProduct = await productsData.getBy('title', title);
@@ -23,17 +39,17 @@ const createProduct = productsData => async (data) => {
   if (existingProduct) {
     return {
       error: errors.DUPLICATE_RECORD,
-      product: null,
+      product: null
     };
   }
   return {
     error: null,
-    product: await productsData.create(data),
+    product: await productsData.create(data)
   };
 };
 
-
 export default {
   getAllProducts,
+  getProductById,
   createProduct
 };
