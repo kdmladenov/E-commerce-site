@@ -9,6 +9,7 @@ import rolesEnum from '../constants/roles.enum.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
 import { paging } from '../constants/constants.js';
+import updateProductSchema from '../validator/update-product-schema.js';
 
 const productsController = express.Router();
 
@@ -46,8 +47,7 @@ productsController
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { role } = req.user;
 
@@ -62,6 +62,66 @@ productsController
         });
       } else {
         res.status(200).send(product);
+      }
+    })
+  )
+  // change product
+  .put(
+    '/:productId',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    validateBody('product', updateProductSchema),
+    // errorHandler(
+      async (req, res) => {
+      const { productId } = req.params;
+      const data = req.body;
+
+      const { error, result } = await productsServices.updateProduct(productsData)(
+        +productId,
+        data
+      );
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The product is not found.'
+        });
+      } else if (error === errors.DUPLICATE_RECORD) {
+        res.status(409).send({
+          message: 'Another product with this title and/or isbn already exist.'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  // )
+  // change product
+  .put(
+    '/:productId',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    validateBody('product', updateProductSchema),
+    // errorHandler(
+      async (req, res) => {
+      const { productId } = req.params;
+      const data = req.body;
+
+      const { error, result } = await productsServices.updateProduct(productsData)(
+        +productId,
+        data
+      );
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The product is not found.'
+        });
+      } else if (error === errors.DUPLICATE_RECORD) {
+        res.status(409).send({
+          message: 'Another product with this id already exist.'
+        });
+      } else {
+        res.status(200).send(result);
       }
     })
   // )

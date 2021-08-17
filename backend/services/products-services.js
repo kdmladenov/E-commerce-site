@@ -48,8 +48,39 @@ const createProduct = (productsData) => async (data) => {
   };
 };
 
+
+const updateProduct = (productsData) => async (productId, updatedData) => {
+  const existingProduct = await productsData.getBy('product_id', +productId);
+
+  if (!existingProduct) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+  // checks if the updated title exist in other product
+  if (
+    (updatedData.title &&
+      (await productsData.getBy('title', updatedData.title)) &&
+      (await productsData.getBy('title', updatedData.title)).productId !== productId)
+  ) {
+    return {
+      error: errors.DUPLICATE_RECORD,
+      product: null
+    };
+  }
+
+  const updated = { ...existingProduct, ...updatedData };
+  const result = await productsData.update(updated);
+
+  return {
+    error: null,
+    result
+  };
+};
 export default {
   getAllProducts,
   getProductById,
-  createProduct
+  createProduct,
+  updateProduct
 };

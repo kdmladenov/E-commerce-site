@@ -60,6 +60,7 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
 const getBy = async (column, value, role) => {
   const sql = `
     SELECT 
+      product_id as productId,
       title,
       brand,
       description,
@@ -108,8 +109,42 @@ const create = async (product) => {
   return getBy('product_id', result.insertId);
 };
 
+const update = async (updatedProduct) => {
+  console.log(updatedProduct);
+  const sql = `
+        UPDATE products
+        SET
+          title = ?,
+          brand = ?,
+          image = ?,
+          description = ?,
+          product_category = ?,
+          price = ?,
+          stock_count = ?,
+          review_count = ?,
+          rating = ?
+        WHERE product_id = ?
+    `;
+
+  const _ = await db.query(sql, [
+    updatedProduct.title,
+    updatedProduct.brand,
+    updatedProduct.image,
+    updatedProduct.productCategory,
+    updatedProduct.description,
+    +updatedProduct.price,
+    +updatedProduct.stockCount,
+    +updatedProduct.reviewCount,
+    +updatedProduct.rating,
+    +updatedProduct.productId
+  ]);
+
+  return getBy('product_id', updatedProduct.productId);
+};
+
 export default {
   getAllProducts,
   getBy,
-  create
+  create,
+  update
 };
