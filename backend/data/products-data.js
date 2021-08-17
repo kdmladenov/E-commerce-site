@@ -43,8 +43,8 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
       image,
       product_category as productCategory,
       price,
-      stock_count as stockCount,
       review_count as reviewCount,
+      stock_count as stockCount,
       rating
     FROM products
     WHERE ${
