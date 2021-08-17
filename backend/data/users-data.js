@@ -181,9 +181,7 @@ const updatePassword = async (userId, password) => {
 const remove = async userId => {
   const sql = `
     UPDATE users SET
-      is_deleted = 1,
-      full_name = 'DELETED USER',
-      email = 'DELETED USER EMAIL'
+      is_deleted = 1
     WHERE user_id = ?
   `;
 
