@@ -26,6 +26,23 @@ export const paging = {
   DEFAULT_RECORDS_PAGESIZE: 10
 };
 
+export const product = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 250,
+  MIN_BRAND_LENGTH: 6,
+  MAX_BRAND_LENGTH: 100,
+  MIN_DESCRIPTION_LENGTH: 6,
+  MAX_DESCRIPTION_LENGTH: 1000,
+  MIN_PRICE_VALUE: 0,
+  MAX_PRICE_VALUE: 10000,
+  MIN_STOCK_COUNT: 0,
+  MAX_STOCK_COUNT: 1000,
+  MIN_REVIEW_COUNT: 0,
+  MAX_REVIEW_COUNT: 1000,
+  MIN_RATING_VALUE: 0,
+  MAX_RATING_VALUE: 5,
+};
+
 export const uploads = {
   VALID_FILE_FORMATS: ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'webp'],
   MAX_FILE_SIZE: 102400, //   divide by 1000 for KB

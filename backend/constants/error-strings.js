@@ -1,6 +1,4 @@
-import {
-  user as USER
-} from "./constants.js";
+import { user as USER, product as PRODUCT } from './constants.js';
 
 export default {
   user: {
@@ -19,5 +17,15 @@ export default {
     role: `Expected string`,
     state: `Expected "admin" or "basic" string`,
     isDeleted: `Expected boolean`
+  },
+  product: {
+    name: `Expected valid name string with length in the range [${PRODUCT.MIN_NAME_LENGTH}-${PRODUCT.MAX_NAME_LENGTH}]`,
+    brand: `Expected valid brand string with length in the range [${PRODUCT.MIN_BRAND_LENGTH}-${PRODUCT.MAX_BRAND_LENGTH}]`,
+    image: `Expected valid image path string`,
+    product_category: `Expected valid string from the product_category enum`,
+    price: `Expected valid number with value in the range [${PRODUCT.MIN_PRICE_VALUE}-${PRODUCT.MAX_PRICE_VALUE}]`,
+    stock_count: `Expected valid number count in the range [${PRODUCT.MIN_STOCK_COUNT}-${PRODUCT.MAX_STOCK_COUNT}]`,
+    review_count: `Expected valid number count in the range [${PRODUCT.MIN_REVIEW_COUNT}-${PRODUCT.MAX_REVIEW_COUNT}]`,
+    rating: `Expected valid rating with length in the range [${PRODUCT.MIN_RATING_VALUE}-${PRODUCT.MAX_REVIEW_COUNT}]`
   }
 };

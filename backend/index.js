@@ -6,6 +6,7 @@ import jwtStrategy from './authentication/strategy.js';
 import { PORT } from '../config.js';
 import usersController from './controllers/users-controller.js';
 import authController from './controllers/auth-controller.js';
+import productsController from './controllers/products-controller.js'
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(passport.initialize());
 
 app.use('/auth', authController);
 app.use('/users', usersController);
+app.use('/products', productsController);
 
 app.use((err, req, res, next) => {
   res.status(500).send({
