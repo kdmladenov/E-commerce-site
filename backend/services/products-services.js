@@ -97,10 +97,29 @@ const deleteProduct = (productsData) => async (productId) => {
   };
 };
 
+const imageChange = (productsData) => async (path, productId) => {
+  const existingProduct = await productsData.getBy('product_id', +productId);
+
+  if (!existingProduct) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  const result = await productsData.imageChange(path, productId);
+
+  return {
+    error: null,
+    result
+  };
+};
+
 export default {
   getAllProducts,
   getProductById,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  imageChange
 };

@@ -146,10 +146,21 @@ const remove = async (productToDelete) => {
   return db.query(sql, [productToDelete.productId]);
 };
 
+const imageChange = (path, productId) => {
+  const sql = `
+    UPDATE products SET
+      image = ?
+    WHERE product_id = ?
+  `;
+
+  return db.query(sql, [path, productId]);
+};
+
 export default {
   getAllProducts,
   getBy,
   create,
   update,
-  remove
+  remove,
+  imageChange
 };
