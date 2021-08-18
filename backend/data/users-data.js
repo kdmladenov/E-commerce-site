@@ -225,7 +225,10 @@ const avatarChange = (userId, path) => {
 
 const getAvatar = async (userId) => {
   const sql = `
-    SELECT avatar, username
+    SELECT 
+      avatar, 
+      email, 
+      full_name as fullName
     FROM users
     WHERE user_id = ${userId}
   `;

@@ -100,37 +100,34 @@ usersController
     authMiddleware,
     uploadAvatar.single('avatar'),
     validateFile('uploads', uploadFileSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const { path } = req.file;
-      const _ = await usersService.changeAvatar(usersData)(+id, path.replace(/\\/g, '/'));
+      await usersService.changeAvatar(usersData)(+id, path.replace(/\\/g, '/'));
 
       res.status(200).send({ message: 'Avatar changed' });
-    }
+    })
   )
-  // )
 
   // get avatar
   .get(
     '/:userId/avatar',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const { error, result } = await usersService.getUserAvatar(usersData)(+id);
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
-          message: `User ${id} is not found.`
+          message: `User ${id} is not found .`
         });
       } else {
         res.status(200).send(result);
       }
     })
-  // )
+  )
 
   // delete avatar
   .delete(
@@ -138,7 +135,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const { error, result } = await usersService.deleteUserAvatar(usersData)(+id);
@@ -149,7 +146,8 @@ usersController
       } else {
         res.status(200).send(result);
       }
-    })
+    }
+  )
   // )
 
   // @desc Get user by ID
