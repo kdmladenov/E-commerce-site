@@ -1,7 +1,6 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-
 const getAllProducts = async (search, searchBy, sort, order, pageSize, page, role) => {
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'asc';
   const searchColumn = [
@@ -15,8 +14,8 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
     'reviewCount',
     'rating'
   ].includes(searchBy)
-  ? searchBy
-  : 'title';
+    ? searchBy
+    : 'title';
   const sortColumn = [
     'title',
     'brand',
@@ -28,13 +27,10 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
     'reviewCount',
     'rating'
   ].includes(sort)
-  ? sort
-  : 'title';
+    ? sort
+    : 'title';
   const offset = page ? (page - 1) * pageSize : 0;
-  
-  console.log(
-    pageSize,
-  );
+
   const sql = `
   SELECT 
       title,
@@ -79,7 +75,6 @@ const getBy = async (column, value, role) => {
 };
 
 const create = async (product) => {
-  console.log(product);
   const sql = `
     INSERT INTO products (
       title,
@@ -110,7 +105,6 @@ const create = async (product) => {
 };
 
 const update = async (updatedProduct) => {
-  console.log(updatedProduct);
   const sql = `
         UPDATE products
         SET

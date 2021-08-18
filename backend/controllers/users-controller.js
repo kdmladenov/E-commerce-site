@@ -7,19 +7,15 @@ import createUserSchema from '../validator/create-user-schema.js';
 import updateUserSchema from '../validator/update-user-schema.js';
 import deleteUserSchema from '../validator/delete-user-schema.js';
 import updatePasswordSchema from '../validator/update-password-schema.js';
-import forgottenPasswordSchema from '../validator/forgotten-password-schema.js'
-import resetPasswordSchema from '../validator/reset-password-schema.js'
-import {
-  authMiddleware
-  // , roleMiddleware
-} from '../authentication/auth.middleware.js';
+import forgottenPasswordSchema from '../validator/forgotten-password-schema.js';
+import resetPasswordSchema from '../validator/reset-password-schema.js';
+import { authMiddleware } from '../authentication/auth.middleware.js';
 import rolesEnum from '../constants/roles.enum.js';
-// import banUserSchema from '../validator/ban-user-schema.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import { paging } from '../constants/constants.js';
-// import validateFile from '../middleware/validate-file.js';
-// import uploadFileSchema from '../validator/upload-file-schema.js';
-// import uploadAvatar from '../middleware/upload-avatar.js';
+import validateFile from '../middleware/validate-file.js';
+import uploadFileSchema from '../validator/upload-file-schema.js';
+import uploadAvatar from '../middleware/upload-avatar.js';
 import errorHandler from '../middleware/errorHandler.js';
 
 const usersController = express.Router();
@@ -98,43 +94,63 @@ usersController
   // // )
   // ;
 
-  // // upload avatar
-  // .put('/:userId/avatar', authMiddleware, uploadAvatar.single('avatar'), validateFile('uploads', uploadFileSchema), errorHandler(async (req, res) => {
-  //   const { role } = req.user;
-  //   const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-  //   const { path } = req.file;
-  //   const _ = await usersService.changeAvatar(usersData)(+id, path.replace(/\\/g, '/'));
+  // upload avatar
+  .put(
+    '/:userId/avatar',
+    authMiddleware,
+    uploadAvatar.single('avatar'),
+    validateFile('uploads', uploadFileSchema),
+    // errorHandler(
+    async (req, res) => {
+      const { role } = req.user;
+      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+      const { path } = req.file;
+      const _ = await usersService.changeAvatar(usersData)(+id, path.replace(/\\/g, '/'));
 
-  //   res.status(200).send({ message: 'Avatar changed' });
-  // }))
+      res.status(200).send({ message: 'Avatar changed' });
+    }
+  )
+  // )
 
-  // // get avatar
-  // .get('/:userId/avatar', authMiddleware, loggedUserGuard, errorHandler(async (req, res) => {
-  //   const { role } = req.user;
-  //   const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-  //   const { error, result } = await usersService.getUserAvatar(usersData)(+id);
-  //   if (error === errors.RECORD_NOT_FOUND) {
-  //     res.status(404).send({
-  //       message: `User ${id} is not found.`,
-  //     });
-  //   } else {
-  //     res.status(200).send(result);
-  //   }
-  // }))
+  // get avatar
+  .get(
+    '/:userId/avatar',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+      async (req, res) => {
+      const { role } = req.user;
+      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+      const { error, result } = await usersService.getUserAvatar(usersData)(+id);
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${id} is not found.`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  // )
 
-  // // delete avatar
-  // .delete('/:userId/avatar', authMiddleware, loggedUserGuard, errorHandler(async (req, res) => {
-  //   const { role } = req.user;
-  //   const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-  //   const { error, result } = await usersService.deleteUserAvatar(usersData)(+id);
-  //   if (error === errors.RECORD_NOT_FOUND) {
-  //     res.status(404).send({
-  //       message: `User ${id} is not found.`,
-  //     });
-  //   } else {
-  //     res.status(200).send(result);
-  //   }
-  // }))
+  // delete avatar
+  .delete(
+    '/:userId/avatar',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+      async (req, res) => {
+      const { role } = req.user;
+      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+      const { error, result } = await usersService.deleteUserAvatar(usersData)(+id);
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${id} is not found.`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  // )
 
   // @desc Get user by ID
   // @route GET /users/:userId
@@ -167,8 +183,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     validateBody('user', updatePasswordSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const passwordData = req.body;
@@ -190,9 +205,8 @@ usersController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
-  // )
 
   // @desc EDIT user data
   // @route PUT /users/:id
@@ -202,8 +216,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     validateBody('user', updateUserSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const update = req.body;
@@ -225,9 +238,8 @@ usersController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
-  // )
 
   // @desc EDIT user data
   // @route PUT /users/:id
@@ -257,8 +269,7 @@ usersController
   .post(
     '/forgotten-password',
     validateBody('user', forgottenPasswordSchema),
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { email } = req.body;
 
       const { error, result } = await usersService.forgottenPassword(usersData)(email);
@@ -270,7 +281,7 @@ usersController
         res.status(200).send(result);
       }
     })
-  // )
+  )
   // Reset password
   .post(
     '/reset-password/:userId/:token',

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
-// import { user as userConstants } from '../common/constants.js';
+import { user as userConstants } from '../constants/constants.js';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import { DB_CONFIG, PRIVATE_KEY } from '../../config.js';
@@ -197,7 +197,6 @@ const forgottenPassword = (usersData) => async (email) => {
     expiresIn: forgotPassword.tokenExpiration
   });
   const link = `http://${DB_CONFIG.host}:${forgotPassword.frontEndPort}/reset-password/${existingUser.userId}/${token}`;
-console.log(link);
   // Sending mail with reset link
   const transporter = nodemailer.createTransport({
     service: forgotPassword.emailService,
@@ -206,7 +205,6 @@ console.log(link);
       pass: forgotPassword.emailPassword
     }
   });
-console.log(existingUser);
   const options = {
     from: forgotPassword.emailUser,
     to: `${existingUser.email}`,
@@ -214,7 +212,6 @@ console.log(existingUser);
     text: `Dear ${existingUser.firstName},\nA request has been received to reset yor password. You can do that by clicking on the below link.\n
 ${link}\nIf you did not initiate the request, just ignore this email - your password will not be changed.`
   };
-console.log(options);
   transporter.sendMail(options, (err, info) => {
     if (err) {
       return;
@@ -281,42 +278,42 @@ const resetPassword = (usersData) => async (password, reenteredPassword, userId,
   };
 };
 
-// const changeAvatar = usersData => async (userId, path) => {
-//   const _ = await usersData.avatarChange(+userId, path);
-// };
+const changeAvatar = usersData => async (userId, path) => {
+  await usersData.avatarChange(+userId, path);
+};
 
-// const getUserAvatar = usersData => async (userId) => {
-//   const userAvatar = await usersData.getAvatar(userId);
+const getUserAvatar = usersData => async (userId) => {
+  const userAvatar = await usersData.getAvatar(userId);
 
-//   if (!userAvatar) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+  if (!userAvatar) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   return {
-//     error: null,
-//     result: userAvatar,
-//   };
-// };
+  return {
+    error: null,
+    result: userAvatar,
+  };
+};
 
-// const deleteUserAvatar = usersData => async (userId) => {
-//   const userAvatar = await usersData.getAvatar(userId);
+const deleteUserAvatar = usersData => async (userId) => {
+  const userAvatar = await usersData.getAvatar(userId);
 
-//   if (!userAvatar) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+  if (!userAvatar) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   const _ = await usersData.avatarChange(+userId, userConstants.DEFAULT_AVATAR);
-//   return {
-//     error: null,
-//     result: { message: `Avatar successfully deleted.` },
-//   };
-// };
+  await usersData.avatarChange(+userId, userConstants.DEFAULT_AVATAR);
+  return {
+    error: null,
+    result: { message: `Avatar successfully deleted.` },
+  };
+};
 
 export default {
   getUser,
@@ -330,7 +327,7 @@ export default {
   logout,
   forgottenPassword,
   resetPassword,
-  // changeAvatar,
-  // getUserAvatar,
-  // deleteUserAvatar,
+  changeAvatar,
+  getUserAvatar,
+  deleteUserAvatar
 };

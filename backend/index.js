@@ -20,6 +20,7 @@ app.use(passport.initialize());
 app.use('/auth', authController);
 app.use('/users', usersController);
 app.use('/products', productsController);
+app.use('/storage/avatars', express.static('storage/avatars'));
 
 app.use((err, req, res, next) => {
   res.status(500).send({

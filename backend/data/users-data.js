@@ -11,7 +11,7 @@ const getBy = async (column, value, isProfileOwner, role) => {
       avatar
       ${
         role === 'admin' || isProfileOwner
-        ? `,address ,
+          ? `,address ,
         address2,
         city,
         zip,
@@ -128,7 +128,6 @@ const create = async (user) => {
 };
 
 const updateData = async (user) => {
-  console.log(user);
   const sql = `
     UPDATE users SET
       full_name = ?,
@@ -178,7 +177,7 @@ const updatePassword = async (userId, password) => {
   return db.query(sql, [password, userId]);
 };
 
-const remove = async userId => {
+const remove = async (userId) => {
   const sql = `
     UPDATE users SET
       is_deleted = 1
@@ -214,27 +213,26 @@ const logoutUser = async (token) => {
   return db.query(sql, [token]);
 };
 
-// const avatarChange = (userId, path) => {
-//   const sql = `
-//     UPDATE users SET
-//       avatar = ?
-//     WHERE user_id = ?
-//   `;
+const avatarChange = (userId, path) => {
+  const sql = `
+    UPDATE users SET
+      avatar = ?
+    WHERE user_id = ?
+  `;
 
-//   return db.query(sql, [path, userId]);
-// };
+  return db.query(sql, [path, userId]);
+};
 
-// const getAvatar = async (userId) => {
-//   const sql = `
-//     SELECT avatar, username
-//     FROM users
-//     WHERE user_id = ${userId}
-//   `;
+const getAvatar = async (userId) => {
+  const sql = `
+    SELECT avatar, username
+    FROM users
+    WHERE user_id = ${userId}
+  `;
 
-//   const result = await db.query(sql, []);
-//   return result[0];
-// };
-
+  const result = await db.query(sql, []);
+  return result[0];
+};
 
 export default {
   getBy,
@@ -246,6 +244,6 @@ export default {
   logoutUser,
   getPasswordBy,
   updatePassword,
-  // avatarChange,
-  // getAvatar
+  avatarChange,
+  getAvatar
 };
