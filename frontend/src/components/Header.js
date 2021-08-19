@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import productCategoriesEnum from '../constants/product-categories.enum';
 // import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import DropDown from './Dropdown';
+import Popover from './Popover';
 import './styles/Header.css';
 
 const Header = () => {
-  const [searchColumn, setSearchColumn] = useState("All categories");
+  const [searchColumn, setSearchColumn] = useState('All categories');
 
   return (
     <div className="header">
@@ -41,10 +42,10 @@ const Header = () => {
           <div className="header_optionBottom">Log In</div>
         </div>
         <div className="header_option">
-          <div className="header_optionTop">
-            <i class="fa fa-shopping-cart"></i>
-          </div>
-          <div className="header_optionBottom">0</div>
+          <i className="fa fa-shopping-cart" id="header_optionCart"></i>
+          <span className="badge">
+            5
+          </span>
         </div>
       </div>
     </div>

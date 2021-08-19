@@ -1,13 +1,13 @@
 import React from 'react';
-import Anoth from './components/Anoth';
-import DropDown from './components/Dropdown';
 import HomeScreen from './screens/HomeScreen';
+import Header from './components/Header';
 
 const App = () => {
   return (
-      <>
-        <HomeScreen />
-      </>
+    <>
+      <Header />
+      <HomeScreen />
+    </>
   );
 };
 

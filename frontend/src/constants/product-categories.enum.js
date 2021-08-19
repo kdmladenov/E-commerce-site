@@ -1,4 +1,5 @@
 export default {
+  'All Categories': 'All Categories',
   'Arts, Crafts & Sewing': 'Arts, Crafts & Sewing',
   'Automotive & Motorcycle': 'Automotive & Motorcycle',
   Baby: 'Baby',

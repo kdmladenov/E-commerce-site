@@ -2,7 +2,7 @@
   height: 76px;
   display: flex;
   align-items: center;
-  background-color: #800020;
+  background-color: black;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -23,7 +23,7 @@
 .header_searchDropdown {
   height: 40px;
   width: auto;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   border: none;
   border-radius: 5px 0 0 5px;
@@ -38,7 +38,14 @@ padding: 3px;
 height: 400px;
 }
 
+.header_searchDropdownMenu > a {
+text-decoration: none;
+color:black;
+font-size: 18px;
+}
+
 .header_searchInput {
+  font-size: 18px;
   height: 20px;
   padding: 10px;
   border: none;
@@ -77,3 +84,20 @@ height: 400px;
   font-weight: 800;
 }
 
+
+.badge {
+  font-size: 14px;
+  font-weight: 700;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 9px;
+  padding: 0 5px;
+  margin-top: -30px;
+  vertical-align: top;
+  margin-left: 10px; 
+}
+
+#header_optionCart {
+    font-size: 30px;
+    margin-top: 5px;
+}
