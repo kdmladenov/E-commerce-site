@@ -88,13 +88,13 @@ font-size: 18px;
 .badge {
   font-size: 14px;
   font-weight: 700;
-  background: #ff0000;
+  background: black;
   color: #fff;
-  border-radius: 9px;
+  border-radius: 7px;
   padding: 0 5px;
   margin-top: -30px;
   vertical-align: top;
-  margin-left: 10px; 
+  margin-left: 9.5px; 
 }
 
 #header_optionCart {

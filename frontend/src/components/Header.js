@@ -6,13 +6,13 @@ import Popover from './Popover';
 import './styles/Header.css';
 
 const Header = () => {
-  const [searchColumn, setSearchColumn] = useState('All categories');
+  const [searchColumn, setSearchColumn] = useState('All Categories');
 
   return (
     <div className="header">
       <img
         src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
-        alt="Amazon logo"
+        alt="logo"
         className="header_logo"
       />
       <div className="header_search">
@@ -42,10 +42,8 @@ const Header = () => {
           <div className="header_optionBottom">Log In</div>
         </div>
         <div className="header_option">
-          <i className="fa fa-shopping-cart" id="header_optionCart"></i>
-          <span className="badge">
-            5
-          </span>
+          <i className="fa fa-shopping-cart fa_custom fa-3x" id="header_optionCart"></i>
+          {/* <span className="badge">5</span> */}
         </div>
       </div>
     </div>

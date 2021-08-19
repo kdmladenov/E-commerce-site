@@ -6,7 +6,7 @@
   max-width: 1500px;
 }
 
-.home > img {
+.home_container > img {
   width: 100%;
   z-index: -1;
   margin-bottom: -150px;
