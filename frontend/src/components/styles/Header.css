@@ -1,0 +1,79 @@
+.header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  background-color: #800020;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header_logo {
+  width: 100px;
+  object-fit: contain;
+  margin: 0 20px;
+  margin-top: 18px;
+}
+
+.header_search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+.header_searchDropdown {
+  height: 40px;
+  width: auto;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}
+
+.header_searchDropdownMenu {
+display: flex;
+flex-direction: column;
+background-color: white;
+overflow-y: scroll;
+padding: 3px;
+height: 400px;
+}
+
+.header_searchInput {
+  height: 20px;
+  padding: 10px;
+  border: none;
+  width: 100%;
+
+}
+
+.header_searchButton {
+  padding: 7px 10px 3px 10px;
+  border-radius: 0 5px 5px 0;
+  font-size: 20px;
+  height: 30px; 
+  background-color: white;
+  color: black;
+}
+
+.header_nav {
+  display: flex;
+  justify-content:space-evenly
+}
+
+.header_option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20px;
+  color: white;
+}
+
+.header_optionTop {
+  font-size: 20px;
+}
+
+.header_optionBottom {
+  font-size: 13px;
+  font-weight: 800;
+}
+
