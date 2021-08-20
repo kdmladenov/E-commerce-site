@@ -19,7 +19,7 @@ const HomeScreen = () => {
 
   const productsToShow = products?.map((product) => (
     <ProductCard
-      id={product.id}
+      id={product.productId}
       title={product.title}
       image={product.image}
       price={product.price}

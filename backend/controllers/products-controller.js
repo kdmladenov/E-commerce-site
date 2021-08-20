@@ -49,15 +49,15 @@ productsController
   // get by id
   .get(
     '/:productId',
-    authMiddleware,
-    loggedUserGuard,
+    // authMiddleware,
+    // loggedUserGuard,
     errorHandler(async (req, res) => {
       const { productId } = req.params;
-      const { role } = req.user;
+      // const { role } = req.user;
 
       const { error, product } = await productsServices.getProductById(productsData)(
         productId,
-        role
+        'admin'
       );
 
       if (error === errors.RECORD_NOT_FOUND) {

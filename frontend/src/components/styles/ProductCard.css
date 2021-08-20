@@ -12,7 +12,7 @@
   min-width: 10vmin;
 }
 
-.product > img {
+.product_image {
   height: 20vh;
   width: 100%;
   object-fit: contain;
@@ -33,6 +33,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 15px;
+  text-decoration: none;
 }
 .product_price {
   margin-top: 5px;

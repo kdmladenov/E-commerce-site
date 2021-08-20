@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import productCategoriesEnum from '../constants/product-categories.enum';
 // import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import DropDown from './Dropdown';
@@ -8,12 +9,14 @@ const Header = () => {
   const [searchColumn, setSearchColumn] = useState('All Categories');
 
   return (
-    <div className="header">
-      <img
-        src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
-        alt="logo"
-        className="header_logo"
-      />
+    <header>
+      <Link to="/">
+        <img
+          src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+          alt="logo"
+          className="header_logo"
+        />
+      </Link>
       <div className="header_search">
         <DropDown
           id="search-dropdown"
@@ -34,15 +37,19 @@ const Header = () => {
         </span>
       </div>
       <div className="header_nav">
-        <div className="header_option">
+        <Link to="/login">
+          <div className="header_option">
             <i className="fa fa-user"></i>
-        </div>
-        <div className="header_option">
-          <i className="fa fa-shopping-cart fa_custom fa-3x" id="header_optionCart"></i>
-          <span className="badge">5</span>
-        </div>
+          </div>
+        </Link>
+        <Link to="/cart">
+          <div className="header_option">
+            <i className="fa fa-shopping-cart fa_custom fa-3x" id="header_optionCart"></i>
+            <span className="badge">5</span>
+          </div>
+        </Link>
       </div>
-    </div>
+    </header>
   );
 };
 

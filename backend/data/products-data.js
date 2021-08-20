@@ -33,6 +33,7 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
 
   const sql = `
   SELECT 
+      product_id as productId,
       title,
       brand,
       description,
