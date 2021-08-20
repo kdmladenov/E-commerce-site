@@ -1,0 +1,31 @@
+.product_detailCard {
+  /* display: flex;
+  height: 50vh; */
+  background: white;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1500px;
+}
+
+.product_detailCardLeft {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+}
+.product_detailCardMiddle {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2vh;
+
+}
+.product_detailCardRight {
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2vh;
+}
