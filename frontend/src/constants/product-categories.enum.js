@@ -1,4 +1,4 @@
-export default {
+const productCategoriesEnum = {
   'All Categories': 'All Categories',
   'Arts, Crafts & Sewing': 'Arts, Crafts & Sewing',
   'Automotive & Motorcycle': 'Automotive & Motorcycle',
@@ -51,3 +51,5 @@ export default {
   'Women’s Fashion': 'Women’s Fashion',
   'Women’s Jewelry': 'Women’s Jewelry'
 };
+
+export default productCategoriesEnum;

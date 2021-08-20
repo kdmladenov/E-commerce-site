@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import productCategoriesEnum from '../constants/product-categories.enum';
 // import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import DropDown from './Dropdown';
-import Popover from './Popover';
 import './styles/Header.css';
 
 const Header = () => {
@@ -31,19 +30,16 @@ const Header = () => {
           placeholder={`Search in ${searchColumn}`}
         />
         <span className="header_searchButton">
-          <i class="fa fa-search"></i>
+          <i className="fa fa-search"></i>
         </span>
       </div>
       <div className="header_nav">
         <div className="header_option">
-          <div className="header_optionTop">
-            <i class="fa fa-user"></i>
-          </div>
-          <div className="header_optionBottom">Log In</div>
+            <i className="fa fa-user"></i>
         </div>
         <div className="header_option">
           <i className="fa fa-shopping-cart fa_custom fa-3x" id="header_optionCart"></i>
-          {/* <span className="badge">5</span> */}
+          <span className="badge">5</span>
         </div>
       </div>
     </div>

@@ -30,18 +30,18 @@
 }
 
 .header_searchDropdownMenu {
-display: flex;
-flex-direction: column;
-background-color: white;
-overflow-y: scroll;
-padding: 3px;
-height: 400px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  overflow-y: scroll;
+  padding: 3px;
+  height: 400px;
 }
 
 .header_searchDropdownMenu > a {
-text-decoration: none;
-color:black;
-font-size: 18px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
 }
 
 .header_searchInput {
@@ -50,40 +50,31 @@ font-size: 18px;
   padding: 10px;
   border: none;
   width: 100%;
-
 }
 
 .header_searchButton {
   padding: 7px 10px 3px 10px;
   border-radius: 0 5px 5px 0;
   font-size: 20px;
-  height: 30px; 
+  height: 30px;
   background-color: white;
   color: black;
 }
 
 .header_nav {
   display: flex;
-  justify-content:space-evenly
+  justify-content: space-evenly;
 }
 
 .header_option {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 20px;
   color: white;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-left: 3vh;
 }
-
-.header_optionTop {
-  font-size: 20px;
-}
-
-.header_optionBottom {
-  font-size: 13px;
-  font-weight: 800;
-}
-
 
 .badge {
   font-size: 14px;
@@ -94,10 +85,12 @@ font-size: 18px;
   padding: 0 5px;
   margin-top: -30px;
   vertical-align: top;
-  margin-left: 9.5px; 
+  margin-left: 9.5px;
+  margin-right: 2vh;
+
 }
 
 #header_optionCart {
-    font-size: 30px;
-    margin-top: 5px;
+  font-size: 30px;
+  margin-right: 2vh;
 }

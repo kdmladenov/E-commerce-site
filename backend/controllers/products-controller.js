@@ -20,11 +20,12 @@ productsController
   // get all products - search, sort, paging
   .get(
     '/',
-    authMiddleware,
-    loggedUserGuard,
-    errorHandler(async (req, res) => {
+    // authMiddleware,
+    // loggedUserGuard,
+    // errorHandler(
+      async (req, res) => {
       const { search = '', searchBy = 'title', sort = 'title', order = 'asc' } = req.query;
-      const { role } = req.user;
+      // const { role } = req.user;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -39,12 +40,12 @@ productsController
         order,
         +pageSize,
         +page,
-        role
+        'admin'
       );
 
       res.status(200).send(product);
     })
-  )
+  // )
   // get by id
   .get(
     '/:productId',

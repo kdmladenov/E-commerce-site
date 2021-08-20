@@ -9,13 +9,13 @@ const ProductCard = ({ id, title, image, price, rating }) => {
   return (
     <div className="product">
       <div className="product_info">
-        <p className="product_title">{title}</p>
-        <p className="product_price">
+        <div className="product_title">{title}</div>
+        <div className="product_price">
           <strong>$ {price}</strong>
-        </p>
-        <p className="product_rating">
+        </div>
+        <div className="product_rating">
           <Rating rating={rating} />
-        </p>
+        </div>
       </div>
 
       <img src={image} alt="product" />
