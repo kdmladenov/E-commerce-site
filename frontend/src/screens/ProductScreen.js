@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { detailedProducts } from '../actions/productAction';
+import { detailedProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
@@ -42,21 +42,21 @@ const ProductScreen = ({ match }) => {
             <div className="product_detailCardDescription">Description: {product.description}</div>
           </div>
           <div className="product_detailCardRight">
-            <dir>
-              <p>Price:</p>
+            <dir className="product_detailCardRightItem">
+              <h4>Price:</h4>
               <dir>
                 <strong>${product.price}</strong>
               </dir>
             </dir>
 
-            <dir>
-              <p>Status:</p>
-              <dir>{product.stockCount > 0 ? 'In Stock' : 'Out of Stock'}</dir>
+            <dir className="product_detailCardRightItem">
+              <h4>Status:</h4>
+              <dir>{product.stockCount === 0 ? 'Out of Stock' : 'In Stock'}</dir>
             </dir>
 
             {product.stockCount > 0 && (
-              <dir>
-                <p>Qty</p>
+              <dir className="product_detailCardRightItem">
+                <h4>Qty: </h4>
                 <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
                   {[...Array(product.stockCount).keys()].map((index) => (
                     <option key={index + 1} value={index + 1}>

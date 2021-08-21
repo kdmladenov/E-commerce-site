@@ -30,7 +30,9 @@ authController
         };
         const token = createToken(payload);
 
-        res.status(200).send({ token });
+        res
+          .status(200)
+          .send({ token, userId: result.userId, email: result.email, role: result.role });
       }
     })
   )

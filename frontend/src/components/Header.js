@@ -40,6 +40,7 @@ const Header = () => {
         <Link to="/login">
           <div className="header_option">
             <i className="fa fa-user"></i>
+            <p>Log In</p>
           </div>
         </Link>
         <Link to="/cart">
