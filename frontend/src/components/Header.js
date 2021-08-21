@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import productCategoriesEnum from '../constants/product-categories.enum';
-// import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import DropDown from './Dropdown';
 import './styles/Header.css';
+// import { logout } from '../actions/userActions';
 
 const Header = () => {
   const [searchColumn, setSearchColumn] = useState('All Categories');
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+
+    // const dispatch = useDispatch();
+
+    // const logoutHandler = () => {
+    //   dispatch(logout());
+    // };
+
 
   return (
     <header>
@@ -37,10 +48,9 @@ const Header = () => {
         </span>
       </div>
       <div className="header_nav">
-        <Link to="/login">
+        <Link to={userInfo.token ? '/profile' : '/login'}>
           <div className="header_option">
-            <i className="fa fa-user"></i>
-            <p>Log In</p>
+            <i className="fas fa-user"></i>
           </div>
         </Link>
         <Link to="/cart">

@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import './styles/LoginScreen.css';
 
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
