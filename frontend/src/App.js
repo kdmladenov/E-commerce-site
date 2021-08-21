@@ -4,6 +4,8 @@ import HomeScreen from './screens/HomeScreen';
 import Header from './components/Header';
 import ProductScreen from './screens/ProductScreen';
 import Footer from './components/Footer';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 const App = () => {
   return (
@@ -11,6 +13,8 @@ const App = () => {
       <Header />
       <Route exact path="/" component={HomeScreen} />
       <Route path="/products/:id" component={ProductScreen} />
+      <Route path="/login" component={LoginScreen} />
+      <Route path="/register" component={RegisterScreen} />
       <Footer />
     </Router>
   );

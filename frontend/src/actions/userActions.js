@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
-import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from '../constants/userConstants';
+import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../constants/userConstants';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -19,7 +19,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: data
     })
 
-    localStorage.set('userInfo', JSON.stringify(data))
+    localStorage.setItem('userInfo', JSON.stringify(data))
 
   } catch (error) {
         dispatch({
@@ -27,4 +27,11 @@ export const login = (email, password) => async (dispatch) => {
           payload: error?.response?.data?.message ? error.response.data.message : error.message
         });
   }
+};
+
+export const logout = () => async (dispatch) => {
+  localStorage.removeItem('userInfo')
+  dispatch({
+    type: USER_LOGOUT
+  })
 };
