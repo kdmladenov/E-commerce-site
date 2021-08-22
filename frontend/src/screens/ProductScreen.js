@@ -6,6 +6,7 @@ import './styles/ProductScreen.css';
 import { detailedProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 
 const ProductScreen = ({ match }) => {
   const [qty, setQty] = useState(0);
@@ -30,8 +31,10 @@ const ProductScreen = ({ match }) => {
             <img src={product.image} alt={product.title} />
           </div>
           <div className="product_detailCardMiddle">
-            <div className="product_detailCardName">{product.title}</div>
-            <div className="product_detailCardBrand">by {product.brand}</div>
+            <div className="product_detailCardTile">{product.title}</div>
+            <div className="product_detailCardBrand">
+              by <strong>{product.brand}</strong>
+            </div>
             <div className="product_detailCardRating">
               <Rating
                 rating={product.rating}
@@ -39,39 +42,46 @@ const ProductScreen = ({ match }) => {
                 color="orange"
               ></Rating>
             </div>
-            <div className="product_detailCardDescription">Description: {product.description}</div>
+            <div className="product_detailCardDescription">
+              Description: <p>{product.description}</p>
+            </div>
           </div>
           <div className="product_detailCardRight">
-            <dir className="product_detailCardRightItem">
-              <h4>Price:</h4>
-              <dir>
-                <strong>${product.price}</strong>
-              </dir>
-            </dir>
-
-            <dir className="product_detailCardRightItem">
-              <h4>Status:</h4>
-              <dir>{product.stockCount === 0 ? 'Out of Stock' : 'In Stock'}</dir>
-            </dir>
-
-            {product.stockCount > 0 && (
-              <dir className="product_detailCardRightItem">
-                <h4>Qty: </h4>
-                <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
-                  {[...Array(product.stockCount).keys()].map((index) => (
-                    <option key={index + 1} value={index + 1}>
-                      {index + 1}
-                    </option>
-                  ))}
-                </Form.Control>
-              </dir>
-            )}
-
-            <dir>
-              <button type="button" disabled={product.countInStock === 0}>
-                Add To Cart
-              </button>
-            </dir>
+            <ul>
+              <li>
+                <h2>Price</h2>
+                <h2>${product.price}</h2>
+              </li>
+              <li>
+                <h2>Status</h2>
+                <h2 style={{color: product.stockCount === 0 ? 'red' : 'green'}} >{product.stockCount === 0 ? 'Out of Stock' : 'In Stock'}</h2>
+              </li>
+              <li>
+                {product.stockCount > 0 && (
+                  <>
+                    <h2>Quantity </h2>
+                    <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
+                      {[...Array(product.stockCount).keys()]
+                        .slice(0, Math.min(product.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
+                        .map((index) => (
+                          <option key={index + 1} value={index + 1}>
+                            {index + 1}
+                          </option>
+                        ))}
+                    </Form.Control>
+                  </>
+                )}
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="add_to_cart_btn"
+                  disabled={product.countInStock === 0}
+                >
+                  Add To Cart
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       )}
