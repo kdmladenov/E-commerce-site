@@ -69,6 +69,8 @@ header {
 .header_option {
   display: flex;
   flex-direction: column;
+  background: transparent;
+  border: none;
   align-items: center;
   color: white;
   font-size: 30px;
@@ -76,6 +78,16 @@ header {
   margin-left: 3vh;
 }
 
+.header_optionUserMenu {
+  margin-right: 40px;
+  display: flex;
+  font-size: larger;
+  height: fit-content;
+  flex-direction: column;
+  background-color: white;
+  text-decoration: none;
+  justify-content: left;
+}
 .badge {
   font-size: 14px;
   font-weight: 700;

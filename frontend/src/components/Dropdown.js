@@ -27,4 +27,9 @@ const DropDown = ({
   );
 };
 
+
+DropDown.defaultProps = {
+  onSelectedChange: () => {}
+};
+
 export default DropDown;
