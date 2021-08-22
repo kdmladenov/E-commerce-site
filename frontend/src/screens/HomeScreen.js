@@ -35,10 +35,7 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <div className="home_container">
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/001/183/315/original/summer-sale-online-shopping-banner-vector.jpg"
-            alt="banner"
-          />
+          <img src="https://cdn.nohat.cc/thumb/f/720/0daa94dcf2494fc4a5e6.jpg" alt="banner" />
 
           <div className="home_row">
             {productsToShow[0]}
