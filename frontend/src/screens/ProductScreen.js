@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
@@ -8,8 +7,8 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 
-const ProductScreen = ({ match }) => {
-  const [qty, setQty] = useState(0);
+const ProductScreen = ({ history, match }) => {
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,6 +17,10 @@ const ProductScreen = ({ match }) => {
 
   const fetchedProduct = useSelector((state) => state.productDetails);
   const { product, loading, error } = fetchedProduct;
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`)
+  };
 
   return (
     <>
@@ -54,13 +57,15 @@ const ProductScreen = ({ match }) => {
               </li>
               <li>
                 <h2>Status</h2>
-                <h2 style={{color: product.stockCount === 0 ? 'red' : 'green'}} >{product.stockCount === 0 ? 'Out of Stock' : 'In Stock'}</h2>
+                <h2 style={{ color: product.stockCount === 0 ? 'red' : 'green' }}>
+                  {product.stockCount === 0 ? 'Out of Stock' : 'In Stock'}
+                </h2>
               </li>
               <li>
                 {product.stockCount > 0 && (
                   <>
                     <h2>Quantity </h2>
-                    <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
+                    <select value={qty} onChange={(e) => setQty(e.target.value)}>
                       {[...Array(product.stockCount).keys()]
                         .slice(0, Math.min(product.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
                         .map((index) => (
@@ -68,7 +73,7 @@ const ProductScreen = ({ match }) => {
                             {index + 1}
                           </option>
                         ))}
-                    </Form.Control>
+                    </select>
                   </>
                 )}
               </li>
@@ -76,7 +81,8 @@ const ProductScreen = ({ match }) => {
                 <button
                   type="button"
                   className="add_to_cart_btn"
-                  disabled={product.countInStock === 0}
+                  disabled={product.stockCount === 0}
+                  onClick={addToCartHandler}
                 >
                   Add To Cart
                 </button>
