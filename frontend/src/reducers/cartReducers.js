@@ -1,19 +1,19 @@
-import { CART_ITEM_ADD } from '../constants/cartConstants';
+import { CART_ADD_ITEM } from '../constants/cartConstants';
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
-    case CART_ITEM_ADD:
+    case CART_ADD_ITEM:
       const cartItem = action.payload;
-      const existItem = state.cartItems.findIndex((item) => item.id === cartItem.id);
-      if (existItem !== -1) {
+      const existItem = state.cartItems.find((item) => item.id === cartItem.id);
+      if (existItem) {
         return {
           ...state,
-          cart: state.cartItems.map((item) => (item.id === existItem.id ? cartItem : item))
+          cartItems: state.cartItems.map((item) => (item.id === existItem.id ? cartItem : item))
         };
       } else {
         return {
           ...state,
-          cart: [...state.cartItems, cartItem]
+          cartItems: [...state.cartItems, cartItem]
         };
       }
     default:

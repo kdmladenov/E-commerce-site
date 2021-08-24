@@ -1,12 +1,14 @@
 import axios from 'axios';
-import { CART_ITEM_ADD } from '../constants/cartConstants';
+import { CART_ADD_ITEM } from '../constants/cartConstants';
+import { BASE_URL } from '../constants/constants';
 
-export const listProducts = (id, qty) => async (dispatch) => {
-  const { data } = await axios.get(`/products/:productId`);
+export const addToCart = (id, qty) => async (dispatch, getState) => {
+
+  const { data } = await axios.get(`${BASE_URL}/products/${id}`);
 
   dispatch({
-    type: CART_ITEM_ADD,
-    payload:{
+    type: CART_ADD_ITEM,
+    payload: {
       qty,
       id: data.productId,
       title: data.title,
@@ -14,22 +16,7 @@ export const listProducts = (id, qty) => async (dispatch) => {
       price: data.price,
       stockCount: data.stockCount
     }
-  })
+  });
 
-  // returns the whole cart state after the dispatched(added) item above
-  const cartState = getState().cart;
-
-  localStorage.setItem('cartItem', JSON.stringify(cartState.cartItems))
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
-
-
- "productId": 2,
-    "title": "Apple AirPods with Wireless Charging Case\n",
-    "brand": "Apple",
-    "description": "Universal fit that’s comfortable all day Automatically on, automatically connected Easy setup for all your Apple devices Quick access to Siri by saying “Hey Siri” Seamless switching between devices",
-    "image": "https://images-na.ssl-images-amazon.com/images/I/31gVyQCvdTL.jpg",
-    "productCategory": "Electonics",
-    "price": 299.95,
-    "stockCount": 4345,
-    "reviewCount": 1,
-    "rating": 3.9
