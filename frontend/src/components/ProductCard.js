@@ -4,16 +4,15 @@ import Rating from './Rating';
 import './styles/ProductCard.css';
 import { Link, useHistory } from 'react-router-dom';
 
-const ProductCard = ({ id, title, image, price, rating }) => {
+const ProductCard = ({ id, title, image, price, rating, stockCount }) => {
   const history = useHistory();
-  console.log(id, title, image, price, rating);
 
   const addToCartHandler = () => {
     history.push(`/cart/${id}?qty=1`);
   };
 
   return (
-    <div className="product">
+    <div className="product card">
       <div className="product_info">
         <div className="product_title">
           <Link to={`/products/${id}`}>{title}</Link>
@@ -25,13 +24,11 @@ const ProductCard = ({ id, title, image, price, rating }) => {
           <Rating rating={rating} />
         </div>
       </div>
-
       <Link to={`/products/${id}`}>
         <img src={image} alt="product" className="product_image" />
       </Link>
-
-      <button onClick={addToCartHandler} className="product_button">
-        Add to Cart
+      <button onClick={addToCartHandler} disabled={stockCount === 0} className="btn">
+        {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
       </button>
     </div>
   );

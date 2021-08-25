@@ -49,7 +49,7 @@ const ProductScreen = ({ history, match }) => {
               Description: <p>{product.description}</p>
             </div>
           </div>
-          <div className="product_detailCardRight">
+          <div className="product_detailCardRight card">
             <ul>
               <li>
                 <h2>Price</h2>

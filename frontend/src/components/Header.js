@@ -9,15 +9,17 @@ import { logout } from '../actions/userActions';
 const Header = () => {
   const [searchColumn, setSearchColumn] = useState('All Categories');
 
-    const userLogin = useSelector((state) => state.userLogin);
-    const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-    const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
-    const logoutHandler = () => {
-      dispatch(logout());
-    };
+  const dispatch = useDispatch();
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -61,7 +63,7 @@ const Header = () => {
             <i className="fas fa-user" />
           </DropDown>
         ) : (
-          <Link to='/login'>
+          <Link to="/login">
             <div className="header_option">
               <i className="fas fa-user" />
             </div>
@@ -71,7 +73,7 @@ const Header = () => {
         <Link to="/cart">
           <div className="header_option">
             <i className="fa fa-shopping-cart fa_custom fa-3x" id="header_optionCart"></i>
-            <span className="badge">5</span>
+            <span className="badge">{cartItems?.length || 0 }</span>
           </div>
         </Link>
       </div>
