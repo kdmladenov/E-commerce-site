@@ -8,12 +8,12 @@ export default {
       value.length >= user.MIN_EMAIL_LENGTH &&
       value.length <= user.MAX_EMAIL_LENGTH &&
       user.EMAIL_REGEX.test(value)),
-  reenteredEmail: (value) =>
-    !value ||
-    (typeof value === 'string' &&
-      value.length >= user.MIN_EMAIL_LENGTH &&
-      value.length <= user.MAX_EMAIL_LENGTH &&
-      user.EMAIL_REGEX.test(value)),
+  // reenteredEmail: (value) =>
+  //   !value ||
+  //   (typeof value === 'string' &&
+  //     value.length >= user.MIN_EMAIL_LENGTH &&
+  //     value.length <= user.MAX_EMAIL_LENGTH &&
+  //     user.EMAIL_REGEX.test(value)),
   password: (value) =>
     !value ||
     (typeof value === 'string' &&

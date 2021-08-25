@@ -120,13 +120,14 @@ const changePassword = (usersData) => async (passwordData, userId, role) => {
 
 // update profile
 const update = (usersData) => async (userUpdate, userId) => {
-  const { email, reenteredEmail } = userUpdate;
-  if (email && email !== reenteredEmail) {
-    return {
-      error: errors.BAD_REQUEST,
-      result: null
-    };
-  }
+
+  // const { email, reenteredEmail } = userUpdate;
+  // if (email && email !== reenteredEmail) {
+  //   return {
+  //     error: errors.BAD_REQUEST,
+  //     result: null
+  //   };
+  // }
 
   const existingUser = await usersData.getBy('user_id', userId, true);
   if (!existingUser) {
@@ -136,8 +137,9 @@ const update = (usersData) => async (userUpdate, userId) => {
     };
   }
 
-  if (email) {
-    const user = await usersData.getBy('email', email, true);
+  console.log(userUpdate.email);
+  if (userUpdate.email) {
+    const user = await usersData.getBy('email', userUpdate.email, true);
     if (user && user.userId !== userId) {
       return {
         error: errors.DUPLICATE_RECORD,

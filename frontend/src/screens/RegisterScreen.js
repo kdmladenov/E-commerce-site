@@ -13,6 +13,7 @@ const RegisterScreen = () => {
   const [reenteredPassword, setReenteredPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
+  const [address2, setAddress2] = useState('');
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
   const [state, setState] = useState('');
@@ -88,6 +89,13 @@ const RegisterScreen = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
+            <h5>Address 2</h5>
+            <input
+              type="text"
+              placeholder="Address 2"
+              value={address2}
+              onChange={(e) => setAddress2(e.target.value)}
+            />
             <h5>City</h5>
             <input
               type="text"
@@ -117,9 +125,9 @@ const RegisterScreen = () => {
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
-        <button className="registerButton" onClick={submitHandler}>
-          Register
-        </button>
+          <button className="registerButton" onClick={submitHandler}>
+            Register
+          </button>
         </form>
         <div className="registerRedirect">
           Already have an account?

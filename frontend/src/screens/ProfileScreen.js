@@ -1,15 +1,15 @@
 import './styles/ProfileScreen.css';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
 const ProfileScreen = ({ history }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [reenteredPassword, setReenteredPassword] = useState('');
+  // const [reenteredPassword, setReenteredPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -18,17 +18,16 @@ const ProfileScreen = ({ history }) => {
   const [country, setCountry] = useState('');
   const [message, setMessage] = useState('');
 
-  console.log(phone,'phone');
   const dispatch = useDispatch();
 
- const userDetails = useSelector((state) => state.userDetails);
+  const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log(userInfo);
-  console.log(user);
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
 
   useEffect(() => {
     if (!userInfo) {
@@ -52,11 +51,25 @@ const ProfileScreen = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password !== reenteredPassword) {
-      setMessage('The passwords do not match.');
-    } else {
-    }
+    // if (password !== reenteredPassword) {
+    //   setMessage('The passwords do not match.');
+    // } else {
+    dispatch(
+      updateUserProfile({
+        id: userInfo.userId,
+        fullName,
+        email,
+        phone,
+        address,
+        city,
+        zip,
+        state,
+        country
+      }))
+    // }
+    // UPDATE PASSWORD and FORGOTTEN PASSWORD TO BE IMPLEMENTED ADDITIONALLY
   };
+
   return (
     <div className=" ">
       <div className="col-3">
@@ -64,6 +77,7 @@ const ProfileScreen = ({ history }) => {
         {message && <Message variant="danger">{message}</Message>}
         {loading && <Loader />}
         {error && <Message variant="danger">{error}</Message>}
+        {success && <Message variant={success}>Profile Updated</Message>}
         <form className="form">
           <div className="formLeft">
             <h5>Full Name</h5>
@@ -88,7 +102,7 @@ const ProfileScreen = ({ history }) => {
               pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
               onChange={(e) => setPhone(e.target.value)}
             />
-            <h5>Password</h5>
+            {/* <h5>Password</h5>
             <input
               type="password"
               placeholder="Enter password"
@@ -101,7 +115,7 @@ const ProfileScreen = ({ history }) => {
               placeholder="Reenter Password"
               value={reenteredPassword}
               onChange={(e) => setReenteredPassword(e.target.value)}
-            />
+            /> */}
           </div>
           <div className="formRight">
             <h5>Address</h5>
