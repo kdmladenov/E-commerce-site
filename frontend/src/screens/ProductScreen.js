@@ -79,12 +79,11 @@ const ProductScreen = ({ history, match }) => {
               </li>
               <li>
                 <button
-                  type="button"
-                  className="add_to_cart_btn"
-                  disabled={product.stockCount === 0}
                   onClick={addToCartHandler}
+                  disabled={product.stockCount === 0}
+                  className="btn"
                 >
-                  Add To Cart
+                  {product.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
                 </button>
               </li>
             </ul>
