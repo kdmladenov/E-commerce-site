@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen';
 import Header from './components/Header';
 import ProductScreen from './screens/ProductScreen';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -19,7 +19,7 @@ const App = () => {
       <Route path="/register" component={RegisterScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/cart/:id?" component={CartScreen} />
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };

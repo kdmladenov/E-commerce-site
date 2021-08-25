@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
 import {
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -71,7 +74,7 @@ export const register =
         type: USER_LOGIN_SUCCESS,
         payload: data
       });
-      
+
       localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
       dispatch({
@@ -80,3 +83,36 @@ export const register =
       });
     }
   };
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST
+    });
+
+    // access to the logged in user info
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    console.log(userInfo);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    const { data } = await axios.get(`${BASE_URL}/users/${id}`, config); // the passed id will be "/profile"
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};

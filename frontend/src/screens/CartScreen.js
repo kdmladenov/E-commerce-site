@@ -44,10 +44,10 @@ const CartScreen = ({ match, location, history }) => {
             {cartItems.map((item) => (
               <li key={item.id}>
                 <div className="flex cart-item ">
-                  <div className="col-2 mx-4 p-a">
+                  <div className="col-2 mx-4 p-auto">
                     <img src={item.image} alt={item.title} />
                   </div>
-                  <div className="col-3 p-a text text-center">
+                  <div className="col-3 p-auto text text-center">
                     <Link to={`/products/${item.id}`}>{item.title}</Link>
                   </div>
                   <select
@@ -64,7 +64,7 @@ const CartScreen = ({ match, location, history }) => {
                       ))}
                   </select>
                   <div
-                    className="col-2 btn-outline m-a"
+                    className="col-2 btn-outline m-auto"
                     onClick={() => removeFromCartHandler(item.id)}
                   >
                     <i className="fas fa-trash"></i>{' '}
@@ -83,7 +83,9 @@ const CartScreen = ({ match, location, history }) => {
               <h3>$ {cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)}</h3>
             </li>
             <li>
-              <button className="btn" disabled={cartItems.length === 0} onClick={checkoutHandler}>{cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}</button>
+              <button className="btn" disabled={cartItems.length === 0} onClick={checkoutHandler}>
+                {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
+              </button>
             </li>
           </ul>
         </div>

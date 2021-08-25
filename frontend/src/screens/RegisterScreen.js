@@ -59,9 +59,10 @@ const RegisterScreen = () => {
             />
             <h5>Phone number</h5>
             <input
-              type="text"
-              placeholder="Enter phone number"
+              type="tel"
+              placeholder="xxx-xxx-xxxx"
               value={phone}
+              pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
               onChange={(e) => setPhone(e.target.value)}
             />
             <h5>Password</h5>
@@ -116,10 +117,10 @@ const RegisterScreen = () => {
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
-        </form>
         <button className="registerButton" onClick={submitHandler}>
           Register
         </button>
+        </form>
         <div className="registerRedirect">
           Already have an account?
           <Link to={'/login'}> Log in</Link>

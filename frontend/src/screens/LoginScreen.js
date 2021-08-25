@@ -38,6 +38,7 @@ const LoginScreen = ({ history }) => {
             type="email"
             placeholder="Enter email"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <h5>Password</h5>
@@ -45,6 +46,7 @@ const LoginScreen = ({ history }) => {
             type="password"
             placeholder="Enter password"
             value={password}
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
           <button className="login_signInButton" onClick={loginHandler}>
@@ -52,7 +54,7 @@ const LoginScreen = ({ history }) => {
           </button>
         </form>
         <div className="registerRedirect">
-          New Customer? 
+          New Customer?
           <Link to={'/register'}> Register</Link>
         </div>
       </div>
