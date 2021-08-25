@@ -11,6 +11,7 @@ const HomeScreen = () => {
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
+  
 
   console.log(products);
   useEffect(() => {
@@ -24,6 +25,7 @@ const HomeScreen = () => {
       image={product.image}
       price={product.price}
       rating={product.rating}
+      stockCount={product.stockCount}
     />
   ));
 
