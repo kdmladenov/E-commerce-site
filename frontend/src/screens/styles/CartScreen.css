@@ -1,0 +1,18 @@
+.cart-item {
+  height: 100px;
+}
+.cart-item img{
+  height: 90px;
+  width: 90px;
+  object-fit: contain;
+}
+
+.cart-item select{
+  height: 40px;
+  justify-content: center;
+}
+
+.cart-item li {
+  border-bottom:1px solid lightgrey;
+  padding: 0 20px;
+}
