@@ -1,0 +1,6 @@
+.order-item{
+  justify-content: flex-start;
+}
+.item-card{
+  justify-content: space-between;
+}
