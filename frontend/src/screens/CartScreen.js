@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import Message from '../components/Message';
 import './styles/CartScreen.css';
-import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
+import { MAX_PRODUCT_QTY_FOR_PURCHASE, numberDecimalFix } from '../constants/constants';
 
 const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
@@ -80,7 +80,10 @@ const CartScreen = ({ match, location, history }) => {
           <ul>
             <li>
               <h4>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h4>
-              <h3>$ {cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)}</h3>
+              <h3>
+                ${' '}
+                {numberDecimalFix(cartItems.reduce((acc, item) => acc + item.price * item.qty, 0))}
+              </h3>
             </li>
             <li>
               <button className="btn" disabled={cartItems.length === 0} onClick={checkoutHandler}>

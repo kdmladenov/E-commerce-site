@@ -21,7 +21,7 @@ const LoginScreen = ({ location, history }) => {
     if (!error && userInfo?.token) {
       history.push(redirect);
     }
-  }, [history, userInfo, error]);
+  }, [history, userInfo, error, redirect]);
 
   const loginHandler = (e) => {
     e.preventDefault();
