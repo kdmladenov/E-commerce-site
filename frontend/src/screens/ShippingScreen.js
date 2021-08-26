@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 import './styles/ShippingScreen.css';
 
 const ShippingScreen = ({ history }) => {
@@ -24,6 +25,7 @@ const ShippingScreen = ({ history }) => {
   return (
     <div className="shipping">
       <div className="container">
+        <CheckoutSteps step1 step2/>
         <form>
           <div>
             <label htmlFor="address">Address</label>
