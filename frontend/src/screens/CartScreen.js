@@ -28,20 +28,20 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   const checkoutHandler = () => {
-    history.push('/login?redirect=shipping')
-  }
+    history.push(`/login?redirect=shipping`);
+  };
 
   return (
     <div className="flex text-center">
       <div className="col-8">
         <h1>Shopping Cart</h1>
-        {cartItems.length === 0 ? (
+        {cartItems?.length === 0 ? (
           <Message>
             Your cart is empty <Link to="/">Go Back to Home Screen</Link>
           </Message>
         ) : (
           <ul>
-            {cartItems.map((item) => (
+            {cartItems?.map((item) => (
               <li key={item.id}>
                 <div className="flex cart-item ">
                   <div className="col-2 mx-4 p-auto">

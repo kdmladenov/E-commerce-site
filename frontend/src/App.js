@@ -8,17 +8,19 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CartScreen from './screens/CartScreen';
+import ShippingScreen from './screens/ShippingScreen';
 
 const App = () => {
   return (
     <Router>
       <Header />
-      <Route exact path="/" component={HomeScreen} />
+      <Route path="/cart/:id?" component={CartScreen} />
+      <Route path="/shipping" component={ShippingScreen} exact/>
       <Route path="/products/:id" component={ProductScreen} />
       <Route path="/login" component={LoginScreen} />
       <Route path="/register" component={RegisterScreen} />
       <Route path="/profile" component={ProfileScreen} />
-      <Route path="/cart/:id?" component={CartScreen} />
+      <Route exact path="/" component={HomeScreen} />
       {/* <Footer /> */}
     </Router>
   );

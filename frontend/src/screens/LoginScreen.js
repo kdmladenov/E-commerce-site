@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import './styles/LoginScreen.css';
 
-const LoginScreen = ({ history }) => {
+const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -15,9 +15,11 @@ const LoginScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo, loading, error } = userLogin;
 
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+
   useEffect(() => {
     if (!error && userInfo?.token) {
-      history.push('/');
+      history.push(redirect);
     }
   }, [history, userInfo, error]);
 
@@ -55,7 +57,7 @@ const LoginScreen = ({ history }) => {
         </form>
         <div className="registerRedirect">
           New Customer?
-          <Link to={'/register'}> Register</Link>
+          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
         </div>
       </div>
     </div>

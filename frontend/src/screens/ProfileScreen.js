@@ -16,7 +16,6 @@ const ProfileScreen = ({ history }) => {
   const [zip, setZip] = useState('');
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
-  const [message, setMessage] = useState('');
 
   const dispatch = useDispatch();
 
@@ -66,7 +65,6 @@ const ProfileScreen = ({ history }) => {
         state,
         country
       }))
-    // }
     // UPDATE PASSWORD and FORGOTTEN PASSWORD TO BE IMPLEMENTED ADDITIONALLY
   };
 
@@ -74,7 +72,6 @@ const ProfileScreen = ({ history }) => {
     <div className=" ">
       <div className="col-3">
         <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
         {loading && <Loader />}
         {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant={success}>Profile Updated</Message>}
