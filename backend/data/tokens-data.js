@@ -1,6 +1,6 @@
 import db from './pool.js';
 
-const tokenExists = async (token) => {
+const tokenLoggedOut = async (token) => {
   const sql = `
     SELECT *
     FROM tokens
@@ -12,4 +12,4 @@ const tokenExists = async (token) => {
   return result?.length > 0;
 };
 
-export default tokenExists;
+export default tokenLoggedOut;
