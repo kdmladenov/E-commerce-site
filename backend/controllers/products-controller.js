@@ -22,7 +22,7 @@ productsController
     '/',
     // authMiddleware,
     // loggedUserGuard,
-    // errorHandler(
+    errorHandler(
       async (req, res) => {
       const { search = '', searchBy = 'title', sort = 'title', order = 'asc' } = req.query;
       // const { role } = req.user;
@@ -40,12 +40,12 @@ productsController
         order,
         +pageSize,
         +page,
-        'admin'
+        'admin' // TO BE FIXED
       );
 
       res.status(200).send(product);
     })
-  // )
+  )
   // get by id
   .get(
     '/:productId',
@@ -57,7 +57,7 @@ productsController
 
       const { error, product } = await productsServices.getProductById(productsData)(
         productId,
-        'admin'
+        'admin' // TO BE FIXED
       );
 
       if (error === errors.RECORD_NOT_FOUND) {
@@ -74,7 +74,7 @@ productsController
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    roleMiddleware(rolesEnum.admin),
+    // roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
     errorHandler(async (req, res) => {
       const { productId } = req.params;
@@ -104,7 +104,7 @@ productsController
     '/',
     authMiddleware,
     loggedUserGuard,
-    roleMiddleware(rolesEnum.admin),
+    // roleMiddleware(rolesEnum.admin),
     validateBody('product', createProductSchema),
     errorHandler(async (req, res) => {
       const data = req.body;
@@ -125,7 +125,7 @@ productsController
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    roleMiddleware(rolesEnum.admin),
+    // roleMiddleware(rolesEnum.admin),
     errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { error, product } = await productsServices.deleteProduct(productsData)(productId);
@@ -144,7 +144,7 @@ productsController
     '/:productId/image',
     authMiddleware,
     loggedUserGuard,
-    roleMiddleware(rolesEnum.admin),
+    // roleMiddleware(rolesEnum.admin),
     uploadImage.single('image'),
     validateFile('uploads', uploadFileSchema),
     errorHandler(async (req, res) => {

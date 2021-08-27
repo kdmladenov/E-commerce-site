@@ -7,6 +7,7 @@ import { PORT } from '../config.js';
 import usersController from './controllers/users-controller.js';
 import authController from './controllers/auth-controller.js';
 import productsController from './controllers/products-controller.js'
+import ordersController from './controllers/orders-controller.js';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(passport.initialize());
 app.use('/auth', authController);
 app.use('/users', usersController);
 app.use('/products', productsController);
+app.use('/orders', ordersController);
 app.use('/storage/avatars', express.static('storage/avatars'));
 app.use('/storage/images', express.static('storage/images'));
 

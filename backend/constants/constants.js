@@ -41,8 +41,10 @@ export const product = {
   MIN_REVIEW_COUNT: 0,
   MAX_REVIEW_COUNT: 1000,
   MIN_RATING_VALUE: 0,
-  MAX_RATING_VALUE: 5,
+  MAX_RATING_VALUE: 5
 };
+
+export const order = {};
 
 export const uploads = {
   VALID_FILE_FORMATS: ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'webp'],
@@ -56,4 +58,11 @@ export const forgotPassword = {
   emailUser: 'fullstackecommercestore@outlook.com',
   emailPassword: 'Sekretenklu4',
   frontEndPort: 3000
+};
+
+export const order = {
+  PAYMENT_METHODS: ['Paypal'],
+  MIN_TAX_PRICE: 0,
+  MIN_SHIPPING_PRICE: 0,
+  MIN_TOTAL_PRICE: 0
 };
