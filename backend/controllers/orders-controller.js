@@ -41,7 +41,7 @@ ordersController
     // errorHandler(
     async (req, res) => {
       const { role, userId } = req.user;
-\      const { orderId } = req.params;
+      const { orderId } = req.params;
       const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
 
       if (error === errors.RECORD_NOT_FOUND) {
