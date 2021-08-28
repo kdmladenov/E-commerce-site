@@ -9,7 +9,7 @@ const options = {
 const jwtStrategy = new passportJwt.Strategy(options, async (payload, done) => {
   const user = {
     userId: payload.userId,
-    username: payload.username,
+    email: payload.email,
     role: payload.role,
   };
 

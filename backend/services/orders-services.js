@@ -1,3 +1,5 @@
+import errors from '../constants/service-errors.js';
+import rolesEnum from '../constants/roles.enum.js';
 
 const addOrderItems = (ordersData) => async (data, userId) => {
   const {
@@ -28,14 +30,14 @@ const addOrderItems = (ordersData) => async (data, userId) => {
   );
 
   orderItems.forEach(async (item) => {
-    const { title, qty, image, price, productId } = item;
+    const { title, qty, image, price, id } = item;
 
     await ordersData.createOrderItem(
       title,
       qty,
       image,
       price,
-      productId,
+      id,
       createdOrderWithoutItems.orderId
     );
   });
@@ -50,6 +52,32 @@ const addOrderItems = (ordersData) => async (data, userId) => {
   };
 };
 
+const getOrderById = (ordersData) => async (orderId, role, userId) => {
+  const orderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role);
+
+  if (!orderWithoutItems) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      order: null
+    };
+  }
+  // The user is not admin or has created the order
+  if (orderWithoutItems.userId !== userId && role !== rolesEnum.admin) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      result: null
+    };
+  }
+
+  const orderItemsCreated = await ordersData.getAllOrderItemsByOrder(orderId);
+
+  return {
+    error: null,
+    order: { orderItemsCreated, ...orderWithoutItems }
+  };
+};
+
 export default {
-  addOrderItems
+  addOrderItems,
+  getOrderById
 };

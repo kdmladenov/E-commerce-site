@@ -36,7 +36,7 @@ usersController
 
       if (error === errors.DUPLICATE_RECORD) {
         res.status(409).send({
-          message: 'User with same username or email already exists.'
+          message: 'User with same email already exists.'
         });
       } else {
         res.status(201).send(result);

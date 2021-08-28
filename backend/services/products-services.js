@@ -1,4 +1,4 @@
-import errors from '../constants/error-strings.js';
+import errors from '../constants/service-errors.js';
 
 const getAllProducts =
   (productsData) => async (search, searchBy, sort, order, pageSize, page, role) => {
@@ -48,7 +48,6 @@ const createProduct = (productsData) => async (data) => {
   };
 };
 
-
 const updateProduct = (productsData) => async (productId, updatedData) => {
   const existingProduct = await productsData.getBy('product_id', +productId);
 
@@ -60,9 +59,9 @@ const updateProduct = (productsData) => async (productId, updatedData) => {
   }
   // checks if the updated title exist in other product
   if (
-    (updatedData.title &&
-      (await productsData.getBy('title', updatedData.title)) &&
-      (await productsData.getBy('title', updatedData.title)).productId !== productId)
+    updatedData.title &&
+    (await productsData.getBy('title', updatedData.title)) &&
+    (await productsData.getBy('title', updatedData.title)).productId !== productId
   ) {
     return {
       error: errors.DUPLICATE_RECORD,

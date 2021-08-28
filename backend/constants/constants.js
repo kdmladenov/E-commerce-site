@@ -44,8 +44,6 @@ export const product = {
   MAX_RATING_VALUE: 5
 };
 
-export const order = {};
-
 export const uploads = {
   VALID_FILE_FORMATS: ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'webp'],
   MAX_FILE_SIZE: 102400, //   divide by 1000 for KB

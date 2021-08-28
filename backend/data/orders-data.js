@@ -79,7 +79,7 @@ const createOrderWithoutItems = async (
   return getOrderBy('order_id', result.insertId);
 };
 
-const createOrderItem = async (title, qty, image, price, productId, orderId) => {
+const createOrderItem = async (title, qty, image, price, id, orderId) => {
   const sql = `
     INSERT INTO order_items (
     title, 
@@ -91,9 +91,9 @@ const createOrderItem = async (title, qty, image, price, productId, orderId) => 
     )
     VALUES (?, ?, ?, ?, ?, ?)
   `;
-  const result = await db.query(sql, [title, +qty, image, +price, +productId, +orderId]);
+  const result = await db.query(sql, [title, +qty, image, +price, +id, +orderId]);
 
-  return { order_item_id: result.insertId, title, qty, image, price, productId, orderId };
+  return { order_item_id: result.insertId, title, qty, image, price, id, orderId };
 };
 
 const getAllOrderItemsByOrder = async (orderId) => {
@@ -104,7 +104,7 @@ const getAllOrderItemsByOrder = async (orderId) => {
     quantity, 
     image, 
     price, 
-    product_id as productId, 
+    product_id as id, 
     order_id as orderId
     FROM order_items
     WHERE order_id = ?

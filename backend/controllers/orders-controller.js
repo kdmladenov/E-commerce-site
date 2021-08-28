@@ -8,6 +8,7 @@ import rolesEnum from '../constants/roles.enum.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
 import createOrderSchema from '../validator/create-order-schema.js';
+import errors from '../constants/service-errors.js';
 
 const ordersController = express.Router();
 
@@ -21,18 +22,40 @@ ordersController
     loggedUserGuard,
     // roleMiddleware(rolesEnum.admin),
     validateBody('order', createOrderSchema),
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const data = req.body;
       const userId = req.user.userId;
-        console.log(data, userId, 'data, userId');
-      const {
-        error,
-        order
-      } = await ordersServices.addOrderItems(ordersData)(data, userId);
+      console.log(data, userId, 'data, userId');
+      const { error, order } = await ordersServices.addOrderItems(ordersData)(data, userId);
 
-        res.status(201).send(order);
+      res.status(201).send(order);
     })
-  
+  )
+  // @desc GET order by ID
+  // @route GET /orders/:orderId
+  // @access Private - admin or user who made the order
+  .get(
+    '/:orderId',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+    async (req, res) => {
+      const { role, userId } = req.user;
+\      const { orderId } = req.params;
+      const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The order is not found.'
+        });
+      } else if (error === errors.OPERATION_NOT_PERMITTED) {
+        res.status(403).send({
+          message: `You are not authorized to view this order`
+        });
+      } else {
+        res.status(200).send(order);
+      }
+    }
+  );
 
 export default ordersController;
