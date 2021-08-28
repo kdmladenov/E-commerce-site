@@ -56,7 +56,7 @@ const Header = () => {
             classNameMenu="header_optionUserMenu"
             selected={<i className="fas fa-user" />}
             options={[
-              <Link to={'./profile'}>Profile</Link>,
+              <Link to={'/profile'}>Profile</Link>,
               <Link onClick={logoutHandler}>Log out</Link>
             ]}
           >
