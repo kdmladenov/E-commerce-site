@@ -33,14 +33,33 @@ const OrderScreen = ({ match }) => {
             <li>
               <h1>Shipping</h1>
               <p>
+                <strong>Name:</strong> {order.fullName}
+              </p>
+              <p>
+                <strong>Email:</strong> <a href={`mailto:${order.email}`}>{order.email}</a>
+              </p>
+
+              <p>
                 <strong>Address:</strong>
                 {order?.shippingAddress} {order?.shippingAddress2}, {order?.shippingCity},{' '}
                 {order?.shippingZip}, {order?.shippingState}, {order?.shippingCountry}
               </p>
+              {order.isDelivered ? (
+                <Message variant="success">{order.deliveryDate.slice(0, 10)}</Message>
+              ) : (
+                <Message variant="danger">Not Delivered</Message>
+              )}
             </li>
             <li>
               <h1>Payment Method</h1>
-              {order.paymentMethod}
+              <p>
+                <strong>Method:</strong> {order.paymentMethod}
+              </p>
+              {order.isPaid ? (
+                <Message variant="success">{order.paymentDate.slice(0, 10)}</Message>
+              ) : (
+                <Message variant="danger">Not Paid</Message>
+              )}
             </li>
             <li>
               <h1>Order Items</h1>
