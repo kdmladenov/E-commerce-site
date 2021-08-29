@@ -10,7 +10,4 @@ export const DB_CONFIG = {
   database: config.DATABASE,
 };
 
-export const {
-  PORT,
-  PRIVATE_KEY,
-} = config;
+export const { PORT, PRIVATE_KEY, PAYPAL_CLIENT_ID } = config;

@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import passport from 'passport';
 import jwtStrategy from './authentication/strategy.js';
-import { PORT } from '../config.js';
+import { PORT, PAYPAL_CLIENT_ID } from '../config.js';
 import usersController from './controllers/users-controller.js';
 import authController from './controllers/auth-controller.js';
 import productsController from './controllers/products-controller.js'
@@ -24,6 +24,9 @@ app.use('/products', productsController);
 app.use('/orders', ordersController);
 app.use('/storage/avatars', express.static('storage/avatars'));
 app.use('/storage/images', express.static('storage/images'));
+
+app.get('/config/paypal', (req, res) => res.send(PAYPAL_CLIENT_ID));
+
 
 app.use((err, req, res, next) => {
   res.status(500).send({
