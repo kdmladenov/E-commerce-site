@@ -39,35 +39,49 @@ ordersController
     '/:orderId',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-      async (req, res) => {
-        const { role, userId } = req.user;
-        const { orderId } = req.params;
-        const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
-        
-        if (error === errors.RECORD_NOT_FOUND) {
-          res.status(404).send({
-            message: 'The order is not found.'
-          });
-        } else if (error === errors.OPERATION_NOT_PERMITTED) {
-          res.status(403).send({
-            message: `You are not authorized to view this order`
-          });
-        } else {
-          res.status(200).send(order);
-        }
+    errorHandler(async (req, res) => {
+      const { role, userId } = req.user;
+      const { orderId } = req.params;
+      const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The order is not found.'
+        });
+      } else if (error === errors.OPERATION_NOT_PERMITTED) {
+        res.status(403).send({
+          message: `You are not authorized to view this order`
+        });
+      } else {
+        res.status(200).send(order);
       }
-      )
-      // @desc Update order to paid
-      // @route PUT /api/orders/:id/pay
-      // @access Private
-      
-      .put(
-        '/:orderId/pay',
-        authMiddleware,
-        loggedUserGuard,
-        validateBody('order', updateOrderSchema), // TO DO
-        // errorHandler(
+    })
+  )
+  // @desc GET All logged in user orders
+  // @route GET /orders/:orderId
+  // @access Private - admin or user who made the order
+  .get(
+    '/',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+    async (req, res) => {
+      const { userId, role } = req.user;
+      const { orders } = await ordersServices.getALLOrdersByUser(ordersData)(userId, role);
+
+      res.status(200).send(orders);
+    }
+  )
+  // @desc Update order to paid
+  // @route PUT /api/orders/:id/pay
+  // @access Private
+
+  .put(
+    '/:orderId/pay',
+    authMiddleware,
+    loggedUserGuard,
+    validateBody('order', updateOrderSchema), // TO DO
+    // errorHandler(
     async (req, res) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;

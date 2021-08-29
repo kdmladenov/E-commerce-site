@@ -96,27 +96,45 @@ const updateOrderToPaid = (ordersData) => async (orderId, role, userId, paymentD
 
   const orderItemsCreated = await ordersData.getAllOrderItemsByOrder(orderId);
 
-    const paymentResult = await ordersData.createOrderPaymentResult({
-      orderId,
-      id: paymentData.id,
-      status: paymentData.status,
-      update_time: paymentData.update_time,
-      email_address: paymentData.payer.email_address
-    });
-    await ordersData.updateOrderPayment(orderId, paymentResult.paymentResultId);
+  const paymentResult = await ordersData.createOrderPaymentResult({
+    orderId,
+    id: paymentData.id,
+    status: paymentData.status,
+    update_time: paymentData.update_time,
+    email_address: paymentData.payer.email_address
+  });
+  await ordersData.updateOrderPayment(orderId, paymentResult.paymentResultId);
 
-    
-
-  const UpdatedOrderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role, paymentData);
+  const UpdatedOrderWithoutItems = await ordersData.getOrderBy(
+    'order_id',
+    orderId,
+    role,
+    paymentData
+  );
 
   return {
     error: null,
     order: { orderItemsCreated, paymentResult, ...UpdatedOrderWithoutItems }
   };
 };
+const getALLOrdersByUser = (ordersData) => async (userId, role) => {
+  const ordersWithoutItems = await ordersData.getAllByUser(userId, role);
+
+  const ordersWithItems = await Promise.all(
+    await ordersWithoutItems.map(async (order) => {
+      const orderItems = await Promise.all(await ordersData.getAllOrderItemsByOrder(order.orderId));
+      return { ...order, orderItems };
+    })
+  );
+
+  return {
+    orders: ordersWithItems
+  };
+};
 
 export default {
   addOrderItems,
   getOrderById,
-  updateOrderToPaid
+  updateOrderToPaid,
+  getALLOrdersByUser
 };
