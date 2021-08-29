@@ -120,11 +120,46 @@ const getAllOrderItemsByOrder = async (orderId) => {
   return db.query(sql, [+orderId]);
 };
 
+const createOrderPaymentResult = async ({ orderId, id, status, update_time, email_address }) => {
+  const sql = `
+    INSERT INTO payment_result (
+      order_id, 
+      id, 
+      status, 
+      update_time, 
+      email_address
+    )
+    VALUES (?, ?, ?, ?, ?)
+  `;
+  const result = await db.query(sql, [+orderId, id, status, update_time, email_address]);
 
+  return {
+    paymentResultId: result.insertId,
+    orderId,
+    id,
+    status,
+    updateTime: update_time,
+    emailAddress: email_address
+  };
+};
+
+const updateOrderPayment = async (orderId, paymentResultId) => {
+  const sql = `
+    UPDATE orders SET
+      payment_result_id = ?,
+      is_paid = 1,
+      payment_date = ?
+    WHERE order_id = ?
+  `;
+
+  return db.query(sql, [+paymentResultId, new Date(), +orderId]);
+};
 
 export default {
   getOrderBy,
   createOrderWithoutItems,
   createOrderItem,
-  getAllOrderItemsByOrder
+  getAllOrderItemsByOrder,
+  createOrderPaymentResult,
+  updateOrderPayment
 };

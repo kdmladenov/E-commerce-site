@@ -9,6 +9,7 @@ import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
 import createOrderSchema from '../validator/create-order-schema.js';
 import errors from '../constants/service-errors.js';
+import updateOrderSchema from '../validator/update-order-schema.js';
 
 const ordersController = express.Router();
 
@@ -21,7 +22,7 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     // roleMiddleware(rolesEnum.admin),
-    validateBody('order', createOrderSchema),
+    validateBody('order', createOrderSchema), //TO BE FINISHED
     errorHandler(async (req, res) => {
       const data = req.body;
       const userId = req.user.userId;
@@ -39,10 +40,44 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     // errorHandler(
+      async (req, res) => {
+        const { role, userId } = req.user;
+        const { orderId } = req.params;
+        const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
+        
+        if (error === errors.RECORD_NOT_FOUND) {
+          res.status(404).send({
+            message: 'The order is not found.'
+          });
+        } else if (error === errors.OPERATION_NOT_PERMITTED) {
+          res.status(403).send({
+            message: `You are not authorized to view this order`
+          });
+        } else {
+          res.status(200).send(order);
+        }
+      }
+      )
+      // @desc Update order to paid
+      // @route PUT /api/orders/:id/pay
+      // @access Private
+      
+      .put(
+        '/:orderId/pay',
+        authMiddleware,
+        loggedUserGuard,
+        validateBody('order', updateOrderSchema), // TO DO
+        // errorHandler(
     async (req, res) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
-      const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
+      const paymentData = req.body;
+      const { error, order } = await ordersServices.updateOrderToPaid(ordersData)(
+        orderId,
+        role,
+        userId,
+        paymentData
+      );
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -50,7 +85,7 @@ ordersController
         });
       } else if (error === errors.OPERATION_NOT_PERMITTED) {
         res.status(403).send({
-          message: `You are not authorized to view this order`
+          message: `You are not authorized to view or edit this order`
         });
       } else {
         res.status(200).send(order);

@@ -77,7 +77,46 @@ const getOrderById = (ordersData) => async (orderId, role, userId) => {
   };
 };
 
+const updateOrderToPaid = (ordersData) => async (orderId, role, userId, paymentData) => {
+  const orderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role, paymentData);
+
+  if (!orderWithoutItems) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      order: null
+    };
+  }
+  // The user is not admin or has created the order
+  if (orderWithoutItems.userId !== userId && role !== rolesEnum.admin) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      result: null
+    };
+  }
+
+  const orderItemsCreated = await ordersData.getAllOrderItemsByOrder(orderId);
+
+    const paymentResult = await ordersData.createOrderPaymentResult({
+      orderId,
+      id: paymentData.id,
+      status: paymentData.status,
+      update_time: paymentData.update_time,
+      email_address: paymentData.payer.email_address
+    });
+    await ordersData.updateOrderPayment(orderId, paymentResult.paymentResultId);
+
+    
+
+  const UpdatedOrderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role, paymentData);
+
+  return {
+    error: null,
+    order: { orderItemsCreated, paymentResult, ...UpdatedOrderWithoutItems }
+  };
+};
+
 export default {
   addOrderItems,
-  getOrderById
+  getOrderById,
+  updateOrderToPaid
 };
