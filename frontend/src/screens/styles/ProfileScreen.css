@@ -1,3 +1,28 @@
 .profile {
   height:fit-content;
+  justify-content: space-between;
+  margin-right: 20px;
 }
+
+.orders {
+    margin-bottom: auto;
+    flex-direction: column;
+}
+
+table {
+  width: 100%;
+}
+
+th{
+  margin: auto;
+}
+td{
+
+}
+
+
+tr:nth-child(even) {
+  background-color: #D6EEEE;
+}
+
+tr:hover {background-color: lightblue;}

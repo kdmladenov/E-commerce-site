@@ -24,6 +24,7 @@ const getAllByUser = async (userId, role) => {
     o.is_paid as isPaid,
     o.payment_date as paymentDate,
     o.is_delivered as isDelivered,
+    o.order_date as orderDate,
     o.delivery_date as deliveryDate
     FROM orders o
     LEFT JOIN (SELECT
@@ -59,6 +60,7 @@ const getOrderBy = async (column, value, role) => {
     o.is_paid as isPaid,
     o.payment_date as paymentDate,
     o.is_delivered as isDelivered,
+    o.order_date as orderDate,
     o.delivery_date as deliveryDate
     FROM orders o
     LEFT JOIN (SELECT

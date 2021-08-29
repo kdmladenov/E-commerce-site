@@ -32,6 +32,21 @@ ordersController
       res.status(201).send(order);
     })
   )
+  // @desc GET All logged in user orders
+  // @route GET /orders/:orderId
+  // @access Private - admin or user who made the order
+  .get(
+    '/myorders',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+    async (req, res) => {
+      const { userId, role } = req.user;
+      const { orders } = await ordersServices.getALLOrdersByUser(ordersData)(userId, role);
+
+      res.status(200).send(orders);
+    }
+  )
   // @desc GET order by ID
   // @route GET /orders/:orderId
   // @access Private - admin or user who made the order
@@ -57,21 +72,7 @@ ordersController
       }
     })
   )
-  // @desc GET All logged in user orders
-  // @route GET /orders/:orderId
-  // @access Private - admin or user who made the order
-  .get(
-    '/',
-    authMiddleware,
-    loggedUserGuard,
-    // errorHandler(
-    async (req, res) => {
-      const { userId, role } = req.user;
-      const { orders } = await ordersServices.getALLOrdersByUser(ordersData)(userId, role);
-
-      res.status(200).send(orders);
-    }
-  )
+  
   // @desc Update order to paid
   // @route PUT /api/orders/:id/pay
   // @access Private
