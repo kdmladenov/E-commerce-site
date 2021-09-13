@@ -5,6 +5,7 @@ import productCategoriesEnum from '../constants/product-categories.enum';
 import DropDown from './Dropdown';
 import './styles/Header.css';
 import { logout } from '../actions/userActions';
+import NavSearchBar from './NavSearchBar';
 
 const Header = () => {
   const [searchColumn, setSearchColumn] = useState('All Categories');
@@ -30,24 +31,8 @@ const Header = () => {
           className="header_logo"
         />
       </Link>
-      <div className="header_search">
-        <DropDown
-          id="search-dropdown"
-          className="header_searchDropdown"
-          classNameMenu="header_searchDropdownMenu"
-          selected={searchColumn}
-          onSelectedChange={setSearchColumn}
-          options={Object.values(productCategoriesEnum)}
-          dropDownToggleId="dropdown-basic-search-options"
-        />
-        <input
-          type="text"
-          className="header_searchInput"
-          placeholder={`Search in ${searchColumn}`}
-        />
-        <span className="header_searchButton">
-          <i className="fa fa-search"></i>
-        </span>
+      <div className="search">
+      <NavSearchBar/>
       </div>
       <div className="header_nav">
         {userInfo?.token ? (
@@ -73,7 +58,7 @@ const Header = () => {
         <Link to="/cart">
           <div className="header_option">
             <i className="fa fa-shopping-cart fa_custom fa-3x" id="header_optionCart"></i>
-            <span className="badge">{cartItems?.length || 0 }</span>
+            <span className="badge">{cartItems?.length || 0}</span>
           </div>
         </Link>
       </div>
