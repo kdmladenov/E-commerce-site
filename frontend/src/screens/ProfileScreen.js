@@ -74,7 +74,6 @@ const ProfileScreen = ({ history }) => {
     );
     // UPDATE PASSWORD and FORGOTTEN PASSWORD TO BE IMPLEMENTED ADDITIONALLY
   };
-console.log(orders);
   return (
     <div className="container">
       <div className="flex profile">

@@ -76,13 +76,28 @@
 
 .search_bar ul {
   padding: 0px;
-  max-height: 280px;
+  max-height: 310px;
   overflow-y: auto;
 }
 
-.search_input.active ul {
-  padding: 20px 8px;
+.search_bar.active {
+  overflow-y: auto;
+  font-size: 19px;
+  padding-bottom: 4px;
   pointer-events: all;
+}
+
+.search_bar.active h2{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 0px 5px 30px;
+  margin: 0 !important;
+}
+
+.search_bar.active > ul i{
+  font-size: 13px;
+  padding-right: 5px;
+  color: rgb(182, 182, 182);
 }
 
 .search_bar li {
@@ -93,5 +108,5 @@
 }
 
 .search_bar li:hover {
-  background: lightgrey;
+  background: rgb(235, 234, 234);
 }

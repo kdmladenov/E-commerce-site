@@ -1,21 +1,42 @@
 import React, { useState } from 'react';
 import './styles/NavSearchBar.css';
-import { suggestions } from './suggestions';
+import { suggestions } from '../constants/for-developing/suggestions';
 import productCategoriesEnum from '../constants/product-categories.enum';
+import { trending } from '../constants/for-developing/trending';
+import { isSearchTermInString, searchTermInString } from '../constants/utility-functions.js/header-utility-functions';
+
 
 const NavSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showTrendingSearches, setShowTrendingSearches] = useState(false);
   const [productCategory, setProductCategory] = useState('');
+  
   const autocompleteSuggestionsToRender = suggestions
     .map(
       (suggestion) =>
-        suggestion.toLowerCase().startsWith(searchTerm) && <li key={suggestion}>{suggestion}</li>
+        isSearchTermInString(searchTerm, suggestion) && (
+          <li key={suggestion}>
+            <i className="fa fa-search"></i>
+            {`${searchTermInString(searchTerm, suggestion)[0]}`} 
+            <strong>{`${searchTermInString(searchTerm, suggestion)[1]}`}</strong>
+            {`${searchTermInString(searchTerm, suggestion)[2]}`}
+          </li>
+        )
     )
+    .slice(0, 5);
+
+  const trendingSearchesToRender = trending
+    .map((suggestion) => (
+      <li key={suggestion}>
+        <i className="fa fa-search"></i> {suggestion}
+      </li>
+    ))
     .slice(0, 5);
 
   const categoriesDropdownToRender = Object.values(productCategoriesEnum).map((category) => (
     <li key={category} onClick={() => handleCategorySelection(category)}>
+      <i className="fa fa-th-list"></i>
       {category}
     </li>
   ));
@@ -24,9 +45,10 @@ const NavSearchBar = () => {
     setShowDropdown(!showDropdown);
   };
 
-   const handleCategorySelection = (category) => {
-     setProductCategory(category);
-   };
+  const handleCategorySelection = (category) => {
+    setProductCategory(category);
+    setShowDropdown(false);
+  };
 
   const handleResetInputButton = () => {
     setSearchTerm('');
@@ -39,9 +61,19 @@ const NavSearchBar = () => {
     setSearchTerm(e.target.value);
     setShowDropdown(false);
   };
+
+  const handleSearchTermClick = () => {
+    if (!searchTerm) {
+      setShowTrendingSearches(!showTrendingSearches);
+      setShowDropdown(false);
+    }
+  };
+
   return (
     <main className="search_container">
-      <div className="search_bar">
+      <div
+        className={`search_bar ${(searchTerm || showDropdown || showTrendingSearches) && 'active'}`}
+      >
         <div className="search_inputs">
           <button className="dropdown_category" type="button" onClick={handleDropdownButton}>
             {productCategory ? `${productCategory}` : 'All Categories'}
@@ -51,12 +83,24 @@ const NavSearchBar = () => {
             type="text"
             value={searchTerm}
             onChange={handleSearchTermInput}
+            onClick={handleSearchTermClick}
             placeholder={productCategory ? `Search in ${productCategory}` : 'Search ...'}
           />
         </div>
         <ul>
-          {searchTerm && autocompleteSuggestionsToRender}
-          {showDropdown && !searchTerm && categoriesDropdownToRender}
+          {searchTerm && !showDropdown ? (
+            <h2>
+              {autocompleteSuggestionsToRender.every((item) => item === false) && 'No'} Suggested
+              Searches {productCategory ? `in ${productCategory}` : 'in All Categories'}
+            </h2>
+          ) : !searchTerm && !showDropdown && showTrendingSearches ? (
+            <h2>Trending Searches</h2>
+          ) : (
+            showDropdown && <h2>Product Categories</h2>
+          )}
+          {searchTerm && !showDropdown && autocompleteSuggestionsToRender}
+          {!searchTerm && !showDropdown && showTrendingSearches && trendingSearchesToRender}
+          {showDropdown && categoriesDropdownToRender}
         </ul>
         <div className="search_button_group">
           {searchTerm && (

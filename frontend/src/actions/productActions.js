@@ -9,7 +9,6 @@ export const listProducts = () => async (dispatch) => {
 
     const {data} = await axios.get(`${BASE_URL}/products`)
 
-    console.log(data);
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data
@@ -28,7 +27,6 @@ export const detailedProducts = (id) => async (dispatch) => {
 
     const { data } = await axios.get(`${BASE_URL}/products/${id}`);
 
-    console.log(data);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data

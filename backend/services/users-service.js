@@ -137,7 +137,6 @@ const update = (usersData) => async (userUpdate, userId) => {
     };
   }
 
-  console.log(userUpdate.email);
   if (userUpdate.email) {
     const user = await usersData.getBy('email', userUpdate.email, true);
     if (user && user.userId !== userId) {

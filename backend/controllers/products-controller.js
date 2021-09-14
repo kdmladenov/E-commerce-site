@@ -150,7 +150,6 @@ productsController
     errorHandler(async (req, res) => {
       const { path } = req.file;
       const { productId } = req.params;
-      console.log(path, productId);
       const { error, _ } = await productsServices.imageChange(productsData)(
         path.replace(/\\/g, '/'),
         +productId

@@ -100,7 +100,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       userLogin: { userInfo }
     } = getState();
 
-    console.log(userInfo.token, 'token');
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
@@ -127,7 +126,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST
     });
-    console.log(user);
     // access to the logged in user info
     const {
       userLogin: { userInfo }

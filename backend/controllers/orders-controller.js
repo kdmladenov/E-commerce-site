@@ -26,7 +26,6 @@ ordersController
     errorHandler(async (req, res) => {
       const data = req.body;
       const userId = req.user.userId;
-      console.log(data, userId, 'data, userId');
       const { error, order } = await ordersServices.addOrderItems(ordersData)(data, userId);
 
       res.status(201).send(order);
