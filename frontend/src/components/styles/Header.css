@@ -16,6 +16,12 @@ header {
   margin-top: 18px;
 }
 
+.categories_mega_menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .search {
   display: flex;
   flex-direction: row;

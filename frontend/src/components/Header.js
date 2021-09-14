@@ -6,6 +6,7 @@ import DropDown from './Dropdown';
 import './styles/Header.css';
 import { logout } from '../actions/userActions';
 import NavSearchBar from './NavSearchBar';
+import CategoriesMegaMenu from './CategoriesMegaMenu';
 
 const Header = () => {
   const [searchColumn, setSearchColumn] = useState('All Categories');
@@ -31,9 +32,12 @@ const Header = () => {
           className="header_logo"
         />
       </Link>
-      <div className="search">
-      <NavSearchBar/>
+      <div className="categories_mega_menu">
+        <CategoriesMegaMenu />
       </div>
+      {/* <div className="search">
+        <NavSearchBar />
+      </div> */}
       <div className="header_nav">
         {userInfo?.token ? (
           <DropDown
