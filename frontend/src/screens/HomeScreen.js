@@ -5,6 +5,8 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCardHomeScreen from '../components/ProductCardHomeScreen';
 import './styles/HomeScreen.css';
+import Carousel from '../components/Carousel/Carousel';
+import { carouselImages } from '../constants/for-developing/sliderImages';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -41,13 +43,26 @@ const HomeScreen = () => {
           <div className="home_row">
             {productsToShow[0]}
             {productsToShow[1]}
+            {productsToShow[1]}
+            {productsToShow[1]}
+            {productsToShow[1]}
           </div>
           <div className="home_row">
             {productsToShow[2]}
             {productsToShow[3]}
             {productsToShow[5]}
+            {productsToShow[5]}
+            {productsToShow[5]}
+            {productsToShow[5]}
           </div>
-          <div className="home_row">{productsToShow[4]}</div>
+
+          <div className="home_row">
+            {productsToShow[4]}
+            {productsToShow[5]}
+            {productsToShow[5]}
+            {productsToShow[5]}
+          </div>
+          <Carousel slides={carouselImages} height={'250px'} />
         </div>
       )}
     </div>
