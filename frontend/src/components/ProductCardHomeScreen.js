@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rating from './Rating';
-import './styles/ProductCard.css';
+import './styles/ProductCardHomeScreen.css';
 import { Link, useHistory } from 'react-router-dom';
 
-const ProductCard = ({ id, title, image, price, rating, stockCount }) => {
+const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) => {
   const history = useHistory();
 
   const addToCartHandler = () => {
@@ -27,14 +27,16 @@ const ProductCard = ({ id, title, image, price, rating, stockCount }) => {
       <Link to={`/products/${id}`}>
         <img src={image} alt="product" className="product_image" />
       </Link>
-      <button onClick={addToCartHandler} disabled={stockCount === 0} className="btn">
-        {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
-      </button>
+      <div className="product_button">
+        <button onClick={addToCartHandler} disabled={stockCount === 0} className="btn">
+          {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
+        </button>
+      </div>
     </div>
   );
 };
 
-ProductCard.defaultProps = {
+ProductCardHomeScreen.defaultProps = {
   id: 0,
   title: '',
   image: '',
@@ -42,7 +44,7 @@ ProductCard.defaultProps = {
   rating: 0
 };
 
-ProductCard.propTypes = {
+ProductCardHomeScreen.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
   image: PropTypes.string,
@@ -50,4 +52,4 @@ ProductCard.propTypes = {
   rating: PropTypes.number
 };
 
-export default ProductCard;
+export default ProductCardHomeScreen;

@@ -1,5 +1,4 @@
 .home {
-  display: flex;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
@@ -14,8 +13,9 @@
 }
 
 .home_row {
+  height: 30vh;
+  width: 100%;
   display: flex;
   z-index: 1;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 2vh 5px;
 }

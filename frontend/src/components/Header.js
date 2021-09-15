@@ -32,9 +32,9 @@ const Header = () => {
           className="header_logo"
         />
       </Link>
-      <div className="categories_mega_menu">
+      {/* <div className="categories_mega_menu">
         <CategoriesMegaMenu />
-      </div>
+      </div> */}
       {/* <div className="search">
         <NavSearchBar />
       </div> */}

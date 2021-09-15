@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ProductCard from '../components/ProductCard';
+import ProductCardHomeScreen from '../components/ProductCardHomeScreen';
 import './styles/HomeScreen.css';
 
 const HomeScreen = () => {
@@ -17,7 +17,8 @@ const HomeScreen = () => {
   }, [dispatch]);
 
   const productsToShow = products?.map((product) => (
-    <ProductCard
+    <ProductCardHomeScreen
+      key={product.productId}
       id={product.productId}
       title={product.title}
       image={product.image}
