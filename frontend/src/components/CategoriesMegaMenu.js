@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { categories } from '../constants/for-developing/categoriesMega';
 import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
+import { images } from '../constants/for-developing/sliderImages';
+import Slider from './Slider/Slider';
 import './styles/CategoriesMegaMenu.css';
 
 const CategoriesMegaMenu = () => {
@@ -41,7 +43,7 @@ const CategoriesMegaMenu = () => {
           <ul>{mainCategoriesListToRender}</ul>
         </div>
         <div className={`category_lists_right ${midCategories.lenth && 'active'}`}>
-          {midMidCategoryListToRender}
+          {midCategories.length ? midMidCategoryListToRender : <Slider images={images} />}
         </div>
       </div>
     </main>
