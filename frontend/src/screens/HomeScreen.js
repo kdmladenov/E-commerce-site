@@ -6,14 +6,15 @@ import Message from '../components/Message';
 import ProductCardHomeScreen from '../components/ProductCardHomeScreen';
 import './styles/HomeScreen.css';
 import Carousel from '../components/Carousel/Carousel';
-import { carouselImages } from '../constants/for-developing/sliderImages';
+import { carouselImages, images } from '../constants/for-developing/sliderImages';
+import Slider from '../components/Slider/Slider';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
-  
+
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
@@ -31,41 +32,51 @@ const HomeScreen = () => {
   ));
 
   return (
-    <div className="home">
+    <main className="home">
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <div className="home_container">
-          <img src="https://cdn.nohat.cc/thumb/f/720/0daa94dcf2494fc4a5e6.jpg" alt="banner" />
+          <div className="home_slider">
+            <Slider
+              images={images}
+              dots={false}
+              prevBtnClass={'home_slider_prev_btn'}
+              nextBtnClass={'home_slider_next_btn'}
+            />
+          </div>
+          <div className="category_card_1">{productsToShow[0]}</div>
+          <div className="category_card_2">{productsToShow[1]}</div>
+          <div className="category_card_3">{productsToShow[1]}</div>
+          <div className="category_card_4">{productsToShow[2]}</div>
+          <div className="category_card_5">{productsToShow[3]}</div>
+          <div className="category_card_6">{productsToShow[5]}</div>
+          <div className="category_card_7">{productsToShow[1]}</div>
+          <div className="category_card_8">{productsToShow[2]}</div>
+          <div className="category_card_9">{productsToShow[3]}</div>
 
-          <div className="home_row">
-            {productsToShow[0]}
-            {productsToShow[1]}
-            {productsToShow[1]}
-            {productsToShow[1]}
-            {productsToShow[1]}
-          </div>
-          <div className="home_row">
-            {productsToShow[2]}
-            {productsToShow[3]}
-            {productsToShow[5]}
-            {productsToShow[5]}
-            {productsToShow[5]}
-            {productsToShow[5]}
-          </div>
+          {productsToShow[5]}
+          {productsToShow[1]}
+          {productsToShow[1]}
+          {productsToShow[2]}
+          {productsToShow[3]}
+          {productsToShow[5]}
+          {productsToShow[1]}
+          {productsToShow[2]}
+          {productsToShow[3]}
+          {productsToShow[5]}
 
-          <div className="home_row">
-            {productsToShow[4]}
-            {productsToShow[5]}
-            {productsToShow[5]}
-            {productsToShow[5]}
+          <div className="carousel_1">
+            <Carousel slides={carouselImages} height={'250px'} />
           </div>
-          <Carousel slides={carouselImages} height={'250px'} />
+          <div className="carousel_2">
+            <Carousel slides={carouselImages} height={'250px'} />
+          </div>
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

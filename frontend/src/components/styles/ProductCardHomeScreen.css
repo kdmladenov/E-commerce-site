@@ -7,8 +7,6 @@
   background: white;
   justify-content: flex-end;
   z-index: 1;
-  /* margin: 2%;
-  padding: 2%; */
 }
 /* Product Info */
 .product_info {
@@ -31,7 +29,7 @@
   text-align: center;
   line-height: 1.15em;
   font-weight: bold;
-  overflow:hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   text-decoration: none;
 }
@@ -40,15 +38,18 @@
 }
 
 .product_rating {
-  margin-top:3%;
+  margin-top: 3%;
   height: 10%;
 }
 
 /* Product Image */
-.product a{
+.product a {
   height: 40%;
   width: 100%;
   object-fit: contain;
+  display: flex;
+  justify-content: center;
+
   /* margin: 1.5vh 0; */
 }
 
@@ -57,5 +58,24 @@
   display: flex;
   justify-content: center;
   height: 15%;
-  width:100%;
+  width: 100%;
+}
+
+/* Tablets and under */
+@media (max-width: 768px) {
+  .product.card {
+    margin: 10px 0;
+    max-height: 80vh;
+  }
+  /* Product Image */
+  .product a {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .product a > img {
+    max-height: 30vh;
+    max-width: 30vh;
+  }
 }
