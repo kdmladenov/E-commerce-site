@@ -11,5 +11,6 @@ export const categoryIcons = {
   "Toys & Children's Items": 'fas fa-child',
   'Sports & leisure': 'fas fa-biking',
   'Auto & DIY': 'fas fa-car',
-  'Books, Office & Food': 'fas fa-book'
+  'Books, Office & Food': 'fas fa-book',
+  categories: 'fa fa-align-justify'
 };

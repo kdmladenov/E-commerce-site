@@ -1,26 +1,30 @@
 header {
-  height: 76px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: black;
+  background-color: rgba(33, 33, 33, 0.98);
   /* position: sticky; */
   top: 0;
   z-index: 100;
 }
 
+.logo_mega_menu_group{
+  display: flex;
+  width: 200px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.mega_menu {
+  z-index: 1000;
+}
 .header_logo {
   width: 100px;
   object-fit: contain;
-  margin: 0 20px;
-  margin-top: 18px;
+  padding-top:20px;
 }
 
-.categories_mega_menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
 
 .search {
   display: flex;
@@ -34,15 +38,14 @@ header {
 }
 
 .header_option {
-  display: flex;
-  flex-direction: column;
   background: transparent;
   border: none;
   align-items: center;
-  color: white;
+  color: #b0b3b8;;
   font-size: 30px;
   margin-top: 5px;
   margin-left: 3vh;
+  position: relative;
 }
 
 .header_optionUserMenu {
@@ -56,16 +59,16 @@ header {
   justify-content: left;
 }
 .badge {
-  font-size: 14px;
-  font-weight: 700;
-  background: black;
+  position: absolute;
+  left: 19px;
+  width:20px;
+  height:20px;
+  line-height: 20px;
+  font-size: 16px;
+  background: red;
   color: #fff;
-  border-radius: 7px;
-  padding: 0 5px;
-  margin-top: -30px;
-  vertical-align: top;
-  margin-left: 9.5px;
-  margin-right: 2vh;
+  border-radius: 50%;
+  padding: 0 0 6px 6px;
 }
 
 #header_optionCart {

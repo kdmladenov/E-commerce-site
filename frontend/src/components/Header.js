@@ -7,6 +7,7 @@ import './styles/Header.css';
 import { logout } from '../actions/userActions';
 import NavSearchBar from './NavSearchBar';
 import CategoriesMegaMenu from './CategoriesMegaMenu';
+import MegaMenu from './MegaMenu';
 
 const Header = () => {
   const [searchColumn, setSearchColumn] = useState('All Categories');
@@ -25,6 +26,10 @@ const Header = () => {
 
   return (
     <header>
+      <div className="logo_mega_menu_group">
+      <div className="mega_menu">
+          <MegaMenu />
+        </div>
       <Link to="/">
         <img
           src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
@@ -32,9 +37,7 @@ const Header = () => {
           className="header_logo"
         />
       </Link>
-      {/* <div className="categories_mega_menu">
-        <CategoriesMegaMenu />
-      </div> */}
+      </div>
       {/* <div className="search">
         <NavSearchBar />
       </div> */}
