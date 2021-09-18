@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import productCategoriesEnum from '../constants/product-categories.enum';
 import DropDown from './Dropdown';
 import './styles/Header.css';
 import { logout } from '../actions/userActions';
 import NavSearchBar from './NavSearchBar';
-import CategoriesMegaMenu from './CategoriesMegaMenu';
 import MegaMenu from './MegaMenu';
 
 const Header = () => {
