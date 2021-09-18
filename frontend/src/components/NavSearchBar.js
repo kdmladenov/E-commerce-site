@@ -6,7 +6,7 @@ import { trending } from '../constants/for-developing/trending';
 import {
   isSearchTermInString,
   searchTermInString
-} from '../constants/utility-functions.js/header-utility-functions';
+} from '../constants/utility-functions.js/utility-functions';
 
 const AUTOCOMPLETE_SUGGESTIONS_COUNT = 5
 const TRENDING_SEARCHES_COUNT = 5;

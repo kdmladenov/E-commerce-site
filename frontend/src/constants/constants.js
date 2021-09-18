@@ -6,6 +6,3 @@ export const MAX_PRODUCT_QTY_FOR_PURCHASE = 10;
 export const FREE_SHIPPING_THRESHOLD = 100;
 export const SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE = 100;
 export const TAX_RATE = 0.2;
-
-
-export const numberDecimalFix = (number) => (Math.round(number * 100)/100).toFixed(2);

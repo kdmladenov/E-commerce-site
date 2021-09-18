@@ -13,3 +13,7 @@ export const searchTermInString = (searchTerm, string) => {
     string.slice(indexOfSearchTerm + searchTerm.length)
   ];
 };
+
+export const numberDecimalFix = (number) => (Math.round(number * 100) / 100).toFixed(2);
+
+export const alphabeticalSort = (arr) => arr.sort((a, b) => a.localeCompare(b))

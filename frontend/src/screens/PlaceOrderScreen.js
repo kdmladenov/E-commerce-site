@@ -7,11 +7,11 @@ import Message from '../components/Message';
 import { CART_REMOVE_ALL_ITEMS } from '../constants/cartConstants';
 import {
   FREE_SHIPPING_THRESHOLD,
-  numberDecimalFix,
   SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE,
   TAX_RATE
 } from '../constants/constants';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
 import './styles/PlaceOrderScreen.css';
 
 const PlaceOrderScreen = ({ history }) => {

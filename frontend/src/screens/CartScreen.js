@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import Message from '../components/Message';
 import './styles/CartScreen.css';
-import { MAX_PRODUCT_QTY_FOR_PURCHASE, numberDecimalFix } from '../constants/constants';
+import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
+import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
 
 const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();

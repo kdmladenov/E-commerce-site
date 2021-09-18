@@ -39,7 +39,7 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <div className="home_container">
-          <div className="home_slider">
+          <div className="home_slider" onClick={()=> console.log('slider')}>
             <Slider
               images={images}
               dots={false}
@@ -56,17 +56,6 @@ const HomeScreen = () => {
           <div className="category_card_7">{productsToShow[1]}</div>
           <div className="category_card_8">{productsToShow[2]}</div>
           <div className="category_card_9">{productsToShow[3]}</div>
-
-          {productsToShow[5]}
-          {productsToShow[1]}
-          {productsToShow[1]}
-          {productsToShow[2]}
-          {productsToShow[3]}
-          {productsToShow[5]}
-          {productsToShow[1]}
-          {productsToShow[2]}
-          {productsToShow[3]}
-          {productsToShow[5]}
 
           <div className="carousel_1">
             <Carousel slides={carouselImages} height={'250px'} />

@@ -5,10 +5,11 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import { Link } from 'react-router-dom';
 import { getOrderDetails, payOrder } from '../actions/orderActions';
 import Message from '../components/Message';
-import { BASE_URL, numberDecimalFix } from '../constants/constants';
+import { BASE_URL } from '../constants/constants';
 import './styles/OrderScreen.css';
 import axios from 'axios';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
 
 const OrderScreen = ({ match }) => {
   const [sdkReady, setSdkReady] = useState(false);
