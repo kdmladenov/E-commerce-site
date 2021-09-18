@@ -36,10 +36,10 @@ const Header = () => {
         />
       </Link>
       </div>
-      {/* <div className="search">
+      <div className="search">
         <NavSearchBar />
-      </div> */}
-      <div className="header_nav">
+      </div>
+      <div className="header_options">
         {userInfo?.token ? (
           <DropDown
             className="header_option"

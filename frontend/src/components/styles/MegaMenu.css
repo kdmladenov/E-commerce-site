@@ -35,7 +35,7 @@
 .menu_sub {
   position: absolute;
   top: 60px;
-  left: -20px;
+  left: -10px;
   padding: 10px 20px;
   width: 400px;
   height: fit-content;
@@ -141,12 +141,14 @@
 
 @media (max-width: 768px) {
   .menu_container {
-    width: 100vw;
+    width: 100%;
   }
   .menu_main,
   .menu_secondary,
   .menu_sub {
-    width: 100vw;
+    top: 120px;
+    width: 100%;
+    border-radius: 0;
   }
   .menu_main span,
   .menu_secondary span,
@@ -155,7 +157,7 @@
     flex: 1;
     justify-content: center;
   }
-  .menu_main h2{
+  .menu_main h2 {
     padding-left: 40px;
   }
 }

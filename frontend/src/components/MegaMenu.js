@@ -25,7 +25,7 @@ const MegaMenu = () => {
     (mainCategory) => (
       <li key={mainCategory} onClick={() => handleNextLinkClick(mainCategory)}>
         <i className={`${categoryIcons[mainCategory]} main`}></i>
-        <span>{mainCategory}</span>
+        <span>{`${mainCategory} (${Object.keys(categories[mainCategory]).length})`}</span>
         <i className="fas fa-angle-right chevron"></i>
       </li>
     )
@@ -36,7 +36,9 @@ const MegaMenu = () => {
     alphabeticalSort(Object.keys(categories[parentCategories[0]])).map((midCategory) => (
       <li key={midCategory} onClick={() => handleNextLinkClick(midCategory)}>
         <i className={`${categoryIcons['categories']} main`}></i>
-        <span>{midCategory}</span>
+        <span>{`${midCategory} (${
+          Object.keys(categories[parentCategories[0]][midCategory]).length
+        })`}</span>
         <i className="fas fa-angle-right chevron"></i>
       </li>
     ));

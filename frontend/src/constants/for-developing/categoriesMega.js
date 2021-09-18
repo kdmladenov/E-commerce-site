@@ -100,59 +100,15 @@ export const categories = {
       'Network-attached storage': 'Network-attached storage'
     }
   },
-  'TV, Audio & Photo': {
-    '': {
-      '': ''
-    }
-  },
-  Gaming: {
-    '': {
-      '': ''
-    }
-  },
-  'Large appliances': {
-    '': {
-      '': ''
-    }
-  },
-  'Small appliances': {
-    '': {
-      '': ''
-    }
-  },
-  Fashion: {
-    '': {
-      '': ''
-    }
-  },
-  'Health and Beauty': {
-    '': {
-      '': ''
-    }
-  },
-  'Home, Garden & Petshop': {
-    '': {
-      '': ''
-    }
-  },
-  "Toys & Children's Items": {
-    '': {
-      '': ''
-    }
-  },
-  'Sports & leisure': {
-    '': {
-      '': ''
-    }
-  },
-  'uto & DIY': {
-    '': {
-      '': ''
-    }
-  },
-  'Books, Office & Food': {
-    '': {
-      '': ''
-    }
-  }
+  'TV, Audio & Photo': {},
+  Gaming: {},
+  'Large appliances': {},
+  'Small appliances': {},
+  Fashion: {},
+  'Health and Beauty': {},
+  'Home, Garden & Petshop': {},
+  "Toys & Children's Items": {},
+  'Sports & leisure': {},
+  'Auto & DIY': {},
+  'Books, Office & Food': {}
 };

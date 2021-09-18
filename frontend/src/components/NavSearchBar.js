@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import './styles/NavSearchBar.css';
 import { suggestions } from '../constants/for-developing/suggestions';
-import productCategoriesEnum from '../constants/product-categories.enum';
 import { trending } from '../constants/for-developing/trending';
 import {
+  alphabeticalSort,
   isSearchTermInString,
   searchTermInString
 } from '../constants/utility-functions.js/utility-functions';
+import { categories } from '../constants/for-developing/categoriesMega';
+import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
 
-const AUTOCOMPLETE_SUGGESTIONS_COUNT = 5
+const AUTOCOMPLETE_SUGGESTIONS_COUNT = 5;
 const TRENDING_SEARCHES_COUNT = 5;
 
 const NavSearchBar = () => {
@@ -39,19 +41,23 @@ const NavSearchBar = () => {
     ))
     .slice(0, TRENDING_SEARCHES_COUNT);
 
-  const categoriesDropdownToRender = Object.values(productCategoriesEnum).map((category) => (
+  const categoriesDropdownToRender = alphabeticalSort(
+    productCategory.length > 0
+      ? [...Object.keys(categories).filter((category) => productCategory !== category), 'All']
+      : Object.keys(categories)
+  ).map((category) => (
     <li key={category} onClick={() => handleCategorySelection(category)}>
-      <i className="fa fa-align-justify"></i>
+      <i className={`${categoryIcons[category]} main`}></i>
       {category}
     </li>
   ));
-
+  console.log(productCategory);
   const handleDropdownButton = () => {
     setShowDropdown(!showDropdown);
   };
 
   const handleCategorySelection = (category) => {
-    setProductCategory(category);
+    setProductCategory(category === 'All' ? '' : category);
     setShowDropdown(false);
   };
 
@@ -81,7 +87,7 @@ const NavSearchBar = () => {
       >
         <div className="search_inputs">
           <button className="dropdown_category" type="button" onClick={handleDropdownButton}>
-            {productCategory ? `${productCategory}` : 'All Categories'}
+            {productCategory ? `${productCategory}` : 'All'}
           </button>
           <input
             className="search_term_input"
@@ -89,7 +95,7 @@ const NavSearchBar = () => {
             value={searchTerm}
             onChange={handleSearchTermInput}
             onClick={handleSearchTermClick}
-            placeholder={productCategory ? `Search in ${productCategory}` : 'Search ...'}
+            // placeholder={productCategory ? `Search in ${productCategory}` : 'Search ...'}
           />
         </div>
         <ul>
