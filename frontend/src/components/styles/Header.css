@@ -51,7 +51,7 @@ header {
   margin-left: 3vh;
   position: relative;
 }
-
+.header_optionAdminMenu,
 .header_optionUserMenu {
   margin-right: 40px;
   display: flex;

@@ -15,7 +15,6 @@ const ProductScreen = ({ history, match }) => {
   const zoomedImageRect = useResize(zoomedImageRef);
   const [showZoomedImage, setShowZoomedImage] = useState(false);
 
-
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
@@ -50,8 +49,6 @@ const ProductScreen = ({ history, match }) => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
-  
-
   return (
     <>
       {loading ? (
@@ -77,7 +74,8 @@ const ProductScreen = ({ history, match }) => {
             style={{
               backgroundImage: showZoomedImage ? `url(${selectedImage})` : 'none',
               backgroundSize: `${zoomBackgroundSize}`,
-              backgroundPosition: `${zoomBackgroundPosition}`
+              backgroundPosition: `${zoomBackgroundPosition}`,
+              boxShadow: showZoomedImage && '0 3px 10px rgba(0, 0, 0, 0.3)'
             }}
           >
             {!showZoomedImage && (

@@ -24,7 +24,7 @@ const Carousel = ({ height, slides }) => {
     (slideGroup, index) =>
       slideIndex === index &&
       slideGroup.map((slide) => (
-        <div className="carousel_slide">
+        <div className="carousel_slide" key={slide}>
           <img src={slide} alt={slide} />
         </div>
       ))
@@ -33,6 +33,7 @@ const Carousel = ({ height, slides }) => {
   const pageDotsToRender = Array.from({ length: Math.ceil(slides.length / SLIDES_PER_PAGE) }).map(
     (_, index) => (
       <div
+        key={index}
         className={slideIndex === index ? 'dot active' : 'dot'}
         onClick={() => setSlideIndex(index)}
       />

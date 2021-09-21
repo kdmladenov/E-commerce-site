@@ -7,7 +7,7 @@
   grid-gap: 20px;
 }
 
-ul {
+.gallery_container ul {
   grid-area: sidebar;
   max-height: 100%;
   padding: 10px;
@@ -15,7 +15,7 @@ ul {
 }
 
 /* https://redstapler.co/css-hidden-scrollbar-while-scrollable-element/ */
-ul::-webkit-scrollbar {
+.gallery_container ul::-webkit-scrollbar {
   display: none; /* Chrome Safari */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
@@ -23,7 +23,7 @@ ul::-webkit-scrollbar {
   overflow-x: hidden;
 }
 
-li {
+.gallery_container li {
   width: 50px;
   height: 40px;
   object-fit: contain;
@@ -31,14 +31,13 @@ li {
   border: 1px solid rgb(196, 196, 196);
 }
 
-li:hover {
+.gallery_container li:hover {
   border-color: orange;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .selected_image {
   grid-area: main_image;
-  border: 1px solid blue;
   position: relative;
 }
 

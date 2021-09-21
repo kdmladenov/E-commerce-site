@@ -8,9 +8,9 @@ const DropDown = ({
   className,
   classNameMenu
 }) => {
-  const renderedOptions = options.map((option) => {
+  const renderedOptions = options.map((option, index) => {
     return (
-      <Dropdown.Item key={option} onClick={() => onSelectedChange(option)}>
+      <Dropdown.Item key={index} onClick={() => onSelectedChange(option)}>
         {option}
       </Dropdown.Item>
     );
@@ -26,7 +26,6 @@ const DropDown = ({
     </Dropdown>
   );
 };
-
 
 DropDown.defaultProps = {
   onSelectedChange: () => {}

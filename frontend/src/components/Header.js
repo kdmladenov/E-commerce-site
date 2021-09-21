@@ -13,6 +13,7 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  userInfo && console.log(userInfo.role, 'userInfo');
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -25,33 +26,50 @@ const Header = () => {
   return (
     <header>
       <div className="logo_mega_menu_group">
-      <div className="mega_menu">
+        <div className="mega_menu">
           <MegaMenu />
         </div>
-      <Link to="/">
-        <img
-          src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
-          alt="logo"
-          className="header_logo"
-        />
-      </Link>
+        <Link to="/">
+          <img
+            src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+            alt="logo"
+            className="header_logo"
+          />
+        </Link>
       </div>
       <div className="search">
         <NavSearchBar />
       </div>
       <div className="header_options">
         {userInfo?.token ? (
-          <DropDown
-            className="header_option"
-            classNameMenu="header_optionUserMenu"
-            selected={<i className="fas fa-user" />}
-            options={[
-              <Link to={'/profile'}>Profile</Link>,
-              <Link onClick={logoutHandler}>Log out</Link>
-            ]}
-          >
-            <i className="fas fa-user" />
-          </DropDown>
+          <>
+            <DropDown
+              className="header_option"
+              classNameMenu="header_optionUserMenu"
+              selected={<i className="fas fa-user" />}
+              options={[
+                <Link to={'/profile'}>Profile</Link>,
+                <Link onClick={logoutHandler}>Log out</Link>
+              ]}
+            >
+              <i className="fas fa-user" />
+            </DropDown>
+
+            {userInfo?.role === 'admin' && (
+              <DropDown
+                className="header_option"
+                classNameMenu="header_optionAdminMenu"
+                selected={<i className="fa fa-user-plus" />}
+                options={[
+                  <Link to={'/admin/userlist'}>Users</Link>,
+                  <Link to={'/admin/productlist'}>Products</Link>,
+                  <Link to={'/admin/orderlist'}>Orders</Link>
+                ]}
+              >
+                <i className="fa fa-user-plus" />
+              </DropDown>
+            )}
+          </>
         ) : (
           <Link to="/login">
             <div className="header_option">
