@@ -51,7 +51,7 @@ const NavSearchBar = () => {
       {category}
     </li>
   ));
-  console.log(productCategory);
+  
   const handleDropdownButton = () => {
     setShowDropdown(!showDropdown);
   };

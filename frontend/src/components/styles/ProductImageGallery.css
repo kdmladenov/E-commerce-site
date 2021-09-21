@@ -1,0 +1,47 @@
+.gallery_container {
+  max-height: 100%;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  grid-template-rows: 100%;
+  grid-template-areas: 'sidebar main_image';
+  grid-gap: 20px;
+}
+
+ul {
+  grid-area: sidebar;
+  max-height: 100%;
+  padding: 10px;
+  overflow: auto;
+}
+
+/* https://redstapler.co/css-hidden-scrollbar-while-scrollable-element/ */
+ul::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+li {
+  width: 50px;
+  height: 40px;
+  object-fit: contain;
+  margin: 10px 0;
+  border: 1px solid rgb(196, 196, 196);
+}
+
+li:hover {
+  border-color: orange;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.selected_image {
+  grid-area: main_image;
+  border: 1px solid blue;
+  position: relative;
+}
+
+.lens {
+  position: absolute;
+}

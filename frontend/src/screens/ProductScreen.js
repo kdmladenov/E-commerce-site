@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
@@ -6,8 +6,16 @@ import { detailedProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
+import ProductImageGallery from '../components/ProductImageGallery';
+import { useResize } from '../hooks/useResize';
 
+// TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
+  const zoomedImageRef = useRef(null);
+  const zoomedImageRect = useResize(zoomedImageRef);
+  const [showZoomedImage, setShowZoomedImage] = useState(false);
+
+
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
@@ -18,9 +26,31 @@ const ProductScreen = ({ history, match }) => {
   const fetchedProduct = useSelector((state) => state.productDetails);
   const { product, loading, error } = fetchedProduct;
 
+  //TO DO to be replaced with backend data
+  const images = [
+    product.image,
+    'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51aOzD8GuxL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/31PEdbmQZsL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/41O4rjSlneL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/41B54aFFMOL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51IIMW6-TbL.jpg',
+    'https://m.media-amazon.com/images/I/71A1RJumI9L._AC_UL640_FMwebp_QL65_.jpg',
+    'https://m.media-amazon.com/images/I/41pfjdq+QFS._AC_UL640_FMwebp_QL65_.jpg',
+    'https://m.media-amazon.com/images/I/71aVUqJuklL._AC_UL640_FMwebp_QL65_.jpg',
+    'https://m.media-amazon.com/images/I/71PNX2zRTpS._AC_UL640_FMwebp_QL65_.jpg',
+    'https://m.media-amazon.com/images/I/71ikXkzAY8L._AC_UL640_FMwebp_QL65_.jpg',
+    'https://m.media-amazon.com/images/I/71gtHnQGfQL._AC_UL640_FMwebp_QL65_.jpg'
+  ];
+  const [selectedImage, setSelectedImage] = useState(images[0]);
+  const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
+  const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();
+
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
+
+  
 
   return (
     <>
@@ -29,27 +59,47 @@ const ProductScreen = ({ history, match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <div className="product_detailCard">
-          <div className="product_detailCardLeft">
-            <img src={product.image} alt={product.title} />
+        <div className="product_details">
+          <div className="product_details_left">
+            <ProductImageGallery
+              images={images}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              zoomedImageRect={zoomedImageRect}
+              setZoomBackgroundSize={setZoomBackgroundSize}
+              setZoomBackgroundPosition={setZoomBackgroundPosition}
+              setShowZoomedImage={setShowZoomedImage}
+            />
           </div>
-          <div className="product_detailCardMiddle">
-            <div className="product_detailCardTile">{product.title}</div>
-            <div className="product_detailCardBrand">
-              by <strong>{product.brand}</strong>
-            </div>
-            <div className="product_detailCardRating">
-              <Rating
-                rating={product.rating}
-                text={` from ${product.reviewCount} reviews`}
-                color="orange"
-              ></Rating>
-            </div>
-            <div className="product_detailCardDescription">
-              Description: <p>{product.description}</p>
-            </div>
+          <div
+            className="product_details_middle"
+            ref={zoomedImageRef}
+            style={{
+              backgroundImage: showZoomedImage ? `url(${selectedImage})` : 'none',
+              backgroundSize: `${zoomBackgroundSize}`,
+              backgroundPosition: `${zoomBackgroundPosition}`
+            }}
+          >
+            {!showZoomedImage && (
+              <div className="product_details_info">
+                <div className="product_details_title">{product.title}</div>
+                <div className="product_details_brand">
+                  by <strong>{product.brand}</strong>
+                </div>
+                <div className="product_details_rating">
+                  <Rating
+                    rating={product.rating}
+                    text={` from ${product.reviewCount} reviews`}
+                    color="orange"
+                  ></Rating>
+                </div>
+                <div className="product_details_description">
+                  Description: <p>{product.description}</p>
+                </div>
+              </div>
+            )}
           </div>
-          <div className="product_detailCardRight card">
+          <div className="product_details_right card">
             <ul>
               <li>
                 <h2>Price</h2>
