@@ -9,7 +9,7 @@ import deleteUserSchema from '../validator/delete-user-schema.js';
 import updatePasswordSchema from '../validator/update-password-schema.js';
 import forgottenPasswordSchema from '../validator/forgotten-password-schema.js';
 import resetPasswordSchema from '../validator/reset-password-schema.js';
-import { authMiddleware } from '../authentication/auth.middleware.js';
+import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
 import rolesEnum from '../constants/roles.enum.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import { paging } from '../constants/constants.js';
@@ -46,12 +46,14 @@ usersController
 
   // @desc Get all users
   // @route GET /users
-  // @access Private - logged
+  // @access Private - Admin only
   .get(
     '/',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    roleMiddleware(rolesEnum.admin),
+    // errorHandler(
+    async (req, res) => {
       const { role } = req.user;
       const { search = '', searchBy = 'fullName', sort = 'fullName', order = 'ASC' } = req.query;
       let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -69,9 +71,11 @@ usersController
         +pageSize,
         role
       );
+
       res.status(200).send(result);
-    })
+    }
   )
+  // )
 
   // .get(
   //   '/:userId/timeline',
