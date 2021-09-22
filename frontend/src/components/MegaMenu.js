@@ -66,15 +66,15 @@ const MegaMenu = () => {
             <ul>{mainCategoriesListToRender}</ul>
           </div>
           <div className={`menu_secondary ${activeMenu !== 'mid' && 'hidden'}`}>
-            <div className="menu_header" onClick={handlePreviousLinkClick}>
-              <i className="fas fa-arrow-left"></i>
+            <div className="menu_header">
+              <i className="fas fa-arrow-left" onClick={handlePreviousLinkClick}></i>
               <span>{`${parentCategories[parentCategories.length - 1]}`}</span>
             </div>
             <ul>{midCategoryListToRender}</ul>
           </div>
           <div className={`menu_sub ${activeMenu !== 'sub' && 'hidden'}`}>
-            <div className="menu_header" onClick={handlePreviousLinkClick}>
-              <i className="fas fa-arrow-left"></i>
+            <div className="menu_header">
+              <i className="fas fa-arrow-left" onClick={handlePreviousLinkClick}></i>
               <span>{`${parentCategories[parentCategories.length - 1]}`}</span>
             </div>
             <ul>{subCategoryListToRender}</ul>

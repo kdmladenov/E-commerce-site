@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles/NavSearchBar.css';
+import './styles/SearchBarNav.css';
 import { suggestions } from '../constants/for-developing/suggestions';
 import { trending } from '../constants/for-developing/trending';
 import {
@@ -13,7 +13,7 @@ import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
 const AUTOCOMPLETE_SUGGESTIONS_COUNT = 5;
 const TRENDING_SEARCHES_COUNT = 5;
 
-const NavSearchBar = () => {
+const SearchBarNav = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [showTrendingSearches, setShowTrendingSearches] = useState(false);
@@ -24,10 +24,12 @@ const NavSearchBar = () => {
       (suggestion) =>
         isSearchTermInString(searchTerm, suggestion) && (
           <li key={suggestion}>
-            <i className="fa fa-search"></i>
-            {`${searchTermInString(searchTerm, suggestion)[0]}`}
-            <strong>{`${searchTermInString(searchTerm, suggestion)[1]}`}</strong>
-            {`${searchTermInString(searchTerm, suggestion)[2]}`}
+            <div>
+              <i className="fa fa-search"></i>
+              {`${searchTermInString(searchTerm, suggestion)[0]}`}
+              <strong>{`${searchTermInString(searchTerm, suggestion)[1]}`}</strong>
+              {`${searchTermInString(searchTerm, suggestion)[2]}`}
+            </div>
           </li>
         )
     )
@@ -36,7 +38,9 @@ const NavSearchBar = () => {
   const trendingSearchesToRender = trending
     .map((suggestion) => (
       <li key={suggestion}>
-        <i className="fa fa-search"></i> {suggestion}
+        <div>
+          <i className="fa fa-search"></i> {suggestion}
+        </div>
       </li>
     ))
     .slice(0, TRENDING_SEARCHES_COUNT);
@@ -47,11 +51,13 @@ const NavSearchBar = () => {
       : Object.keys(categories)
   ).map((category) => (
     <li key={category} onClick={() => handleCategorySelection(category)}>
-      <i className={`${categoryIcons[category]} main`}></i>
-      {category}
+      <div>
+        <i className={`${categoryIcons[category]} main`}></i>
+        {category}
+      </div>
     </li>
   ));
-  
+
   const handleDropdownButton = () => {
     setShowDropdown(!showDropdown);
   };
@@ -86,7 +92,7 @@ const NavSearchBar = () => {
         className={`search_bar ${(searchTerm || showDropdown || showTrendingSearches) && 'active'}`}
       >
         <div className="search_inputs">
-          <button className="dropdown_category" type="button" onClick={handleDropdownButton}>
+          <button type="button" onClick={handleDropdownButton}>
             {productCategory ? `${productCategory}` : 'All'}
           </button>
           <input
@@ -141,4 +147,4 @@ const NavSearchBar = () => {
   );
 };
 
-export default NavSearchBar;
+export default SearchBarNav;
