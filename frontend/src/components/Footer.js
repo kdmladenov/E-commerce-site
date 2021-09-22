@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
 import './styles/Footer.css';
 
 const Footer = () => {
   return (
     <footer>
-      <div className="social_media_button_group">
+      <span>All rights reserved</span>
+      <div className='button_group'>
         <button>
           <i class="fab fa-github"></i>
         </button>
@@ -20,6 +21,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;
