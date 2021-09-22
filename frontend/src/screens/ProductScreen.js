@@ -48,7 +48,11 @@ const ProductScreen = ({ history, match }) => {
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
-
+  const imagesSideBarToRender = images.map((image) => (
+    <li key={image} onMouseEnter={() => setSelectedImage(image)}>
+      <img src={image} alt="" />
+    </li>
+  ));
   return (
     <>
       {loading ? (
@@ -57,6 +61,7 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <div className="product_details">
+          <ul>{imagesSideBarToRender}</ul>
           <div className="product_details_left">
             <ProductImageGallery
               images={images}

@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react';
 import { useResize } from '../hooks/useResize';
 import './styles/ProductImageGallery.css';
 
-const ZOOM_RATIO = 1 / 3;
+const ZOOM_RATIO = 0.3;
 
 const ProductImageGallery = ({
-  images,
+  // images,
   selectedImage,
-  setSelectedImage,
+  // setSelectedImage,
   zoomedImageRect,
   setZoomBackgroundSize,
   setZoomBackgroundPosition,
@@ -46,26 +46,22 @@ const ProductImageGallery = ({
     x = x <= minX ? minX : x >= maxX ? maxX : x;
     y = y <= minY ? minY : y >= maxY ? maxY : y;
 
-    let fx = zoomedImageRect.width / lensRect.width;
-    let fy = zoomedImageRect.height / lensRect.height;
-
-    setZoomBackgroundSize(`${imageRect.width * fx}px ${imageRect.height * fy}px`);
-    setZoomBackgroundPosition(`-${x * fx}px -${y * fy}px`);
+    setZoomBackgroundSize(`${imageRect.width / ZOOM_RATIO}px ${imageRect.height / ZOOM_RATIO}px`);
+    setZoomBackgroundPosition(`-${x / ZOOM_RATIO}px -${y / ZOOM_RATIO}px`);
     setMousePosition({ x, y });
   };
 
-  const imagesSideBarToRender = images.map((image) => (
-    <li key={image} onMouseEnter={() => setSelectedImage(image)}>
-      <img src={image} alt="" />
-    </li>
-  ));
+  // const imagesSideBarToRender = images.map((image) => (
+  //   <li key={image} onMouseEnter={() => setSelectedImage(image)}>
+  //     <img src={image} alt="" />
+  //   </li>
+  // ));
 
   return (
-    <div className="gallery_container">
-      <ul>{imagesSideBarToRender}</ul>
+    <div className="gallery_container" ref={imageContainerRef}>
+      {/* <ul>{imagesSideBarToRender}</ul> */}
       <div
         className="selected_image"
-        ref={imageContainerRef}
         onMouseMove={onMouseMoveHandler}
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeaveHandler}
@@ -77,8 +73,8 @@ const ProductImageGallery = ({
           style={{
             top: `${mousePosition.y}px`,
             left: `${mousePosition.x}px`,
-            width: `${imageContainerRect.width * ZOOM_RATIO}px`,
-            height: `${imageContainerRect.height * ZOOM_RATIO}px`,
+            width: `${zoomedImageRect.width * ZOOM_RATIO}px`,
+            height: `${zoomedImageRect.height * ZOOM_RATIO}px`,
             background: showLens ? 'rgba(214, 214, 214, 0.4)' : 'none',
             border: showLens ? '1px solid rgb(75, 75, 75)' : 'none'
           }}
