@@ -1,10 +1,15 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap'); */
 
 :root {
-  --primary-color: #047aed;
-  --secondary-color: #1c3fa8;
-  --dark-color: #002240;
-  --light-color: #f4f4f4;
+  --black: #333;
+  --gray: #e0e5ec;
+  --white: #fff;
+  --box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
+    4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
+    inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
+  --box_shadow_angle_active: 4px 4px 6px 0 rgba(255, 255, 255, 0.5), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0px rgba(255, 255, 255, 0.5), inset 4px 4px 6px 0px rgba(116, 125, 136, 0.2);
 }
 
 * {
@@ -55,11 +60,12 @@ img {
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  background-color: var(--white);
+  border-radius: 3px;
+  box-shadow: var(--box-shadow);
   padding: 20px;
-  color: #333;
+  color: var(--black);
 }
 
 .btn {
@@ -96,19 +102,19 @@ img {
 .bg-primary,
 .btn-primary {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .bg-secondary,
 .btn-secondary {
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .bg-dark,
 .btn-dark {
   background-color: var(--dark-color);
-  color: #fff;
+  color: var(--white);
 }
 
 .bg-light a,
@@ -121,7 +127,7 @@ img {
 .btn-dark a,
 .bg-light a,
 .btn-light a {
-  color: #fff;
+  color: var(--white);
 }
 
 /* Text sizes */
