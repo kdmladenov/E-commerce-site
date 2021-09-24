@@ -7,11 +7,11 @@ const getBy = async (column, value, isProfileOwner, role) => {
       user_id as userId, 
       full_name as fullName,
       role,
-      email,
       avatar
       ${
         role === 'admin' || isProfileOwner
-          ? `,address ,
+          ? `,email ,
+        address,
         address2,
         city,
         zip,
@@ -76,7 +76,8 @@ const getAll = async (search, searchBy, sort, order, page, pageSize, role) => {
           state,
           country,
           email,
-          phone`
+          phone,
+          is_deleted as isDeleted `
           : ''
       }
     FROM users
