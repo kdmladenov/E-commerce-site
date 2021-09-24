@@ -28,11 +28,11 @@ footer button {
   justify-content: center;
   align-items: center;
   color: var(--gray_dark);
-  box-shadow: var(--box_shadow_angle);
 }
 
 footer button:hover {
   cursor: pointer;
+  box-shadow: var(--box_shadow_angle);
 }
 
 footer button:active {

@@ -26,7 +26,7 @@ header {
 .header_logo {
   width: 100px;
   object-fit: contain;
-  padding-top: 20px;
+  padding-top: 2px;
 }
 
 .search {
@@ -54,10 +54,14 @@ header {
   background: var(--gray);
   color: var(--gray_dark);
   border-radius: 50%;
-  box-shadow: var(--box_shadow_angle);
+  /* box-shadow: var(--box_shadow_angle); */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.header_option:hover {
+  box-shadow: var(--box_shadow_angle);
 }
 
 .header_option:active {

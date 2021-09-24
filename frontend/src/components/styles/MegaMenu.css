@@ -8,18 +8,10 @@
   background: var(--gray);
   color: var(--gray_dark);
   border-radius: 50%;
-  box-shadow: var(--box_shadow_angle);
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 5px 10px;
-}
-
-.button_nav:hover {
-  cursor: pointer;
-}
-.button_nav:active {
-  box-shadow: var(--box_shadow_angle_active);
 }
 
 /* Dropdown Container */
@@ -78,7 +70,7 @@
   color: var(--black);
 }
 
-.menu_header{
+.menu_header {
   margin: -20px;
   padding: 30px 20px;
 }
@@ -124,7 +116,7 @@
   background: var(--gray);
   border-radius: 50%;
   color: var(--gray_dark);
-  box-shadow: var(--box_shadow_angle);
+  /* box-shadow: var(--box_shadow_angle); */
 }
 
 .menu_main > ul > li i.chevron,
@@ -137,11 +129,16 @@
   font-size: 25px;
 }
 
+.button_nav:hover,
 .menu_secondary h2 > i:hover,
 .menu_header i,
 .menu_main > ul > li:hover,
 .menu_secondary > ul > li:hover,
-.menu_sub > ul > li:hover {
+.menu_sub > ul > li:hover,
+.menu_header i:hover,
+.menu_main > ul > li i.main:hover,
+.menu_secondary > ul > li > i.main:hover,
+.menu_sub > ul > li > i:hover {
   cursor: pointer;
   box-shadow: var(--box_shadow_angle);
 }
@@ -150,10 +147,12 @@
 .menu_header i:active,
 .menu_main > ul > li:active,
 .menu_secondary > ul > li:active,
-.menu_sub > ul > li:active {
+.menu_sub > ul > li:active,
+.button_nav:active {
   cursor: pointer;
   box-shadow: var(--box_shadow_angle_active);
 }
+
 
 @media (max-width: 768px) {
   .menu_container {
