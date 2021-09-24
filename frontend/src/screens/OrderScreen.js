@@ -56,7 +56,7 @@ const OrderScreen = ({ match }) => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger">{error}</Message>
+    <Message type="error">{error}</Message>
   ) : (
     <dir className="container">
       <h1>Order: {orderId}</h1>
@@ -78,9 +78,9 @@ const OrderScreen = ({ match }) => {
                 {order?.shippingZip}, {order?.shippingState}, {order?.shippingCountry}
               </p>
               {order.isDelivered ? (
-                <Message variant="success">{order.deliveryDate.slice(0, 10)}</Message>
+                <Message type="success">{order.deliveryDate.slice(0, 10)}</Message>
               ) : (
-                <Message variant="danger">Not Delivered</Message>
+                <Message type="error">Not Delivered</Message>
               )}
             </li>
             <li>
@@ -89,15 +89,15 @@ const OrderScreen = ({ match }) => {
                 <strong>Method:</strong> {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">{order.paymentDate.slice(0, 10)}</Message>
+                <Message type="success">{order.paymentDate.slice(0, 10)}</Message>
               ) : (
-                <Message variant="danger">Not Paid</Message>
+                <Message type="error">Not Paid</Message>
               )}
             </li>
             <li>
               <h1>Order Items</h1>
               {order.orderItemsCreated?.length === 0 ? (
-                <Message variant="danger">Order is empty</Message>
+                <Message type="error">Order is empty</Message>
               ) : (
                 <ul>
                   {order.orderItemsCreated?.map((item) => (

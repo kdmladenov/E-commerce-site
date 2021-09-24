@@ -8,6 +8,7 @@ import Message from '../components/Message';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
+import Button from '../components/Button';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -48,8 +49,8 @@ const ProductScreen = ({ history, match }) => {
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
-  const imagesSideBarToRender = images.map((image) => (
-    <li key={image} onMouseEnter={() => setSelectedImage(image)}>
+  const imagesSideBarToRender = images.map((image, index) => (
+    <li key={index} onMouseEnter={() => setSelectedImage(image)}>
       <img src={image} alt="" />
     </li>
   ));
@@ -58,10 +59,10 @@ const ProductScreen = ({ history, match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message type="error">{error}</Message>
       ) : (
         <div className="product_details">
-          <ul>{imagesSideBarToRender}</ul>
+          <ul className="product_image_sidebar">{imagesSideBarToRender}</ul>
           <div className="product_details_left">
             <ProductImageGallery
               images={images}
@@ -130,16 +131,17 @@ const ProductScreen = ({ history, match }) => {
                   </>
                 )}
               </li>
-              <li>
-                <button
+              
+              
+            </ul>
+            
+                <Button
                   onClick={addToCartHandler}
                   disabled={product.stockCount === 0}
                   className="btn"
                 >
                   {product.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
-                </button>
-              </li>
-            </ul>
+                </Button>
           </div>
         </div>
       )}

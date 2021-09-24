@@ -80,8 +80,8 @@ const ProfileScreen = ({ history }) => {
         <div className="col-5 mx-4">
           <h2>User Profile</h2>
           {loading && <Loader />}
-          {error && <Message variant="danger">{error}</Message>}
-          {success && <Message variant={success}>Profile Updated</Message>}
+          {error && <Message type="error">{error}</Message>}
+          {success && <Message type={success}>Profile Updated</Message>}
           <form className="form">
             <div className="formLeft">
               <h5>Full Name</h5>
@@ -168,7 +168,7 @@ const ProfileScreen = ({ history }) => {
           {loadingOrders ? (
             <Loader />
           ) : errorOrders ? (
-            <Message variant="danger">{error}</Message>
+            <Message type="error">{error}</Message>
           ) : (
             <table>
               <thead>

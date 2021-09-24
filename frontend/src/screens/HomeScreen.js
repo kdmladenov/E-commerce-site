@@ -36,7 +36,7 @@ const HomeScreen = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message type="error">{error}</Message>
       ) : (
         <div className="home_container">
           <div className="home_slider" onClick={()=> console.log('slider')}>

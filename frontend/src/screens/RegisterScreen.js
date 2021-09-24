@@ -41,9 +41,9 @@ const RegisterScreen = () => {
     <div className="register">
       <div className="register_container">
         <h1>Register</h1>
-        {message && <Message variant="danger">{message}</Message>}
+        {message && <Message type="error">{message}</Message>}
         {loading && <Loader />}
-        {error && <Message variant="danger">{error}</Message>}
+        {error && <Message type="error">{error}</Message>}
         <form className="form">
           <div className="formLeft">
             <h5>Full Name</h5>

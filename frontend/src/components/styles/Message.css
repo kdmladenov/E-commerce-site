@@ -1,0 +1,18 @@
+.message {
+  display: grid;
+  place-items: center;
+  height: 50px;
+  width: 90%;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.message.error {
+  background: rgba(255, 0, 0, 0.4);
+  color: var(--gray_dark)
+}
+
+.message.success {
+  background: rgba(2, 221, 2, 0.4);
+  color: var(--grey_dark);
+}

@@ -79,7 +79,7 @@ const PlaceOrderScreen = ({ history }) => {
             <li>
               <h1>Order Items</h1>
               {cartItems?.length === 0 ? (
-                <Message variant="danger">Your cart is empty</Message>
+                <Message type="error">Your cart is empty</Message>
               ) : (
                 <ul>
                   {cartItems?.map((item) => (
@@ -134,7 +134,7 @@ const PlaceOrderScreen = ({ history }) => {
                 </div>
               </li>
               <li>
-                {error && <Message variant='danger'>{error}</Message>}
+                {error && <Message type='error'>{error}</Message>}
               </li>
               <li>
                 <div className="flex">

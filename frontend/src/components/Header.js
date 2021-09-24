@@ -13,7 +13,6 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  userInfo && console.log(userInfo.role, 'userInfo');
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -31,7 +30,7 @@ const Header = () => {
         </div>
         <Link to="/">
           <img
-            src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+            src="https://clipartart.com/images/clipart-logo-maker-online-free-9.png"
             alt="logo"
             className="header_logo"
           />

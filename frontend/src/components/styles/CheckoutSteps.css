@@ -1,13 +1,13 @@
-a {
+.checkout_steps a {
   margin: 20px; 
 }
 
-a:active,a[active] {
+.checkout_steps a:active,a[active] {
   font-weight: bold; 
   color: black;
 }
 
-a:disabled,a[disabled] {
+.checkout_steps a:disabled,a[disabled] {
   color: rgb(145, 144, 144);
   font-weight:300;
   cursor:default;

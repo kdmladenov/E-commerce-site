@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Rating from './Rating';
 import './styles/ProductCardHomeScreen.css';
 import { Link, useHistory } from 'react-router-dom';
+import Button from './Button';
 
 const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) => {
   const history = useHistory();
@@ -28,9 +29,9 @@ const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) 
         <img src={image} alt="product" className="product_image" />
       </Link>
       <div className="product_button">
-        <button onClick={addToCartHandler} disabled={stockCount === 0} className="btn">
+        <Button onClick={addToCartHandler} types={' rounded medium'} disabled={stockCount === 0}>
           {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
-        </button>
+        </Button>
       </div>
     </div>
   );
