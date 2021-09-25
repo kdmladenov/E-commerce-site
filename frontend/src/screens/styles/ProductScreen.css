@@ -9,7 +9,7 @@
   max-height: 100vh;
 }
 
-.product_details ul {
+.product_image_sidebar ul {
   grid-area: sidebar;
   max-height: 100%;
   padding: 10px;
@@ -17,7 +17,7 @@
 }
 
 /* https://redstapler.co/css-hidden-scrollbar-while-scrollable-element/ */
-.product_details ul::-webkit-scrollbar {
+.product_image_sidebar ul::-webkit-scrollbar {
   display: none; /* Chrome Safari */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
@@ -25,7 +25,7 @@
   overflow-x: hidden;
 }
 
-.product_details li {
+.product_image_sidebar li {
   width: 50px;
   height: 40px;
   object-fit: contain;
@@ -33,7 +33,7 @@
   border: 1px solid rgb(196, 196, 196);
 }
 
-.product_details li:hover {
+.product_image_sidebar li:hover {
   border-color: orange;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
@@ -57,37 +57,25 @@
 }
 .product_details_right {
   grid-area: action-box;
-  margin-left: auto;
-  margin-right: auto;
-  flex: 0.5 1 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: fit-content;
-  padding: 3vh;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  max-width: 100%;
 }
 
 .product_details_right > ul {
   width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 .product_details_right > ul > li {
+  width: 100%;
   display: flex;
-  padding: 1vh;
-  margin: 0.5vh;
   justify-content: space-between;
+  align-items: center;
 }
 
-.add_to_cart_btn {
-  width: 100%;
-  margin-top: 20px;
-  font-size: larger;
-  cursor: pointer;
-  background: orange;
-  border: 1px solid;
-  border-radius: 5px;
-  border-color: #a88734 #9c7e31 #846a29;
-  color: #111;
-}
+

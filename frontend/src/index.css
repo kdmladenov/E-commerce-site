@@ -2,14 +2,25 @@
 
 :root {
   --black: #333;
-  --gray: #e0e5ec;
+  --blue: rgb(10, 10, 243);
+  --blue_dark: #222f3e;
+  --blue_light: #d9f2fb;
+  --red: #ff0000;
   --white: #fff;
+  --gray: #e0e5ec;
+  --gray_dark: #838383;
+  --gray_light: #f3f3f3;
+  --yellow: #ffd712;
+  --orange: #ffa41c;
+  --green: rgb(4, 214, 4);
+  --green_lime: lime;
   --box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
     4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
     inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
-  --box_shadow_angle_active: 4px 4px 6px 0 rgba(255, 255, 255, 0.5), -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
-    inset -4px -4px 6px 0px rgba(255, 255, 255, 0.5), inset 4px 4px 6px 0px rgba(116, 125, 136, 0.2);
+  --box_shadow_angle_active: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2), inset -4px -4px 6px 0px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 6px 0px rgba(116, 125, 136, 0.2);
 }
 
 * {
@@ -24,6 +35,16 @@ body {
   line-height: 1.6;
 }
 
+#root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+footer {
+  grid-row: 3 / 4;
+}
+
 ul {
   list-style-type: none;
 }
@@ -31,15 +52,6 @@ ul {
 a {
   text-decoration: none;
   color: #333;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 10px 0;
 }
 
 p {
@@ -53,6 +65,7 @@ img {
 }
 
 .container {
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   overflow: auto;

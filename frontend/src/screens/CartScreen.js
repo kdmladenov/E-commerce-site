@@ -33,8 +33,8 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   return (
-    <div className="flex text-center">
-      <div className="col-8">
+    <div className="cart_container container">
+      <div className="cart_items">
         <h1>Shopping Cart</h1>
         {cartItems?.length === 0 ? (
           <Message>
@@ -44,15 +44,14 @@ const CartScreen = ({ match, location, history }) => {
           <ul>
             {cartItems?.map((item) => (
               <li key={item.id}>
-                <div className="flex cart-item ">
-                  <div className="col-2 mx-4 p-auto">
+                <div className="cart_item">
+                  <div className="cart_item_image">
                     <img src={item.image} alt={item.title} />
                   </div>
-                  <div className="col-3 p-auto text text-center">
+                  <div className="cart_item_description">
                     <Link to={`/products/${item.id}`}>{item.title}</Link>
                   </div>
                   <select
-                    className="mx-4"
                     value={item.qty}
                     onChange={(e) => dispatch(addToCart(item.id, +e.target.value))}
                   >
@@ -64,10 +63,7 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                   </select>
-                  <div
-                    className="col-2 btn-outline m-auto"
-                    onClick={() => removeFromCartHandler(item.id)}
-                  >
+                  <div className="cart_item_delete_btn" onClick={() => removeFromCartHandler(item.id)}>
                     <i className="fas fa-trash"></i>{' '}
                   </div>
                 </div>
@@ -76,7 +72,7 @@ const CartScreen = ({ match, location, history }) => {
           </ul>
         )}
       </div>
-      <div className="col-4">
+      <div className="cart_action_box">
         <div className="card">
           <ul>
             <li>
