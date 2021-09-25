@@ -1,31 +1,46 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from '../actions/userActions';
+import { deleteUser, listUsers } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Button from '../components/Button';
 import { Link } from 'react-router-dom';
+import './styles/UserListScreen.css';
 
-const UserListScreen = () => {
+const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
-  useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: deleteSuccess } = userDelete;
+
+  useEffect(() => {
+    // only admins to have access to the url
+    if (userInfo?.role === 'admin') {
+      dispatch(listUsers());
+    } else {
+      history.push('/login');
+    }
+  }, [dispatch, history, userInfo, deleteSuccess]);
+
+  // TO DO implement restore user
   const deleteUserHandler = (userId) => {
-    console.log('deleteuser');
+    window.confirm('Are your sure you want to delete this user?');
+    dispatch(deleteUser(userId));
   };
 
   return (
-    <>
+    <div className="user_list container">
       <h1>Users</h1>
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message type="error">{error}</Message>
       ) : (
         <table>
           <thead>
@@ -34,6 +49,7 @@ const UserListScreen = () => {
               <th>NAME</th>
               <th>EMAIL</th>
               <th>ADMIN</th>
+              <th>DELETED</th>
               <th></th>
             </tr>
           </thead>
@@ -46,32 +62,37 @@ const UserListScreen = () => {
                   <a href={`mailto:${user.email}`}>{user.email}</a>
                 </td>
                 <td>
-                  {user.isAdmin ? (
+                  {user.role === 'admin' ? (
                     <i className="fa fa-check" style={{ color: 'green' }}></i>
                   ) : (
                     <i className="fa fa-times" style={{ color: 'red' }}></i>
                   )}
                 </td>
                 <td>
-                  <Link to={`/user/${user.userId}/edit}`}>
-                    <button type="button" className="btn">
-                      <i className="fa fa-edit"></i>
-                    </button>
-                  </Link>
-                  <button
-                    type="button"
-                    className="btn"
-                    onClick={() => deleteUserHandler(user.userId)}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
+                  {user.isDeleted ? (
+                    <i className="fa fa-check" style={{ color: 'green' }}></i>
+                  ) : (
+                    <i className="fa fa-times" style={{ color: 'red' }}></i>
+                  )}
                 </td>
+                {!user.isDeleted && (
+                  <td>
+                    <Link to={`/admin/user/${user.userId}/edit`}>
+                      <Button types="icon">
+                        <i className="fa fa-edit"></i>
+                      </Button>
+                    </Link>
+                    <Button types="icon" onClick={() => deleteUserHandler(user.userId)}>
+                      <i className="fas fa-trash"></i>
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 };
 

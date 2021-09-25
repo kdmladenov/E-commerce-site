@@ -1,0 +1,36 @@
+.user_edit {
+  display: grid;
+  grid-template-rows: 50px 50px 600px;
+}
+
+.user_edit_go_back {
+  /* grid-area: 'back'; */
+}
+
+.user_edit > h1 {
+  /* grid-area: 'title'; */
+  /* display: grid;
+  place-items: center; */
+}
+
+.user_edit form {
+  /* grid-area: 'form'; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 500px 50px;
+  grid-template-areas: 'form_left form_right' 'submit submit';
+}
+
+.user_edit .form_left {
+  grid-area: 'form_left';
+}
+
+.user_edit .form_right {
+  grid-area: 'form_right';
+}
+
+.user_edit_btn {
+  grid-area: 'submit';
+  display: grid;
+  place-items: center;
+}
