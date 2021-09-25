@@ -134,8 +134,8 @@ usersController
     })
   )
 
-  // @desc EDIT user data
-  // @route PUT /users/:id
+  // @desc DELETE user
+  // @route DELETE /users/:id
   // @access Private - Admin(delete any user) or User Owner(delete itself irrelevant of the userId entered)
   .delete(
     '/:userId',

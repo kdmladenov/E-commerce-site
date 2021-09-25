@@ -42,7 +42,8 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
       price,
       review_count as reviewCount,
       stock_count as stockCount,
-      rating
+      rating,
+      is_deleted as isDeleted
     FROM products
     WHERE ${
       role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''

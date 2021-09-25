@@ -22,8 +22,7 @@ productsController
     '/',
     // authMiddleware,
     // loggedUserGuard,
-    errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { search = '', searchBy = 'title', sort = 'title', order = 'asc' } = req.query;
       // const { role } = req.user;
 
@@ -120,16 +119,17 @@ productsController
       }
     })
   )
-  // delete product
+  // @desc DELETE product
+  // @route DELETE /products/:id
+  // @access Private - Admin only
   .delete(
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    // roleMiddleware(rolesEnum.admin),
+    roleMiddleware(rolesEnum.admin),
     errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { error, product } = await productsServices.deleteProduct(productsData)(productId);
-
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: 'A product with this id is not found!'
@@ -139,6 +139,7 @@ productsController
       }
     })
   )
+
   // Update/Upload product image
   .put(
     '/:productId/image',
