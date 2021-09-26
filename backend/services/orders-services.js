@@ -132,8 +132,25 @@ const getALLOrdersByUser = (ordersData) => async (userId, role) => {
   };
 };
 
+const getALLOrders = (ordersData) => async () => {
+  const ordersWithoutItems = await ordersData.getAll();
+
+  const ordersWithItems = await Promise.all(
+    await ordersWithoutItems.map(async (order) => {
+      const orderItems = await Promise.all(await ordersData.getAllOrderItemsByOrder(order.orderId));
+      return { ...order, orderItems };
+    })
+  );
+
+  return {
+    orders: ordersWithItems
+  };
+};
+
+
 export default {
   addOrderItems,
+  getALLOrders,
   getOrderById,
   updateOrderToPaid,
   getALLOrdersByUser

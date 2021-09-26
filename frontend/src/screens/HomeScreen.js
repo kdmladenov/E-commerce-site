@@ -48,7 +48,7 @@ const HomeScreen = () => {
             />
           </div>
           <div className="category_card_1">{productsToShow[0]}</div>
-          <div className="category_card_2">{productsToShow[8]}</div>
+          <div className="category_card_2">{productsToShow[5]}</div>
           <div className="category_card_3">{productsToShow[1]}</div>
           <div className="category_card_4">{productsToShow[2]}</div>
           <div className="category_card_5">{productsToShow[3]}</div>
