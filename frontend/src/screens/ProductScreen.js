@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { detailedProducts } from '../actions/productActions';
+import { listProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
@@ -20,7 +20,7 @@ const ProductScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(detailedProducts(match.params.id));
+    dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
   const fetchedProduct = useSelector((state) => state.productDetails);

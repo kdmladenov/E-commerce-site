@@ -17,14 +17,13 @@ import uploadImage from '../middleware/upload-image.js';
 const productsController = express.Router();
 
 productsController
-  // get all products - search, sort, paging
+  // @desc GET All products incl search, sort, paging
+  // @route GET /products
+  // @access Public
   .get(
     '/',
-    // authMiddleware,
-    // loggedUserGuard,
     errorHandler(async (req, res) => {
       const { search = '', searchBy = 'title', sort = 'title', order = 'asc' } = req.query;
-      // const { role } = req.user;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -45,14 +44,14 @@ productsController
       res.status(200).send(product);
     })
   )
-  // get by id
+  // @desc GET Products by ID
+  // @route GET /products/:productId
+  // @access Public
   .get(
     '/:productId',
-    // authMiddleware,
-    // loggedUserGuard,
-    errorHandler(async (req, res) => {
+    // errorHandler(
+      async (req, res) => {
       const { productId } = req.params;
-      // const { role } = req.user;
 
       const { error, product } = await productsServices.getProductById(productsData)(
         productId,
@@ -67,15 +66,18 @@ productsController
         res.status(200).send(product);
       }
     })
-  )
-  // change product
+  // )
+  // @desc EDIT Products by ID
+  // @route PUT /products/:productId
+  // @access Private - Admin only
   .put(
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    // roleMiddleware(rolesEnum.admin),
+    roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(
+      async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -90,7 +92,7 @@ productsController
         });
       } else if (error === errors.DUPLICATE_RECORD) {
         res.status(409).send({
-          message: 'Another product with this title and/or isbn already exist.'
+          message: 'Another product with this title already exist.'
         });
       } else {
         res.status(200).send(result);
@@ -98,27 +100,29 @@ productsController
     })
   )
 
-  // create product
+  // @desc CREATE Products by ID
+  // @route POST /products/:productId
+  // @access Private - Admin only
   .post(
     '/',
     authMiddleware,
     loggedUserGuard,
-    // roleMiddleware(rolesEnum.admin),
+    roleMiddleware(rolesEnum.admin),
     validateBody('product', createProductSchema),
-    errorHandler(async (req, res) => {
+    // errorHandler(
+      async (req, res) => {
       const data = req.body;
-
       const { error, product } = await productsServices.createProduct(productsData)(data);
 
       if (error === errors.DUPLICATE_RECORD) {
         res.status(409).send({
-          message: 'A product with same name already exists.'
+          message: 'A product with same title already exists.'
         });
       } else {
         res.status(201).send(product);
       }
     })
-  )
+  // )
   // @desc DELETE product
   // @route DELETE /products/:id
   // @access Private - Admin only
@@ -140,12 +144,14 @@ productsController
     })
   )
 
-  // Update/Upload product image
+  // @desc UPLOAD / UPDATE product image
+  // @route PUT /products/:productId/image
+  // @access Private - Admin only
   .put(
     '/:productId/image',
     authMiddleware,
     loggedUserGuard,
-    // roleMiddleware(rolesEnum.admin),
+    roleMiddleware(rolesEnum.admin),
     uploadImage.single('image'),
     validateFile('uploads', uploadFileSchema),
     errorHandler(async (req, res) => {
