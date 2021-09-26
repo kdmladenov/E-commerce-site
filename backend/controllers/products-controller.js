@@ -50,7 +50,7 @@ productsController
   .get(
     '/:productId',
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { productId } = req.params;
 
       const { error, product } = await productsServices.getProductById(productsData)(
@@ -65,7 +65,8 @@ productsController
       } else {
         res.status(200).send(product);
       }
-    })
+    }
+  )
   // )
   // @desc EDIT Products by ID
   // @route PUT /products/:productId
@@ -76,8 +77,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
-    errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -110,7 +110,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     validateBody('product', createProductSchema),
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const data = req.body;
       const { error, product } = await productsServices.createProduct(productsData)(data);
 
@@ -121,7 +121,8 @@ productsController
       } else {
         res.status(201).send(product);
       }
-    })
+    }
+  )
   // )
   // @desc DELETE product
   // @route DELETE /products/:id
@@ -143,12 +144,11 @@ productsController
       }
     })
   )
-
-  // @desc UPLOAD / UPDATE product image
-  // @route PUT /products/:productId/image
+  // @desc UPLOAD / UPDATE product's image - new product without id
+  // @route POST /products/image
   // @access Private - Admin only
-  .put(
-    '/:productId/image',
+  .post(
+    '/image',
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
@@ -156,20 +156,38 @@ productsController
     validateFile('uploads', uploadFileSchema),
     errorHandler(async (req, res) => {
       const { path } = req.file;
-      const { productId } = req.params;
-      const { error, _ } = await productsServices.imageChange(productsData)(
-        path.replace(/\\/g, '/'),
-        +productId
-      );
 
-      if (error === errors.RECORD_NOT_FOUND) {
-        res.status(404).send({
-          message: 'A product with this number is not found!'
-        });
-      } else {
-        res.status(200).send({ message: 'The product image is changed' });
-      }
+      res.status(201).send(path.replace(/\\/g, '/'));
     })
   );
+
+  // NOT NEEDED
+// // @desc UPDATE product's image
+// // @route PUT /products/:productId/image
+// // @access Private - Admin only
+// .put(
+//   '/:productId/image',
+//   authMiddleware,
+//   loggedUserGuard,
+//   roleMiddleware(rolesEnum.admin),
+//   uploadImage.single('image'),
+//   validateFile('uploads', uploadFileSchema),
+//   errorHandler(async (req, res) => {
+//     const { path } = req.file;
+//     const { productId } = req.params;
+//     const { error, _ } = await productsServices.imageChange(productsData)(
+//       path.replace(/\\/g, '/'),
+//       +productId
+//     );
+
+//     if (error === errors.RECORD_NOT_FOUND) {
+//       res.status(404).send({
+//         message: 'A product with this number is not found!'
+//       });
+//     } else {
+//       res.status(200).send({ message: 'The product image is changed' });
+//     }
+//   })
+// );
 
 export default productsController;

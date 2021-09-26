@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DropDown from './Dropdown';
@@ -8,7 +8,7 @@ import SearchBarNav from './SearchBarNav';
 import MegaMenu from './MegaMenu';
 
 const Header = () => {
-  const [searchColumn, setSearchColumn] = useState('All Categories');
+  // const [searchColumn, setSearchColumn] = useState('All Categories');
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;

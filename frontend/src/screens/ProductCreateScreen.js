@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import './styles/ProductEditScreen.css';
-import { createProduct, listProductDetails, updateProduct } from '../actions/productActions';
-import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET } from '../constants/productConstants';
+import { createProduct } from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import productCategoriesEnum from '../constants/product-categories.enum';
+import { BASE_URL } from '../constants/constants';
+import axios from 'axios';
 
 const ProductCreateScreen = ({ match, history }) => {
-  // const productId = +match.params.id;
-
   const [title, setTitle] = useState('');
   const [brand, setBrand] = useState('');
   const [image, setImage] = useState('');
@@ -21,14 +21,15 @@ const ProductCreateScreen = ({ match, history }) => {
   const [stockCount, setStockCount] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
   const [rating, setRating] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
-  // const productDetails = useSelector((state) => state.productDetails);
-  // const { loading, error, product } = productDetails;
-
   const productCreate = useSelector((state) => state.productCreate);
   const { loading, error, success } = productCreate;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     if (success) {
@@ -52,6 +53,29 @@ const ProductCreateScreen = ({ match, history }) => {
         rating
       })
     );
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+      const { data } = await axios.post(`${BASE_URL}/products/image`, formData, config);
+      console.log(data);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -93,10 +117,18 @@ const ProductCreateScreen = ({ match, history }) => {
             <h5>Image</h5>
             <input
               type="text"
-              placeholder="Enter Image"
+              placeholder="Enter Image URL"
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
+            Or
+            <input
+              type="file"
+              label="Choose file"
+              placeholder="Upload Image"
+              onChange={uploadFileHandler}
+            />
+            {uploading && <Loader />}
             <h5>Description</h5>
             <textarea
               type="text"

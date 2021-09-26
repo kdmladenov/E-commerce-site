@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct, deleteProduct, listProducts } from '../actions/productActions';
+import { deleteProduct, listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import './styles/ProductListScreen.css';
 import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
-const ProductListScreen = ({ history, match }) => {
+const ProductListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -19,7 +19,12 @@ const ProductListScreen = ({ history, match }) => {
   const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
 
   const productCreate = useSelector((state) => state.productCreate);
-  const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate;
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct
+  } = productCreate;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -42,7 +47,7 @@ const ProductListScreen = ({ history, match }) => {
   };
 
   const createProductHandler = () => {
-      history.push(`/admin/product/create`);
+    history.push(`/admin/product/create`);
   };
 
   return (

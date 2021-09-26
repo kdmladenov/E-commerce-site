@@ -4,6 +4,7 @@ import Rating from './Rating';
 import './styles/ProductCardHomeScreen.css';
 import { Link, useHistory } from 'react-router-dom';
 import Button from './Button';
+import { BASE_URL } from '../constants/constants';
 
 const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) => {
   const history = useHistory();
@@ -26,7 +27,7 @@ const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) 
         </div>
       </div>
       <Link to={`/products/${id}`}>
-        <img src={image} alt="product" className="product_image" />
+        <img src={image?.startsWith('http')? image :`${BASE_URL}/${image}`} alt="product" className="product_image" />
       </Link>
       <div className="product_button">
         <Button onClick={addToCartHandler} types={' rounded medium'} disabled={stockCount === 0}>

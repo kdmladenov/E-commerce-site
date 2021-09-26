@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { BASE_URL } from '../constants/constants';
 import { useResize } from '../hooks/useResize';
 import './styles/ProductImageGallery.css';
 
@@ -66,7 +67,7 @@ const ProductImageGallery = ({
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeaveHandler}
       >
-        <img src={selectedImage} alt="" ref={imageRef} />
+        <img src={selectedImage?.startsWith('http')? selectedImage :`${BASE_URL}/${selectedImage}`} alt="" ref={imageRef} />
         <div
           className="lens"
           ref={lensRef}

@@ -96,23 +96,24 @@ const deleteProduct = (productsData) => async (productId) => {
   };
 };
 
-const imageChange = (productsData) => async (path, productId) => {
-  const existingProduct = await productsData.getBy('product_id', +productId);
+// NOT NEEDED
+// const imageChange = (productsData) => async (path, productId) => {
+//   const existingProduct = await productsData.getBy('product_id', +productId);
 
-  if (!existingProduct) {
-    return {
-      error: errors.RECORD_NOT_FOUND,
-      product: null
-    };
-  }
+//   if (!existingProduct) {
+//     return {
+//       error: errors.RECORD_NOT_FOUND,
+//       product: null
+//     };
+//   }
 
-  const result = await productsData.imageChange(path, productId);
+//   const result = await productsData.imageChange(path, productId);
 
-  return {
-    error: null,
-    result
-  };
-};
+//   return {
+//     error: null,
+//     result
+//   };
+// };
 
 export default {
   getAllProducts,
@@ -120,5 +121,5 @@ export default {
   createProduct,
   updateProduct,
   deleteProduct,
-  imageChange
+  // imageChange
 };
