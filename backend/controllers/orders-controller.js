@@ -86,8 +86,31 @@ ordersController
     })
   )
 
+  // @desc Update order to delivered
+  // @route PUT /orders/:id/deliver
+  // @access Private - Admin only
+  .put(
+    '/:orderId/deliver',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    validateBody('order', updateOrderSchema), // TO DO
+    errorHandler(async (req, res) => {
+      const { orderId } = req.params;
+      const { error, order } = await ordersServices.updateOrderToDelivered(ordersData)(orderId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The order is not found.'
+        });
+      } else {
+        res.status(200).send(order);
+      }
+    })
+  )
+
   // @desc Update order to paid
-  // @route PUT /api/orders/:id/pay
+  // @route PUT /orders/:id/pay
   // @access Private
 
   .put(
@@ -95,8 +118,7 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     validateBody('order', updateOrderSchema), // TO DO
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
       const paymentData = req.body;
@@ -118,7 +140,7 @@ ordersController
       } else {
         res.status(200).send(order);
       }
-    }
+    })
   );
 
 export default ordersController;

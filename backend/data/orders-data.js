@@ -227,6 +227,17 @@ const updateOrderPayment = async (orderId, paymentResultId) => {
   return db.query(sql, [+paymentResultId, new Date(), +orderId]);
 };
 
+const updateOrderDelivered = async (orderId) => {
+  const sql = `
+    UPDATE orders SET
+      is_delivered = 1,
+      delivery_date = ?
+    WHERE order_id = ?
+  `;
+
+  return db.query(sql, [new Date(), +orderId]);
+};
+
 export default {
   getAllByUser,
   getAll,
@@ -235,5 +246,6 @@ export default {
   createOrderItem,
   getAllOrderItemsByOrder,
   createOrderPaymentResult,
-  updateOrderPayment
+  updateOrderPayment,
+  updateOrderDelivered
 };

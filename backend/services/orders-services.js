@@ -105,7 +105,7 @@ const updateOrderToPaid = (ordersData) => async (orderId, role, userId, paymentD
   });
   await ordersData.updateOrderPayment(orderId, paymentResult.paymentResultId);
 
-  const UpdatedOrderWithoutItems = await ordersData.getOrderBy(
+  const updatedOrderWithoutItems = await ordersData.getOrderBy(
     'order_id',
     orderId,
     role,
@@ -114,9 +114,34 @@ const updateOrderToPaid = (ordersData) => async (orderId, role, userId, paymentD
 
   return {
     error: null,
-    order: { orderItemsCreated, paymentResult, ...UpdatedOrderWithoutItems }
+    order: { orderItemsCreated, paymentResult, ...updatedOrderWithoutItems }
   };
 };
+
+
+const updateOrderToDelivered = (ordersData) => async (orderId) => {
+  const orderWithoutItems = await ordersData.getOrderBy('order_id', +orderId, 'admin');
+
+  if (!orderWithoutItems) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      order: null
+    };
+  }
+
+  const orderItems = await ordersData.getAllOrderItemsByOrder(orderId);
+
+  await ordersData.updateOrderDelivered(orderId);
+
+  const updatedOrderWithoutItems = await ordersData.getOrderBy('order_id', +orderId, 'admin');
+
+  return {
+    error: null,
+    order: { orderItems, ...updatedOrderWithoutItems }
+  };
+};
+
+
 const getALLOrdersByUser = (ordersData) => async (userId, role) => {
   const ordersWithoutItems = await ordersData.getAllByUser(userId, role);
 
@@ -153,5 +178,6 @@ export default {
   getALLOrders,
   getOrderById,
   updateOrderToPaid,
+  updateOrderToDelivered,
   getALLOrdersByUser
 };
