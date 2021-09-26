@@ -1,7 +1,11 @@
-import './styles/Message.css'
+import './styles/Message.css';
 
 const Message = ({ type, children }) => {
-  return <div className={`message ${type}`}>{children}</div>;
+  return (
+    <div className="message_container">
+      <div className={`message ${type}`}>{children}</div>
+    </div>
+  );
 };
 
 Message.defaultProps = {

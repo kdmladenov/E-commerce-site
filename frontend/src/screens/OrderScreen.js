@@ -78,7 +78,7 @@ const OrderScreen = ({ match }) => {
                 {order?.shippingZip}, {order?.shippingState}, {order?.shippingCountry}
               </p>
               {order.isDelivered ? (
-                <Message type="success">{order.deliveryDate.slice(0, 10)}</Message>
+                <Message type="success">Delivered at {order.deliveryDate.slice(0, 10)}</Message>
               ) : (
                 <Message type="error">Not Delivered</Message>
               )}
@@ -89,7 +89,7 @@ const OrderScreen = ({ match }) => {
                 <strong>Method:</strong> {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message type="success">{order.paymentDate.slice(0, 10)}</Message>
+                <Message type="success">Paid at {order.paymentDate.slice(0, 10)}</Message>
               ) : (
                 <Message type="error">Not Paid</Message>
               )}

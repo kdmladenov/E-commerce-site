@@ -1,15 +1,22 @@
+.message_container{
+  display: grid;
+  place-items: center;
+  height: 70px;
+  width: 100%
+}
+
 .message {
   display: grid;
   place-items: center;
   height: 50px;
   width: 90%;
-  margin: 10px;
+  margin: 10px 0px;
   border-radius: 5px;
 }
 
 .message.error {
   background: rgba(255, 0, 0, 0.4);
-  color: var(--gray_dark)
+  color: var(--white)
 }
 
 .message.success {
