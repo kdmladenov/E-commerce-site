@@ -44,7 +44,7 @@ const getBy = async (column, value, role) => {
     review_id as reviewId,
     product_id as productId,
     user_id as userId,
-    title as productTitle,
+    title,
     content, 
     rating,
     date_created as dateCreated,

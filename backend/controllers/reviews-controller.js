@@ -63,7 +63,7 @@ reviewsController
   .get(
     '/:productId',
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { productId } = req.params;
       const { order = 'DESC' } = req.query;
       let { pageSize = paging.DEFAULT_REVIEWS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -86,62 +86,65 @@ reviewsController
       } else {
         res.status(200).send(result);
       }
-    })
+    }
+  )
   // )
-// // get review by ID
-// .get(
-//   '/:reviewId',
-//   authMiddleware,
-//   loggedUserGuard,
-//   errorHandler(async (req, res) => {
-//     const { reviewId } = req.params;
-//     const { userId, role } = req.user;
+  // // get review by ID
+  // .get(
+  //   '/:reviewId',
+  //   authMiddleware,
+  //   loggedUserGuard,
+  //   errorHandler(async (req, res) => {
+  //     const { reviewId } = req.params;
+  //     const { userId, role } = req.user;
 
-//     const { error, result } = await reviewsService.readReview(reviewsData)(
-//       +reviewId,
-//       +userId,
-//       role
-//     );
+  //     const { error, result } = await reviewsService.readReview(reviewsData)(
+  //       +reviewId,
+  //       +userId,
+  //       role
+  //     );
 
-//     if (error === errors.RECORD_NOT_FOUND) {
-//       res.status(404).send({
-//         message: 'The review is not found.'
-//       });
-//     } else {
-//       res.status(200).send(result);
-//     }
-//   })
-// )
+  //     if (error === errors.RECORD_NOT_FOUND) {
+  //       res.status(404).send({
+  //         message: 'The review is not found.'
+  //       });
+  //     } else {
+  //       res.status(200).send(result);
+  //     }
+  //   })
+  // )
 
-// // update review
-// .patch(
-//   '/:reviewId',
-//   authMiddleware,
-//   loggedUserGuard,
-//   validateBody('review', updateReviewSchema),
-//   async (req, res) => {
-//     const { content, rating, title } = req.body;
-//     const { reviewId } = req.params;
-//     const { userId, role } = req.user;
+  // @desc EDIT Product review
+  // @route PUT/:reviewId
+  // @access Private - logged users who have created the review or Admin
+  .put(
+    '/:reviewId',
+    authMiddleware,
+    loggedUserGuard,
+    validateBody('review', updateReviewSchema),
+    async (req, res) => {
+      const { content, rating, title } = req.body;
+      const { reviewId } = req.params;
+      const { userId, role } = req.user;
 
-//     const { error, result } = await reviewsService.updateReview(reviewsData)(
-//       content,
-//       +reviewId,
-//       +userId,
-//       role,
-//       +rating,
-//       title
-//     );
+      const { error, result } = await reviewsService.updateReview(reviewsData)(
+        content,
+        +reviewId,
+        +userId,
+        role,
+        +rating,
+        title
+      );
 
-//     if (error === errors.RECORD_NOT_FOUND) {
-//       res.status(404).send({
-//         message: 'The review is not found.'
-//       });
-//     } else {
-//       res.status(200).send(result);
-//     }
-//   }
-// )
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The review is not found.'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    }
+  );
 
 // // delete review
 // .delete(

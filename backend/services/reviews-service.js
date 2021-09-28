@@ -57,34 +57,32 @@ const createReview = (productsData, reviewsData
   };
 };
 
-// const updateReview = reviewsData => async (content, reviewId, userId, role, rating, title) => {
-//   // checks if the review exists
-//   const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
+const updateReview = reviewsData => async (content, reviewId, userId, role, rating, title) => {
 
-//   if (!existingReview) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
-//   if (!content) {
-//     content = existingReview.content;
-//   }
-//   if (!title) {
-//     title = existingReview.title;
-//   }
-//   if (!rating) {
-//     rating = existingReview.rating;
-//   }
-//   const updated = {
-//     ...existingReview, content, date_edited: new Date().toLocaleDateString('en-US'), rating, title,
-//   };
-//   const _ = await reviewsData.update(content, reviewId, userId, role, rating, title);
-//   return {
-//     error: null,
-//     result: updated,
-//   };
-// };
+  const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
+
+  if (!existingReview) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
+
+  if (!content) { content = existingReview.content }
+  if (!title) {title = existingReview.title}
+  if (!rating) {rating = existingReview.rating}
+
+  const updated = {
+    ...existingReview, content, date_edited: new Date().toLocaleDateString('en-US'), rating, title,
+  };
+
+  await reviewsData.update(content, reviewId, userId, role, rating, title);
+
+  return {
+    error: null,
+    result: updated,
+  };
+};
 
 // const deleteReview = (reviewsData, usersData) => async (reviewId, userId, role) => {
 //   const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
@@ -160,7 +158,7 @@ const createReview = (productsData, reviewsData
 export default {
   getAllReviews,
   createReview,
-  // updateReview,
+  updateReview,
   // deleteReview,
   // voteReview,
   // unVoteReview,
