@@ -120,22 +120,30 @@ const voteReview = reviewsData => async (reactionName, reviewId, userId, role) =
   };
 };
 
-// const unVoteReview = reviewVoteData => async (reviewId, userId, role) => {
-//   const existingReview = await reviewVoteData.getBy('review_id', reviewId, userId, role);
+const unVoteReview = (reviewsData) => async (reviewId, userId, role) => {
+  const existingReviewVote = await reviewsData.getVoteBy('review_id', reviewId, userId, role);
 
-//   if (!existingReview) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+  if (!existingReviewVote) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+  // The user is not admin or has created the review vote
+  if (existingReviewVote.userId !== userId && role !== rolesEnum.admin) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      result: null
+    };
+  }
 
-//   const _ = await reviewVoteData.remove(reviewId, userId);
-//   return {
-//     error: null,
-//     result: { message: `Vote was successfully removed.` },
-//   };
-// };
+  await reviewsData.removeVote(reviewId, userId);
+
+  return {
+    error: null,
+    result: { message: `Vote was successfully removed.` }
+  };
+};
 
 // const readReview = reviewsData => async (reviewId, userId, role) => {
 //   // checks if the review exists
@@ -160,6 +168,6 @@ export default {
   updateReview,
   deleteReview,
   voteReview,
-  // unVoteReview,
+  unVoteReview,
   // readReview,
 };

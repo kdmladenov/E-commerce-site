@@ -80,7 +80,7 @@ const update = async (content, reviewId, userId, role, rating, title) => {
       content = ?,
       rating = ?,
       date_edited = CURRENT_TIMESTAMP()
-    WHERE review_id = ? ${role === rolesEnum.basic ? "AND user_id = ?" : ""}
+    WHERE review_id = ? ${role === rolesEnum.basic ? 'AND user_id = ?' : ''}
   `;
   return db.query(sql, [title, content, rating, reviewId, userId]);
 };
@@ -89,7 +89,7 @@ const remove = async (reviewId, userId, role) => {
   const sql = `
     UPDATE reviews
     SET is_deleted = true
-    WHERE review_id = ? ${role === rolesEnum.basic ? "AND user_id = ?" : ""}
+    WHERE review_id = ? ${role === rolesEnum.basic ? 'AND user_id = ?' : ''}
   `;
   return db.query(sql, [reviewId, userId, role]);
 };
@@ -134,7 +134,6 @@ const getVoteBy = async (column, value, userId, role) => {
   return result[0];
 };
 
-
 const createVote = async (reactionName, reviewId, userId, role) => {
   const sql = `
     INSERT INTO review_likes (
@@ -163,13 +162,16 @@ const updateVote = async (reactionName, reviewId, userId, role) => {
 };
 
 const removeVote = async (reviewId, userId) => {
+  console.log(reviewId, userId);
   const sql = `
         UPDATE review_likes 
         SET is_deleted  = 1
         WHERE review_id = ? AND user_id = ?
     `;
 
-  return db.query(sql, [reviewId, userId]);
+  db.query(sql, [+reviewId, +userId]);
+
+  return;
 };
 
 export default {

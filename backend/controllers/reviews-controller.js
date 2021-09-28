@@ -14,6 +14,7 @@ import createReviewSchema from '../validator/create-review-schema.js';
 import updateReviewSchema from '../validator/update-review-schema.js';
 import { paging } from '../constants/constants.js';
 import voteReviewSchema from '../validator/vote-review-schema.js';
+import rolesEnum from '../constants/roles.enum.js';
 
 const reviewsController = express.Router();
 
@@ -194,32 +195,41 @@ reviewsController
       );
       res.status(201).send(result);
     })
+  )
+  // @desc DELETE Product review vote
+  // @route DELETE /reviews/:reviewId/votes
+  // @access Private - logged users who have created the review or Admin
+  .delete(
+    '/:reviewId/votes',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+    async (req, res) => {
+      console.log(req.user);
+      const { reviewId } = req.params;
+      const { role } = req.user;
+      // const userId = role === rolesEnum.admin ? req.body.userId : req.user.userId;
+      const userId = req.user.userId;
+
+      const { error, result } = await reviewsService.unVoteReview(reviewsData)(
+        +reviewId,
+        +userId,
+        role
+      );
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(403).send({
+          message: 'The review vote is not found.'
+        });
+      } else if (error === errors.OPERATION_NOT_PERMITTED) {
+        res.status(403).send({
+          message: `You are not authorized to delete this vote`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    }
   );
-
-// .delete(
-//   '/:reviewId/votes',
-//   authMiddleware,
-//   loggedUserGuard,
-//   errorHandler(async (req, res) => {
-//     // const { reactionId } = req.body;
-//     const { reviewId } = req.params;
-//     const { role } = req.user;
-//     const id = role === rolesEnum.admin ? req.body.userId : req.user.userId;
-
-//     const { error, result } = await reviewsService.unVoteReview(reviewVoteData, usersData)(
-//       +reviewId,
-//       +id,
-//       role
-//     );
-
-//     if (error === errors.RECORD_NOT_FOUND) {
-//       res.status(403).send({
-//         message: 'Review is not found.'
-//       });
-//     } else {
-//       res.status(200).send(result);
-//     }
-//   })
-// )
+// );
 
 export default reviewsController;
