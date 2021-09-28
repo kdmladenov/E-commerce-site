@@ -24,15 +24,5 @@ export default {
     !value ||
     (typeof value === 'number' &&
       value >= PRODUCT.MIN_STOCK_COUNT &&
-      value <= PRODUCT.MAX_STOCK_COUNT),
-  review_count: (value) =>
-    !value ||
-    (typeof value === 'number' &&
-      value >= PRODUCT.MIN_REVIEW_COUNT &&
-      value <= PRODUCT.MAX_REVIEW_COUNT),
-  rating: (value) =>
-    !value ||
-    (typeof value === 'number' &&
-      value >= PRODUCT.MIN_RATING_VALUE &&
-      value <= PRODUCT.MAX_REVIEW_COUNT)
+      value <= PRODUCT.MAX_STOCK_COUNT)
 };

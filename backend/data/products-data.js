@@ -33,18 +33,22 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
 
   const sql = `
   SELECT 
-      product_id as productId,
-      title,
-      brand,
-      description,
-      image,
-      product_category as productCategory,
-      price,
-      review_count as reviewCount,
-      stock_count as stockCount,
-      rating,
-      is_deleted as isDeleted
-    FROM products
+      p.product_id as productId,
+      p.title,
+      p.brand,
+      p.description,
+      p.image,
+      p.product_category as productCategory,
+      p.price,
+      r.review_count as reviewCount,
+      p.stock_count as stockCount,
+      r.rating,
+      p.is_deleted as isDeleted
+    FROM products p
+    LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
+                FROM reviews
+                WHERE is_deleted = 0
+                GROUP BY product_id) as r using (product_id)
     WHERE ${
       role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''
     } ${searchColumn} Like '%${search}%'
@@ -58,17 +62,21 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
 const getBy = async (column, value, role) => {
   const sql = `
     SELECT 
-      product_id as productId,
-      title,
-      brand,
-      description,
-      image,
-      product_category as productCategory,
-      price,
-      stock_count as stockCount,
-      review_count as reviewCount,
-      rating
-    FROM products
+      p.product_id as productId,
+      p.title,
+      p.brand,
+      p.description,
+      p.image,
+      p.product_category as productCategory,
+      p.price,
+      p.stock_count as stockCount,
+      r.review_count as reviewCount,
+      r.rating
+    FROM products p
+    LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
+            FROM reviews
+            WHERE is_deleted = 0
+            GROUP BY product_id) as r using (product_id)
     WHERE ${column} = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''};
   `;
 
@@ -85,11 +93,9 @@ const create = async (product) => {
       description,
       product_category,
       price,
-      stock_count,
-      review_count,
-      rating
+      stock_count
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
   const result = await db.query(sql, [
     product.title,
@@ -98,9 +104,7 @@ const create = async (product) => {
     product.description || '',
     product.product_category,
     +product.price,
-    +product.stock_count,
-    +product.review_count,
-    +product.rating
+    +product.stock_count
   ]);
 
   return getBy('product_id', result.insertId);
@@ -116,9 +120,7 @@ const update = async (updatedProduct) => {
           description = ?,
           product_category = ?,
           price = ?,
-          stock_count = ?,
-          review_count = ?,
-          rating = ?
+          stock_count = ?
         WHERE product_id = ?
     `;
 
@@ -130,8 +132,6 @@ const update = async (updatedProduct) => {
     updatedProduct.productCategory,
     +updatedProduct.price,
     +updatedProduct.stock_count,
-    +updatedProduct.review_count,
-    +updatedProduct.rating,
     +updatedProduct.productId
   ]);
 

@@ -41,7 +41,8 @@ export const product = {
   MIN_REVIEW_COUNT: 0,
   MAX_REVIEW_COUNT: 1000,
   MIN_RATING_VALUE: 0,
-  MAX_RATING_VALUE: 5
+  MAX_RATING_VALUE: 5,
+  RATING_REGEX: /^[1-5]$/
 };
 
 export const uploads = {
@@ -63,4 +64,10 @@ export const order = {
   MIN_TAX_PRICE: 0,
   MIN_SHIPPING_PRICE: 0,
   MIN_TOTAL_PRICE: 0
+};
+
+export const review = {
+  MIN_CONTENT_LENGTH: 2,
+  MIN_TITLE_LENGTH: 2,
+  MAX_TITLE_LENGTH: 255
 };
