@@ -59,13 +59,13 @@ reviewsController
       }
     })
   )
+  
   // @desc GET All Product reviews
   // @route GET/reviews/:productId
   // @access Public
   .get(
     '/:productId',
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { order = 'DESC' } = req.query;
       let { pageSize = paging.DEFAULT_REVIEWS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -88,33 +88,28 @@ reviewsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
-  // )
-  // // get review by ID
-  // .get(
-  //   '/:reviewId',
-  //   authMiddleware,
-  //   loggedUserGuard,
-  //   errorHandler(async (req, res) => {
-  //     const { reviewId } = req.params;
-  //     const { userId, role } = req.user;
 
-  //     const { error, result } = await reviewsService.readReview(reviewsData)(
-  //       +reviewId,
-  //       +userId,
-  //       role
-  //     );
+  // @desc GET Single Product review by ID
+  // @route GET/reviews/:reviewId
+  // @access Public
+  .get(
+    '/:reviewId/review',
+    errorHandler(async (req, res) => {
+      const { reviewId } = req.params;
 
-  //     if (error === errors.RECORD_NOT_FOUND) {
-  //       res.status(404).send({
-  //         message: 'The review is not found.'
-  //       });
-  //     } else {
-  //       res.status(200).send(result);
-  //     }
-  //   })
-  // )
+      const { error, result } = await reviewsService.getReviewById(reviewsData)(+reviewId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The review is not found.'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  )
 
   // @desc EDIT Product review
   // @route PUT/:reviewId
@@ -124,7 +119,7 @@ reviewsController
     authMiddleware,
     loggedUserGuard,
     validateBody('review', updateReviewSchema),
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { content, rating, title } = req.body;
       const { reviewId } = req.params;
       const { userId, role } = req.user;
@@ -145,7 +140,7 @@ reviewsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
 
   // @desc DELETE Product review
@@ -203,8 +198,7 @@ reviewsController
     '/:reviewId/votes',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       console.log(req.user);
       const { reviewId } = req.params;
       const { role } = req.user;
@@ -228,8 +222,7 @@ reviewsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   );
-// );
 
 export default reviewsController;
