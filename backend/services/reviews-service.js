@@ -1,23 +1,23 @@
 /* eslint-disable no-param-reassign */
 import errors from '../constants/service-errors.js';
 
-// const getAllReviews = (reviewsData, productsData) => async (productId, order, page, pageSize) => {
-//   const existingProduct = await productsData.getBy('product_id', productId);
+const getAllReviews = (reviewsData, productsData) => async (productId, order, page, pageSize) => {
+  const existingProduct = await productsData.getBy('product_id', productId);
 
-//   if (!existingProduct) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+  if (!existingProduct) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   const reviews = await reviewsData.getAll(productId, order, page, pageSize);
+  const reviews = await reviewsData.getAll(productId, order, page, pageSize);
 
-//   return {
-//     error: null,
-//     result: reviews,
-//   };
-// };
+  return {
+    error: null,
+    result: reviews,
+  };
+};
 
 const createReview = (productsData, reviewsData
   // , ordersData, usersData
@@ -158,7 +158,7 @@ const createReview = (productsData, reviewsData
 // };
 
 export default {
-  // getAllReviews,
+  getAllReviews,
   createReview,
   // updateReview,
   // deleteReview,
