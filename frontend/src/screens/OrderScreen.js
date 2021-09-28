@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { Link } from 'react-router-dom';
-import { getOrderDetails, payOrder } from '../actions/orderActions';
+import { deliverOrder, getOrderDetails, payOrder } from '../actions/orderActions';
 import Message from '../components/Message';
 import { BASE_URL } from '../constants/constants';
 import './styles/OrderScreen.css';
 import axios from 'axios';
-import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../constants/orderConstants';
 import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
+import Button from '../components/Button';
 
 const OrderScreen = ({ match }) => {
   const [sdkReady, setSdkReady] = useState(false);
@@ -18,11 +19,21 @@ const OrderScreen = ({ match }) => {
 
   const orderId = match.params.id;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
+  useEffect(() => {
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, orderId]);
 
   useEffect(() => {
     const addPaypalScript = async () => {
@@ -37,9 +48,10 @@ const OrderScreen = ({ match }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPay) {
+    if (!order || successPay || successDeliver) {
       // if there is no order or it is paid
       dispatch({ type: ORDER_PAY_RESET }); // prevents infinite loop
+      dispatch({ type: ORDER_DELIVER_RESET }); // prevents infinite loop
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -48,17 +60,22 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, order, successPay]);
+  }, [dispatch, orderId, order, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order));
+  };
+
   return loading ? (
     <Loader />
   ) : error ? (
     <Message type="error">{error}</Message>
   ) : (
-    <dir className="container">
+    <main className="order">
       <h1>Order: {orderId}</h1>
       <div className="flex">
         <dir className="col-8">
@@ -66,10 +83,10 @@ const OrderScreen = ({ match }) => {
             <li>
               <h1>Shipping</h1>
               <p>
-                <strong>Name:</strong> {order.fullName}
+                <strong>Name:</strong> {order?.fullName}
               </p>
               <p>
-                <strong>Email:</strong> <a href={`mailto:${order.email}`}>{order.email}</a>
+                <strong>Email:</strong> <a href={`mailto:${order?.email}`}>{order?.email}</a>
               </p>
 
               <p>
@@ -77,8 +94,8 @@ const OrderScreen = ({ match }) => {
                 {order?.shippingAddress} {order?.shippingAddress2}, {order?.shippingCity},{' '}
                 {order?.shippingZip}, {order?.shippingState}, {order?.shippingCountry}
               </p>
-              {order.isDelivered ? (
-                <Message type="success">Delivered at {order.deliveryDate.slice(0, 10)}</Message>
+              {order?.isDelivered ? (
+                <Message type="success">Delivered at {order?.deliveryDate.slice(0, 10)}</Message>
               ) : (
                 <Message type="error">Not Delivered</Message>
               )}
@@ -86,21 +103,21 @@ const OrderScreen = ({ match }) => {
             <li>
               <h1>Payment Method</h1>
               <p>
-                <strong>Method:</strong> {order.paymentMethod}
+                <strong>Method:</strong> {order?.paymentMethod}
               </p>
-              {order.isPaid ? (
-                <Message type="success">Paid at {order.paymentDate.slice(0, 10)}</Message>
+              {order?.isPaid ? (
+                <Message type="success">Paid at {order?.paymentDate.slice(0, 10)}</Message>
               ) : (
                 <Message type="error">Not Paid</Message>
               )}
             </li>
             <li>
               <h1>Order Items</h1>
-              {order.orderItemsCreated?.length === 0 ? (
+              {order?.orderItemsCreated?.length === 0 ? (
                 <Message type="error">Order is empty</Message>
               ) : (
                 <ul>
-                  {order.orderItemsCreated?.map((item) => (
+                  {order?.orderItemsCreated?.map((item) => (
                     <li key={item.id}>
                       <div className="flex order-item">
                         <div className="col-1 mx-4 p-auto">
@@ -130,42 +147,49 @@ const OrderScreen = ({ match }) => {
               <li>
                 <div className="flex item-card">
                   <div>Items</div>
-                  <dir>$ {numberDecimalFix(order.itemsPrice)}</dir>
+                  <dir>$ {numberDecimalFix(order?.itemsPrice)}</dir>
                 </div>
               </li>
               <li>
                 <div className="flex item-card">
                   <div>Shipping</div>
-                  <dir>$ {numberDecimalFix(order.shippingPrice)}</dir>
+                  <dir>$ {numberDecimalFix(order?.shippingPrice)}</dir>
                 </div>
               </li>
               <li>
                 <div className="flex item-card">
                   <div>Tax</div>
-                  <dir>$ {numberDecimalFix(order.taxPrice)}</dir>
+                  <dir>$ {numberDecimalFix(order?.taxPrice)}</dir>
                 </div>
               </li>
               <li>
                 <div className="flex item-card">
                   <div>Total</div>
-                  <dir>$ {numberDecimalFix(order.totalPrice)}</dir>
+                  <dir>$ {numberDecimalFix(order?.totalPrice)}</dir>
                 </div>
               </li>
-              {!order.isPaid && (
-                <li>
-                  {loadingPay && <Loader />}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                    <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
-                  )}
-                </li>
-              )}
             </ul>
+            {!order?.isPaid && (
+              <li>
+                {loadingPay && <Loader />}
+                {!sdkReady ? (
+                  <Loader />
+                ) : (
+                  <PayPalButton amount={order?.totalPrice} onSuccess={successPaymentHandler} />
+                )}
+              </li>
+            )}
+            {userInfo.role === 'admin' && order.isPaid && !order.isDelivered && (
+              <div className="deliver_btn">
+                <Button onClick={deliverHandler} types="large">
+                  Mark as Delivered
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </dir>
+    </main>
   );
 };
 

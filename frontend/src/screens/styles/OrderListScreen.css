@@ -1,3 +1,7 @@
+.order_list {
+  height: 100vh
+}
+
 .order_list i {
   color: var(--gray_dark);
 }

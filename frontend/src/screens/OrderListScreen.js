@@ -9,15 +9,15 @@ import { listOrders } from '../actions/orderActions';
 
 const OrderListScreen = ({ history }) => {
   const dispatch = useDispatch();
-console.log('ol');
+
   const orderList = useSelector((state) => state.orderList);
   const { loading, error, orders } = orderList;
 
-  console.log(orders);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
+
     if (userInfo?.role === 'admin') {
       dispatch(listOrders());
     } else {
@@ -26,7 +26,7 @@ console.log('ol');
   }, [dispatch, history, userInfo]);
 
   return (
-    <div className="order_list container">
+    <main className="order_list container">
       <h1>Orders</h1>
       {loading ? (
         <Loader />
@@ -76,7 +76,7 @@ console.log('ol');
           </tbody>
         </table>
       )}
-    </div>
+    </main>
   );
 };
 
