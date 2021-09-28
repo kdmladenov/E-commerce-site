@@ -102,23 +102,23 @@ const deleteReview = (reviewsData) => async (reviewId, userId, role) => {
   };
 };
 
-// const voteReview = reviewVoteData => async (reactionName, reviewId, userId, role) => {
-//   const existingReview = await reviewVoteData.getBy('review_id', reviewId, userId, role);
+const voteReview = reviewsData => async (reactionName, reviewId, userId, role) => {
+  const existingReview = await reviewsData.getVoteBy('review_id', reviewId, userId, role);
 
-//   if (existingReview) {
-//     const result = await reviewVoteData.update(reactionName, reviewId, userId, role);
-//     return {
-//       error: null,
-//       result,
-//     };
-//   }
+  if (existingReview) {
+    const result = await reviewsData.updateVote(reactionName, reviewId, userId, role);
+    return {
+      error: null,
+      result,
+    };
+  }
 
-//   const result = await reviewVoteData.create(reactionName, reviewId, userId, role);
-//   return {
-//     error: null,
-//     result,
-//   };
-// };
+  const result = await reviewsData.createVote(reactionName, reviewId, userId, role);
+  return {
+    error: null,
+    result,
+  };
+};
 
 // const unVoteReview = reviewVoteData => async (reviewId, userId, role) => {
 //   const existingReview = await reviewVoteData.getBy('review_id', reviewId, userId, role);
@@ -159,7 +159,7 @@ export default {
   createReview,
   updateReview,
   deleteReview,
-  // voteReview,
+  voteReview,
   // unVoteReview,
   // readReview,
 };

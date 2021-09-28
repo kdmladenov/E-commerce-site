@@ -112,11 +112,75 @@ const getReviewByUserAndProduct = async (userId, productId) => {
   return result[0];
 };
 
+// Reviews Votes(Likes)
+
+const getVoteBy = async (column, value, userId, role) => {
+  const sql = `
+  SELECT 
+    rl.user_id as userId,
+    u.full_name as fullName,
+    r.review_id as reviewId,
+    ra.reaction_id as reactionId,
+    ra.reaction_name as reactionName
+  FROM review_likes rl
+  LEFT JOIN users u USING(user_id)
+  LEFT JOIN reactions ra USING(reaction_id)
+  LEFT JOIN reviews r USING(review_id)
+  WHERE ${column} = ? ${role === rolesEnum.basic ? 'AND rl.is_deleted = 0 AND rl.user_id = ?' : ''};
+  `;
+
+  const result = await db.query(sql, [value, userId]);
+
+  return result[0];
+};
+
+
+const createVote = async (reactionName, reviewId, userId, role) => {
+  const sql = `
+    INSERT INTO review_likes (
+      reaction_id,
+      review_id,
+      user_id
+    )
+    VALUES ((SELECT reaction_id FROM reactions WHERE reaction_name = ?), ?, ?)
+  `;
+
+  await db.query(sql, [reactionName, reviewId, userId]);
+
+  return getVoteBy('review_id', reviewId, userId, role);
+};
+
+const updateVote = async (reactionName, reviewId, userId, role) => {
+  const sql = `
+        UPDATE review_likes 
+        SET reaction_id  = (SELECT reaction_id FROM reactions WHERE reaction_name = ?)
+        WHERE review_id = ? AND user_id = ?
+    `;
+
+  await db.query(sql, [reactionName, reviewId, userId]);
+
+  return getVoteBy('review_id', reviewId, userId, role);
+};
+
+const removeVote = async (reviewId, userId) => {
+  const sql = `
+        UPDATE review_likes 
+        SET is_deleted  = 1
+        WHERE review_id = ? AND user_id = ?
+    `;
+
+  return db.query(sql, [reviewId, userId]);
+};
+
 export default {
   getAll,
   getBy,
   create,
   update,
   remove,
-  getReviewByUserAndProduct
+  getReviewByUserAndProduct,
+  getVoteBy,
+  createVote,
+  updateVote,
+  removeVote
 };

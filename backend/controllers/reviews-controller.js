@@ -13,6 +13,7 @@ import errorHandler from '../middleware/errorHandler.js';
 import createReviewSchema from '../validator/create-review-schema.js';
 import updateReviewSchema from '../validator/update-review-schema.js';
 import { paging } from '../constants/constants.js';
+import voteReviewSchema from '../validator/vote-review-schema.js';
 
 const reviewsController = express.Router();
 
@@ -171,29 +172,29 @@ reviewsController
         res.status(200).send(result);
       }
     })
+  )
+  // @desc CREATE Product review reaction (like)
+  // @route POST/reviews/:reviewId/votes
+  // @access Private - Logged users only
+  .post(
+    '/:reviewId/votes',
+    authMiddleware,
+    loggedUserGuard,
+    validateBody('vote', voteReviewSchema),
+    errorHandler(async (req, res) => {
+      const { reactionName } = req.body;
+      const { reviewId } = req.params;
+      const { userId, role } = req.user;
+
+      const { result } = await reviewsService.voteReview(reviewsData)(
+        reactionName,
+        +reviewId,
+        +userId,
+        role
+      );
+      res.status(201).send(result);
+    })
   );
-
-// // Vote Review - status codes mixed
-// .put(
-//   '/:reviewId/votes',
-//   authMiddleware,
-//   loggedUserGuard,
-//   validateBody('vote', voteReviewSchema),
-//   errorHandler(async (req, res) => {
-//     const { reactionName } = req.body;
-//     const { reviewId } = req.params;
-//     const { userId, role } = req.user;
-
-//     const { result } = await reviewsService.voteReview(reviewVoteData)(
-//       reactionName,
-//       +reviewId,
-//       +userId,
-//       role
-//     );
-
-//     res.status(200).send(result);
-//   })
-// )
 
 // .delete(
 //   '/:reviewId/votes',
