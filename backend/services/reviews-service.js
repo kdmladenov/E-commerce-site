@@ -84,24 +84,23 @@ const updateReview = reviewsData => async (content, reviewId, userId, role, rati
   };
 };
 
-// const deleteReview = (reviewsData, usersData) => async (reviewId, userId, role) => {
-//   const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
+const deleteReview = (reviewsData) => async (reviewId, userId, role) => {
+  const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
 
-//   if (!existingReview) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
+  if (!existingReview) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null,
+    };
+  }
 
-//   const p = await usersData.updatePoints(+existingReview.userId, readingPoints.DELETE_REVIEW);
-//   const r = await reviewsData.remove(reviewId, userId, role);
+  await reviewsData.remove(reviewId, userId, role);
 
-//   return {
-//     error: null,
-//     result: existingReview,
-//   };
-// };
+  return {
+    error: null,
+    result: {...existingReview, isDeleted: true},
+  };
+};
 
 // const voteReview = reviewVoteData => async (reactionName, reviewId, userId, role) => {
 //   const existingReview = await reviewVoteData.getBy('review_id', reviewId, userId, role);
@@ -159,7 +158,7 @@ export default {
   getAllReviews,
   createReview,
   updateReview,
-  // deleteReview,
+  deleteReview,
   // voteReview,
   // unVoteReview,
   // readReview,

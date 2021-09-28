@@ -144,32 +144,34 @@ reviewsController
         res.status(200).send(result);
       }
     }
+  )
+
+  // @desc DELETE Product review
+  // @route DELETE/:reviewId
+  // @access Private - logged users who have created the review or Admin
+  .delete(
+    '/:reviewId',
+    authMiddleware,
+    loggedUserGuard,
+    errorHandler(async (req, res) => {
+      const { userId, role } = req.user;
+      const { reviewId } = req.params;
+
+      const { error, result } = await reviewsService.deleteReview(reviewsData)(
+        +reviewId,
+        +userId,
+        role
+      );
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The review is not found.'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
   );
-
-// // delete review
-// .delete(
-//   '/:reviewId',
-//   authMiddleware,
-//   loggedUserGuard,
-//   errorHandler(async (req, res) => {
-//     const { userId, role } = req.user;
-//     const { reviewId } = req.params;
-
-//     const { error, result } = await reviewsService.deleteReview(reviewsData, usersData)(
-//       +reviewId,
-//       +userId,
-//       role
-//     );
-
-//     if (error === errors.RECORD_NOT_FOUND) {
-//       res.status(404).send({
-//         message: 'The review is not found.'
-//       });
-//     } else {
-//       res.status(200).send(result);
-//     }
-//   })
-// );
 
 // // Vote Review - status codes mixed
 // .put(
