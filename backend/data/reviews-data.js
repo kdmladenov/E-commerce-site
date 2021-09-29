@@ -7,7 +7,7 @@ const getAll = async (productId, order, page, pageSize) => {
 
   const sql = `
     SELECT
-    r.product_id as bookId,
+    r.product_id as productId,
     r.user_id as userId,
     r.review_id as reviewId,
     r.rating,
@@ -41,21 +41,55 @@ const getAll = async (productId, order, page, pageSize) => {
 const getBy = async (column, value, role) => {
   const sql = `
   SELECT
-    review_id as reviewId,
-    product_id as productId,
-    user_id as userId,
-    title,
-    content, 
-    rating,
-    date_created as dateCreated,
-    date_edited as dateEdited
-  FROM reviews
-  WHERE ${column} = ? ${role === rolesEnum.basic ? 'AND is_deleted = 0' : ''}
+    r.product_id as productId,
+    r.user_id as userId,
+    r.review_id as reviewId,
+    r.rating,
+    r.content as content,
+    r.date_created as dateCreated,
+    r.date_edited as dateEdited,
+    r.title as title,
+    u.avatar as avatar,
+    u.full_name as fullName,
+    rl.thumbs_up as thumbsUp,
+    rl.thumbs_down as thumbsDown,
+    rl.userThumbsUpList,
+    rl.userThumbsDownList
+    FROM reviews r
+    LEFT JOIN users u USING (user_id)
+    LEFT JOIN (select review_id,
+        count(if(reaction_id=1,1,null)) as thumbs_up,
+        count(if(reaction_id=2,1,null)) as thumbs_down,
+        GROUP_CONCAT(if(reaction_id=1,user_id,null)) as userThumbsUpList,
+        GROUP_CONCAT(if(reaction_id=2,user_id,null)) as userThumbsDownList
+        from review_likes
+        WHERE is_deleted = 0
+        group by review_id) rl USING (review_id)
+  WHERE ${column} = ? ${role === rolesEnum.basic ? 'AND r.is_deleted = 0' : ''}
   `;
   const result = await db.query(sql, [value]);
 
   return result[0];
 };
+
+// const getBy = async (column, value, role) => {
+//   const sql = `
+//   SELECT
+//     review_id as reviewId,
+//     product_id as productId,
+//     user_id as userId,
+//     title,
+//     content, 
+//     rating,
+//     date_created as dateCreated,
+//     date_edited as dateEdited
+//   FROM reviews
+//   WHERE ${column} = ? ${role === rolesEnum.basic ? 'AND is_deleted = 0' : ''}
+//   `;
+//   const result = await db.query(sql, [value]);
+
+//   return result[0];
+// };
 
 const create = async (content, userId, productId, rating, title) => {
   const sql = `

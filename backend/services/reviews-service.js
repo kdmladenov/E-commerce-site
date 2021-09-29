@@ -19,6 +19,22 @@ const getAllReviews = (reviewsData, productsData) => async (productId, order, pa
   };
 };
 
+const getReviewById = (reviewsData) => async (reviewId) => {
+  const existingReview = await reviewsData.getBy('review_id', reviewId);
+
+  if (!existingReview) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+
+  return {
+    error: null,
+    result: existingReview
+  };
+};
+
 const createReview = (productsData, reviewsData
   // , ordersData, usersData
   ) => async (content, userId, productId, rating, title) => {
@@ -145,23 +161,6 @@ const unVoteReview = (reviewsData) => async (reviewId, userId, role) => {
   };
 };
 
-// const readReview = reviewsData => async (reviewId, userId, role) => {
-//   // checks if the review exists
-//   const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
-
-//   if (!existingReview) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
-
-//   return {
-//     error: null,
-//     result: existingReview,
-//   };
-// };
-
 export default {
   getAllReviews,
   createReview,
@@ -169,5 +168,5 @@ export default {
   deleteReview,
   voteReview,
   unVoteReview,
-  // readReview,
+  getReviewById
 };
