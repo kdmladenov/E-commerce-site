@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 const STAR_COUNT = 5;
 
-const Rating = ({ rating, text, color }) => {
+const Rating = ({ rating, setRating, text, color, editMode }) => {
   return (
     <div className="rating">
       {Array.from({ length: STAR_COUNT }).map((_, index) => (
         <span key={index}>
           <i
+            onMouseEnter={() => editMode && setRating(index + 1)}
             style={{ color }}
             className={
               rating >= index + 1
@@ -26,12 +27,14 @@ const Rating = ({ rating, text, color }) => {
 };
 
 Rating.defaultProps = {
+  editMode: false,
   color: 'orange',
   rating: 0,
   text: ''
 };
 
 Rating.propTypes = {
+  editMode: PropTypes.bool,
   rating: PropTypes.number,
   text: PropTypes.string,
   color: PropTypes.string

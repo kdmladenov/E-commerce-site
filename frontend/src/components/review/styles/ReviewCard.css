@@ -1,4 +1,5 @@
 .review_card {
+  position: relative;
   margin-bottom: 20px;
 }
 
@@ -19,6 +20,27 @@
   margin: 10px 0;
 }
 
-.content{
-  text-align: start;
+.date_created {
+  margin-right: 20px;
+}
+
+.content,
+input.content.card {
+  justify-content: start;
+  width: 100%;
+}
+input.content.card {
+  height: 200px;
+  word-break: break-word;
+}
+
+.button_group {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.button_group_edit {
+  display: flex;
+  flex-direction: row-reverse;
 }

@@ -32,6 +32,9 @@ const ProductScreen = ({ history, match }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
+   const userLogin = useSelector((state) => state.userLogin);
+   const { userInfo: currentUser } = userLogin;
+
   //TO DO to be replaced with backend data
   const images = [
     product.image,
@@ -150,7 +153,7 @@ const ProductScreen = ({ history, match }) => {
       ) : errorReviews ? (
         <Message type="error">{errorReviews}</Message>
       ) : product.reviewCount > 0 ? (
-        <ReviewList reviews={reviews} />
+        <ReviewList reviews={reviews} currentUser={currentUser} />
       ) : (
         <Message type="success">There are no reviews for this product</Message>
       )}

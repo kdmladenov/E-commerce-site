@@ -4,6 +4,9 @@ import {
   REVIEW_CREATE_FAIL,
   REVIEW_CREATE_REQUEST,
   REVIEW_CREATE_SUCCESS,
+  REVIEW_EDIT_FAIL,
+  REVIEW_EDIT_REQUEST,
+  REVIEW_EDIT_SUCCESS,
   REVIEW_LIST_FAIL,
   REVIEW_LIST_REQUEST,
   REVIEW_LIST_SUCCESS
@@ -43,10 +46,36 @@ export const listReviews = (productId) => async (dispatch, getState) => {
     const { data } = await axios.get(`${BASE_URL}/reviews/${productId}`);
 
     dispatch({ type: REVIEW_LIST_SUCCESS, payload: data });
-    
   } catch (error) {
     dispatch({
       type: REVIEW_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const editReview = (reviewId, update) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: REVIEW_EDIT_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.put(`${BASE_URL}/reviews/${reviewId}`, update, config);
+
+    dispatch({ type: REVIEW_EDIT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: REVIEW_EDIT_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });
