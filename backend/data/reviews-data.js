@@ -72,25 +72,6 @@ const getBy = async (column, value, role) => {
   return result[0];
 };
 
-// const getBy = async (column, value, role) => {
-//   const sql = `
-//   SELECT
-//     review_id as reviewId,
-//     product_id as productId,
-//     user_id as userId,
-//     title,
-//     content, 
-//     rating,
-//     date_created as dateCreated,
-//     date_edited as dateEdited
-//   FROM reviews
-//   WHERE ${column} = ? ${role === rolesEnum.basic ? 'AND is_deleted = 0' : ''}
-//   `;
-//   const result = await db.query(sql, [value]);
-
-//   return result[0];
-// };
-
 const create = async (content, userId, productId, rating, title) => {
   const sql = `
     INSERT INTO reviews (

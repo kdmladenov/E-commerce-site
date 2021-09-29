@@ -9,6 +9,8 @@ import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
 import Button from '../components/Button';
+import ReviewList from '../components/review/ReviewList';
+import { listReviews } from '../actions/reviewActions';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -21,26 +23,30 @@ const ProductScreen = ({ history, match }) => {
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
+    dispatch(listReviews(match.params.id));
   }, [dispatch, match]);
 
-  const fetchedProduct = useSelector((state) => state.productDetails);
-  const { product, loading, error } = fetchedProduct;
+  const reviewList = useSelector((state) => state.reviewList);
+  const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
+
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading, error } = productDetails;
 
   //TO DO to be replaced with backend data
   const images = [
     product.image,
-    'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/51aOzD8GuxL.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/31PEdbmQZsL.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/41O4rjSlneL.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/41B54aFFMOL.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/51IIMW6-TbL.jpg',
-    'https://m.media-amazon.com/images/I/71A1RJumI9L._AC_UL640_FMwebp_QL65_.jpg',
-    'https://m.media-amazon.com/images/I/41pfjdq+QFS._AC_UL640_FMwebp_QL65_.jpg',
-    'https://m.media-amazon.com/images/I/71aVUqJuklL._AC_UL640_FMwebp_QL65_.jpg',
-    'https://m.media-amazon.com/images/I/71PNX2zRTpS._AC_UL640_FMwebp_QL65_.jpg',
-    'https://m.media-amazon.com/images/I/71ikXkzAY8L._AC_UL640_FMwebp_QL65_.jpg',
-    'https://m.media-amazon.com/images/I/71gtHnQGfQL._AC_UL640_FMwebp_QL65_.jpg'
+    'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg'
+    // 'https://images-na.ssl-images-amazon.com/images/I/51aOzD8GuxL.jpg',
+    // 'https://images-na.ssl-images-amazon.com/images/I/31PEdbmQZsL.jpg',
+    // 'https://images-na.ssl-images-amazon.com/images/I/41O4rjSlneL.jpg',
+    // 'https://images-na.ssl-images-amazon.com/images/I/41B54aFFMOL.jpg',
+    // 'https://images-na.ssl-images-amazon.com/images/I/51IIMW6-TbL.jpg',
+    // 'https://m.media-amazon.com/images/I/71A1RJumI9L._AC_UL640_FMwebp_QL65_.jpg',
+    // 'https://m.media-amazon.com/images/I/41pfjdq+QFS._AC_UL640_FMwebp_QL65_.jpg',
+    // 'https://m.media-amazon.com/images/I/71aVUqJuklL._AC_UL640_FMwebp_QL65_.jpg',
+    // 'https://m.media-amazon.com/images/I/71PNX2zRTpS._AC_UL640_FMwebp_QL65_.jpg',
+    // 'https://m.media-amazon.com/images/I/71ikXkzAY8L._AC_UL640_FMwebp_QL65_.jpg',
+    // 'https://m.media-amazon.com/images/I/71gtHnQGfQL._AC_UL640_FMwebp_QL65_.jpg'
   ];
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
@@ -55,7 +61,7 @@ const ProductScreen = ({ history, match }) => {
     </li>
   ));
   return (
-    <>
+    <main>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -139,7 +145,16 @@ const ProductScreen = ({ history, match }) => {
           </div>
         </div>
       )}
-    </>
+      {loadingReviews ? (
+        <Loader />
+      ) : errorReviews ? (
+        <Message type="error">{errorReviews}</Message>
+      ) : product.reviewCount > 0 ? (
+        <ReviewList reviews={reviews} />
+      ) : (
+        <Message type="success">There are no reviews for this product</Message>
+      )}
+    </main>
   );
 };
 

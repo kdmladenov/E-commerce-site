@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const ShowMoreButton = ({ text, breakpoint }) => {
   const [showMore, setShowMore] = useState(false);
@@ -11,24 +11,25 @@ const ShowMoreButton = ({ text, breakpoint }) => {
     setShowMore(false);
   };
 
+  const style = {
+    background: 'transparent',
+    border: 'none',
+    marginLeft: '3px',
+    cursor: 'pointer'
+  };
+
   const numberOfItems = showMore ? text.length : breakpoint;
   return (
     <div>
       <div>
         {text.slice(0, numberOfItems)}
         {!showMore && (
-          <button
-            type="button"
-            onClick={() => showMoreClick()}
-          >
+          <button style={style} onClick={() => showMoreClick()}>
             ...show more
           </button>
         )}
         {showMore && (
-          <button
-            type="button"
-            onClick={() => showLessClick()}
-          >
+          <button style={style} onClick={() => showLessClick()}>
             ...show less
           </button>
         )}
