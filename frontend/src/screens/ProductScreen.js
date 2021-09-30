@@ -153,7 +153,7 @@ const ProductScreen = ({ history, match }) => {
       ) : errorReviews ? (
         <Message type="error">{errorReviews}</Message>
       ) : product.reviewCount > 0 ? (
-        <ReviewList reviews={reviews} currentUser={currentUser} />
+        <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId}/>
       ) : (
         <Message type="success">There are no reviews for this product</Message>
       )}

@@ -5,13 +5,14 @@ import ShowMoreButton from '../ShowMoreButton';
 import Button from '../Button';
 import './styles/ReviewCard.css';
 import { useDispatch } from 'react-redux';
-import { editReview, listReviews, voteReview } from '../../actions/reviewActions';
+import { createReview, editReview, listReviews, voteReview } from '../../actions/reviewActions';
 
 const ReviewCard = ({
+  user,
   currentUser,
   createMode,
   setCreateMode,
-  // productId,
+  productId,
   userId: authorId,
   reviewId,
   rating: ratingInState,
@@ -27,9 +28,9 @@ const ReviewCard = ({
   userThumbsDownList
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const [rating, setRating] = useState(ratingInState);
-  const [content, setContent] = useState(contentInState);
-  const [title, setTitle] = useState(titleInState);
+  const [rating, setRating] = useState(!createMode ? ratingInState : 0);
+  const [content, setContent] = useState(!createMode ? contentInState : '');
+  const [title, setTitle] = useState(!createMode ? titleInState : '');
   const [countThumbsUp, setCountThumbsUp] = useState(thumbsUp);
   const [countThumbsDown, setCountThumbsDown] = useState(thumbsDown);
 
@@ -57,8 +58,13 @@ const ReviewCard = ({
   const handleDeleteButton = () => {};
 
   const handleSaveButton = () => {
-    dispatch(editReview(reviewId, { title, content, rating }));
-    setEditMode(false);
+    if (createMode) {
+      dispatch(createReview(productId, { title, content, rating }));
+      setCreateMode(false);
+    } else if (editMode) {
+      dispatch(editReview(reviewId, { title, content, rating }));
+      setEditMode(false);
+    }
   };
 
   const handleVoteButton = (method, reactionName) => {
@@ -97,9 +103,9 @@ const ReviewCard = ({
       </div>
       <div className="rating_title">
         <div className="rating">
-          <Rating rating={rating || 0} editMode={editMode} setRating={setRating} />
+          <Rating rating={rating || 0} editMode={editMode || createMode} setRating={setRating} />
         </div>
-        {editMode ? (
+        {editMode || createMode ? (
           <input
             type="text"
             className="title"
@@ -110,15 +116,17 @@ const ReviewCard = ({
           <div className="title">{title}</div>
         )}
       </div>
-      <div className="dates">
-        <div className="date_created">
-          {`Date created: ${new Date(dateCreated).toLocaleDateString('en-US')}`}
+      {!createMode && (
+        <div className="dates">
+          <div className="date_created">
+            {`Date created: ${new Date(dateCreated || Date.now()).toLocaleDateString('en-US')}`}
+          </div>
+          <div className="date_updated">
+            {dateEdited && `Date edited: ${new Date(dateEdited).toLocaleDateString('en-US')}`}
+          </div>
         </div>
-        <div className="date_updated">
-          {dateEdited && `Date edited: ${new Date(dateEdited).toLocaleDateString('en-US')}`}
-        </div>
-      </div>
-      {editMode ? (
+      )}
+      {editMode || createMode ? (
         <input
           type="text"
           className="content card"
@@ -130,52 +138,55 @@ const ReviewCard = ({
           {content?.length > 300 ? <ShowMoreButton breakpoint={300} text={content} /> : content}
         </div>
       )}
-      <div className="review-card-thumbs">
-        <Button
-          types="icon"
-          onClick={
-            currentVote === '' || currentVote === 'DOWN'
-              ? () => handleVoteButton('POST', 'THUMBS_UP')
-              : () => handleVoteButton('DELETE', 'THUMBS_UP')
-          }
-        >
-          <i className={`fa fa-thumbs-up ${currentVote === 'UP' ? 'active' : 'inactive'}`}></i>
-        </Button>
-        <div className="thumb_count">{countThumbsUp || 0}</div>
-        <Button
-          types="icon"
-          onClick={
-            currentVote === '' || currentVote === 'UP'
-              ? () => handleVoteButton('POST', 'THUMBS_DOWN')
-              : () => handleVoteButton('DELETE', 'THUMBS_DOWN')
-          }
-        >
-          <i className={`fa fa-thumbs-down ${currentVote === 'DOWN' ? 'active' : 'inactive'}`}></i>
-        </Button>
-        <div className="thumb_count">{countThumbsDown || 0}</div>
-      </div>
-      {currentUser.userId === authorId && (
-        <div className="button_group">
-          {!editMode && (
-            <Button types="icon" onClick={handleEditButton}>
-              <i className="fa fa-edit"></i>
-            </Button>
-          )}
-          {editMode && (
-            <div className="button_group_edit">
-              <Button types="icon" onClick={handleCloseButton}>
-                <i className="fa fa-times"></i>
-              </Button>
-              <Button types="icon">
-                <i className="fas fa-trash" onClick={handleDeleteButton}></i>
-              </Button>
-              <Button types="icon" onClick={handleSaveButton}>
-                <i class="fa fa-save"></i>
-              </Button>
-            </div>
-          )}
+      {!createMode && (
+        <div className="review-card-thumbs">
+          <Button
+            types="icon"
+            onClick={
+              currentVote === '' || currentVote === 'DOWN'
+                ? () => handleVoteButton('POST', 'THUMBS_UP')
+                : () => handleVoteButton('DELETE', 'THUMBS_UP')
+            }
+          >
+            <i className={`fa fa-thumbs-up ${currentVote === 'UP' ? 'active' : 'inactive'}`}></i>
+          </Button>
+          <div className="thumb_count">{countThumbsUp || 0}</div>
+          <Button
+            types="icon"
+            onClick={
+              currentVote === '' || currentVote === 'UP'
+                ? () => handleVoteButton('POST', 'THUMBS_DOWN')
+                : () => handleVoteButton('DELETE', 'THUMBS_DOWN')
+            }
+          >
+            <i
+              className={`fa fa-thumbs-down ${currentVote === 'DOWN' ? 'active' : 'inactive'}`}
+            ></i>
+          </Button>
+          <div className="thumb_count">{countThumbsDown || 0}</div>
         </div>
       )}
+
+      <div className="button_group">
+        {!createMode && !editMode && currentUser.userId === authorId && (
+          <Button types="icon" onClick={handleEditButton}>
+            <i className="fa fa-edit"></i>
+          </Button>
+        )}
+        {(createMode || (editMode && currentUser.userId === authorId)) && (
+          <div className="button_group_edit">
+            <Button types="icon" onClick={handleCloseButton}>
+              <i className="fa fa-times"></i>
+            </Button>
+            <Button types="icon">
+              <i className="fas fa-trash" onClick={handleDeleteButton}></i>
+            </Button>
+            <Button types="icon" onClick={handleSaveButton}>
+              <i class="fa fa-save"></i>
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

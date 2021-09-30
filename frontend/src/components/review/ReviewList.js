@@ -1,23 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReviewCard from './ReviewCard';
+import Button from '../Button';
 import './styles/ReviewList.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserDetails } from '../../actions/userActions';
 
-const ReviewList = ({ reviews, currentUser }) => {
-  // const [createMode, setCreateMode] = useState(false);
+const ReviewList = ({ reviews, currentUser, productId }) => {
+  const dispatch = useDispatch();
+  const [createMode, setCreateMode] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
 
-  // const hasUserLeftReview = reviews.filter((review) => review.userId === currentUser.userId).length > 0;
+  const handleOpenCreateForm = () => {
+    setCreateMode(true);
+    setOpenCreate(true);
+  };
 
-  const reviewCardsToShow = reviews?.map((review) => {
-    return <ReviewCard key={review.reviewId} {...review} currentUser={currentUser} />;
-  });
+  useEffect(() => {
+    dispatch(getUserDetails(currentUser.userId));
+  }, [dispatch, currentUser.userId]);
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+
+  const hasUserLeftReview = reviews.some((review) => review.userId === currentUser?.userId);
+
+  const otherUsersReviewCardsToShow = reviews
+    ?.filter((review) => review.userId !== currentUser?.userId)
+    ?.map((review) => {
+      return (
+        <ReviewCard
+          key={review.reviewId}
+          {...review}
+          currentUser={currentUser}
+          createMode={false}
+          setCreateMode={setCreateMode}
+        />
+      );
+    });
+      const currentUserReviewCardToShow = reviews
+        ?.filter((review) => review.userId === currentUser?.userId)
+        ?.map((review) => {
+          return (
+            <ReviewCard
+              key={review.reviewId}
+              {...review}
+              currentUser={currentUser}
+              createMode={false}
+              setCreateMode={setCreateMode}
+            />
+          );
+        });
 
   return (
     <div className="reviews-container">
       <h2>Reviews:</h2>
-      {/* {hasUserLeftReview && (
-        <ReviewCard currentUser={currentUser} createMode={createMode} setCreateMode={setCreateMode}/>
-      )} */}
-      {reviewCardsToShow}
+      {!hasUserLeftReview && !openCreate && (
+        <Button onClick={handleOpenCreateForm}>
+          <i className="fa fa-plus"></i> Create Review
+        </Button>
+      )}
+      {openCreate && (
+        <ReviewCard
+          createMode={createMode}
+          setCreateMode={setCreateMode}
+          currentUser={currentUser}
+          productId={productId}
+          fullName={user.fullName}
+          userId={user.userId}
+          avatar={user.avatar}
+        />
+      )}
+      {currentUserReviewCardToShow}
+      {otherUsersReviewCardsToShow}
     </div>
   );
 };
