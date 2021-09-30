@@ -4,6 +4,9 @@ import {
   REVIEW_CREATE_FAIL,
   REVIEW_CREATE_REQUEST,
   REVIEW_CREATE_SUCCESS,
+  REVIEW_DELETE_FAIL,
+  REVIEW_DELETE_REQUEST,
+  REVIEW_DELETE_SUCCESS,
   REVIEW_EDIT_FAIL,
   REVIEW_EDIT_REQUEST,
   REVIEW_EDIT_SUCCESS,
@@ -30,12 +33,38 @@ export const createReview = (productId, review) => async (dispatch, getState) =>
       }
     };
 
-    await axios.post(`${BASE_URL}/reviews/${productId}`, review, config);
+    const { data } = await axios.post(`${BASE_URL}/reviews/${productId}`, review, config);
 
-    dispatch({ type: REVIEW_CREATE_SUCCESS });
+    dispatch({ type: REVIEW_CREATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: REVIEW_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const deleteReview = (reviewId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: REVIEW_DELETE_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.delete(`${BASE_URL}/reviews/${reviewId}`, config);
+
+    dispatch({ type: REVIEW_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: REVIEW_DELETE_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });

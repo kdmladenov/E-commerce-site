@@ -8,11 +8,9 @@ import { getUserDetails } from '../../actions/userActions';
 const ReviewList = ({ reviews, currentUser, productId }) => {
   const dispatch = useDispatch();
   const [createMode, setCreateMode] = useState(false);
-  const [openCreate, setOpenCreate] = useState(false);
 
   const handleOpenCreateForm = () => {
     setCreateMode(true);
-    setOpenCreate(true);
   };
 
   useEffect(() => {
@@ -54,12 +52,12 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
   return (
     <div className="reviews-container">
       <h2>Reviews:</h2>
-      {!hasUserLeftReview && !openCreate && (
+      {!hasUserLeftReview && !createMode && (
         <Button onClick={handleOpenCreateForm}>
           <i className="fa fa-plus"></i> Create Review
         </Button>
       )}
-      {openCreate && (
+      {createMode && (
         <ReviewCard
           createMode={createMode}
           setCreateMode={setCreateMode}

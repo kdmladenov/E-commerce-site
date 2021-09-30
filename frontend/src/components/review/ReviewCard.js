@@ -5,7 +5,7 @@ import ShowMoreButton from '../ShowMoreButton';
 import Button from '../Button';
 import './styles/ReviewCard.css';
 import { useDispatch } from 'react-redux';
-import { createReview, editReview, listReviews, voteReview } from '../../actions/reviewActions';
+import { createReview, deleteReview, editReview, listReviews, voteReview } from '../../actions/reviewActions';
 
 const ReviewCard = ({
   user,
@@ -50,12 +50,17 @@ const ReviewCard = ({
 
   const handleCloseButton = () => {
     setEditMode(false);
+    setCreateMode(false);
     setRating(ratingInState);
     setContent(contentInState);
     setTitle(titleInState);
   };
 
-  const handleDeleteButton = () => {};
+  const handleDeleteButton = () => {
+    dispatch(deleteReview(reviewId));
+    setEditMode(false);
+    setCreateMode(false);
+  };
 
   const handleSaveButton = () => {
     if (createMode) {
