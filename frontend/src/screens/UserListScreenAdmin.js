@@ -5,9 +5,9 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import './styles/UserListScreen.css';
+import './styles/UserListScreenAdmin.css';
 
-const UserListScreen = ({ history }) => {
+const UserListScreenAdmin = ({ history }) => {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
@@ -96,4 +96,4 @@ const UserListScreen = ({ history }) => {
   );
 };
 
-export default UserListScreen;
+export default UserListScreenAdmin;

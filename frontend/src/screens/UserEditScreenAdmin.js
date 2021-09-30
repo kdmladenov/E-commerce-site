@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import './styles/UserEditScreen.css';
+import './styles/UserEditScreenAdmin.css';
 import { getUserDetails, updateUser } from '../actions/userActions';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
 
-const UserEditScreen = ({ match, history }) => {
+const UserEditScreenAdmin = ({ match, history }) => {
   const userId = +match.params.id;
 
   const [email, setEmail] = useState('');
@@ -170,4 +170,4 @@ const UserEditScreen = ({ match, history }) => {
   );
 };
 
-export default UserEditScreen;
+export default UserEditScreenAdmin;

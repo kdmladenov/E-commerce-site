@@ -4,10 +4,10 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import './styles/UserListScreen.css';
+import './styles/UserListScreenAdmin.css';
 import { listOrders } from '../actions/orderActions';
 
-const OrderListScreen = ({ history }) => {
+const OrderListScreenAdmin = ({ history }) => {
   const dispatch = useDispatch();
 
   const orderList = useSelector((state) => state.orderList);
@@ -80,4 +80,4 @@ const OrderListScreen = ({ history }) => {
   );
 };
 
-export default OrderListScreen;
+export default OrderListScreenAdmin;

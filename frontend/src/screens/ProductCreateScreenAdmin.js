@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import './styles/ProductEditScreen.css';
+import './styles/ProductEditScreenAdmin.css';
 import { createProduct } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import productCategoriesEnum from '../constants/product-categories.enum';
 import { BASE_URL } from '../constants/constants';
 import axios from 'axios';
 
-const ProductCreateScreen = ({ match, history }) => {
+const ProductCreateScreenAdmin = ({ match, history }) => {
   const [title, setTitle] = useState('');
   const [brand, setBrand] = useState('');
   const [image, setImage] = useState('');
@@ -185,4 +185,4 @@ const ProductCreateScreen = ({ match, history }) => {
   );
 };
 
-export default ProductCreateScreen;
+export default ProductCreateScreenAdmin;
