@@ -137,7 +137,7 @@ const voteReview = reviewsData => async (reactionName, reviewId, userId, role) =
 };
 
 const unVoteReview = (reviewsData) => async (reviewId, userId, role) => {
-  const existingReviewVote = await reviewsData.getVoteBy('review_id', reviewId, userId, role);
+  const existingReviewVote = await reviewsData.getVoteBy('review_id', reviewId, userId);
 
   if (!existingReviewVote) {
     return {

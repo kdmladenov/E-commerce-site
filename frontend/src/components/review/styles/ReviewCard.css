@@ -44,3 +44,19 @@ input.content.card {
   display: flex;
   flex-direction: row-reverse;
 }
+
+.review-card-thumbs {
+  display: flex;
+  width: 75px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.review-card-thumbs i {
+  font-size: 20px;
+  color: var(--gray_dark)
+}
+.review-card-thumbs i.active {
+  color: var(--black)
+}

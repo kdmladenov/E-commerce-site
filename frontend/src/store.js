@@ -13,7 +13,7 @@ import {
 } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderMyListReducer, orderPayReducer } from './reducers/orderReducers';
-import { reviewCreateReducer, reviewEditReducer, reviewListReducer } from './reducers/reviewReducers';
+import { reviewCreateReducer, reviewEditReducer, reviewListReducer, reviewVoteReducer } from './reducers/reviewReducers';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -25,6 +25,7 @@ const reducer = combineReducers({
   reviewCreate: reviewCreateReducer,
   reviewList: reviewListReducer,
   reviewEdit: reviewEditReducer,
+  reviewVote: reviewVoteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

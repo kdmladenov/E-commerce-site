@@ -148,7 +148,7 @@ const getReviewByUserAndProduct = async (userId, productId) => {
 
 // Reviews Votes(Likes)
 
-const getVoteBy = async (column, value, userId, role) => {
+const getVoteBy = async (column, value, userId) => {
   const sql = `
   SELECT 
     rl.user_id as userId,
@@ -160,7 +160,7 @@ const getVoteBy = async (column, value, userId, role) => {
   LEFT JOIN users u USING(user_id)
   LEFT JOIN reactions ra USING(reaction_id)
   LEFT JOIN reviews r USING(review_id)
-  WHERE ${column} = ? ${role === rolesEnum.basic ? 'AND rl.is_deleted = 0 AND rl.user_id = ?' : ''};
+  WHERE ${column} = ? AND rl.is_deleted = 0 AND rl.user_id = ?
   `;
 
   const result = await db.query(sql, [value, userId]);

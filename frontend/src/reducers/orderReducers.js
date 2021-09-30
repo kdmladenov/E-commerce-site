@@ -76,7 +76,7 @@ export const orderDeliverReducer = (state = {}, action) => {
     case ORDER_DELIVER_SUCCESS:
       return { loading: false, success: true };
     case ORDER_DELIVER_FAIL:
-      return { loading: false, error: action.DELIVERload };
+      return { loading: false, error: action.payload };
     case ORDER_DELIVER_RESET:
       return {};
     default:

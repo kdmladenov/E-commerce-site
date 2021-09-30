@@ -5,7 +5,7 @@ import ShowMoreButton from '../ShowMoreButton';
 import Button from '../Button';
 import './styles/ReviewCard.css';
 import { useDispatch } from 'react-redux';
-import { editReview, listReviews } from '../../actions/reviewActions';
+import { editReview, listReviews, voteReview } from '../../actions/reviewActions';
 
 const ReviewCard = ({
   currentUser,
@@ -20,16 +20,26 @@ const ReviewCard = ({
   dateEdited,
   title: titleInState,
   avatar,
-  fullName
-  // thumbsUp,
-  // thumbsDown,
-  // userThumbsUpList,
-  // userThumbsDownList
+  fullName,
+  thumbsUp,
+  thumbsDown,
+  userThumbsUpList,
+  userThumbsDownList
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [rating, setRating] = useState(ratingInState);
   const [content, setContent] = useState(contentInState);
   const [title, setTitle] = useState(titleInState);
+  const [countThumbsUp, setCountThumbsUp] = useState(thumbsUp);
+  const [countThumbsDown, setCountThumbsDown] = useState(thumbsDown);
+
+  const [currentVote, setCurrentVote] = useState(
+    userThumbsUpList?.toString().split(',').map(Number).includes(currentUser.userId)
+      ? 'UP'
+      : userThumbsDownList?.toString().split(',').map(Number).includes(currentUser.userId)
+      ? 'DOWN'
+      : ''
+  );
 
   const dispatch = useDispatch();
 
@@ -51,28 +61,33 @@ const ReviewCard = ({
     setEditMode(false);
   };
 
-  const buttonGroup = (
-    <div className="button_group">
-      {!editMode && (
-        <Button types="icon" onClick={handleEditButton}>
-          <i className="fa fa-edit"></i>
-        </Button>
-      )}
-      {editMode && (
-        <div className="button_group_edit">
-          <Button types="icon" onClick={handleCloseButton}>
-            <i className="fa fa-times"></i>
-          </Button>
-          <Button types="icon">
-            <i className="fas fa-trash" onClick={handleDeleteButton}></i>
-          </Button>
-          <Button types="icon" onClick={handleSaveButton}>
-            <i class="fa fa-save"></i>
-          </Button>
-        </div>
-      )}
-    </div>
-  );
+  const handleVoteButton = (method, reactionName) => {
+    dispatch(voteReview(reviewId, method, reactionName));
+
+    if (method === 'POST') {
+      if (reactionName === 'THUMBS_UP') {
+        if (currentVote === 'DOWN') {
+          setCountThumbsDown(countThumbsDown - 1);
+        }
+        setCurrentVote('UP');
+        setCountThumbsUp(countThumbsUp + 1);
+      } else if (reactionName === 'THUMBS_DOWN') {
+        if (currentVote === 'UP') {
+          setCountThumbsUp(countThumbsUp - 1);
+        }
+        setCurrentVote('DOWN');
+        setCountThumbsDown(countThumbsDown + 1);
+      }
+    } else if (method === 'DELETE') {
+      if (reactionName === 'THUMBS_UP') {
+        setCurrentVote('');
+        setCountThumbsUp(countThumbsUp - 1);
+      } else if (reactionName === 'THUMBS_DOWN') {
+        setCurrentVote('');
+        setCountThumbsDown(countThumbsDown - 1);
+      }
+    }
+  };
 
   return (
     <div className="review_card card">
@@ -115,8 +130,52 @@ const ReviewCard = ({
           {content?.length > 300 ? <ShowMoreButton breakpoint={300} text={content} /> : content}
         </div>
       )}
-
-      {currentUser.userId === authorId && buttonGroup}
+      <div className="review-card-thumbs">
+        <Button
+          types="icon"
+          onClick={
+            currentVote === '' || currentVote === 'DOWN'
+              ? () => handleVoteButton('POST', 'THUMBS_UP')
+              : () => handleVoteButton('DELETE', 'THUMBS_UP')
+          }
+        >
+          <i className={`fa fa-thumbs-up ${currentVote === 'UP' ? 'active' : 'inactive'}`}></i>
+        </Button>
+        <div className="thumb_count">{countThumbsUp || 0}</div>
+        <Button
+          types="icon"
+          onClick={
+            currentVote === '' || currentVote === 'UP'
+              ? () => handleVoteButton('POST', 'THUMBS_DOWN')
+              : () => handleVoteButton('DELETE', 'THUMBS_DOWN')
+          }
+        >
+          <i className={`fa fa-thumbs-down ${currentVote === 'DOWN' ? 'active' : 'inactive'}`}></i>
+        </Button>
+        <div className="thumb_count">{countThumbsDown || 0}</div>
+      </div>
+      {currentUser.userId === authorId && (
+        <div className="button_group">
+          {!editMode && (
+            <Button types="icon" onClick={handleEditButton}>
+              <i className="fa fa-edit"></i>
+            </Button>
+          )}
+          {editMode && (
+            <div className="button_group_edit">
+              <Button types="icon" onClick={handleCloseButton}>
+                <i className="fa fa-times"></i>
+              </Button>
+              <Button types="icon">
+                <i className="fas fa-trash" onClick={handleDeleteButton}></i>
+              </Button>
+              <Button types="icon" onClick={handleSaveButton}>
+                <i class="fa fa-save"></i>
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

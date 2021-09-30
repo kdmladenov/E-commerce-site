@@ -9,7 +9,10 @@ import {
   REVIEW_EDIT_SUCCESS,
   REVIEW_LIST_FAIL,
   REVIEW_LIST_REQUEST,
-  REVIEW_LIST_SUCCESS
+  REVIEW_LIST_SUCCESS,
+  REVIEW_VOTE_FAIL,
+  REVIEW_VOTE_REQUEST,
+  REVIEW_VOTE_SUCCESS
 } from '../constants/reviewConstants';
 
 export const createReview = (productId, review) => async (dispatch, getState) => {
@@ -76,6 +79,37 @@ export const editReview = (reviewId, update) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: REVIEW_EDIT_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const voteReview = (reviewId, method, reaction) => async (dispatch, getState) => {
+  console.log(reviewId, method, reaction);
+  try {
+    dispatch({ type: REVIEW_VOTE_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    const body = { reactionName: reaction };
+    console.log(body);
+    method === 'POST'
+      ? await axios.post(`${BASE_URL}/reviews/${reviewId}/votes`, body, config)
+      : await axios.delete(`${BASE_URL}/reviews/${reviewId}/votes`, config);
+
+    dispatch({ type: REVIEW_VOTE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: REVIEW_VOTE_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });
