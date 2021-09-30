@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DropDown from './Dropdown';
 import './styles/Header.css';
 import { logout } from '../actions/userActions';
-import SearchBarNav from './SearchBarNav';
+import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
 
 const Header = () => {
@@ -37,7 +37,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="search">
-        <SearchBarNav />
+        <SearchBar />
       </div>
       <div className="header_options">
         {userInfo?.token ? (

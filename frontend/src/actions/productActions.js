@@ -18,11 +18,11 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (endpoint) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/products`);
+    const { data } = await axios.get(`${BASE_URL}/products${endpoint}`);
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
