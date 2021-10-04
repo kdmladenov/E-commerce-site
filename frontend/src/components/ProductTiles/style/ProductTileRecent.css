@@ -1,0 +1,22 @@
+.tile_recent {
+  display: grid;
+  grid-template-rows: 2fr 280px 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile_recent .content img{
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 280px;
+  height: 280px;
+  object-fit: contain;
+}
+
+.tile_recent .title {
+  text-align: center;
+}
+
+.tile_recent h4 {
+  text-align: left;
+}
