@@ -1,10 +1,19 @@
+import { use } from 'passport';
+import { useState } from 'react';
 import './styles/Message.css';
 
 const Message = ({ type, children }) => {
+  const [showMessage, setShowMessage] = useState(true);
+
   return (
-    <div className="message_container">
-      <div className={`message ${type}`}>{children}</div>
-    </div>
+    showMessage && (
+      <div className="message_container">
+        <div className={`message ${type}`}>
+          {children}
+          <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"></i>
+        </div>
+      </div>
+    )
   );
 };
 

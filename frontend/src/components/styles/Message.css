@@ -1,8 +1,9 @@
-.message_container{
+.message_container {
+  position: relative;
   display: grid;
   place-items: center;
   height: 70px;
-  width: 100%
+  width: 100%;
 }
 
 .message {
@@ -10,16 +11,36 @@
   place-items: center;
   height: 50px;
   width: 90%;
+  font-size: 19px;
+  font-weight: bold;
   margin: 10px 0px;
   border-radius: 5px;
+  color: var(--white);
+}
+
+.message i {
+  position: absolute;
+  right: 7%;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.message i:hover {
+  color: var(--black);
 }
 
 .message.error {
-  background: rgba(255, 0, 0, 0.4);
-  color: var(--white)
+  background: rgba(247, 103, 91, 0.9);
 }
 
 .message.success {
-  background: rgba(2, 221, 2, 0.4);
-  color: var(--grey_dark);
+  background: rgba(77, 184, 134, 0.9);
+}
+
+.message.info {
+  background: rgba(81, 168, 245, 0.9);
+}
+
+.message.warning {
+  background: rgba(255, 170, 70, 0.9);
 }
