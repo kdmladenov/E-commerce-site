@@ -1,0 +1,51 @@
+.cart_items_menu {
+  width: 100px;
+  height: fit-content;
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  grid-template-columns: 100px;
+  grid-template-areas: 'subtotal' 'items';
+  gap: 20px;
+}
+
+.cart_items_menu .subtotal {
+  grid-area: 'subtotal';
+  margin: 10px 0;
+}
+
+.cart_items_menu .subtotal span {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 17px;
+}
+
+.cart_items_menu .subtotal_value {
+  color: rgb(170, 2, 2);
+}
+
+.cart_items_menu ul {
+  grid-area: 'subtotal';
+}
+
+.cart_items_menu .subtotal,
+.cart_items_menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cart_items_menu li {
+  position: relative;
+}
+
+.cart_items_menu li > img {
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.item_list_info {
+  width: 50px;
+  height: 50px;
+  background: red;
+}

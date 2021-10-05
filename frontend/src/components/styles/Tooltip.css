@@ -1,0 +1,27 @@
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  opacity: 0;
+  min-width: 100px;
+  width: fit-content;
+  height: fit-content;
+  z-index: 1000;
+  top: 52px;
+  transition: 400ms;
+  border: 2px solid var(--gray);
+  box-shadow: var(--box_shadow);
+}
+
+.tooltip:after {
+  content: '';
+  position: absolute;
+  border: 10px solid transparent;
+  top: -20px;
+  right: calc(50% - 10px);
+  border-bottom-color: white;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+}
