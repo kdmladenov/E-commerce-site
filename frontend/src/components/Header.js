@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import DropDown from './Dropdown';
 import './styles/Header.css';
 import { logout } from '../actions/userActions';
 import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
+import Tooltip from './Tooltip';
+import Login from './Login';
+import CartItems from './CartItems';
+import { useHistory } from 'react-router';
 
 const Header = () => {
-  // const [searchColumn, setSearchColumn] = useState('All Categories');
+  const [showAdminMenu, setShowAdminMenu] = useState(false);
+  const [showCartMenu, setShowCartMenu] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showLoginMenu, setShowLoginMenu] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -17,10 +23,36 @@ const Header = () => {
   const { cartItems } = cart;
 
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const logoutHandler = () => {
     dispatch(logout());
   };
+
+  const adminMenuToRender = (
+    <ul>
+      <li>
+        <Link to={'/admin/userlist'}>Users</Link>
+      </li>
+      <li>
+        <Link to={'/admin/productlist'}>Products</Link>
+      </li>
+      <li>
+        <Link to={'/admin/orderlist'}>Orders</Link>
+      </li>
+    </ul>
+  );
+
+  const userMenuToRender = (
+    <ul>
+      <li>
+        <Link to={'/profile'}>Profile</Link>
+      </li>
+      <li>
+        <Link onClick={logoutHandler}>Log out</Link>
+      </li>
+    </ul>
+  );
 
   return (
     <header>
@@ -41,45 +73,63 @@ const Header = () => {
       </div>
       <div className="header_options">
         {userInfo?.token ? (
-          <DropDown
-            className="header_option"
-            classNameMenu="header_optionUserMenu"
-            selected={<i className="fas fa-user" />}
-            options={[
-              <Link to={'/profile'}>Profile</Link>,
-              <Link onClick={logoutHandler}>Log out</Link>
-            ]}
+          <div
+            className="header_option user"
+            onMouseEnter={() => setShowUserMenu(true)}
+            onMouseLeave={() => setShowUserMenu(false)}
+            onClick={() => setShowUserMenu(false)}
           >
             <i className="fas fa-user" />
-          </DropDown>
+            {showUserMenu && (
+              <Tooltip visible={showUserMenu} direction={'top'}>
+                {userMenuToRender}
+              </Tooltip>
+            )}
+          </div>
         ) : (
-          <Link to="/login">
-            <div className="header_option">
-              <i className="fas fa-user" />
-            </div>
-          </Link>
+          <div
+            className="header_option login_menu"
+            onMouseEnter={() => setShowLoginMenu(true)}
+            onMouseLeave={() => setShowLoginMenu(false)}
+            // onClick={() => setShowLoginMenu(false)}
+          >
+            <i className="fas fa-user" />
+            {showLoginMenu && (
+              <Tooltip visible={showLoginMenu} direction={'top'}>
+                <Login />
+              </Tooltip>
+            )}
+          </div>
         )}
         {userInfo?.role === 'admin' && (
-          <DropDown
-            className="header_option"
-            classNameMenu="header_optionAdminMenu"
-            selected={<i className="fa fa-user-plus" />}
-            options={[
-              <Link to={'/admin/userlist'}>Users</Link>,
-              <Link to={'/admin/productlist'}>Products</Link>,
-              <Link to={'/admin/orderlist'}>Orders</Link>
-            ]}
+          <div
+            className="header_option admin"
+            onMouseEnter={() => setShowAdminMenu(true)}
+            onMouseLeave={() => setShowAdminMenu(false)}
+            onClick={() => setShowAdminMenu(false)}
           >
             <i className="fa fa-user-plus" />
-          </DropDown>
-        )}
-
-        <Link to="/cart">
-          <div className="header_option cart">
-            <i className="fa fa-shopping-cart"></i>
-            {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}
+            {showAdminMenu && (
+              <Tooltip visible={showAdminMenu} direction={'top'}>
+                {adminMenuToRender}
+              </Tooltip>
+            )}
           </div>
-        </Link>
+        )}
+        <div
+          className="header_option cart"
+          onMouseEnter={() => setShowCartMenu(true)}
+          onMouseLeave={() => setShowCartMenu(false)}
+          onClick={() => history.push('/cart')}
+        >
+          <i className="fa fa-shopping-cart"></i>
+          {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}
+          {showCartMenu && (
+            <Tooltip visible={showCartMenu} direction={'left'}>
+              <CartItems cartItems={cartItems} />
+            </Tooltip>
+          )}
+        </div>
       </div>
     </header>
   );
