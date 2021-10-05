@@ -1,4 +1,4 @@
- import {
+import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
@@ -18,23 +18,25 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
 
-export const listProducts = (endpoint) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
+export const listProducts =
+  (endpoint = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/products${endpoint}`);
+      const { data } = await axios.get(`${BASE_URL}/products${endpoint}`);
 
-    dispatch({
-      type: PRODUCT_LIST_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload: error?.response?.data?.message ? error.response.data.message : error.message
-    });
-  }
-};
+      dispatch({
+        type: PRODUCT_LIST_SUCCESS,
+        payload: data
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload: error?.response?.data?.message ? error.response.data.message : error.message
+      });
+    }
+  };
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
@@ -155,4 +157,3 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
     });
   }
 };
-

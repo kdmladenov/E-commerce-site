@@ -29,7 +29,6 @@ const LoginScreen = ({ location, history }) => {
   };
 
   return (
-    <div className="login">
       <div className="login_container">
         <h1>Sign In</h1>
         {loading && <Loader />}
@@ -60,7 +59,6 @@ const LoginScreen = ({ location, history }) => {
           <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
         </div>
       </div>
-    </div>
   );
 };
 

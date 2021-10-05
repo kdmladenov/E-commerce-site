@@ -9,7 +9,7 @@ const Rating = ({ rating, setRating, text, color, editMode }) => {
       {Array.from({ length: STAR_COUNT }).map((_, index) => (
         <span key={index}>
           <i
-            onMouseEnter={() => editMode && setRating(index + 1)}
+            onClick={() => editMode && setRating(index + 1)}
             style={{ color }}
             className={
               rating >= index + 1

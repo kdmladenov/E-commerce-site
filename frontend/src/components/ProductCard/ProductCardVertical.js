@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rating from './Rating';
-import './styles/ProductCardHomeScreen.css';
+import Rating from '../Rating';
+import './styles/ProductCardVertical.css';
 import { Link, useHistory } from 'react-router-dom';
-import Button from './Button';
-import { BASE_URL } from '../constants/constants';
+import Button from '../Button';
+import { BASE_URL } from '../../constants/constants';
 
-const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) => {
+const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) => {
   const history = useHistory();
 
   const addToCartHandler = () => {
@@ -38,7 +38,7 @@ const ProductCardHomeScreen = ({ id, title, image, price, rating, stockCount }) 
   );
 };
 
-ProductCardHomeScreen.defaultProps = {
+ProductCardVertical.defaultProps = {
   id: 0,
   title: '',
   image: '',
@@ -46,7 +46,7 @@ ProductCardHomeScreen.defaultProps = {
   rating: 0
 };
 
-ProductCardHomeScreen.propTypes = {
+ProductCardVertical.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
   image: PropTypes.string,
@@ -54,4 +54,4 @@ ProductCardHomeScreen.propTypes = {
   rating: PropTypes.number
 };
 
-export default ProductCardHomeScreen;
+export default ProductCardVertical;

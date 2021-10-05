@@ -93,19 +93,11 @@ img {
   object-fit: contain;
 }
 
-.container {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
 .card {
   position: relative;
   background-color: var(--white);
   border-radius: 3px;
   box-shadow: var(--box-shadow);
-  padding: 20px;
   color: var(--black);
 }
 

@@ -1,6 +1,7 @@
 .review_card {
   position: relative;
   margin-bottom: 20px;
+  padding: 20px;
 }
 
 .user_info,
@@ -24,10 +25,11 @@
   margin-right: 20px;
 }
 
-.content,
-input.content.card {
+.review_card .content,
+.review_card input.content.card {
   justify-content: start;
   width: 100%;
+  padding: 10px 20px;
 }
 input.content.card {
   height: 200px;
@@ -55,8 +57,8 @@ input.content.card {
 
 .review-card-thumbs i {
   font-size: 20px;
-  color: var(--gray_dark)
+  color: var(--gray_dark);
 }
 .review-card-thumbs i.active {
-  color: var(--black)
+  color: var(--black);
 }

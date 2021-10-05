@@ -8,6 +8,7 @@ header {
   /* position: sticky; */
   top: 0;
   z-index: 100;
+  padding: 0 10px;
 }
 
 .logo_mega_menu_group {
@@ -45,6 +46,7 @@ header {
 }
 
 .header_option {
+  position: relative;
   width: 45px;
   height: 45px;
   margin-left: 20px;
@@ -68,10 +70,6 @@ header {
   box-shadow: var(--box_shadow_angle_active);
 }
 
-.header_option.cart {
-  position: relative;
-}
-
 .header_optionAdminMenu,
 .header_optionUserMenu {
   display: flex;
@@ -82,7 +80,7 @@ header {
   text-decoration: none;
   justify-content: left;
 }
-.badge {
+.header_option.cart .badge {
   position: absolute;
   top: 0;
   right: 0;
@@ -95,6 +93,11 @@ header {
   color: var(--white);
   border-radius: 10px;
   padding: 0 6px;
+}
+
+.header_option.admin .tooltip:hover {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (max-width: 1000px) {
