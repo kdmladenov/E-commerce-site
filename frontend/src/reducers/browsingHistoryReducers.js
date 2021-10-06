@@ -1,4 +1,4 @@
-import { BROWSING_HISTORY_ADD_FAIL, BROWSING_HISTORY_ADD_REQUEST, BROWSING_HISTORY_ADD_RESET, BROWSING_HISTORY_ADD_SUCCESS } from '../constants/browsingHistoryConstants';
+import { BROWSING_HISTORY_ADD_FAIL, BROWSING_HISTORY_ADD_REQUEST, BROWSING_HISTORY_ADD_RESET, BROWSING_HISTORY_ADD_SUCCESS, BROWSING_HISTORY_LIST_FAIL, BROWSING_HISTORY_LIST_REQUEST, BROWSING_HISTORY_LIST_SUCCESS } from '../constants/browsingHistoryConstants';
 
 export const browsingHistoryAddReducer = (state = {}, action) => {
   switch (action.type) {
@@ -14,3 +14,17 @@ export const browsingHistoryAddReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const browsingHistoryListReducer = (state = { browsingHistory: [] }, action) => {
+  switch (action.type) {
+    case BROWSING_HISTORY_LIST_REQUEST:
+      return { loading: true, browsingHistory: [] };
+    case BROWSING_HISTORY_LIST_SUCCESS:
+      return { loading: false, browsingHistory: action.payload };
+    case BROWSING_HISTORY_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
