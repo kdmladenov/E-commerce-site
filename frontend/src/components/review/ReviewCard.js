@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { BASE_URL } from '../../constants/constants';
+import React, { useState } from 'react';
 import Rating from '../Rating';
 import ShowMoreButton from '../ShowMoreButton';
 import Button from '../Button';
 import './styles/ReviewCard.css';
 import { useDispatch } from 'react-redux';
-import { createReview, deleteReview, editReview, listReviews, voteReview } from '../../actions/reviewActions';
+import { createReview, deleteReview, editReview, voteReview } from '../../actions/reviewActions';
 
 const ReviewCard = ({
   user,
@@ -35,9 +34,9 @@ const ReviewCard = ({
   const [countThumbsDown, setCountThumbsDown] = useState(thumbsDown);
 
   const [currentVote, setCurrentVote] = useState(
-    userThumbsUpList?.toString().split(',').map(Number).includes(currentUser.userId)
+    userThumbsUpList?.toString().split(',').map(Number).includes(currentUser?.userId)
       ? 'UP'
-      : userThumbsDownList?.toString().split(',').map(Number).includes(currentUser.userId)
+      : userThumbsDownList?.toString().split(',').map(Number).includes(currentUser?.userId)
       ? 'DOWN'
       : ''
   );
@@ -173,7 +172,7 @@ const ReviewCard = ({
       )}
 
       <div className="button_group">
-        {!createMode && !editMode && currentUser.userId === authorId && (
+        {!createMode && !editMode && currentUser?.userId === authorId && (
           <Button types="icon" onClick={handleEditButton}>
             <i className="fa fa-edit"></i>
           </Button>

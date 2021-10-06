@@ -14,6 +14,7 @@ import {
 import { cartReducer } from './reducers/cartReducers';
 import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderMyListReducer, orderPayReducer } from './reducers/orderReducers';
 import { reviewCreateReducer, reviewDeleteReducer, reviewEditReducer, reviewListReducer, reviewVoteReducer } from './reducers/reviewReducers';
+import { browsingHistoryAddReducer } from './reducers/browsingHistoryReducers';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   reviewList: reviewListReducer,
   reviewEdit: reviewEditReducer,
   reviewVote: reviewVoteReducer,
+  browsingHistoryAdd: browsingHistoryAddReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

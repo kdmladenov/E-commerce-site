@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { numberDecimalFix } from '../../constants/utility-functions.js/utility-functions';
 import './style/ProductTileDeal.css';
 
@@ -14,7 +15,9 @@ const ProductTileDeal = ({ product }) => {
   return (
     <div className="tile_deal card">
       <h2 className="title">Deal of the Day</h2>
-      <div className="content">{contentToShow}</div>
+      <Link to={`/products/${product?.productId}`}>
+        <div className="content">{contentToShow}</div>
+      </Link>
       <h4>See all deals</h4>
     </div>
   );

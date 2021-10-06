@@ -43,7 +43,7 @@
   align-items: flex-start;
 }
 
-.tile_recent_four li > img {
+.tile_recent_four li > a >img {
   padding: 0 20px;
   height: 100px;
   object-fit: contain;

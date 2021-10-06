@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
-import { useResize } from '../hooks/useResize';
 import './styles/CartItems.css';
 
 const CartItems = ({ cartItems }) => {

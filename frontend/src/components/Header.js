@@ -23,7 +23,7 @@ const Header = () => {
   const { cartItems } = cart;
 
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -48,9 +48,7 @@ const Header = () => {
       <li>
         <Link to={'/profile'}>Profile</Link>
       </li>
-      <li>
-        <Link onClick={logoutHandler}>Log out</Link>
-      </li>
+      <li onClick={logoutHandler}>Log out</li>
     </ul>
   );
 

@@ -9,8 +9,9 @@ import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
 import Button from '../components/Button';
-import ReviewList from '../components/review/ReviewList';
+import ReviewList from '../components/Review/ReviewList';
 import { listReviews } from '../actions/reviewActions';
+import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -20,10 +21,11 @@ const ProductScreen = ({ history, match }) => {
 
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
     dispatch(listReviews(match.params.id));
+    dispatch(addBrowsingHistoryRecord(match.params.id));
   }, [dispatch, match]);
 
   const reviewList = useSelector((state) => state.reviewList);
@@ -32,8 +34,8 @@ const ProductScreen = ({ history, match }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
-   const userLogin = useSelector((state) => state.userLogin);
-   const { userInfo: currentUser } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo: currentUser } = userLogin;
 
   //TO DO to be replaced with backend data
   const images = [
@@ -153,7 +155,7 @@ const ProductScreen = ({ history, match }) => {
       ) : errorReviews ? (
         <Message type="error">{errorReviews}</Message>
       ) : product.reviewCount > 0 ? (
-        <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId}/>
+        <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId} />
       ) : (
         <Message type="success">There are no reviews for this product</Message>
       )}
