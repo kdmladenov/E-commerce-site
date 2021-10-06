@@ -9,6 +9,7 @@ import authController from './controllers/auth-controller.js';
 import productsController from './controllers/products-controller.js'
 import ordersController from './controllers/orders-controller.js';
 import reviewsController from './controllers/reviews-controller.js';
+import historyController from './controllers/history-controller.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/users', usersController);
 app.use('/products', productsController);
 app.use('/orders', ordersController);
 app.use('/reviews', reviewsController);
+app.use('/history', historyController);
 
 app.use('/storage/images', express.static('storage/images'));
 
