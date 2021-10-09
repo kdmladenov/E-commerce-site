@@ -8,7 +8,6 @@ import './styles/HomeScreen.css';
 import Carousel from '../components/Carousel/Carousel';
 import { carouselImages, categoriesTiles, images } from '../constants/for-developing/sliderImages';
 import Slider from '../components/Slider/Slider';
-import ProductTile from '../components/ProductTiles/ProductTile';
 import ProductTileRecommendedFour from '../components/ProductTiles/ProductTileRecommendedFour';
 import ProductTileRecent from '../components/ProductTiles/ProductTileRecent';
 import ProductTileDeal from '../components/ProductTiles/ProductTileDeal';

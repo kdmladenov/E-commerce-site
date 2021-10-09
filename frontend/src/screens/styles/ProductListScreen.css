@@ -1,20 +1,19 @@
 .product_list {
-  max-width: 100vw;
-  margin: 5px;
+  display: grid;
+  grid-auto-columns: 300px 1fr;
+  grid-auto-rows: 1fr;
+  grid-template-areas: 'sidebar product_list';
 }
 
-.product_list_container {
-  display: grid;
-  grid-auto-columns: 200px 1fr;
-  grid-template-areas: 'sidebar product_list';
-  gap: 10px;
+.product_list_container{
+  padding: 0 10px;
 }
 
 .product_list_container ul {
   grid-area: 'product_list';
   display: grid;
   grid-auto-columns: repeat(4, 1fr);
-  grid-auto-rows: 50vh;
+  grid-auto-rows: 420px;
   grid-template-areas: 'product product product product';
   gap: 10px;
 }
@@ -26,9 +25,8 @@
 .sidebar {
   grid-area: 'sidebar';
   height: 100%;
-  width: 200px;
-  background: blue;
-  color: white;
+  background: rgb(231, 231, 231);
+  color: black;
 }
 
 @media (max-width: 1400px) {

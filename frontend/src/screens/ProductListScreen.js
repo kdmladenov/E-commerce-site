@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ProductCardHomeScreen from '../components/ProductCardHomeScreen';
+import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
 import './styles/ProductListScreen.css';
-import Carousel from '../components/Carousel/Carousel';
-import { carouselImages, images } from '../constants/for-developing/sliderImages';
-import Slider from '../components/Slider/Slider';
 
 const ProductListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -21,7 +18,7 @@ const ProductListScreen = ({ history }) => {
 
   const productsToShow = products?.map((product) => (
     <li className="product" key={product.productId}>
-      <ProductCardHomeScreen
+      <ProductCardVertical
         title={product.title}
         image={product.image}
         price={product.price}
@@ -32,14 +29,14 @@ const ProductListScreen = ({ history }) => {
   ));
 
   return (
-    <main className="product_list">
+    <main className="product_list container">
+      <div className="sidebar">sidebar</div>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
         <div className="product_list_container">
-          <div className="sidebar">sidebar</div>
           <ul>{productsToShow}</ul>
         </div>
       )}
