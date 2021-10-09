@@ -1,6 +1,6 @@
 import db from './pool.js';
 
-const getAllWishlistRecords = async (
+const getAllWishListRecords = async (
   userId,
   search,
   searchBy,
@@ -17,7 +17,7 @@ const getAllWishlistRecords = async (
     : 'title';
 
   const sortColumn = [
-    'wishlistId',
+    'wishListId',
     'dateCreated',
     'title',
     'brand',
@@ -30,7 +30,7 @@ const getAllWishlistRecords = async (
 
   const sql = `
   SELECT
-      w.wishlist_id as wishlistId,
+      w.wishlist_id as wishListId,
       w.date_created as dateCreated,
       w.user_id as userId,
       p.product_id as productId,
@@ -68,7 +68,7 @@ const getAllWishlistRecords = async (
 const getBy = async (column, value, userId) => {
   const sql = `
     SELECT 
-      wishlist_id as wishlistId,
+      wishlist_id as wishListId,
       product_id as productId,
       user_id as userId,
       date_created as dateCreated
@@ -80,10 +80,10 @@ const getBy = async (column, value, userId) => {
   return result[0];
 };
 
-const getById = async (wishlistId) => {
+const getById = async (wishListId) => {
   const sql = `
     SELECT 
-      wishlist_id as wishlistId,
+      wishlist_id as wishListId,
       product_id as productId,
       user_id as userId,
       date_created as dateCreated
@@ -91,7 +91,7 @@ const getById = async (wishlistId) => {
     WHERE wishlist_id = ? AND is_deleted = 0
   `;
 
-  const result = await db.query(sql, [+wishlistId]);
+  const result = await db.query(sql, [+wishListId]);
   return result[0];
 };
 
@@ -108,18 +108,18 @@ const create = async (productId, userId) => {
   return getById(result.insertId);
 };
 
-const remove = async (wishlistId) => {
+const remove = async (wishListId) => {
   const sql = `
         UPDATE wishlist
         SET is_deleted = true
         WHERE wishlist_id = ?
     `;
 
-  return db.query(sql, [+wishlistId]);
+  return db.query(sql, [+wishListId]);
 };
 
 export default {
-  getAllWishlistRecords,
+  getAllWishListRecords,
   getById,
   getBy,
   create,

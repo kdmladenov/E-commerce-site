@@ -38,6 +38,7 @@ import {
   browsingHistoryDeleteReducer,
   browsingHistoryListReducer
 } from './reducers/browsingHistoryReducers';
+import { wishListAddReducer } from './reducers/wishListReducers';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -54,6 +55,7 @@ const reducer = combineReducers({
   browsingHistoryAdd: browsingHistoryAddReducer,
   browsingHistoryList: browsingHistoryListReducer,
   browsingHistoryDelete: browsingHistoryDeleteReducer,
+  wishListAdd: wishListAddReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
