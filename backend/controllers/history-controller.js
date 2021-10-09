@@ -71,20 +71,25 @@ historyController
   )
   // @desc DELETE history
   // @route DELETE /history/:id
-  // @access Private - logged user
+  // @access Private - logged user and only the original creator
   .delete(
     '/:historyId',
     authMiddleware,
     loggedUserGuard,
-    roleMiddleware(rolesEnum.admin),
     errorHandler(async (req, res) => {
       const { historyId } = req.params;
+      const userId = req.user.userId;
       const { error, historyRecord } = await historyServices.deleteHistoryRecord(historyData)(
-        historyId
+        historyId,
+        userId
       );
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: 'A history with this id is not found!'
+        });
+      } else if (error === errors.OPERATION_NOT_PERMITTED) {
+        res.status(403).send({
+          message: `You are not authorized to delete this history record`
         });
       } else {
         res.status(200).send(historyRecord);

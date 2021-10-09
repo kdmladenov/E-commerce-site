@@ -29,13 +29,21 @@ const createHistory = (historyData) => async (productId, userId) => {
   };
 };
 
-const deleteHistoryRecord = (historyData) => async (historyId) => {
+const deleteHistoryRecord = (historyData) => async (historyId, userId) => {
   const existingRecord = await historyData.getById(historyId);
 
   if (!existingRecord) {
     return {
       error: errors.RECORD_NOT_FOUND,
       historyRecord: null
+    };
+  }
+
+  // checks if the user is the original history record creator
+  if (existingRecord.userId !== userId) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      product: null
     };
   }
 

@@ -109,8 +109,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', createProductSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const data = req.body;
       const { error, product } = await productsServices.createProduct(productsData)(data);
 
@@ -121,9 +120,8 @@ productsController
       } else {
         res.status(201).send(product);
       }
-    }
+    })
   )
-  // )
   // @desc DELETE product
   // @route DELETE /products/:id
   // @access Private - Admin only
@@ -161,7 +159,7 @@ productsController
     })
   );
 
-  // NOT NEEDED
+// NOT NEEDED
 // // @desc UPDATE product's image
 // // @route PUT /products/:productId/image
 // // @access Private - Admin only
