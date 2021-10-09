@@ -1,7 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
+import {
+  productCreateReducer,
+  productDeleteReducer,
+  productDetailsReducer,
+  productListReducer,
+  productUpdateReducer
+} from './reducers/productReducers';
 import {
   userDeleteReducer,
   userDetailsReducer,
@@ -12,9 +18,26 @@ import {
   userUpdateReducer
 } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
-import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderMyListReducer, orderPayReducer } from './reducers/orderReducers';
-import { reviewCreateReducer, reviewDeleteReducer, reviewEditReducer, reviewListReducer, reviewVoteReducer } from './reducers/reviewReducers';
-import { browsingHistoryAddReducer, browsingHistoryListReducer } from './reducers/browsingHistoryReducers';
+import {
+  orderCreateReducer,
+  orderDeliverReducer,
+  orderDetailsReducer,
+  orderListReducer,
+  orderMyListReducer,
+  orderPayReducer
+} from './reducers/orderReducers';
+import {
+  reviewCreateReducer,
+  reviewDeleteReducer,
+  reviewEditReducer,
+  reviewListReducer,
+  reviewVoteReducer
+} from './reducers/reviewReducers';
+import {
+  browsingHistoryAddReducer,
+  browsingHistoryDeleteReducer,
+  browsingHistoryListReducer
+} from './reducers/browsingHistoryReducers';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -30,6 +53,7 @@ const reducer = combineReducers({
   reviewVote: reviewVoteReducer,
   browsingHistoryAdd: browsingHistoryAddReducer,
   browsingHistoryList: browsingHistoryListReducer,
+  browsingHistoryDelete: browsingHistoryDeleteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
@@ -60,7 +84,7 @@ const shippingAddressFromLocalStorage = localStorage.getItem('shippingAddress')
 const paymentMethodFromLocalStorage = localStorage.getItem('paymentMethod')
   ? JSON.parse(localStorage.getItem('paymentMethod'))
   : [];
-  
+
 const initialState = {
   cart: {
     cartItems: cartItemsFromLocalStorage,

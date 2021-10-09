@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import Button from '../components/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { listBrowsingHistory } from '../actions/browsingHistoryActions';
-import { listProducts } from '../actions/productActions';
+import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
@@ -13,33 +13,38 @@ const BrowsingHistory = () => {
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { loading, browsingHistory, error } = browsingHistoryList;
 
+  const browsingHistoryDelete = useSelector((state) => state.browsingHistoryDelete);
+  const { success: successDelete } = browsingHistoryDelete;
+
   useEffect(() => {
     dispatch(listBrowsingHistory());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
 
-  console.log(browsingHistory, 'browsingHistory');
-
-  const productsToShow = browsingHistory?.map((product) => (
-    <li className="product" key={product.productId}>
+  const productsToShow = browsingHistory?.map((historyRecord) => (
+    <li className="product" key={historyRecord.historyId}>
       <ProductCardVertical
-        title={product.title}
-        image={product.image}
-        price={product.price}
-        rating={product.rating}
-        stockCount={product.stockCount}
+        title={historyRecord.title}
+        image={historyRecord.image}
+        price={historyRecord.price}
+        rating={historyRecord.rating}
+        stockCount={historyRecord.stockCount}
       />
+      <Button onClick={() => dispatch(deleteBrowsingHistory(historyRecord.historyId))}>
+        Delete
+      </Button>
     </li>
   ));
 
   return (
-    <main className="product_history_list container">
+    <main className="browsing_history_list container">
       <div className="sidebar">sidebar</div>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
-        <div className="product_history_list_container">
+        <div className="browsing_history_list_container">
+          <h1>Your Browsing History</h1>
           <ul>{productsToShow}</ul>
         </div>
       )}

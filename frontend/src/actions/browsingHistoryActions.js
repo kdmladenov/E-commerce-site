@@ -3,6 +3,9 @@ import {
   BROWSING_HISTORY_ADD_FAIL,
   BROWSING_HISTORY_ADD_REQUEST,
   BROWSING_HISTORY_ADD_SUCCESS,
+  BROWSING_HISTORY_DELETE_FAIL,
+  BROWSING_HISTORY_DELETE_REQUEST,
+  BROWSING_HISTORY_DELETE_SUCCESS,
   BROWSING_HISTORY_LIST_FAIL,
   BROWSING_HISTORY_LIST_REQUEST,
   BROWSING_HISTORY_LIST_SUCCESS
@@ -64,3 +67,33 @@ export const listBrowsingHistory =
       });
     }
   };
+
+export const deleteBrowsingHistory = (historyId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: BROWSING_HISTORY_DELETE_REQUEST
+    });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.delete(`${BASE_URL}/history/${historyId}`, config);
+
+    dispatch({
+      type: BROWSING_HISTORY_DELETE_SUCCESS
+    });
+  } catch (error) {
+    dispatch({
+      type: BROWSING_HISTORY_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
