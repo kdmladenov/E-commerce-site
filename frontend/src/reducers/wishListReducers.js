@@ -1,4 +1,4 @@
-import { WISH_ITEMS_LIST_FAIL, WISH_ITEMS_LIST_REQUEST, WISH_ITEMS_LIST_SUCCESS, WISH_LIST_ADD_FAIL, WISH_LIST_ADD_REQUEST, WISH_LIST_ADD_RESET, WISH_LIST_ADD_SUCCESS } from '../constants/wishlLstConstants';
+import { WISH_ITEMS_LIST_FAIL, WISH_ITEMS_LIST_REQUEST, WISH_ITEMS_LIST_SUCCESS, WISH_LIST_ADD_FAIL, WISH_LIST_ADD_REQUEST, WISH_LIST_ADD_RESET, WISH_LIST_ADD_SUCCESS, WISH_LIST_DELETE_FAIL, WISH_LIST_DELETE_REQUEST, WISH_LIST_DELETE_SUCCESS } from '../constants/wishlLstConstants';
 
 
 export const wishListAddReducer = (state = {}, action) => {
@@ -23,6 +23,19 @@ export const wishListItemsReducer = (state = { wishList: [] }, action) => {
     case WISH_ITEMS_LIST_SUCCESS:
       return { loading: false, wishList: action.payload };
     case WISH_ITEMS_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const wishListDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WISH_LIST_DELETE_REQUEST:
+      return { loading: true };
+    case WISH_LIST_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case WISH_LIST_DELETE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

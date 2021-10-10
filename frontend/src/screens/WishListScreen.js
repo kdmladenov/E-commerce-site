@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listWishedItems } from '../actions/wishListActions';
+import { deleteWishFromList, listWishedItems } from '../actions/wishListActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
 import './styles/WishListScreen.css';
+import Button from '../components/Button';
 
 const WishListScreen = () => {
   const dispatch = useDispatch();
@@ -12,9 +13,12 @@ const WishListScreen = () => {
   const wishListItems = useSelector((state) => state.wishListItems);
   const { loading, wishList, error } = wishListItems;
 
+    const wishListDelete = useSelector((state) => state.wishListDelete);
+    const { success: successDelete } = wishListDelete;
+
   useEffect(() => {
     dispatch(listWishedItems());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
 
 const listToShow = wishList?.map((wish) => (
   <li className="product" key={wish.wishListId}>
@@ -25,6 +29,7 @@ const listToShow = wishList?.map((wish) => (
       rating={wish.rating}
       stockCount={wish.stockCount}
     />
+    <Button onClick={() => dispatch(deleteWishFromList(wish.wishListId))}>Delete</Button>
   </li>
 ));
 
