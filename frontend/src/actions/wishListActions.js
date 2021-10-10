@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
-import { WISH_LIST_ADD_FAIL, WISH_LIST_ADD_REQUEST, WISH_LIST_ADD_SUCCESS } from '../constants/wishlLstConstants';
+import { WISH_ITEMS_LIST_FAIL, WISH_ITEMS_LIST_REQUEST, WISH_ITEMS_LIST_SUCCESS, WISH_LIST_ADD_FAIL, WISH_LIST_ADD_REQUEST, WISH_LIST_ADD_SUCCESS } from '../constants/wishlLstConstants';
 
 export const addWishToList = (productId) => async (dispatch, getState) => {
   try {
@@ -28,3 +28,32 @@ export const addWishToList = (productId) => async (dispatch, getState) => {
     });
   }
 };
+
+export const listWishedItems =
+  (endpoint = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: WISH_ITEMS_LIST_REQUEST });
+
+      const {
+        userLogin: { userInfo }
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+      const { data } = await axios.get(`${BASE_URL}/wishlist${endpoint}`, config);
+
+      dispatch({
+        type: WISH_ITEMS_LIST_SUCCESS,
+        payload: data
+      });
+    } catch (error) {
+      dispatch({
+        type: WISH_ITEMS_LIST_FAIL,
+        payload: error?.response?.data?.message ? error.response.data.message : error.message
+      });
+    }
+  };

@@ -27,7 +27,7 @@ app.use('/products', productsController);
 app.use('/orders', ordersController);
 app.use('/reviews', reviewsController);
 app.use('/history', historyController);
-app.use('/wishList', wishListController);
+app.use('/wishlist', wishListController);
 
 app.use('/storage/images', express.static('storage/images'));
 
