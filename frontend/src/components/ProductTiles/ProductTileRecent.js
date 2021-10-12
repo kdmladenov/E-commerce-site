@@ -12,7 +12,9 @@ const ProductTileRecent = ({ product }) => {
         <div className="content">{contentToShow}</div>
       </Link>
 
-      <h4>View your browsing history</h4>
+      <Link to='/history'>
+        <h4>View your browsing history</h4>
+      </Link>
     </div>
   );
 };

@@ -57,7 +57,7 @@ const MegaMenu = () => {
   return (
     <main>
       <button className="button_nav" onClick={() => setShowDropdown(!showDropdown)}>
-        <i className="fa fa-align-justify"></i>
+        {!showDropdown ? <i className="fa fa-align-justify"></i> : <i className="fa fa-times"></i>}
       </button>
       {showDropdown && (
         <section className="menu_container">
