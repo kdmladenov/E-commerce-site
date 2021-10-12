@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
 import './styles/CartItems.css';
 
-const CartItems = ({ cartItems }) => {
+const CartItems = ({ cartItems, setShowCartMenu }) => {
   const cartItemsToRender = cartItems?.map((item, index) => (
-    <li key={index}>
-      <img src={item.image} alt={item.title} />
+    <li onClick={() => setShowCartMenu(false)} key={index}>
+      <Link to={`/products/${item.id}`}>
+        <img src={item.image} alt={item.title} />
+      </Link>
     </li>
   ));
 

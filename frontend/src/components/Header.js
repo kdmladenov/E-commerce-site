@@ -118,13 +118,18 @@ const Header = () => {
           className="header_option cart"
           onMouseEnter={() => setShowCartMenu(true)}
           onMouseLeave={() => setShowCartMenu(false)}
-          onClick={() => history.push('/cart')}
         >
-          <i className="fa fa-shopping-cart"></i>
+          <i
+            onClick={() => {
+              history.push('/cart');
+              setShowCartMenu(false);
+            }}
+            className="fa fa-shopping-cart"
+          ></i>
           {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}
           {showCartMenu && (
             <Tooltip visible={showCartMenu} direction={'left'}>
-              <CartItems cartItems={cartItems} />
+              <CartItems cartItems={cartItems} setShowCartMenu={setShowCartMenu} />
             </Tooltip>
           )}
         </div>
