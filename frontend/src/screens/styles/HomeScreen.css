@@ -1,9 +1,11 @@
 .home {
   width: 100%;
-  max-width: 1900px;
+  max-width: 1800px;
   display: grid;
   grid-auto-columns: 1fr;
   margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
   grid-template-areas:
     'slider'
     'product_tile_group_1'
@@ -15,39 +17,47 @@
 /* Slider */
 .home_slider {
   grid-area: 'slider';
-  height: 600px;
+  height: 250px;
   z-index: 1;
-  margin-bottom: -330px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  overflow: hidden;
+  /* margin-bottom: -330px; */
+  /* mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); */
 }
 
 .product_tile_group_1 {
   grid-area: 'product_tile_group_1';
-  grid-template-rows: repeat(2, 420px);
+  grid-template-areas:
+    'tiles_row_1'
+    'tiles_row_2';
+  grid-template-rows: repeat(2, 400px);
+  gap: 20px;
 }
 .product_tile_group_2 {
   grid-area: 'product_tile_group_2';
-  grid-template-rows: 420px;
+  grid-template-areas: 'tile_11 tile_12 tile_13 tile_14 tile_15';
+  grid-template-rows: 400px;
 }
 
 .product_tile_group_1,
 .product_tile_group_2 {
-  padding: 0 10px;
   z-index: 2;
   display: grid;
   align-items: center;
-  gap: 0 20px;
   grid-auto-columns: repeat(5, 1fr);
 }
 
-.product_tile_group_1 {
-  grid-template-areas:
-    'tile_1 tile_2 tile_3 tile_4 tile_5'
-    'tile_6 tile_7 tile_8 tile_9 tile_10';
+.product_tile_group_1_row_1 {
+  grid-area: 'tiles_row_1';
+  display: grid;
+  gap: 20px;
+  grid-template-areas: 'tile_1 tile_2 tile_3 tile_4 tile_5';
 }
 
-.product_tile_group_2 {
-  grid-template-areas: 'tile_11 tile_12 tile_13 tile_14 tile_15';
+.product_tile_group_1_row_2 {
+  grid-area: 'tiles_row_2';
+  display: grid;
+  gap: 20px;
+  grid-template-areas: 'tile_6 tile_7 tile_8 tile_9 tile_10';
 }
 
 .tile_1 {
@@ -101,19 +111,19 @@ div[class^='tile_'] {
 }
 
 /* Carousels */
-.carousel_1 {
+/* .carousel_1 {
   grid-area: 'carousel_1';
   z-index: 2;
-}
+} */
 
-.carousel_2 {
+/* .carousel_2 {
   grid-area: 'carousel_2';
-}
+} */
 
-div[class^='carousel_'] {
+/* div[class^='carousel_'] {
   overflow: hidden;
   grid-auto-rows: max-content;
-}
+} */
 
 /* Media queries */
 @media (min-width: 1201px) and (max-width: 1500px) {
@@ -173,7 +183,7 @@ div[class^='carousel_'] {
   }
   .tile_9,
   .tile_10,
-  .tile_15{
+  .tile_15 {
     display: none;
   }
 }
@@ -203,7 +213,7 @@ div[class^='carousel_'] {
   .tile_9,
   .tile_10,
   .tile_14,
-  .tile_15{
+  .tile_15 {
     display: none;
   }
 }
