@@ -13,6 +13,8 @@ import ProductTileRecent from '../components/ProductTiles/ProductTileRecent';
 import ProductTileDeal from '../components/ProductTiles/ProductTileDeal';
 import ProductTileRecentFour from '../components/ProductTiles/ProductTileRecentFour';
 import ProductTileRecommended from '../components/ProductTiles/ProductTileRecommended';
+import { listBrowsingHistory } from '../actions/browsingHistoryActions';
+import Carousel_2 from '../components/Carousel_2/Carousel_2';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,8 +22,16 @@ const HomeScreen = () => {
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
+  const { loading: LoadingHistory, browsingHistory, error: errorHistory } = browsingHistoryList;
+  console.log(browsingHistory);
+
   useEffect(() => {
     dispatch(listProducts());
+    dispatch(listBrowsingHistory());
   }, [dispatch]);
 
   // const productsToShow = products?.map((product) => (
@@ -36,58 +46,114 @@ const HomeScreen = () => {
   //   />
   // ));
 
+  const slidesRowToRender = (
+    <ul>
+      {products.map((item, index) => (
+        <li key={index}>
+          <img src={item.image} alt={item.title} />
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <main className="home">
       <div className="home_slider" onClick={() => console.log('slider')}>
-        <Slider
+        {/* <Slider
           images={images}
           dots={false}
           prevBtnClass={'home_slider_prev_btn'}
           nextBtnClass={'home_slider_next_btn'}
-        />
+        /> */}
+        <Carousel_2>{slidesRowToRender}</Carousel_2>
       </div>
       <div className="product_tile_group_1">
-        <div className="tile_1">
-          <ProductTileRecommendedFour
-            title={categoriesTiles['recommended'].title}
-            content={categoriesTiles['recommended'].content}
-          />
-        </div>
-        <div className="tile_2">{<ProductTileRecent product={products[2]} />}</div>
-        <div className="tile_3">{<ProductTileDeal product={products[5]} />}</div>
-        <div className="tile_4">{<ProductTileRecentFour products={products.slice(0, 4)} />}</div>
-        <div className="tile_5">
-          {<ProductTileRecommended content={categoriesTiles['recommended'].content[0]} />}
-        </div>
-        <div className="tile_6">
-          <ProductTileRecommendedFour
-            title={categoriesTiles['Kitchen & Dining'].title}
-            content={categoriesTiles['Kitchen & Dining'].content}
-          />
-        </div>
-        <div className="tile_7">
-          <ProductTileRecommendedFour
-            title={categoriesTiles['Fashion'].title}
-            content={categoriesTiles['Fashion'].content}
-          />
-        </div>
-        <div className="tile_8">
-          <ProductTileRecommendedFour
-            title={categoriesTiles['Outdoors'].title}
-            content={categoriesTiles['Outdoors'].content}
-          />
-        </div>
-        <div className="tile_9">
-          <ProductTileRecommendedFour
-            title={categoriesTiles['Toys & Games'].title}
-            content={categoriesTiles['Toys & Games'].content}
-          />
-        </div>
-        <div className="tile_10">
-          <ProductTileRecommendedFour
-            title={categoriesTiles['Electronics'].title}
-            content={categoriesTiles['Electronics'].content}
-          />
+        {userInfo?.token ? (
+          <div className="product_tile_group_1_row_1">
+            <div className="tile_1">
+              <ProductTileRecommendedFour
+                title={categoriesTiles['recommended'].title}
+                content={categoriesTiles['recommended'].content}
+              />
+            </div>
+            <div className="tile_2">{<ProductTileRecent product={browsingHistory[0]} />}</div>
+            <div className="tile_3">{<ProductTileDeal product={products[5]} />}</div>
+            <div className="tile_4">
+              {browsingHistory.length >= 4 ? (
+                <ProductTileRecentFour products={products.slice(0, 4)} />
+              ) : (
+                <ProductTileRecent product={browsingHistory[2]} />
+              )}
+            </div>
+            <div className="tile_5">
+              {<ProductTileRecommended content={categoriesTiles['recommended'].content[0]} />}
+            </div>
+          </div>
+        ) : (
+          <div className="product_tile_group_1_row_1">
+            <div className="tile_1">
+              <ProductTileRecommendedFour
+                title={categoriesTiles['Kitchen & Dining'].title}
+                content={categoriesTiles['Kitchen & Dining'].content}
+              />
+            </div>
+            <div className="tile_2">
+              <ProductTileRecommendedFour
+                title={categoriesTiles['Fashion'].title}
+                content={categoriesTiles['Fashion'].content}
+              />
+            </div>
+            <div className="tile_3">
+              <ProductTileRecommendedFour
+                title={categoriesTiles['Outdoors'].title}
+                content={categoriesTiles['Outdoors'].content}
+              />
+            </div>
+            <div className="tile_4">
+              <ProductTileRecommendedFour
+                title={categoriesTiles['Toys & Games'].title}
+                content={categoriesTiles['Toys & Games'].content}
+              />
+            </div>
+            <div className="tile_5">
+              <ProductTileRecommendedFour
+                title={categoriesTiles['Electronics'].title}
+                content={categoriesTiles['Electronics'].content}
+              />
+            </div>
+          </div>
+        )}
+        <div className="product_tile_group_1_row_2">
+          <div className="tile_6">
+            <ProductTileRecommendedFour
+              title={categoriesTiles['Kitchen & Dining'].title}
+              content={categoriesTiles['Kitchen & Dining'].content}
+            />
+          </div>
+          <div className="tile_7">
+            <ProductTileRecommendedFour
+              title={categoriesTiles['Fashion'].title}
+              content={categoriesTiles['Fashion'].content}
+            />
+          </div>
+          <div className="tile_8">
+            <ProductTileRecommendedFour
+              title={categoriesTiles['Outdoors'].title}
+              content={categoriesTiles['Outdoors'].content}
+            />
+          </div>
+          <div className="tile_9">
+            <ProductTileRecommendedFour
+              title={categoriesTiles['Toys & Games'].title}
+              content={categoriesTiles['Toys & Games'].content}
+            />
+          </div>
+          <div className="tile_10">
+            <ProductTileRecommendedFour
+              title={categoriesTiles['Electronics'].title}
+              content={categoriesTiles['Electronics'].content}
+            />
+          </div>
         </div>
       </div>
 
