@@ -13,6 +13,7 @@ import ProductTileRecentFour from '../components/ProductTiles/ProductTileRecentF
 import ProductTileRecommended from '../components/ProductTiles/ProductTileRecommended';
 import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
+import Slider from '../components/Slider/Slider';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -56,13 +57,12 @@ const HomeScreen = () => {
   return (
     <main className="home">
       <div className="home_slider" onClick={() => console.log('slider')}>
-        {/* <Slider
+        <Slider
           images={images}
           dots={false}
           prevBtnClass={'home_slider_prev_btn'}
           nextBtnClass={'home_slider_next_btn'}
-        /> */}
-        <Carousel>{slidesRowToRender}</Carousel>
+        />
       </div>
       <div className="product_tile_group_1">
         {userInfo?.token ? (
@@ -155,7 +155,9 @@ const HomeScreen = () => {
       </div>
 
       <div className="carousel_1">
-        <Carousel>{slidesRowToRender}</Carousel>
+        <Carousel title={'Some title content'} isPageVisible={true}>
+          {slidesRowToRender}
+        </Carousel>
       </div>
 
       <div className="carousel_2">

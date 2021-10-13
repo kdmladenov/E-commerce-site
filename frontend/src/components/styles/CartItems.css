@@ -44,6 +44,12 @@
   transition: transform 500ms;
 }
 
+.cart_items_menu li > a > img{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
 .cart_items_menu li:hover {
 transform: scale(1.08);
 }
