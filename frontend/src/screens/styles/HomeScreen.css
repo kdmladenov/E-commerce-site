@@ -1,4 +1,8 @@
 .home {
+  background: rgb(234, 237, 237);
+}
+
+.home_container {
   width: 100%;
   max-width: 1800px;
   display: grid;

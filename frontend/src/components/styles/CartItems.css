@@ -10,7 +10,6 @@
 
 .cart_items_menu .subtotal {
   grid-area: 'subtotal';
-  margin: 10px 0;
 }
 
 .cart_items_menu .subtotal span {
@@ -33,7 +32,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 0 10px;
 }
 
 .cart_items_menu li {

@@ -21,12 +21,6 @@ const ProductScreen = ({ history, match }) => {
 
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
-    dispatch(listReviews(match.params.id));
-    dispatch(addBrowsingHistoryRecord(match.params.id));
-  }, [dispatch, match]);
 
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
@@ -65,6 +59,15 @@ const ProductScreen = ({ history, match }) => {
       <img src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`} alt="" />
     </li>
   ));
+
+  useEffect(() => {
+    dispatch(listProductDetails(match.params.id));
+    dispatch(listReviews(match.params.id));
+    dispatch(addBrowsingHistoryRecord(match.params.id));
+  }, [dispatch, match]);
+
+  useEffect(() => setSelectedImage(product.image), [product]);
+
   return (
     <main>
       {loading ? (
@@ -74,7 +77,7 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <div className="product_details">
           <ul className="product_image_sidebar">{imagesSideBarToRender}</ul>
-          <div className="product_details_left">
+          <div className="product_details_image">
             <ProductImageGallery
               images={images}
               selectedImage={selectedImage}
@@ -86,7 +89,7 @@ const ProductScreen = ({ history, match }) => {
             />
           </div>
           <div
-            className="product_details_middle"
+            className="product_details_info"
             ref={zoomedImageRef}
             style={{
               backgroundImage: showZoomedImage ? `url(${selectedImage})` : 'none',
@@ -114,7 +117,7 @@ const ProductScreen = ({ history, match }) => {
               </div>
             )}
           </div>
-          <div className="product_details_right card">
+          <div className="product_details_action_box card">
             <ul>
               <li>
                 <h2>Price</h2>
