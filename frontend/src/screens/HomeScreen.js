@@ -5,16 +5,14 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
 import './styles/HomeScreen.css';
-import Carousel from '../components/Carousel/Carousel';
-import { carouselImages, categoriesTiles, images } from '../constants/for-developing/sliderImages';
-import Slider from '../components/Slider/Slider';
+import { categoriesTiles, images } from '../constants/for-developing/sliderImages';
 import ProductTileRecommendedFour from '../components/ProductTiles/ProductTileRecommendedFour';
 import ProductTileRecent from '../components/ProductTiles/ProductTileRecent';
 import ProductTileDeal from '../components/ProductTiles/ProductTileDeal';
 import ProductTileRecentFour from '../components/ProductTiles/ProductTileRecentFour';
 import ProductTileRecommended from '../components/ProductTiles/ProductTileRecommended';
 import { listBrowsingHistory } from '../actions/browsingHistoryActions';
-import Carousel_2 from '../components/Carousel_2/Carousel_2';
+import Carousel from '../components/Carousel';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -27,7 +25,6 @@ const HomeScreen = () => {
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { loading: LoadingHistory, browsingHistory, error: errorHistory } = browsingHistoryList;
-  console.log(browsingHistory);
 
   useEffect(() => {
     dispatch(listProducts());
@@ -65,7 +62,7 @@ const HomeScreen = () => {
           prevBtnClass={'home_slider_prev_btn'}
           nextBtnClass={'home_slider_next_btn'}
         /> */}
-        <Carousel_2>{slidesRowToRender}</Carousel_2>
+        <Carousel>{slidesRowToRender}</Carousel>
       </div>
       <div className="product_tile_group_1">
         {userInfo?.token ? (
@@ -158,10 +155,11 @@ const HomeScreen = () => {
       </div>
 
       <div className="carousel_1">
-        <Carousel slides={carouselImages} height={'250px'} />
+        <Carousel>{slidesRowToRender}</Carousel>
       </div>
+
       <div className="carousel_2">
-        <Carousel slides={carouselImages} height={'250px'} />
+        <Carousel>{slidesRowToRender}</Carousel>
       </div>
       {/* <div className="product_tile_group_2">
         <div className="tile_11">
