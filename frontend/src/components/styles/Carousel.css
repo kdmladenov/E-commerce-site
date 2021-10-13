@@ -1,11 +1,26 @@
 .carousel_container {
   position: relative;
   height: 100%;
+  padding: 0 20px;
 }
+
+.carousel_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 0 20px;
+  font-size: 25px;
+  font-weight: 600;
+  color: rgb(88, 88, 88);
+}
+
 .carousel_slider {
-  height: 100%;
+  height: calc(100% - 60px);
   overflow-x: scroll;
 }
+
 .carousel_slider ul {
   display: flex;
   align-items: center;
@@ -38,35 +53,44 @@
 }
 
 /* Arrow buttons */
-
 .carousel_btn {
   width: 60px;
-  height: 60px;
+  height: 130px;
   font-size: 40px;
-  color: #fff;
-  background: black;
-  /* opacity: 0.7; */
-
-  border: 1px solid transparent;
+  color: rgb(97, 96, 96);
+  background: #fff;
+  border: 0px solid transparent;
+  border-radius: 5px;
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
-
-.carousel_btn:hover {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .carousel_btn.next {
   top: 50%;
   right: 20px;
-  transform: translateY(-60%);
 }
 
 .carousel_btn.prev {
   top: 50%;
   left: 20px;
-  transform: translateY(-60%);
+}
+
+.carousel_btn:hover {
+  border: solid 2px rgb(97, 96, 96);
+  border-radius: 5px;
+  font-size: 50px;
+}
+
+.carousel_btn.next:hover {
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+}
+
+.carousel_btn.prev:hover {
+  border-left: none;
+  border-radius: 0 5px 5px 0;
 }

@@ -1,8 +1,8 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import { useResize } from '../hooks/useResize';
 import './styles/Carousel.css';
 
-const Carousel = ({ children }) => {
+const Carousel = ({ title, children }) => {
   const sliderRef = useRef();
   const bodyPosition = useResize(sliderRef);
 
@@ -10,18 +10,19 @@ const Carousel = ({ children }) => {
     let scrollCompleted = 0;
     const slider = setInterval(() => {
       direction === 'left'
-        ? (sliderRef.current.scrollLeft -= 10)
-        : (sliderRef.current.scrollLeft += 10);
+        ? (sliderRef.current.scrollLeft -= 20)
+        : (sliderRef.current.scrollLeft += 20);
 
-      scrollCompleted += 10;
+      scrollCompleted += 20;
       if (scrollCompleted >= bodyPosition.width) {
         window.clearInterval(slider);
       }
-    }, 10);
+    }, 1);
   };
 
   return (
     <div className="carousel_container card">
+      <div className="carousel_header">{title}</div>
       <div className="carousel_slider" ref={sliderRef}>
         {children}
       </div>
