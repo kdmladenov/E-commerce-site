@@ -1,7 +1,7 @@
 .carousel_container {
   position: relative;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 30px;
 }
 
 .carousel_header {
@@ -19,6 +19,10 @@
 .carousel_slider {
   height: calc(100% - 60px);
   overflow-x: scroll;
+}
+
+.carousel_slider.hidden_scrollbar::-webkit-scrollbar {
+  z-index: -1;
 }
 
 .carousel_slider ul {
@@ -40,11 +44,8 @@
   scroll-snap-align: start;
   padding: 20px;
   margin-left: 20px;
-}
-
-.carousel_slider li > img {
-  height: 100%;
-  /* object-fit: contain; */
+  min-width: 300px;
+  min-height: 100%;
 }
 
 .carousel_slider li:hover {
@@ -60,7 +61,6 @@
   color: rgb(97, 96, 96);
   background: #fff;
   border: 0px solid transparent;
-  border-radius: 5px;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -70,13 +70,15 @@
 }
 
 .carousel_btn.next {
+  border-radius: 5px 0 0 5px;
   top: 50%;
-  right: 20px;
+  right: 30px;
 }
 
 .carousel_btn.prev {
+  border-radius: 0 5px 5px 0;
   top: 50%;
-  left: 20px;
+  left: 30px;
 }
 
 .carousel_btn:hover {
@@ -86,8 +88,8 @@
 }
 
 .carousel_btn.next:hover {
-  border-right: none;
   border-radius: 5px 0 0 5px;
+  border-right: none;
 }
 
 .carousel_btn.prev:hover {

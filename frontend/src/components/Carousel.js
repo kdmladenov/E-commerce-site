@@ -1,8 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useResize } from '../hooks/useResize';
 import './styles/Carousel.css';
 
 const Carousel = ({ title, children }) => {
+  const [showControls, setShowControls] = useState(false)
+
   const sliderRef = useRef();
   const bodyPosition = useResize(sliderRef);
 
@@ -21,17 +23,25 @@ const Carousel = ({ title, children }) => {
   };
 
   return (
-    <div className="carousel_container card">
+    <div
+      className="carousel_container card"
+      onMouseEnter={() => setShowControls(true)}
+      onMouseLeave={() => setShowControls(false)}
+    >
       <div className="carousel_header">{title}</div>
-      <div className="carousel_slider" ref={sliderRef}>
+      <div className={`carousel_slider ${!showControls && 'hidden_scrollbar'}`} ref={sliderRef}>
         {children}
       </div>
-      <button onClick={() => slide('right')} className="carousel_btn next">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <button onClick={() => slide('left')} className="carousel_btn prev">
-        <i class="fas fa-chevron-left"></i>
-      </button>
+      {showControls && (
+        <button onClick={() => slide('right')} className="carousel_btn next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      )}
+      {showControls && (
+        <button onClick={() => slide('left')} className="carousel_btn prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      )}
     </div>
   );
 };
