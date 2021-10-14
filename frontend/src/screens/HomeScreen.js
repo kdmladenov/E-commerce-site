@@ -15,6 +15,7 @@ import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider/Slider';
 import { Link } from 'react-router-dom';
+import Accordion from '../components/Accordion/Accordion';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,24 @@ const HomeScreen = () => {
         </li>
       ))}
     </ul>
+  );
+
+  const accordionToRender = (
+    <Accordion>
+      {products?.slice(0, 6).map((item) => (
+        <Accordion.Item key={item.productId}>
+          <Accordion.Header>
+            <Accordion.Title>{item.title}</Accordion.Title>
+            <Accordion.ButtonGroup>+</Accordion.ButtonGroup>
+          </Accordion.Header>
+          <Accordion.Body>
+            {
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores asperiores porro quibusdam soluta eveniet praesentium ratione, recusandae rerum aspernatur optio voluptatum molestias corporis error laudantium inventore voluptates temporibus deleniti quaerat suscipit et placeat autem harum deserunt. Animi aliquid velit alias culpa adipisci, odio in voluptate totam dicta itaque. Laboriosam natus obcaecati doloribus deserunt facere iusto rerum explicabo. Delectus ullam molestiae aliquam illum quo sed cumque, fugit officiis hic laborum eveniet adipisci repudiandae mollitia, quos iusto blanditiis assumenda dolorem porro repellat optio ipsa culpa pariatur eius voluptas. Possimus sapiente a et, soluta quae odit veniam repellendus ad explicabo voluptas nulla officia.'
+            }
+          </Accordion.Body>
+        </Accordion.Item>
+      ))}
+    </Accordion>
   );
 
   return (
@@ -164,9 +183,7 @@ const HomeScreen = () => {
           </Carousel>
         </div>
 
-        <div className="carousel_2">
-          <Carousel>{slidesRowToRender}</Carousel>
-        </div>
+        <div className="carousel_2">{accordionToRender}</div>
         {/* <div className="product_tile_group_2">
         <div className="tile_11">
           {tilesToShow('Recommended for you', [recommendedProducts[0]])}

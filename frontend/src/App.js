@@ -45,7 +45,7 @@ const App = () => {
       <Route path="/admin/user/:id/edit" component={UserEditScreenAdmin} />
       <Route path="/profile" component={ProfileScreen} />
       <Route exact path="/" component={HomeScreen} />
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };
