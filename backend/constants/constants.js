@@ -75,3 +75,13 @@ export const review = {
   MIN_TITLE_LENGTH: 2,
   MAX_TITLE_LENGTH: 255
 };
+
+export const questions = {
+  MIN_CONTENT_LENGTH: 2,
+  MAX_CONTENT_LENGTH: 255
+};
+
+export const answer = {
+  MIN_CONTENT_LENGTH: 2,
+  MAX_CONTENT_LENGTH: 1000
+};
