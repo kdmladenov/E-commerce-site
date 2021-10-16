@@ -81,7 +81,7 @@ export const questions = {
   MAX_CONTENT_LENGTH: 255
 };
 
-export const answer = {
+export const answers = {
   MIN_CONTENT_LENGTH: 2,
   MAX_CONTENT_LENGTH: 1000
 };

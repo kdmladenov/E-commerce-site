@@ -11,6 +11,8 @@ import ordersController from './controllers/orders-controller.js';
 import reviewsController from './controllers/reviews-controller.js';
 import historyController from './controllers/history-controller.js';
 import wishListController from './controllers/wish-list-controller.js';
+import questionsController from './controllers/questions-controller.js';
+import answersController from './controllers/answers-controller.js';
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.use('/orders', ordersController);
 app.use('/reviews', reviewsController);
 app.use('/history', historyController);
 app.use('/wishlist', wishListController);
+app.use('/questions', questionsController);
+app.use('/answers', answersController);
 
 app.use('/storage/images', express.static('storage/images'));
 
