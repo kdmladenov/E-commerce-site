@@ -168,7 +168,7 @@ const getVoteBy = async (column, value, userId) => {
   return result[0];
 };
 
-const createVote = async (reactionName, reviewId, userId, role) => {
+const createVote = async (reactionName, reviewId, userId) => {
   const sql = `
     INSERT INTO review_likes (
       reaction_id,
@@ -180,10 +180,10 @@ const createVote = async (reactionName, reviewId, userId, role) => {
 
   await db.query(sql, [reactionName, reviewId, userId]);
 
-  return getVoteBy('review_id', reviewId, userId, role);
+  return getVoteBy('review_id', reviewId, userId);
 };
 
-const updateVote = async (reactionName, reviewId, userId, role) => {
+const updateVote = async (reactionName, reviewId, userId) => {
   const sql = `
         UPDATE review_likes 
         SET reaction_id  = (SELECT reaction_id FROM reactions WHERE reaction_name = ?)
@@ -192,7 +192,7 @@ const updateVote = async (reactionName, reviewId, userId, role) => {
 
   await db.query(sql, [reactionName, reviewId, userId]);
 
-  return getVoteBy('review_id', reviewId, userId, role);
+  return getVoteBy('review_id', reviewId, userId);
 };
 
 const removeVote = async (reviewId, userId) => {

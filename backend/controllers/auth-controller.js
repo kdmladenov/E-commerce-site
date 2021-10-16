@@ -1,7 +1,7 @@
 import express from 'express';
 import usersData from '../data/users-data.js';
 import errors from '../constants/service-errors.js';
-import usersService from '../services/users-service.js';
+import usersServices from '../services/users-services.js';
 import createToken from '../authentication/create-token.js';
 import validateBody from '../middleware/validate-body.js';
 import loginUserSchema from '../validator/login-user-schema.js';
@@ -16,7 +16,7 @@ authController
     validateBody('user', loginUserSchema),
     errorHandler(async (req, res) => {
       const { email, password } = req.body;
-      const { error, result } = await usersService.login(usersData)(email, password);
+      const { error, result } = await usersServices.login(usersData)(email, password);
 
       if (error === errors.INVALID_LOGIN) {
         res.status(401).send({
@@ -41,7 +41,7 @@ authController
     authMiddleware,
     errorHandler(async (req, res) => {
       const token = req.headers.authorization.replace('Bearer ', '');
-      await usersService.logout(usersData)(token);
+      await usersServices.logout(usersData)(token);
 
       res.status(200).send({
         message: 'You have logged out successfully!'

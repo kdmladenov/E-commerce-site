@@ -2,7 +2,7 @@ import express from 'express';
 import usersData from '../data/users-data.js';
 import validateBody from '../middleware/validate-body.js';
 import errors from '../constants/service-errors.js';
-import usersService from '../services/users-service.js';
+import usersServices from '../services/users-services.js';
 import createUserSchema from '../validator/create-user-schema.js';
 import updateUserSchema from '../validator/update-user-schema.js';
 import deleteUserSchema from '../validator/delete-user-schema.js';
@@ -32,7 +32,7 @@ usersController
       const user = req.body;
       // user.role = rolesEnum.basic;
 
-      const { error, result } = await usersService.createUser(usersData)(user);
+      const { error, result } = await usersServices.createUser(usersData)(user);
 
       if (error === errors.DUPLICATE_RECORD) {
         res.status(409).send({
@@ -61,7 +61,7 @@ usersController
       if (+pageSize < paging.MIN_USERS_PAGESIZE) pageSize = paging.MIN_USERS_PAGESIZE;
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
-      const result = await usersService.getAllUsers(usersData)(
+      const result = await usersServices.getAllUsers(usersData)(
         search,
         searchBy,
         sort,
@@ -88,7 +88,7 @@ usersController
       const { userId } = req.params;
       const { role } = req.user;
       const isProfileOwner = +userId === req.user.userId;
-      const { error, result } = await usersService.getUser(usersData)(userId, isProfileOwner, role);
+      const { error, result } = await usersServices.getUser(usersData)(userId, isProfileOwner, role);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -113,7 +113,7 @@ usersController
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const update = req.body;
 
-      const { error, result } = await usersService.update(usersData)(update, +id);
+      const { error, result } = await usersServices.update(usersData)(update, +id);
 
       // if (error === errors.BAD_REQUEST) {
       //   res.status(400).send({
@@ -147,7 +147,7 @@ usersController
       // case admin-delete every user, case: basic user - delete only itself
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
 
-      const { error, result } = await usersService.deleteUser(usersData)(+id);
+      const { error, result } = await usersServices.deleteUser(usersData)(+id);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -172,7 +172,7 @@ usersController
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const passwordData = req.body;
 
-      const { error, result } = await usersService.changePassword(usersData)(
+      const { error, result } = await usersServices.changePassword(usersData)(
         passwordData,
         id,
         role
@@ -199,7 +199,7 @@ usersController
     errorHandler(async (req, res) => {
       const { email } = req.body;
 
-      const { error, result } = await usersService.forgottenPassword(usersData)(email);
+      const { error, result } = await usersServices.forgottenPassword(usersData)(email);
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: `A user with email ${email} is not found`
@@ -217,7 +217,7 @@ usersController
       const { password, reenteredPassword } = req.body;
       const { userId, token } = req.params;
 
-      const { error, result } = await usersService.resetPassword(usersData)(
+      const { error, result } = await usersServices.resetPassword(usersData)(
         password,
         reenteredPassword,
         +userId,
@@ -267,7 +267,7 @@ usersController
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const { path } = req.file;
-      await usersService.changeAvatar(usersData)(+id, path.replace(/\\/g, '/'));
+      await usersServices.changeAvatar(usersData)(+id, path.replace(/\\/g, '/'));
 
       res.status(200).send({ message: 'Avatar changed' });
     })
@@ -281,7 +281,7 @@ usersController
     errorHandler(async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-      const { error, result } = await usersService.getUserAvatar(usersData)(+id);
+      const { error, result } = await usersServices.getUserAvatar(usersData)(+id);
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: `User ${id} is not found .`
@@ -301,7 +301,7 @@ usersController
     async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-      const { error, result } = await usersService.deleteUserAvatar(usersData)(+id);
+      const { error, result } = await usersServices.deleteUserAvatar(usersData)(+id);
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: `User ${id} is not found.`

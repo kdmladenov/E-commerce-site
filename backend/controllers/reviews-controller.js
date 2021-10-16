@@ -4,7 +4,7 @@ import productsData from '../data/products-data.js';
 import usersData from '../data/users-data.js';
 // import ordersData from '../data/orders-data.js';
 import validateBody from '../middleware/validate-body.js';
-import reviewsService from '../services/reviews-service.js';
+import reviewsServices from '../services/reviews-services.js';
 import errors from '../constants/service-errors.js';
 import { authMiddleware } from '../authentication/auth.middleware.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
@@ -33,7 +33,7 @@ reviewsController
       const { content, rating, title } = req.body;
       const { userId } = req.user;
 
-      const { error, result } = await reviewsService.createReview(
+      const { error, result } = await reviewsServices.createReview(
         productsData,
         reviewsData
         // ordersData,
@@ -74,7 +74,7 @@ reviewsController
       if (+pageSize < paging.MIN_REVIEWS_PAGESIZE) pageSize = paging.MIN_REVIEWS_PAGESIZE;
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
-      const { error, result } = await reviewsService.getAllReviews(reviewsData, productsData)(
+      const { error, result } = await reviewsServices.getAllReviews(reviewsData, productsData)(
         +productId,
         order,
         +page,
@@ -99,7 +99,7 @@ reviewsController
     errorHandler(async (req, res) => {
       const { reviewId } = req.params;
 
-      const { error, result } = await reviewsService.getReviewById(reviewsData)(+reviewId);
+      const { error, result } = await reviewsServices.getReviewById(reviewsData)(+reviewId);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -124,7 +124,7 @@ reviewsController
       const { reviewId } = req.params;
       const { userId, role } = req.user;
 
-      const { error, result } = await reviewsService.updateReview(reviewsData)(
+      const { error, result } = await reviewsServices.updateReview(reviewsData)(
         content,
         +reviewId,
         +userId,
@@ -158,7 +158,7 @@ reviewsController
       const { userId, role } = req.user;
       const { reviewId } = req.params;
 
-      const { error, result } = await reviewsService.deleteReview(reviewsData)(
+      const { error, result } = await reviewsServices.deleteReview(reviewsData)(
         +reviewId,
         +userId,
         role
@@ -190,7 +190,7 @@ reviewsController
       const { reviewId } = req.params;
       const { userId, role } = req.user;
 
-      const { result } = await reviewsService.voteReview(reviewsData)(
+      const { result } = await reviewsServices.voteReview(reviewsData)(
         reactionName,
         +reviewId,
         +userId,
@@ -213,7 +213,7 @@ reviewsController
       // const userId = role === rolesEnum.admin ? req.body.userId : req.user.userId;
       const userId = req.user.userId;
 
-      const { error, result } = await reviewsService.unVoteReview(reviewsData)(
+      const { error, result } = await reviewsServices.unVoteReview(reviewsData)(
         +reviewId,
         +userId,
         role
