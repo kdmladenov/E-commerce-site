@@ -137,6 +137,10 @@ reviewsController
         res.status(404).send({
           message: 'The review is not found.'
         });
+      } else if (error === errors.OPERATION_NOT_PERMITTED) {
+        res.status(403).send({
+          message: `You are not authorized to edit this review`
+        });
       } else {
         res.status(200).send(result);
       }
@@ -163,6 +167,10 @@ reviewsController
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: 'The review is not found.'
+        });
+      } else if (error === errors.OPERATION_NOT_PERMITTED) {
+        res.status(403).send({
+          message: `You are not authorized to delete this review`
         });
       } else {
         res.status(200).send(result);

@@ -74,39 +74,64 @@ const createReview = (productsData, reviewsData
 };
 
 const updateReview = reviewsData => async (content, reviewId, userId, role, rating, title) => {
-
   const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
 
   if (!existingReview) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
-  if (!content) { content = existingReview.content }
-  if (!title) {title = existingReview.title}
-  if (!rating) {rating = existingReview.rating}
+  // The user is not admin or has created the review 
+  if (existingReview.userId !== userId && role !== rolesEnum.admin) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      result: null
+    };
+  }
+
+  if (!content) {
+    content = existingReview.content;
+  }
+  if (!title) {
+    title = existingReview.title;
+  }
+  if (!rating) {
+    rating = existingReview.rating;
+  }
 
   const updated = {
-    ...existingReview, content, date_edited: new Date().toLocaleDateString('en-US'), rating, title,
+    ...existingReview,
+    content,
+    date_edited: new Date().toLocaleDateString('en-US'),
+    rating,
+    title
   };
 
   await reviewsData.update(content, reviewId, userId, role, rating, title);
 
   return {
     error: null,
-    result: updated,
+    result: updated
   };
 };
 
 const deleteReview = (reviewsData) => async (reviewId, userId, role) => {
-  const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
+  const existingReview = await reviewsData.getBy('review_id', reviewId,);
 
   if (!existingReview) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
+    };
+  }
+
+  // The user is not admin or has created the review
+  if (existingReview.userId !== userId && role !== rolesEnum.admin) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      result: null
     };
   }
 
@@ -114,22 +139,22 @@ const deleteReview = (reviewsData) => async (reviewId, userId, role) => {
 
   return {
     error: null,
-    result: {...existingReview, isDeleted: true},
+    result: { ...existingReview, isDeleted: true }
   };
 };
 
-const voteReview = reviewsData => async (reactionName, reviewId, userId, role) => {
-  const existingReview = await reviewsData.getVoteBy('review_id', reviewId, userId, role);
+const voteReview = reviewsData => async (reactionName, reviewId, userId) => {
+  const existingReview = await reviewsData.getVoteBy('review_id', reviewId, userId);
 
   if (existingReview) {
-    const result = await reviewsData.updateVote(reactionName, reviewId, userId, role);
+    const result = await reviewsData.updateVote(reactionName, reviewId, userId);
     return {
       error: null,
       result,
     };
   }
 
-  const result = await reviewsData.createVote(reactionName, reviewId, userId, role);
+  const result = await reviewsData.createVote(reactionName, reviewId, userId);
   return {
     error: null,
     result,
