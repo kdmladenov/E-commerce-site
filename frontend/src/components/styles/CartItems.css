@@ -9,7 +9,7 @@
 }
 
 .cart_items_menu .subtotal {
-  grid-area: 'subtotal';
+  grid-area: subtotal;
 }
 
 .cart_items_menu .subtotal span {
@@ -23,7 +23,7 @@
 }
 
 .cart_items_menu ul {
-  grid-area: 'subtotal';
+  grid-area: subtotal;
 }
 
 .cart_items_menu .subtotal,

@@ -10,7 +10,7 @@
 }
 
 .product_list_container ul {
-  grid-area: 'product_list';
+  grid-area: product_list;
   display: grid;
   grid-auto-columns: repeat(4, 1fr);
   grid-auto-rows: 420px;
@@ -19,11 +19,11 @@
 }
 
 .product_list_container li {
-  grid-area: 'product';
+  grid-area: product;
 }
 
 .sidebar {
-  grid-area: 'sidebar';
+  grid-area: sidebar;
   height: 100%;
   background: rgb(231, 231, 231);
   color: black;

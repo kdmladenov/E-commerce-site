@@ -10,7 +10,7 @@
 }
 
 .browsing_history_list_container ul {
-  grid-area: 'browsing_history_list';
+  grid-area: browsing_history_list;
   display: grid;
   grid-auto-columns: repeat(4, 1fr);
   grid-auto-rows: 420px;
@@ -20,11 +20,11 @@
 }
 
 .browsing_history_list_container li {
-  grid-area: 'history_record';
+  grid-area: history_record;
 }
 
 .browsing_history_list .sidebar {
-  grid-area: 'sidebar';
+  grid-area: sidebar;
   height: 100%;
   background: rgb(231, 231, 231);
   color: black;

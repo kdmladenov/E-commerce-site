@@ -20,7 +20,7 @@
 
 /* Slider */
 .home_slider {
-  grid-area: 'slider';
+  grid-area: slider;
   height: 600px;
   z-index: 1;
   overflow: hidden;
@@ -29,7 +29,7 @@
 }
 
 .product_tile_group_1 {
-  grid-area: 'product_tile_group_1';
+  grid-area: product_tile_group_1;
   grid-template-areas:
     'tiles_row_1'
     'tiles_row_2';
@@ -37,7 +37,7 @@
   gap: 20px;
 }
 .product_tile_group_2 {
-  grid-area: 'product_tile_group_2';
+  grid-area: product_tile_group_2;
   grid-template-areas: 'tile_11 tile_12 tile_13 tile_14 tile_15';
   grid-template-rows: 400px;
 }
@@ -51,63 +51,63 @@
 }
 
 .product_tile_group_1_row_1 {
-  grid-area: 'tiles_row_1';
+  grid-area: tiles_row_1;
   display: grid;
   gap: 20px;
   grid-template-areas: 'tile_1 tile_2 tile_3 tile_4 tile_5';
 }
 
 .product_tile_group_1_row_2 {
-  grid-area: 'tiles_row_2';
+  grid-area: tiles_row_2;
   display: grid;
   gap: 20px;
   grid-template-areas: 'tile_6 tile_7 tile_8 tile_9 tile_10';
 }
 
 .tile_1 {
-  grid-area: 'tile_1';
+  grid-area: tile_1;
 }
 .tile_2 {
-  grid-area: 'tile_2';
+  grid-area: tile_2;
 }
 .tile_3 {
-  grid-area: 'tile_3';
+  grid-area: tile_3;
 }
 .tile_4 {
-  grid-area: 'tile_4';
+  grid-area: tile_4;
 }
 .tile_5 {
-  grid-area: 'tile_5';
+  grid-area: tile_5;
 }
 .tile_6 {
-  grid-area: 'tile_6';
+  grid-area: tile_6;
 }
 .tile_7 {
-  grid-area: 'tile_7';
+  grid-area: tile_7;
 }
 .tile_8 {
-  grid-area: 'tile_8';
+  grid-area: tile_8;
 }
 .tile_9 {
-  grid-area: 'tile_9';
+  grid-area: tile_9;
 }
 .tile_10 {
-  grid-area: 'tile_10';
+  grid-area: tile_10;
 }
 .tile_11 {
-  grid-area: 'tile_11';
+  grid-area: tile_11;
 }
 .tile_12 {
-  grid-area: 'tile_12';
+  grid-area: tile_12;
 }
 .tile_13 {
-  grid-area: 'tile_13';
+  grid-area: tile_13;
 }
 .tile_14 {
-  grid-area: 'tile_14';
+  grid-area: tile_14;
 }
 .tile_15 {
-  grid-area: 'tile_15';
+  grid-area: tile_15;
 }
 
 div[class^='tile_'] {
@@ -116,12 +116,12 @@ div[class^='tile_'] {
 
 /* Carousels */
 .carousel_1 {
-  grid-area: 'carousel_1';
+  grid-area: carousel_1;
   height: 350px;
 }
 
 .carousel_2 {
-  grid-area: 'carousel_2';
+  grid-area: carousel_2;
   height: 600px;
 }
 

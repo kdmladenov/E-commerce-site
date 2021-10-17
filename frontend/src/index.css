@@ -71,7 +71,7 @@ body {
 }
 
 footer {
-  grid-area: 'footer';
+  grid-area: footer;
 }
 
 ul {
@@ -96,8 +96,9 @@ img {
 .card {
   position: relative;
   background-color: var(--white);
-  border-radius: 3px;
-  box-shadow: var(--box-shadow);
+  border-radius: 5px;
+  border: 1px solid var(--gray);
+  /* box-shadow: var(--box-shadow); */
   color: var(--black);
 }
 

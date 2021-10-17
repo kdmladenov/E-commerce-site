@@ -10,7 +10,7 @@
 }
 
 .wish_list_container ul {
-  grid-area: 'wish_list';
+  grid-area: wish_list;
   display: grid;
   grid-auto-columns: repeat(4, 1fr);
   grid-auto-rows: 420px;
@@ -19,11 +19,11 @@
 }
 
 .wish_list li {
-  grid-area: 'wish_list_item';
+  grid-area: wish_list_item;
 }
 
 .sidebar {
-  grid-area: 'sidebar';
+  grid-area: sidebar;
   height: 100%;
   background: rgb(231, 231, 231);
   color: black;

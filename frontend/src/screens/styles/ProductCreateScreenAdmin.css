@@ -4,17 +4,17 @@
 }
 
 .product_create_go_back {
-  /* grid-area: 'back'; */
+  /* grid-area: back; */
 }
 
 .product_create > h1 {
-  /* grid-area: 'title'; */
+  /* grid-area: title; */
   /* display: grid;
   place-items: center; */
 }
 
 .product_create form {
-  /* grid-area: 'form'; */
+  /* grid-area: form; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 500px 50px;
@@ -22,15 +22,15 @@
 }
 
 .product_create .form_left {
-  grid-area: 'form_left';
+  grid-area: form_left;
 }
 
 .product_create .form_right {
-  grid-area: 'form_right';
+  grid-area: form_right;
 }
 
 .product_create_btn {
-  grid-area: 'submit';
+  grid-area: submit;
   display: grid;
   place-items: center;
 }
