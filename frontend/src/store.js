@@ -38,8 +38,16 @@ import {
   browsingHistoryDeleteReducer,
   browsingHistoryListReducer
 } from './reducers/browsingHistoryReducers';
-import { wishListAddReducer, wishListDeleteReducer, wishListItemsReducer } from './reducers/wishListReducers';
-import { questionAskReducer, questionsAndAnswersListReducer } from './reducers/questionsAndAnswersReducers';
+import {
+  wishListAddReducer,
+  wishListDeleteReducer,
+  wishListItemsReducer
+} from './reducers/wishListReducers';
+import {
+  questionAskReducer,
+  questionEditReducer,
+  questionsAndAnswersListReducer
+} from './reducers/questionsAndAnswersReducers';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -55,6 +63,7 @@ const reducer = combineReducers({
   reviewVote: reviewVoteReducer,
   questionAsk: questionAskReducer,
   questionsAndAnswersList: questionsAndAnswersListReducer,
+  questionEdit: questionEditReducer,
   browsingHistoryAdd: browsingHistoryAddReducer,
   browsingHistoryList: browsingHistoryListReducer,
   browsingHistoryDelete: browsingHistoryDeleteReducer,

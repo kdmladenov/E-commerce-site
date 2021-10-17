@@ -6,7 +6,10 @@ import {
   QUESTION_AND_ANSWERS_LIST_SUCCESS,
   QUESTION_ASK_FAIL,
   QUESTION_ASK_REQUEST,
-  QUESTION_ASK_SUCCESS
+  QUESTION_ASK_SUCCESS,
+  QUESTION_EDIT_FAIL,
+  QUESTION_EDIT_REQUEST,
+  QUESTION_EDIT_SUCCESS
 } from '../constants/questionsAndAnswersConstants';
 
 export const askQuestion = (productId, question) => async (dispatch, getState) => {
@@ -46,6 +49,33 @@ export const listQuestionsAndAnswers = (productId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: QUESTION_AND_ANSWERS_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const editQuestions = (questionId, update) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: QUESTION_EDIT_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.put(`${BASE_URL}/questions/${questionId}`, update, config);
+
+    dispatch({ type: QUESTION_EDIT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: QUESTION_EDIT_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });
