@@ -7,6 +7,9 @@ import {
   QUESTION_ASK_FAIL,
   QUESTION_ASK_REQUEST,
   QUESTION_ASK_SUCCESS,
+  QUESTION_DELETE_FAIL,
+  QUESTION_DELETE_REQUEST,
+  QUESTION_DELETE_SUCCESS,
   QUESTION_EDIT_FAIL,
   QUESTION_EDIT_REQUEST,
   QUESTION_EDIT_SUCCESS
@@ -76,6 +79,32 @@ export const editQuestions = (questionId, update) => async (dispatch, getState) 
   } catch (error) {
     dispatch({
       type: QUESTION_EDIT_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const deleteQuestion = (questionId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: QUESTION_DELETE_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.delete(`${BASE_URL}/questions/${questionId}`, config);
+
+    dispatch({ type: QUESTION_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: QUESTION_DELETE_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });

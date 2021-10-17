@@ -45,6 +45,7 @@ import {
 } from './reducers/wishListReducers';
 import {
   questionAskReducer,
+  questionDeleteReducer,
   questionEditReducer,
   questionsAndAnswersListReducer
 } from './reducers/questionsAndAnswersReducers';
@@ -64,6 +65,7 @@ const reducer = combineReducers({
   questionAsk: questionAskReducer,
   questionsAndAnswersList: questionsAndAnswersListReducer,
   questionEdit: questionEditReducer,
+  questionDelete:questionDeleteReducer,
   browsingHistoryAdd: browsingHistoryAddReducer,
   browsingHistoryList: browsingHistoryListReducer,
   browsingHistoryDelete: browsingHistoryDeleteReducer,

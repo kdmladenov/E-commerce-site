@@ -6,6 +6,9 @@ import {
   QUESTION_ASK_REQUEST,
   QUESTION_ASK_RESET,
   QUESTION_ASK_SUCCESS,
+  QUESTION_DELETE_FAIL,
+  QUESTION_DELETE_REQUEST,
+  QUESTION_DELETE_SUCCESS,
   QUESTION_EDIT_FAIL,
   QUESTION_EDIT_REQUEST,
   QUESTION_EDIT_RESET,
@@ -51,6 +54,19 @@ export const questionEditReducer = (state = { question: {} }, action) => {
       return { loading: false, error: action.payload };
     case QUESTION_EDIT_RESET:
       return { question: {} };
+    default:
+      return state;
+  }
+};
+
+export const questionDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case QUESTION_DELETE_REQUEST:
+      return { loading: true };
+    case QUESTION_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case QUESTION_DELETE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
