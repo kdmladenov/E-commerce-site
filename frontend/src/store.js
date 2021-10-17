@@ -39,6 +39,7 @@ import {
   browsingHistoryListReducer
 } from './reducers/browsingHistoryReducers';
 import { wishListAddReducer, wishListDeleteReducer, wishListItemsReducer } from './reducers/wishListReducers';
+import { questionCreateReducer } from './reducers/questionsAndAnswersReducers';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -52,6 +53,7 @@ const reducer = combineReducers({
   reviewList: reviewListReducer,
   reviewEdit: reviewEditReducer,
   reviewVote: reviewVoteReducer,
+  questionCreate: questionCreateReducer,
   browsingHistoryAdd: browsingHistoryAddReducer,
   browsingHistoryList: browsingHistoryListReducer,
   browsingHistoryDelete: browsingHistoryDeleteReducer,

@@ -15,7 +15,6 @@ import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider/Slider';
 import { Link } from 'react-router-dom';
-import Accordion from '../components/Accordion/Accordion';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
