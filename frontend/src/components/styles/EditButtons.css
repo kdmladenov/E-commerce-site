@@ -1,0 +1,9 @@
+.edit_buttons {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+.edit_buttons .button_group_edit{
+  display: flex;
+  flex-direction: row-reverse;
+}

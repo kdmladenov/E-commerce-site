@@ -22,36 +22,8 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
 
   const hasUserLeftReview = reviews.some((review) => review.userId === currentUser?.userId);
 
-  const otherUsersReviewCardsToShow = reviews
-    ?.filter((review) => review.userId !== currentUser?.userId)
-    ?.map((review) => {
-      return (
-        <ReviewCard
-          key={review.reviewId}
-          {...review}
-          currentUser={currentUser}
-          createMode={false}
-          setCreateMode={setCreateMode}
-        />
-      );
-    });
-      const currentUserReviewCardToShow = reviews
-        ?.filter((review) => review.userId === currentUser?.userId)
-        ?.map((review) => {
-          return (
-            <ReviewCard
-              key={review.reviewId}
-              {...review}
-              currentUser={currentUser}
-              createMode={false}
-              setCreateMode={setCreateMode}
-            />
-          );
-        });
-
   return (
-    <div className="reviews-container">
-      <h2>Reviews:</h2>
+    <div className="reviews-list">
       {!hasUserLeftReview && !createMode && (
         <Button onClick={handleOpenCreateForm}>
           <i className="fa fa-plus"></i> Create Review
@@ -68,8 +40,20 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
           avatar={user.avatar}
         />
       )}
-      {currentUserReviewCardToShow}
-      {otherUsersReviewCardsToShow}
+      {[
+        ...reviews?.filter((review) => review.userId === currentUser?.userId),
+        ...reviews?.filter((review) => review.userId !== currentUser?.userId)
+      ]?.map((review) => {
+        return (
+          <ReviewCard
+            key={review.reviewId}
+            {...review}
+            currentUser={currentUser}
+            createMode={false}
+            setCreateMode={setCreateMode}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -4,61 +4,46 @@
   padding: 20px;
 }
 
-.user_info,
-.dates {
+.review_card .user_info,
+.review_card .dates {
   display: flex;
   justify-content: start;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.user_info i {
+.review_card .user_info i {
   margin-right: 20px;
 }
 
-.title {
+.review_card .title {
   font-weight: bold;
   margin: 10px 0;
 }
 
-.date_created {
+.review_card .date_created {
   margin-right: 20px;
 }
 
-.review_card .content,
-.review_card input.content.card {
-  justify-content: start;
+.review_card .textarea.card,
+.review_card input.textarea.card {
+  display: block;
   width: 100%;
+  overflow: hidden;
+  resize: none;
+  min-height: 40px;
+  line-height: 20px;
   padding: 10px 20px;
-}
-input.content.card {
-  height: 200px;
-  word-break: break-word;
+  height: auto;
 }
 
-.button_group {
+.review_card .edit_buttons {
   position: absolute;
   top: 30px;
   right: 30px;
 }
 
-.button_group_edit {
+.review_card .button_group_edit{
   display: flex;
   flex-direction: row-reverse;
-}
-
-.review-card-thumbs {
-  display: flex;
-  width: 75px;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.review-card-thumbs i {
-  font-size: 20px;
-  color: var(--gray_dark);
-}
-.review-card-thumbs i.active {
-  color: var(--black);
 }

@@ -1,7 +1,7 @@
-.reviews-container {
+.reviews-list {
   margin: 0 175px;
 }
 
-.reviews-container > button{
+.reviews-list > button{
 margin: 20px auto;
 }

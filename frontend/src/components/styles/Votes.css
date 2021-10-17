@@ -1,0 +1,16 @@
+
+.votes {
+  display: flex;
+  width: 75px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.votes i {
+  font-size: 20px;
+  color: var(--gray_dark);
+}
+.votes i.active {
+  color: var(--black);
+}
