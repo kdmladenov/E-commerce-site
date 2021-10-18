@@ -26,22 +26,6 @@ const getAllQuestions = (questionsData, answersData, productsData) => async (pro
   };
 };
 
-// const getQuestionById = (questionsData) => async (questionId) => {
-//   const existingQuestion = await questionsData.getBy('question_id', questionId);
-
-//   if (!existingQuestion) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null
-//     };
-//   }
-
-//   return {
-//     error: null,
-//     result: existingQuestion
-//   };
-// };
-
 const createQuestion =
   (productsData, questionsData) => async (questionContent, userId, productId) => {
     const existingProduct = await productsData.getBy('product_id', productId);
@@ -114,10 +98,55 @@ const deleteQuestion = (questionsData) => async (questionId, userId, role) => {
   };
 };
 
+
+const voteQuestion = (questionsData) => async (reactionName, questionId, userId) => {
+  const existingQuestion = await questionsData.getVoteBy('question_id', questionId, userId);
+
+  if (existingQuestion) {
+    const result = await questionsData.updateVote(reactionName, questionId, userId);
+    return {
+      error: null,
+      result
+    };
+  }
+
+  const result = await questionsData.createVote(reactionName, questionId, userId);
+  return {
+    error: null,
+    result
+  };
+};
+
+const unVoteQuestion = (questionsData) => async (questionId, userId, role) => {
+  const existingQuestionVote = await questionsData.getVoteBy('question_id', questionId, userId);
+
+  if (!existingQuestionVote) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+  // The user is not admin or has created the question vote
+  if (existingQuestionVote.userId !== userId && role !== rolesEnum.admin) {
+    return {
+      error: errors.OPERATION_NOT_PERMITTED,
+      result: null
+    };
+  }
+
+  await questionsData.removeVote(questionId, userId);
+
+  return {
+    error: null,
+    result: { message: `Vote was successfully removed.` }
+  };
+};
+
 export default {
   getAllQuestions,
   createQuestion,
   updateQuestion,
   deleteQuestion,
-  // getQuestionById
+  voteQuestion,
+  unVoteQuestion
 };

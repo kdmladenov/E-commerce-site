@@ -196,7 +196,6 @@ const updateVote = async (reactionName, reviewId, userId) => {
 };
 
 const removeVote = async (reviewId, userId) => {
-  console.log(reviewId, userId);
   const sql = `
         UPDATE review_likes 
         SET is_deleted  = 1
