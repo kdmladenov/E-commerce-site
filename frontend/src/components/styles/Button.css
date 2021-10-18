@@ -138,3 +138,28 @@
   width: 36px;
   min-width: 36px;
 }
+
+.button_container.text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: none;
+  margin: 0;
+  font-size: 13px;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: normal;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  color: rgb(70, 139, 157);
+}
+.button_container.text i{
+  margin-right: 2px;
+}
+.button_container.text:hover {
+  color: rgb(243, 7, 7);
+  border-bottom: 1px solid rgb(243, 7, 7);
+}

@@ -12,6 +12,9 @@ import Button from '../components/Button';
 import ReviewList from '../components/Review/ReviewList';
 import { listReviews } from '../actions/reviewActions';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
+import Divider from '../components/Divider';
+import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
+import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -22,11 +25,18 @@ const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading, error } = productDetails;
+
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product, loading, error } = productDetails;
+  const questionsAndAnswersList = useSelector((state) => state.questionsAndAnswersList);
+  const {
+    questions: questionsAndAnswers,
+    loading: loadingQuestionsAndAnswers,
+    error: errorQuestionsAndAnswers
+  } = questionsAndAnswersList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo: currentUser } = userLogin;
@@ -63,19 +73,20 @@ const ProductScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
     dispatch(listReviews(match.params.id));
+    dispatch(listQuestionsAndAnswers(match.params.id));
     dispatch(addBrowsingHistoryRecord(match.params.id));
   }, [dispatch, match]);
 
   useEffect(() => setSelectedImage(product.image), [product]);
 
   return (
-    <main>
+    <main className="product_screen_container">
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
-        <div className="product_details">
+        <section className="product_details">
           <ul className="product_image_sidebar">{imagesSideBarToRender}</ul>
           <div className="product_details_image">
             <ProductImageGallery
@@ -151,17 +162,36 @@ const ProductScreen = ({ history, match }) => {
               {product.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
             </Button>
           </div>
-        </div>
+        </section>
       )}
-      {loadingReviews ? (
-        <Loader />
-      ) : errorReviews ? (
-        <Message type="error">{errorReviews}</Message>
-      ) : product.reviewCount > 0 ? (
-        <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId} />
-      ) : (
-        <Message type="success">There are no reviews for this product</Message>
-      )}
+      <section className="reviews_container">
+        <h2>Reviews:</h2>
+        {loadingReviews ? (
+          <Loader />
+        ) : errorReviews ? (
+          <Message type="error">{errorReviews}</Message>
+        ) : product.reviewCount > 0 ? (
+          <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId} />
+        ) : (
+          <Message type="success">There are no reviews for this product</Message>
+        )}
+      </section>
+      <section className="questions_and_answers_container">
+        <h2>Questions & Answers:</h2>
+        {loadingQuestionsAndAnswers ? (
+          <Loader />
+        ) : errorQuestionsAndAnswers ? (
+          <Message type="error">{errorQuestionsAndAnswers}</Message>
+        ) : questionsAndAnswers?.length > 0 ? (
+          <QuestionsAndAnswers
+            questionsAndAnswers={questionsAndAnswers}
+            currentUser={currentUser}
+            productId={match.params.id}
+          />
+        ) : (
+          <Message type="success">Ask Question Box</Message>
+        )}
+      </section>
     </main>
   );
 };

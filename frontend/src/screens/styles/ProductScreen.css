@@ -1,4 +1,4 @@
-.product_screen_container{
+.product_screen_container {
   width: 100%;
   max-width: 1500px;
   display: grid;
@@ -11,7 +11,16 @@
     'product_specifications'
     'product_reviews'
     'product_questions_and_answers'
-    'product_similar_carousel'
+    'product_similar_carousel';
+}
+
+.product_screen_container section{
+  margin: 20px;
+  border-bottom: 1px solid var(--gray);
+}
+
+.product_screen_container section:last-child{
+  border-bottom: none
 }
 
 /* Product Details */
@@ -22,7 +31,6 @@
   grid-template-rows: 80vh;
   grid-template-areas: 'image_sidebar image info action-box';
   grid-gap: 40px;
-  margin: 20px;
   background: white;
   max-height: 100vh;
   padding: 30px;
@@ -103,4 +111,15 @@
   align-items: center;
 }
 
+.reviews_container {
+  grid-area: product_reviews;
+}
 
+.questions_and_answers_container {
+  grid-area: product_questions_and_answers;
+
+}
+
+.product_screen_container .divider{
+  
+}
