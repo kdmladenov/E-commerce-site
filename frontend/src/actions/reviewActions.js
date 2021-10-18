@@ -115,7 +115,7 @@ export const editReview = (reviewId, update) => async (dispatch, getState) => {
 };
 
 export const voteReview = (reviewId, method, reaction) => async (dispatch, getState) => {
-  console.log(reviewId, method, reaction);
+
   try {
     dispatch({ type: REVIEW_VOTE_REQUEST });
 
@@ -130,7 +130,7 @@ export const voteReview = (reviewId, method, reaction) => async (dispatch, getSt
       }
     };
     const body = { reactionName: reaction };
-    console.log(body);
+
     method === 'POST'
       ? await axios.post(`${BASE_URL}/reviews/${reviewId}/votes`, body, config)
       : await axios.delete(`${BASE_URL}/reviews/${reviewId}/votes`, config);

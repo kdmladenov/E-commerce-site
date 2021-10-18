@@ -44,10 +44,14 @@ import {
   wishListItemsReducer
 } from './reducers/wishListReducers';
 import {
+  answerCreateReducer,
+  answerDeleteReducer,
+  answerEditReducer,
   questionAskReducer,
   questionDeleteReducer,
   questionEditReducer,
-  questionsAndAnswersListReducer
+  questionsAndAnswersListReducer,
+  questionVoteReducer
 } from './reducers/questionsAndAnswersReducers';
 
 const reducer = combineReducers({
@@ -62,10 +66,14 @@ const reducer = combineReducers({
   reviewList: reviewListReducer,
   reviewEdit: reviewEditReducer,
   reviewVote: reviewVoteReducer,
+  questionVote: questionVoteReducer,
   questionAsk: questionAskReducer,
   questionsAndAnswersList: questionsAndAnswersListReducer,
   questionEdit: questionEditReducer,
-  questionDelete:questionDeleteReducer,
+  questionDelete: questionDeleteReducer,
+  answerCreate: answerCreateReducer,
+  answerEdit: answerEditReducer,
+  answerDelete: answerDeleteReducer,
   browsingHistoryAdd: browsingHistoryAddReducer,
   browsingHistoryList: browsingHistoryListReducer,
   browsingHistoryDelete: browsingHistoryDeleteReducer,
