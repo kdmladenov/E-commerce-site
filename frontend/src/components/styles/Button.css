@@ -155,8 +155,10 @@
   border: none;
   cursor: pointer;
   color: rgb(70, 139, 157);
+  min-width: 0;
+  width: auto;
 }
-.button_container.text i{
+.button_container.text i {
   margin-right: 2px;
 }
 .button_container.text:hover {

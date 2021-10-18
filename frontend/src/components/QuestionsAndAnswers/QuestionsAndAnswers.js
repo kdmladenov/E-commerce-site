@@ -5,9 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../actions/userActions';
 import QuestionsAndAnswersCard from './QuestionsAndAnswersCard';
 
+const questionCountAtStart = 4
+
 const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) => {
   const dispatch = useDispatch();
   const [createMode, setCreateMode] = useState(false);
+  const [showAllQuestions, setShowAllQuestions] = useState(false);
 
   const handleOpenCreateForm = () => {
     setCreateMode(true);
@@ -26,9 +29,7 @@ const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) =>
 
   return (
     <div className="questions-list">
-      Search field TO DO
-      Create Question and Answer
-      To Test
+      Search field TO DO Create Question and Answer To Test
       {!hasUserAskedQuestion && !createMode && (
         <Button onClick={handleOpenCreateForm}>
           <i className="fa fa-plus"></i> Ask Question
@@ -45,7 +46,10 @@ const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) =>
           avatar={user.avatar}
         />
       )}
-      {questionsAndAnswers?.map((question) => {
+      {(showAllQuestions
+        ? questionsAndAnswers
+        : questionsAndAnswers.slice(0, questionCountAtStart)
+      )?.map((question) => {
         return (
           <QuestionsAndAnswersCard
             key={question.questionId}
@@ -56,6 +60,17 @@ const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) =>
           />
         );
       })}
+      {questionsAndAnswers?.length > 1 &&
+        (!showAllQuestions ? (
+          <Button types="text" onClick={() => setShowAllQuestions(!showAllQuestions)}>
+            <i class="fa fa-chevron-down"></i>{' '}
+            {`See more answered questions (${questionsAndAnswers?.length - questionCountAtStart})`}
+          </Button>
+        ) : (
+          <Button types="text" onClick={() => setShowAllQuestions(!showAllQuestions)}>
+            <i class="fa fa-chevron-up"></i> {`Collapse questions`}
+          </Button>
+        ))}
     </div>
   );
 };

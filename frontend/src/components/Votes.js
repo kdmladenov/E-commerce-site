@@ -4,6 +4,7 @@ import Button from './Button';
 import { useDispatch } from 'react-redux';
 
 const Votes = ({
+  type,
   showButtons,
   voteAction,
   itemId,
@@ -13,7 +14,9 @@ const Votes = ({
   votesDownCount,
   userVotesUpList,
   userVotesDownList,
-  currentUserId
+  currentUserId,
+  iconUp,
+  iconDown
 }) => {
   const [countVotesUp, setCountVotesUp] = useState(votesUpCount);
   const [countVotesDown, setCountVotesDown] = useState(votesDownCount);
@@ -58,8 +61,9 @@ const Votes = ({
 
   return (
     showButtons && (
-      <div className="votes">
+      <div className="votes" style={{ flexDirection: `${type === 'vertical' ? 'Column' : 'row'}` }}>
         <Button
+          className="vote_button_up"
           types="icon"
           onClick={
             currentVote === '' || currentVote === 'DOWN'
@@ -67,10 +71,21 @@ const Votes = ({
               : () => handleVoteButton('DELETE', `${reactionNameUp}`)
           }
         >
-          <i className={`fa fa-thumbs-up ${currentVote === 'UP' ? 'active' : 'inactive'}`}></i>
+          <i
+            className={`${iconUp || 'fa fa-thumbs-up'} ${
+              currentVote === 'UP' ? 'active' : 'inactive'
+            }`}
+          ></i>
         </Button>
-        <div className="thumb_count">{countVotesUp || 0}</div>
+        {type !== 'vertical' && <div className="vote_count_up">{countVotesUp || 0}</div>}
+        {type === 'vertical' && (
+          <>
+            <div className="vote_count_net">{countVotesUp - countVotesDown || 0}</div>
+            <span>votes</span>
+          </>
+        )}
         <Button
+          className="vote_button_down"
           types="icon"
           onClick={
             currentVote === '' || currentVote === 'UP'
@@ -78,9 +93,13 @@ const Votes = ({
               : () => handleVoteButton('DELETE', `${reactionNameDown}`)
           }
         >
-          <i className={`fa fa-thumbs-down ${currentVote === 'DOWN' ? 'active' : 'inactive'}`}></i>
+          <i
+            className={`${iconDown || 'fa fa-thumbs-down'} ${
+              currentVote === 'DOWN' ? 'active' : 'inactive'
+            }`}
+          ></i>
         </Button>
-        <div>{countVotesDown || 0}</div>
+        {type !== 'vertical' && <div className="vote_count_down">{countVotesDown || 0}</div>}
       </div>
     )
   );

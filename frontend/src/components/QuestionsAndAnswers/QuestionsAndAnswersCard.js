@@ -10,9 +10,10 @@ import {
 } from '../../actions/questionsAndAnswersActions';
 import EditButtons from '../EditButtons';
 import AnswerCard from './AnswerCard';
-import { getTimeDuration } from '../../constants/utility-functions.js/utility-functions';
 import Votes from '../Votes';
 import Button from '../Button';
+
+const answerCountAtStart = 1;
 
 const QuestionsAndAnswersCard = ({
   currentUser,
@@ -78,6 +79,9 @@ const QuestionsAndAnswersCard = ({
           userVotesUpList={userThumbsUpList}
           userVotesDownList={userThumbsDownList}
           currentUserId={currentUser?.userId}
+          type="vertical"
+          iconUp="fa fa-chevron-up"
+          iconDown="fa fa-chevron-down"
         />
       </div>
       <div className="question_and_answer">
@@ -97,12 +101,12 @@ const QuestionsAndAnswersCard = ({
               ) : (
                 contentQuestion
               )}
-              <div className="created_info">
+              {/* <div className="created_info">
                 {`By ${currentUser?.userId === authorId ? 'you' : fullName} on ${dateCreated.slice(
                   0,
                   10
                 )} ${dateEdited ? `(edited ${getTimeDuration(dateEdited, new Date())}) ` : ''}`}
-              </div>
+              </div> */}
             </div>
           )}
 
@@ -120,7 +124,7 @@ const QuestionsAndAnswersCard = ({
           <span>Answers:</span>
           <ul className="answer_list">
             {answers?.length
-              ? (showAllAnswers ? answers : answers.slice(0, 1))?.map((answer) => {
+              ? (showAllAnswers ? answers : answers.slice(0, answerCountAtStart))?.map((answer) => {
                   return (
                     <AnswerCard
                       key={answer.answerId}
@@ -132,10 +136,11 @@ const QuestionsAndAnswersCard = ({
                   );
                 })
               : 'There is no answer yet'}
-            {answers?.length > 1 &&
+            {answers?.length > answerCountAtStart &&
               (!showAllAnswers ? (
                 <Button types="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
-                  <i class="fa fa-chevron-down"></i> {`See more answers (${answers?.length - 1})`}
+                  <i class="fa fa-chevron-down"></i>{' '}
+                  {`See more answers (${answers?.length - answerCountAtStart})`}
                 </Button>
               ) : (
                 <Button types="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
