@@ -35,20 +35,48 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
   SELECT 
       p.product_id as productId,
       p.title,
-      p.brand,
-      p.description,
       p.image,
+      p.description,
+      p.brand,
       p.product_category as productCategory,
       p.price,
-      r.review_count as reviewCount,
       p.stock_count as stockCount,
-      r.rating,
-      p.is_deleted as isDeleted
+      p.is_deleted as isDeleted,
+      p.model_number as modelNumber,
+      p.sku,
+      p.release_year as releaseYear,
+      p.color,
+      p.weight,
+      p.dimensions,
+      s.screen_size as screenSize,
+      s.screen_resolution as screenResolution,
+      s.display_type as displayType,
+      s.touch_screen as touchScreen,
+      s.processor_brand as processorBrand,
+      s.processor_model as processorModel,
+      s.processor_model_number as processorModelNumber,
+      s.storage_type as storageType,
+      s.storage_capacity as storageCapacity,
+      s.system_memory as systemMemory,
+      s.graphics_type as graphicsType,
+      s.graphics_brand as graphicsBrand,
+      s.graphics_model as graphicsModel,
+      s.operating_system as operatingSystem,
+      s.voice_assistant as voiceAssistant,
+      s.battery_type as batteryType,
+      s.backlit_keyboard as backlitKeyboard,
+      r.review_count as reviewCount,
+      r.rating
     FROM products p
     LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
                 FROM reviews
                 WHERE is_deleted = 0
                 GROUP BY product_id) as r using (product_id)
+    LEFT JOIN (SELECT product_id, screen_size, screen_resolution, display_type, touch_screen, processor_brand, 
+            processor_model, processor_model_number, storage_type, storage_capacity, system_memory, 
+            graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
+            battery_type, backlit_keyboard
+            FROM specifications) as s using (product_id)
     WHERE ${
       role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''
     } ${searchColumn} Like '%${search}%'
@@ -64,12 +92,36 @@ const getBy = async (column, value, role) => {
     SELECT 
       p.product_id as productId,
       p.title,
-      p.brand,
-      p.description,
       p.image,
+      p.description,
+      p.brand,
       p.product_category as productCategory,
       p.price,
       p.stock_count as stockCount,
+      p.is_deleted as isDeleted,
+      p.model_number as modelNumber,
+      p.sku,
+      p.release_year as releaseYear,
+      p.color,
+      p.weight,
+      p.dimensions,
+      s.screen_size as screenSize,
+      s.screen_resolution as screenResolution,
+      s.display_type as displayType,
+      s.touch_screen as touchScreen,
+      s.processor_brand as processorBrand,
+      s.processor_model as processorModel,
+      s.processor_model_number as processorModelNumber,
+      s.storage_type as storageType,
+      s.storage_capacity as storageCapacity,
+      s.system_memory as systemMemory,
+      s.graphics_type as graphicsType,
+      s.graphics_brand as graphicsBrand,
+      s.graphics_model as graphicsModel,
+      s.operating_system as operatingSystem,
+      s.voice_assistant as voiceAssistant,
+      s.battery_type as batteryType,
+      s.backlit_keyboard as backlitKeyboard,
       r.review_count as reviewCount,
       r.rating
     FROM products p
@@ -77,6 +129,11 @@ const getBy = async (column, value, role) => {
             FROM reviews
             WHERE is_deleted = 0
             GROUP BY product_id) as r using (product_id)
+    LEFT JOIN (SELECT product_id, screen_size, screen_resolution, display_type, touch_screen, processor_brand, 
+            processor_model, processor_model_number, storage_type, storage_capacity, system_memory, 
+            graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
+            battery_type, backlit_keyboard
+            FROM specifications) as s using (product_id)
     WHERE ${column} = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''};
   `;
 
