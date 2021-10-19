@@ -9,20 +9,20 @@
     flex-direction: column;
 }
 
-table {
+.profile table {
   width: 100%;
 }
 
-th{
+.profile  th{
   margin: auto;
 }
-td{
+.profile  td{
 
 }
 
 
-tr:nth-child(even) {
+.profile  tr:nth-child(even) {
   background-color: #D6EEEE;
 }
 
-tr:hover {background-color: lightblue;}
+.profile  tr:hover {background-color: lightblue;}

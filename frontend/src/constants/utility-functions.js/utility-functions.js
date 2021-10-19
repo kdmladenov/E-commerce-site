@@ -14,7 +14,8 @@ export const keywordInString = (keyword, string) => {
   ];
 };
 
-export const numberDecimalFix = (number) => (Math.round(number * 100) / 100).toFixed(2);
+export const numberDecimalFix = (number, decimals = 2) =>
+  (Math.round(number * 100) / 100).toFixed(decimals);
 
 export const alphabeticalSort = (arr) => arr.sort((a, b) => a.localeCompare(b));
 
@@ -57,4 +58,12 @@ export const getTimeDuration = (start, end) => {
     : minuteDiff >= 1
     ? `${minuteDiff.toFixed(0)} minutes ago`
     : 'just now';
+};
+
+export const poundToKg = (poundWeight, decimals = 2) => {
+  return numberDecimalFix(poundWeight / 2.2046, decimals);
+};
+
+export const inchesToCm = (inchLength, decimals = 2) => {
+  return numberDecimalFix(inchLength * 2.54, decimals);
 };

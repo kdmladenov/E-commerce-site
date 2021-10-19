@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { listProductDetails } from '../actions/productActions';
+import { listProductDetails, listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
@@ -15,6 +15,10 @@ import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import Divider from '../components/Divider';
 import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
+import ComparisonTable from '../components/ComparisonTable';
+import specificationsInOrder from '../constants/specificationsInOrder';
+
+
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -30,6 +34,13 @@ const ProductScreen = ({ history, match }) => {
 
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
+
+  const productlist = useSelector((state) => state.productList);
+  const {
+    loading: loadingCompared,
+    products: productsCompared,
+    error: errorCompared
+  } = productlist;
 
   const questionsAndAnswersList = useSelector((state) => state.questionsAndAnswersList);
   const {
@@ -77,7 +88,10 @@ const ProductScreen = ({ history, match }) => {
     dispatch(addBrowsingHistoryRecord(match.params.id));
   }, [dispatch, match]);
 
-  useEffect(() => setSelectedImage(product.image), [product]);
+  useEffect(() => {
+    setSelectedImage(product.image);
+    dispatch(listProducts(`?searchBy=brand&search=${product.brand}`));
+  }, [product]);
 
   return (
     <main className="product_screen_container">
@@ -164,6 +178,16 @@ const ProductScreen = ({ history, match }) => {
           </div>
         </section>
       )}
+      <section className="comparison_table_container">
+        <h2>{`Compare ${product.brand} Laptops:`}</h2>
+        {loadingCompared ? (
+          <Loader />
+        ) : errorCompared ? (
+          <Message type="error">{errorCompared}</Message>
+        ) : (
+          <ComparisonTable products={productsCompared} currentProductId={+match.params.id} />
+        )}
+      </section>
       <section className="reviews_container">
         <h2>Reviews:</h2>
         {loadingReviews ? (

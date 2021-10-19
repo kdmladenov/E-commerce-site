@@ -9,6 +9,7 @@
   grid-template-areas:
     'product_details'
     'product_specifications'
+    'product_comparison_table'
     'product_reviews'
     'product_questions_and_answers'
     'product_similar_carousel';
@@ -120,6 +121,6 @@
 
 }
 
-.product_screen_container .divider{
-  
+.comparison_table_container{
+  grid-area: product_comparison_table;
 }

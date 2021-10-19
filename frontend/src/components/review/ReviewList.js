@@ -41,8 +41,8 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
         />
       )}
       {[
-        ...reviews?.filter((review) => review.userId === currentUser?.userId),
-        ...reviews?.filter((review) => review.userId !== currentUser?.userId)
+        ...reviews?.filter((review) => +review.userId === +currentUser?.userId),
+        ...reviews?.filter((review) => +review.userId !== +currentUser?.userId)
       ]?.map((review) => {
         return (
           <ReviewCard
