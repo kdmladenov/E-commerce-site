@@ -205,16 +205,18 @@ const remove = async (productToDelete) => {
   return db.query(sql, [productToDelete.productId]);
 };
 
-// NOT NEEDED
-// const imageChange = (path, productId) => {
-//   const sql = `
-//     UPDATE products SET
-//       image = ?
-//     WHERE product_id = ?
-//   `;
+const getFeatures = async (productId) => {
+  const sql = `
+    SELECT 
+      product_id as productId,
+      feature_title as featureTitle,
+      feature_content as featureContent
+    FROM features 
+    WHERE product_id = ? AND is_deleted = 0
+  `;
 
-//   return db.query(sql, [path, productId]);
-// };
+  return db.query(sql, [productId]);
+};
 
 export default {
   getAllProducts,
@@ -222,5 +224,5 @@ export default {
   create,
   update,
   remove,
-  // imageChange
+  getFeatures
 };

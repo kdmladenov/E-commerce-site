@@ -157,35 +157,27 @@ productsController
 
       res.status(201).send(path.replace(/\\/g, '/'));
     })
+  )
+  // @desc GET Products Features by ID
+  // @route GET /products/:productId/features
+  // @access Public
+  .get(
+    '/:productId/features',
+    errorHandler(async (req, res) => {
+      const { productId } = req.params;
+
+      const { error, productFeatures } = await productsServices.getProductFeaturesById(
+        productsData
+      )(productId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product with this number is not found!'
+        });
+      } else {
+        res.status(200).send(productFeatures);
+      }
+    })
   );
-
-// NOT NEEDED
-// // @desc UPDATE product's image
-// // @route PUT /products/:productId/image
-// // @access Private - Admin only
-// .put(
-//   '/:productId/image',
-//   authMiddleware,
-//   loggedUserGuard,
-//   roleMiddleware(rolesEnum.admin),
-//   uploadImage.single('image'),
-//   validateFile('uploads', uploadFileSchema),
-//   errorHandler(async (req, res) => {
-//     const { path } = req.file;
-//     const { productId } = req.params;
-//     const { error, _ } = await productsServices.imageChange(productsData)(
-//       path.replace(/\\/g, '/'),
-//       +productId
-//     );
-
-//     if (error === errors.RECORD_NOT_FOUND) {
-//       res.status(404).send({
-//         message: 'A product with this number is not found!'
-//       });
-//     } else {
-//       res.status(200).send({ message: 'The product image is changed' });
-//     }
-//   })
-// );
 
 export default productsController;
