@@ -46,7 +46,7 @@ const ComparisonTable = ({ products, currentProductId, sortBy }) => {
           ) : spec === 'displayType' ? (
             <span>{`${product['screenSize'].toFixed(1)}-inch ${product['displayType']} with ${
               product['screenResolution']
-            } resolution ${product['touchScreen'] ? 'with touchscreen' : ''}`}</span>
+            } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
           ) : spec === 'storageCapacity' ? (
             <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
           ) : spec === 'systemMemory' ? (

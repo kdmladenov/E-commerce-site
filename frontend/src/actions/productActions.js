@@ -8,6 +8,9 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_FEATURES_LIST_FAIL,
+  PRODUCT_FEATURES_LIST_REQUEST,
+  PRODUCT_FEATURES_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -153,6 +156,26 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
       type: PRODUCT_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+
+export const listProductFeatures = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_FEATURES_LIST_REQUEST });
+
+    const { data } = await axios.get(`${BASE_URL}/products/${id}/features`);
+    console.log(PRODUCT_FEATURES_LIST_SUCCESS, 'ff');
+
+    dispatch({
+      type: PRODUCT_FEATURES_LIST_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_FEATURES_LIST_FAIL,
+      payload: error?.response?.data?.message ? error.response.data.message : error.message
     });
   }
 };
