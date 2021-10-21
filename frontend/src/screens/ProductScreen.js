@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { listProductDetails, listProducts } from '../actions/productActions';
+import { listProductDetails, listProductFeatures, listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
@@ -12,13 +12,10 @@ import Button from '../components/Button';
 import ReviewList from '../components/Review/ReviewList';
 import { listReviews } from '../actions/reviewActions';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
-import Divider from '../components/Divider';
 import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
-import specificationsInOrder from '../constants/specificationsInOrder';
-
-
+import { Accordion } from 'react-bootstrap';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -31,6 +28,9 @@ const ProductScreen = ({ history, match }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
+
+  const productFeaturesList = useSelector((state) => state.productFeaturesList);
+  const { productsFeatures, loading: loadingFeatures, error: errorFeatures } = productFeaturesList;
 
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
@@ -83,6 +83,7 @@ const ProductScreen = ({ history, match }) => {
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
+    dispatch(listProductFeatures(match.params.id));
     dispatch(listReviews(match.params.id));
     dispatch(listQuestionsAndAnswers(match.params.id));
     dispatch(addBrowsingHistoryRecord(match.params.id));
@@ -91,7 +92,7 @@ const ProductScreen = ({ history, match }) => {
   useEffect(() => {
     setSelectedImage(product.image);
     dispatch(listProducts(`?searchBy=brand&search=${product.brand}`));
-  }, [product]);
+  }, [dispatch, product]);
 
   return (
     <main className="product_screen_container">
@@ -176,6 +177,24 @@ const ProductScreen = ({ history, match }) => {
               {product.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
             </Button>
           </div>
+        </section>
+      )}
+      {productsFeatures?.length && (
+        <section className="product_features">
+          <h2>Product Features:</h2>
+          {loadingFeatures ? (
+            <Loader />
+          ) : errorFeatures ? (
+            <Message type="error">{errorFeatures}</Message>
+          ) : productsFeatures?.length > 0 ? (
+            <Accordion>
+              {productsFeatures?.map((feature) => (
+                <Accordion.Item>Item</Accordion.Item>
+              ))}
+            </Accordion>
+          ) : (
+            <Message type="success">Ask Question Box</Message>
+          )}
         </section>
       )}
       <section className="comparison_table_container">

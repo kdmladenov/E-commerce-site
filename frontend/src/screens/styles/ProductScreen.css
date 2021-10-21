@@ -8,6 +8,7 @@
   gap: 20px;
   grid-template-areas:
     'product_details'
+    'product_features'
     'product_specifications'
     'product_comparison_table'
     'product_reviews'
@@ -15,13 +16,13 @@
     'product_similar_carousel';
 }
 
-.product_screen_container section{
+.product_screen_container section {
   margin: 20px;
   border-bottom: 1px solid var(--gray);
 }
 
-.product_screen_container section:last-child{
-  border-bottom: none
+.product_screen_container section:last-child {
+  border-bottom: none;
 }
 
 /* Product Details */
@@ -118,9 +119,12 @@
 
 .questions_and_answers_container {
   grid-area: product_questions_and_answers;
-
 }
 
-.comparison_table_container{
+.comparison_table_container {
   grid-area: product_comparison_table;
+}
+
+.product_features {
+  grid-area: product_features;
 }
