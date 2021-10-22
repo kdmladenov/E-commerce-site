@@ -179,7 +179,7 @@ const ProductScreen = ({ history, match }) => {
           </div>
         </section>
       )}
-      {productsFeatures?.length && (
+      {/* {productsFeatures?.length && (
         <section className="product_features">
           <h2>Product Features:</h2>
           {loadingFeatures ? (
@@ -196,7 +196,7 @@ const ProductScreen = ({ history, match }) => {
             <Message type="success">Ask Question Box</Message>
           )}
         </section>
-      )}
+      )} */}
       <section className="comparison_table_container">
         <h2>{`Compare ${product.brand} Laptops:`}</h2>
         {loadingCompared ? (
