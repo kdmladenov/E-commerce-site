@@ -46,7 +46,7 @@ const OrderListScreenAdmin = ({ history }) => {
             </tr>
           </thead>
           <tbody>
-            {/* {orders.map((order) => (
+            {orders.map((order) => (
               <tr key={order.orderId}>
                 <td>{order.orderId}</td>
                 <td>{order.fullName}</td>
@@ -72,7 +72,7 @@ const OrderListScreenAdmin = ({ history }) => {
                   </Link>
                 </td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       )}
