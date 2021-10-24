@@ -13,7 +13,6 @@ const Accordion = ({ children, ...restProps }) => {
 
 export default Accordion;
 
-
 Accordion.Item = function AccordionItem({ children, ...restProps }) {
   const [toggleShow, setToggleShow] = useState(false);
 
@@ -25,7 +24,6 @@ Accordion.Item = function AccordionItem({ children, ...restProps }) {
     </ToggleContext.Provider>
   );
 };
-
 
 Accordion.Header = function AccordionHeader({ children, ...restProps }) {
   const { toggleShow, setToggleShow } = useContext(ToggleContext);
@@ -39,7 +37,7 @@ Accordion.Header = function AccordionHeader({ children, ...restProps }) {
 
 Accordion.Body = function AccordionBody({ children, ...restProps }) {
   const { toggleShow } = useContext(ToggleContext);
-  
+
   return (
     <div className={`accordion_body ${toggleShow ? 'show' : ''}`} {...restProps}>
       {children}
@@ -56,9 +54,16 @@ Accordion.Title = function AccordionTitle({ children, ...restProps }) {
 };
 
 Accordion.ButtonGroup = function AccordionButtonGroup({ children, ...restProps }) {
+  const { toggleShow } = useContext(ToggleContext);
   return (
     <div className="accordion_button_group" {...restProps}>
-      {children}
+      {children ? (
+        children
+      ) : !toggleShow ? (
+        <i class="fa fa-chevron-down"></i>
+      ) : (
+        <i class="fa fa-chevron-up"></i>
+      )}
     </div>
   );
 };

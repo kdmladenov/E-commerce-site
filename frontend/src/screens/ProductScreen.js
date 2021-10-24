@@ -15,7 +15,7 @@ import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
-import { Accordion } from 'react-bootstrap';
+import Accordion from '../components/Accordion';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -30,7 +30,8 @@ const ProductScreen = ({ history, match }) => {
   const { product, loading, error } = productDetails;
 
   const productFeaturesList = useSelector((state) => state.productFeaturesList);
-  const { productsFeatures, loading: loadingFeatures, error: errorFeatures } = productFeaturesList;
+  const { productFeatures, loading: loadingFeatures, error: errorFeatures } = productFeaturesList;
+  console.log(productFeatures, 'productFeatures');
 
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
@@ -179,24 +180,30 @@ const ProductScreen = ({ history, match }) => {
           </div>
         </section>
       )}
-      {/* {productsFeatures?.length && (
+      {productFeatures?.length && (
         <section className="product_features">
           <h2>Product Features:</h2>
           {loadingFeatures ? (
             <Loader />
           ) : errorFeatures ? (
             <Message type="error">{errorFeatures}</Message>
-          ) : productsFeatures?.length > 0 ? (
+          ) : productFeatures?.length > 0 ? (
             <Accordion>
-              {productsFeatures?.map((feature) => (
-                <Accordion.Item>Item</Accordion.Item>
+              {productFeatures?.map((feature) => (
+                <Accordion.Item>
+                  <Accordion.Header>
+                    <Accordion.Title>{feature.featureTitle}</Accordion.Title>
+                    <Accordion.ButtonGroup></Accordion.ButtonGroup>
+                  </Accordion.Header>
+                  <Accordion.Body>{feature.featureContent}</Accordion.Body>
+                </Accordion.Item>
               ))}
             </Accordion>
           ) : (
             <Message type="success">Ask Question Box</Message>
           )}
         </section>
-      )} */}
+      )}
       <section className="comparison_table_container">
         <h2>{`Compare ${product.brand} Laptops:`}</h2>
         {loadingCompared ? (

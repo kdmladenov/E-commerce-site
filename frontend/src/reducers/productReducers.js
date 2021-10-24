@@ -90,12 +90,12 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productFeaturesListReducer = (state = { productsFeatures: [] }, action) => {
+export const productFeaturesListReducer = (state = { productFeatures: [] }, action) => {
   switch (action.type) {
     case PRODUCT_FEATURES_LIST_REQUEST:
-      return { loading: true, productsFeatures: [] };
+      return { loading: true, productFeatures: [] };
     case PRODUCT_FEATURES_LIST_SUCCESS:
-      return { loading: false, productsFeatures: action.payload };
+      return { loading: false, productFeatures: action.payload };
     case PRODUCT_FEATURES_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
