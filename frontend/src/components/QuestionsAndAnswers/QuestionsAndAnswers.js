@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../actions/userActions';
 import QuestionsAndAnswersCard from './QuestionsAndAnswersCard';
 
-const questionCountAtStart = 4
+const questionCountAtStart = 4;
 
 const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) => {
   const dispatch = useDispatch();

@@ -68,9 +68,10 @@ const AnswerCard = ({
         </div>
       )}
       <div className="created_info">
-        {`By ${currentUser?.userId === authorId ? 'you' : fullName} on ${dateCreated.slice(0, 10)} ${
-          dateEdited ? `(edited ${getTimeDuration(dateEdited, new Date())}) ` : ''
-        }`}
+        {`By ${currentUser?.userId === authorId ? 'you' : fullName} on ${dateCreated.slice(
+          0,
+          10
+        )} ${dateEdited ? `(edited ${getTimeDuration(dateEdited, new Date())}) ` : ''}`}
       </div>
       <EditButtons
         createMode={createAnswerMode}

@@ -160,7 +160,6 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
   }
 };
 
-
 export const listProductFeatures = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_FEATURES_LIST_REQUEST });

@@ -67,7 +67,11 @@ const ProductImageGallery = ({
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeaveHandler}
       >
-        <img src={selectedImage?.startsWith('http')? selectedImage :`${BASE_URL}/${selectedImage}`} alt="" ref={imageRef} />
+        <img
+          src={selectedImage?.startsWith('http') ? selectedImage : `${BASE_URL}/${selectedImage}`}
+          alt=""
+          ref={imageRef}
+        />
         <div
           className="lens"
           ref={lensRef}

@@ -3,7 +3,7 @@ import { useResize } from '../hooks/useResize';
 import './styles/Carousel.css';
 
 const Carousel = ({ title, children }) => {
-  const [showControls, setShowControls] = useState(false)
+  const [showControls, setShowControls] = useState(false);
 
   const sliderRef = useRef();
   const bodyPosition = useResize(sliderRef);

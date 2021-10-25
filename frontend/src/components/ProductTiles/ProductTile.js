@@ -9,7 +9,6 @@ const ProductTile = ({ title, items }) => {
     </li>
   ));
 
-
   return (
     <div className="product_tile card">
       <div className="title">{title}</div>
@@ -18,4 +17,4 @@ const ProductTile = ({ title, items }) => {
   );
 };
 
-export default ProductTile
+export default ProductTile;

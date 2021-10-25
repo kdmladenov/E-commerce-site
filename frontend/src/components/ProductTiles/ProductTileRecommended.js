@@ -7,8 +7,6 @@ const ProductTileRecommended = ({ content }) => {
       <img src={content.image} alt={content.subTitle} />
     </div>
   );
-      
-
 
   return (
     <div className="tile_recommended card">

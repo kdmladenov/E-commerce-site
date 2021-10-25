@@ -27,7 +27,11 @@ const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) =>
         </div>
       </div>
       <Link to={`/products/${id}`}>
-        <img src={image?.startsWith('http')? image :`${BASE_URL}/${image}`} alt="product" className="product_image" />
+        <img
+          src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`}
+          alt="product"
+          className="product_image"
+        />
       </Link>
       <div className="product_button">
         <Button onClick={addToCartHandler} types={' rounded medium'} disabled={stockCount === 0}>

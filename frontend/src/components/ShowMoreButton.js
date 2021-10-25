@@ -5,7 +5,7 @@ const ShowMoreButton = ({ text, breakpoint }) => {
   const [showMore, setShowMore] = useState(false);
 
   const numberOfItems = showMore ? text.length : breakpoint;
-  
+
   return (
     <div>
       <div>

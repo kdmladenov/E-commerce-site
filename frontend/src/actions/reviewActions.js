@@ -115,7 +115,6 @@ export const editReview = (reviewId, update) => async (dispatch, getState) => {
 };
 
 export const voteReview = (reviewId, method, reaction) => async (dispatch, getState) => {
-
   try {
     dispatch({ type: REVIEW_VOTE_REQUEST });
 

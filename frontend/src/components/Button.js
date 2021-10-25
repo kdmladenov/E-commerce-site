@@ -9,4 +9,4 @@ const Button = ({ types, children, disabled, onClick }) => {
   );
 };
 
-export default Button
+export default Button;
