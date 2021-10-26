@@ -61,7 +61,6 @@ const ProductCreateScreenAdmin = ({ match, history }) => {
     formData.append('image', file);
     setUploading(true);
     try {
-
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',

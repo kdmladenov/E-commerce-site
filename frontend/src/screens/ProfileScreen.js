@@ -185,7 +185,7 @@ const ProfileScreen = ({ history }) => {
                 {orders?.map((order) => (
                   <tr key={order.orderId}>
                     <td>{order.orderId}</td>
-                    <td>{order.orderDate.slice(0,10)}</td>
+                    <td>{order.orderDate.slice(0, 10)}</td>
                     <td>$ {order.totalPrice}</td>
                     <td>
                       {order.isPaid ? (

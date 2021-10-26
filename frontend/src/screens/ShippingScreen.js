@@ -25,7 +25,7 @@ const ShippingScreen = ({ history }) => {
   return (
     <div className="shipping">
       <div className="container">
-        <CheckoutSteps step1 step2/>
+        <CheckoutSteps step1 step2 />
         <form>
           <div>
             <label htmlFor="address">Address</label>

@@ -40,7 +40,7 @@ const PlaceOrderScreen = ({ history }) => {
       history.push(`/order/${order.orderId}`);
     }
     // eslint-disable-next-line
-  },[history, success]);
+  }, [history, success]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -54,7 +54,7 @@ const PlaceOrderScreen = ({ history }) => {
         totalPrice: cart.totalPrice
       })
     );
-    dispatch({type: ORDER_CREATE_RESET})
+    dispatch({ type: ORDER_CREATE_RESET });
     dispatch({ type: CART_REMOVE_ALL_ITEMS });
   };
 
@@ -133,9 +133,7 @@ const PlaceOrderScreen = ({ history }) => {
                   <dir>$ {numberDecimalFix(cart.totalPrice)}</dir>
                 </div>
               </li>
-              <li>
-                {error && <Message type='error'>{error}</Message>}
-              </li>
+              <li>{error && <Message type="error">{error}</Message>}</li>
               <li>
                 <div className="flex">
                   <button

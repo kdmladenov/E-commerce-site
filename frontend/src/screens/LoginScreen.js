@@ -29,36 +29,36 @@ const LoginScreen = ({ location, history }) => {
   };
 
   return (
-      <div className="login_container">
-        <h1>Sign In</h1>
-        {loading && <Loader />}
-        {error && <Message type="error">{error}</Message>}
-        <form>
-          <h5>E-mail</h5>
-          <input
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <h5>Password</h5>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className="login_signInButton" onClick={loginHandler}>
-            Log In
-          </button>
-        </form>
-        <div className="registerRedirect">
-          New Customer?
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
-        </div>
+    <div className="login_container">
+      <h1>Sign In</h1>
+      {loading && <Loader />}
+      {error && <Message type="error">{error}</Message>}
+      <form>
+        <h5>E-mail</h5>
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          required
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <h5>Password</h5>
+        <input
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          required
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="login_signInButton" onClick={loginHandler}>
+          Log In
+        </button>
+      </form>
+      <div className="registerRedirect">
+        New Customer?
+        <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
       </div>
+    </div>
   );
 };
 

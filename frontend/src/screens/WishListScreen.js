@@ -13,25 +13,25 @@ const WishListScreen = () => {
   const wishListItems = useSelector((state) => state.wishListItems);
   const { loading, wishList, error } = wishListItems;
 
-    const wishListDelete = useSelector((state) => state.wishListDelete);
-    const { success: successDelete } = wishListDelete;
+  const wishListDelete = useSelector((state) => state.wishListDelete);
+  const { success: successDelete } = wishListDelete;
 
   useEffect(() => {
     dispatch(listWishedItems());
   }, [dispatch, successDelete]);
 
-const listToShow = wishList?.map((wish) => (
-  <li className="product" key={wish.wishListId}>
-    <ProductCardVertical
-      title={wish.title}
-      image={wish.image}
-      price={wish.price}
-      rating={wish.rating}
-      stockCount={wish.stockCount}
-    />
-    <Button onClick={() => dispatch(deleteWishFromList(wish.wishListId))}>Delete</Button>
-  </li>
-));
+  const listToShow = wishList?.map((wish) => (
+    <li className="product" key={wish.wishListId}>
+      <ProductCardVertical
+        title={wish.title}
+        image={wish.image}
+        price={wish.price}
+        rating={wish.rating}
+        stockCount={wish.stockCount}
+      />
+      <Button onClick={() => dispatch(deleteWishFromList(wish.wishListId))}>Delete</Button>
+    </li>
+  ));
 
   return (
     <main className="wish_list container">

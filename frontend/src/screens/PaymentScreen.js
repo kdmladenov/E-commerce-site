@@ -7,14 +7,14 @@ import './styles/PaymentScreen.css';
 const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-  
-  if(!shippingAddress) {
-    history.push('/shipping')
+
+  if (!shippingAddress) {
+    history.push('/shipping');
   }
   const [paymentMethod, setPaymentMethod] = useState('Paypal');
-  
+
   const dispatch = useDispatch();
-  
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod({ paymentMethod }));
@@ -35,11 +35,10 @@ const PaymentScreen = ({ history }) => {
             onChange={(e) => setPaymentMethod(e.target.value)}
           />
           <label htmlFor="Paypal">Paypal or Credit Card</label>
-
         </form>
-          <button type="submit" onClick={submitHandler} className="btn btn-primary">
-            Continue
-          </button>
+        <button type="submit" onClick={submitHandler} className="btn btn-primary">
+          Continue
+        </button>
       </div>
     </div>
   );

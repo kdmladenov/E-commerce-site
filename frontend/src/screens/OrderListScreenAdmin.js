@@ -17,7 +17,6 @@ const OrderListScreenAdmin = ({ history }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-
     if (userInfo?.role === 'admin') {
       dispatch(listOrders());
     } else {

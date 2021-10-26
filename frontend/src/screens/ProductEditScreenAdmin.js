@@ -25,7 +25,6 @@ const ProductEditScreenAdmin = ({ match, history }) => {
   const [rating, setRating] = useState(0);
   const [uploading, setUploading] = useState(false);
 
-
   console.log(productCategory, 'productCategory');
   const dispatch = useDispatch();
 

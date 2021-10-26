@@ -25,7 +25,7 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id))
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
@@ -63,7 +63,10 @@ const CartScreen = ({ match, location, history }) => {
                         </option>
                       ))}
                   </select>
-                  <div className="cart_item_delete_btn" onClick={() => removeFromCartHandler(item.id)}>
+                  <div
+                    className="cart_item_delete_btn"
+                    onClick={() => removeFromCartHandler(item.id)}
+                  >
                     <i className="fas fa-trash"></i>{' '}
                   </div>
                 </div>
