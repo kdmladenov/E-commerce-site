@@ -1,0 +1,96 @@
+.specification_tables {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+}
+
+table.specification_table_left,
+table.specification_table_right {
+  width: 47%;
+  height: 100%;
+  border-collapse: collapse;
+  white-space: wrap;
+}
+
+table.specification_table_left tr,
+table.specification_table_right tr {
+  min-height: 30px;
+}
+
+table.specification_table_left td,
+table.specification_table_right td {
+  padding: 2px 5px;
+  text-align: center;
+}
+
+table.specification_table_left i.fa-check,
+table.specification_table_right i.fa-check {
+  color: var(--green);
+  font-size: 20px;
+}
+
+table.specification_table_left i.fa-times,
+table.specification_table_right i.fa-times {
+  color: var(--red);
+  font-size: 20px;
+}
+
+table.specification_table_left .rating,
+table.specification_table_right .rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table.specification_table_left td,
+table.specification_table_right td {
+  border: 1px solid var(--gray);
+}
+
+table.specification_table_right
+  tbody
+  tr:nth-child(odd)
+  table.specification_table_left
+  tbody
+  tr:nth-child(odd) {
+  background: #f2f2f2;
+}
+table.specification_table_right
+  tbody
+  tr:nth-child(even)
+  table.specification_table_left
+  tbody
+  tr:nth-child(even) {
+  background: var(--white);
+}
+
+table.specification_table_right tbody tr > td:first-child,
+table.specification_table_left tbody tr > td:first-child {
+  font-size: 17px;
+  font-weight: bold;
+  padding: 5px 20px;
+  text-align: left;
+  width: 200px;
+  min-width: 200px;
+}
+
+table.specification_table_right .price,
+table.specification_table_left .price {
+  color: rgb(170, 2, 2);
+  font-size: 22px;
+}
+
+table.specification_table_left tbody tr:nth-child(odd) > td:first-child,
+table.specification_table_left tbody tr:nth-child(odd) > td:nth-child(2),
+table.specification_table_right tbody tr:nth-child(odd) > td:first-child,
+table.specification_table_right tbody tr:nth-child(odd) > td:nth-child(2) {
+  background: #f2f2f2;
+}
+
+table.specification_table_left tbody tr:nth-child(even) > td:first-child,
+table.specification_table_left tbody tr:nth-child(even) > td:nth-child(2),
+table.specification_table_right tbody tr:nth-child(even) > td:first-child,
+table.specification_table_right tbody tr:nth-child(even) > td:nth-child(2) {
+  background: var(--white);
+}

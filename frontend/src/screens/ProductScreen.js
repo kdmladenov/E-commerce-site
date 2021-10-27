@@ -16,6 +16,7 @@ import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
 import Accordion from '../components/Accordion';
+import ProductSpecifications from '../components/ProductSpecifications';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -204,6 +205,16 @@ const ProductScreen = ({ history, match }) => {
           )}
         </section>
       )}
+      <section className="product_specifications">
+        <h2>Product Specifications</h2>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message type="error">{error}</Message>
+        ) : (
+          <ProductSpecifications product={product} />
+        )}
+      </section>
       <section className="comparison_table_container">
         <h2>{`Compare ${product.brand} Laptops:`}</h2>
         {loadingCompared ? (
