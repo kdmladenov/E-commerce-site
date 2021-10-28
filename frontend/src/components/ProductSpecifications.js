@@ -7,7 +7,7 @@ import './styles/ProductSpecifications.css';
 
 const ProductSpecifications = ({ product }) => {
   const specificationListLeft = specificationsInOrder
-    ?.slice(0, specificationsInOrder.length / 2 + 1)
+    ?.slice(0, specificationsInOrder.length / 2)
     ?.map((spec, index) => (
       <tr key={index}>
         <td>{productSpecificationsEnum[spec]}</td>
@@ -45,10 +45,7 @@ const ProductSpecifications = ({ product }) => {
           ) : spec === 'systemMemory' ? (
             <span>{`${product['systemMemory']} GB`}</span>
           ) : spec === 'graphicsModel' ? (
-            <p>
-              {`${product['graphicsModel']}`}
-              <p>{`(${product['graphicsType']})`}</p>
-            </p>
+            `${product['graphicsModel']} (${product['graphicsType']})`
           ) : (
             product[spec]
           )}
@@ -57,7 +54,7 @@ const ProductSpecifications = ({ product }) => {
     ));
 
   const specificationListRight = specificationsInOrder
-    ?.slice(specificationsInOrder.length / 2 + 1)
+    ?.slice(specificationsInOrder.length / 2)
     ?.map((spec, index) => (
       <tr key={index}>
         <td>{productSpecificationsEnum[spec]}</td>
@@ -95,10 +92,7 @@ const ProductSpecifications = ({ product }) => {
           ) : spec === 'systemMemory' ? (
             <span>{`${product['systemMemory']} GB`}</span>
           ) : spec === 'graphicsModel' ? (
-            <p>
-              {`${product['graphicsModel']}`}
-              <p>{`(${product['graphicsType']})`}</p>
-            </p>
+            `${product['graphicsModel']} (${product['graphicsType']})`
           ) : (
             product[spec]
           )}
