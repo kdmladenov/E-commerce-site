@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from './Button';
+import './styles/ShowMoreButton.css';
 
 const ShowMoreButton = ({ text, breakpoint }) => {
   const [showMore, setShowMore] = useState(false);
@@ -7,20 +7,11 @@ const ShowMoreButton = ({ text, breakpoint }) => {
   const numberOfItems = showMore ? text.length : breakpoint;
 
   return (
-    <div>
-      <div>
-        {text.slice(0, numberOfItems)}
-        {!showMore && (
-          <Button types="text" onClick={() => setShowMore(true)}>
-            ...show more
-          </Button>
-        )}
-        {showMore && (
-          <Button types="text" onClick={() => setShowMore(false)}>
-            ...show less
-          </Button>
-        )}
-      </div>
+    <div className="show_more_button">
+      {text.slice(0, numberOfItems)}{' '}
+      <button types="text" onClick={() => setShowMore(!showMore)}>
+        {!showMore ? ' ...show more' : ' ...show less'}
+      </button>
     </div>
   );
 };
