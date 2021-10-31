@@ -9,7 +9,7 @@ import { BASE_URL } from '../constants/constants';
 import './styles/OrderScreen.css';
 import axios from 'axios';
 import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../constants/orderConstants';
-import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
+import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
 import Button from '../components/Button';
 
 const OrderScreen = ({ match }) => {

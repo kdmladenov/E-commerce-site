@@ -6,7 +6,7 @@ import {
   alphabeticalSort,
   isKeywordInString,
   keywordInString
-} from '../constants/utility-functions.js/utility-functions';
+} from '../constants/utility-functions/utility-functions';
 import { categories } from '../constants/for-developing/categoriesMega';
 import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
 import { useHistory } from 'react-router';

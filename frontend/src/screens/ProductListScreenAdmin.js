@@ -6,7 +6,7 @@ import Message from '../components/Message';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import './styles/ProductListScreenAdmin.css';
-import { numberDecimalFix } from '../constants/utility-functions.js/utility-functions';
+import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
 const ProductListScreenAdmin = ({ history }) => {

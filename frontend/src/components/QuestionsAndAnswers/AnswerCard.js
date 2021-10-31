@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createAnswer, deleteAnswer, editAnswer } from '../../actions/questionsAndAnswersActions';
-import { getTimeDuration } from '../../constants/utility-functions.js/utility-functions';
+import { getTimeDuration } from '../../constants/utility-functions/utility-functions';
 import EditButtons from '../EditButtons';
 import ShowMoreButton from '../ShowMoreButton';
 

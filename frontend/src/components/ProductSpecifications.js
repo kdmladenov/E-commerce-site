@@ -1,7 +1,7 @@
 import React from 'react';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
-import { numberDecimalFix, poundToKg } from '../constants/utility-functions.js/utility-functions';
+import { numberDecimalFix, poundToKg } from '../constants/utility-functions/utility-functions';
 import Rating from './Rating';
 import './styles/ProductSpecifications.css';
 
