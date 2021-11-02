@@ -1,4 +1,4 @@
-import { user as USER, product as PRODUCT } from './constants.js';
+import { user as USER, product as PRODUCT, questions as QUESTIONS } from './constants.js';
 
 export default {
   user: {
@@ -27,5 +27,8 @@ export default {
     stock_count: `Expected valid number count in the range [${PRODUCT.MIN_STOCK_COUNT}-${PRODUCT.MAX_STOCK_COUNT}]`,
     review_count: `Expected valid number count in the range [${PRODUCT.MIN_REVIEW_COUNT}-${PRODUCT.MAX_REVIEW_COUNT}]`,
     rating: `Expected valid rating with length in the range [${PRODUCT.MIN_RATING_VALUE}-${PRODUCT.MAX_REVIEW_COUNT}]`
+  },
+    question: {
+    questionContent: `Expected valid name string with length in the range [${QUESTIONS.MIN_NAME_LENGTH}-${QUESTIONS.MAX_NAME_LENGTH}]`,
   }
 };
