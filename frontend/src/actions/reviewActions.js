@@ -33,9 +33,9 @@ export const createReview = (productId, review) => async (dispatch, getState) =>
       }
     };
 
-    const { data } = await axios.post(`${BASE_URL}/reviews/${productId}`, review, config);
+    await axios.post(`${BASE_URL}/reviews/${productId}`, review, config);
 
-    dispatch({ type: REVIEW_CREATE_SUCCESS, payload: data });
+    dispatch({ type: REVIEW_CREATE_SUCCESS });
   } catch (error) {
     dispatch({
       type: REVIEW_CREATE_FAIL,

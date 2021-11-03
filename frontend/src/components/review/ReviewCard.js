@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Rating from '../Rating';
 import ShowMoreButton from '../ShowMoreButton';
 import Button from '../Button';

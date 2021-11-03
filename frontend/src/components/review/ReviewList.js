@@ -15,7 +15,7 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
 
   useEffect(() => {
     dispatch(getUserDetails(currentUser?.userId));
-  }, [dispatch, currentUser?.userId]);
+  }, [dispatch, currentUser?.userId, reviews]);
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;

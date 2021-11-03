@@ -37,6 +37,15 @@ const ProductScreen = ({ history, match }) => {
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
 
+  const reviewCreate = useSelector((state) => state.reviewCreate);
+  const { success: successCreateReview, error: errorCreateReview } = reviewCreate;
+
+  const reviewDelete = useSelector((state) => state.reviewDelete);
+  const { success: successDeleteReview, error: errorDeleteReview } = reviewDelete;
+
+  const reviewEdit = useSelector((state) => state.reviewEdit);
+  const { success: successEditReview, error: errorEditReview } = reviewEdit;
+
   const productlist = useSelector((state) => state.productList);
   const {
     loading: loadingCompared,
@@ -89,7 +98,7 @@ const ProductScreen = ({ history, match }) => {
     dispatch(listReviews(match.params.id));
     dispatch(listQuestionsAndAnswers(match.params.id));
     dispatch(addBrowsingHistoryRecord(match.params.id));
-  }, [dispatch, match]);
+  }, [dispatch, match, successCreateReview, successDeleteReview, successEditReview]);
 
   useEffect(() => {
     setSelectedImage(product.image);
