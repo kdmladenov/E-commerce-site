@@ -1,23 +1,34 @@
 /* eslint-disable no-param-reassign */
 import errors from '../constants/service-errors.js';
 
-const getAllReviews = (reviewsData, productsData) => async (productId, order, page, pageSize) => {
-  const existingProduct = await productsData.getBy('product_id', productId);
+const getAllReviews =
+  (reviewsData, productsData) =>
+  async (productId, search, sort, order, page, pageSize, ratingMin, ratingMax) => {
+    const existingProduct = await productsData.getBy('product_id', productId);
 
-  if (!existingProduct) {
+    if (!existingProduct) {
+      return {
+        error: errors.RECORD_NOT_FOUND,
+        result: null
+      };
+    }
+
+    const reviews = await reviewsData.getAll(
+      productId,
+      search,
+      sort,
+      order,
+      page,
+      pageSize,
+      ratingMin,
+      ratingMax
+    );
+
     return {
-      error: errors.RECORD_NOT_FOUND,
-      result: null,
+      error: null,
+      result: reviews
     };
-  }
-
-  const reviews = await reviewsData.getAll(productId, order, page, pageSize);
-
-  return {
-    error: null,
-    result: reviews,
   };
-};
 
 const getReviewById = (reviewsData) => async (reviewId) => {
   const existingReview = await reviewsData.getBy('review_id', reviewId);
@@ -35,45 +46,49 @@ const getReviewById = (reviewsData) => async (reviewId) => {
   };
 };
 
-const createReview = (productsData, reviewsData
-  // , ordersData, usersData
-  ) => async (content, userId, productId, rating, title) => {
-  // checks if the product exists
-  const existingProduct = await productsData.getBy('product_id', productId);
-  if (!existingProduct) {
+const createReview =
+  (
+    productsData,
+    reviewsData
+    // , ordersData, usersData
+  ) =>
+  async (content, userId, productId, rating, title) => {
+    // checks if the product exists
+    const existingProduct = await productsData.getBy('product_id', productId);
+    if (!existingProduct) {
+      return {
+        error: errors.RECORD_NOT_FOUND,
+        result: null
+      };
+    }
+
+    // checks if the user has already made a review for the same product
+    const existingReview = await reviewsData.getReviewByUserAndProduct(userId, productId);
+    if (existingReview) {
+      return {
+        error: errors.DUPLICATE_RECORD,
+        result: null
+      };
+    }
+
+    // // checks if the user has purchased and received the product
+    // const isProductReceived = await ordersData.getAllByUser(userId).filter(order => order.);
+    // if (!isProductReceived || isProductReceived.dateReturned === null) {
+    //   return {
+    //     error: errors.OPERATION_NOT_PERMITTED,
+    //     result: null,
+    //   };
+    // }
+
+    const review = await reviewsData.create(content, userId, productId, rating, title);
+
     return {
-      error: errors.RECORD_NOT_FOUND,
-      result: null,
+      error: null,
+      result: review
     };
-  }
-
-  // checks if the user has already made a review for the same product
-  const existingReview = await reviewsData.getReviewByUserAndProduct(userId, productId);
-  if (existingReview) {
-    return {
-      error: errors.DUPLICATE_RECORD,
-      result: null,
-    };
-  }
-
-  // // checks if the user has purchased and received the product
-  // const isProductReceived = await ordersData.getAllByUser(userId).filter(order => order.);
-  // if (!isProductReceived || isProductReceived.dateReturned === null) {
-  //   return {
-  //     error: errors.OPERATION_NOT_PERMITTED,
-  //     result: null,
-  //   };
-  // }
-
-  const review = await reviewsData.create(content, userId, productId, rating, title);
-
-  return {
-    error: null,
-    result: review,
   };
-};
 
-const updateReview = reviewsData => async (content, reviewId, userId, role, rating, title) => {
+const updateReview = (reviewsData) => async (content, reviewId, userId, role, rating, title) => {
   const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
 
   if (!existingReview) {
@@ -83,7 +98,7 @@ const updateReview = reviewsData => async (content, reviewId, userId, role, rati
     };
   }
 
-  // The user is not admin or has created the review 
+  // The user is not admin or has created the review
   if (existingReview.userId !== userId && role !== rolesEnum.admin) {
     return {
       error: errors.OPERATION_NOT_PERMITTED,
@@ -118,7 +133,7 @@ const updateReview = reviewsData => async (content, reviewId, userId, role, rati
 };
 
 const deleteReview = (reviewsData) => async (reviewId, userId, role) => {
-  const existingReview = await reviewsData.getBy('review_id', reviewId,);
+  const existingReview = await reviewsData.getBy('review_id', reviewId);
 
   if (!existingReview) {
     return {
@@ -143,21 +158,21 @@ const deleteReview = (reviewsData) => async (reviewId, userId, role) => {
   };
 };
 
-const voteReview = reviewsData => async (reactionName, reviewId, userId) => {
+const voteReview = (reviewsData) => async (reactionName, reviewId, userId) => {
   const existingReview = await reviewsData.getVoteBy('review_id', reviewId, userId);
 
   if (existingReview) {
     const result = await reviewsData.updateVote(reactionName, reviewId, userId);
     return {
       error: null,
-      result,
+      result
     };
   }
 
   const result = await reviewsData.createVote(reactionName, reviewId, userId);
   return {
     error: null,
-    result,
+    result
   };
 };
 

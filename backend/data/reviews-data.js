@@ -1,9 +1,12 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAll = async (productId, order, page, pageSize) => {
+const getAll = async (productId, search, sort, order, page, pageSize, ratingMin, ratingMax) => {
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'ASC';
   const offset = (page - 1) * pageSize;
+  const sortColumn = ['date_created', 'rating', 'thumbs_up', 'thumbs_down'].includes(sort)
+    ? sort
+    : 'date_created';
 
   const sql = `
     SELECT
@@ -31,11 +34,11 @@ const getAll = async (productId, order, page, pageSize) => {
         from review_likes
         WHERE is_deleted = 0
         group by review_id) rl USING (review_id)
-    WHERE r.is_deleted = 0 AND r.product_id = ?
-    ORDER BY r.date_created ${direction}
+    WHERE r.is_deleted = 0 AND r.product_id = ? AND r.rating BETWEEN ? AND ? AND (r.content Like '%${search}%' OR r.title Like '%${search}%')
+    ORDER BY ${sortColumn} ${direction}
     LIMIT ? OFFSET ?
     `;
-  return db.query(sql, [+productId, pageSize, offset]);
+  return db.query(sql, [+productId, ratingMin, ratingMax, pageSize, offset]);
 };
 
 const getBy = async (column, value, role) => {
@@ -79,7 +82,7 @@ const getBy = async (column, value, role) => {
 //     product_id as productId,
 //     user_id as userId,
 //     title,
-//     content, 
+//     content,
 //     rating,
 //     date_created as dateCreated,
 //     date_edited as dateEdited
