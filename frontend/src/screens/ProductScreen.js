@@ -238,8 +238,10 @@ const ProductScreen = ({ history, match }) => {
         <h2>Reviews:</h2>
         {loadingReviews ? (
           <Loader />
-        ) : errorReviews ? (
-          <Message type="error">{errorReviews}</Message>
+        ) : errorReviews || errorCreateReview || errorDeleteReview || errorEditReview ? (
+          <Message type="error">
+            {errorReviews || errorCreateReview || errorDeleteReview || errorEditReview}
+          </Message>
         ) : product.reviewCount > 0 ? (
           <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId} />
         ) : (
