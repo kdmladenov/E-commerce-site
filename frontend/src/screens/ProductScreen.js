@@ -17,6 +17,7 @@ import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndA
 import ComparisonTable from '../components/ComparisonTable';
 import Accordion from '../components/Accordion';
 import ProductSpecifications from '../components/ProductSpecifications';
+import Divider from '../components/Divider';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -32,8 +33,8 @@ const ProductScreen = ({ history, match }) => {
 
   const productFeaturesList = useSelector((state) => state.productFeaturesList);
   const { productFeatures, loading: loadingFeatures, error: errorFeatures } = productFeaturesList;
-  console.log(productFeatures, 'productFeatures');
 
+  // To refresh on every change in reviews
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading: loadingReviews, error: errorReviews } = reviewList;
 
@@ -92,6 +93,35 @@ const ProductScreen = ({ history, match }) => {
     </li>
   ));
 
+  // Go to reviews section
+  const reviewsRef = useRef(null);
+  const gotoReviews = () => {
+    window.scrollTo({
+      top: reviewsRef.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
+  // Go to comparison section
+  const comparisonRef = useRef(null);
+  const gotoComparison = () => {
+    window.scrollTo({
+      top: comparisonRef.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
+  // Go to Q&A section
+  const questionsAndAnswersRef = useRef(null);
+  const gotoQuestionsAndAnswers = () => {
+    window.scrollTo({
+      top: questionsAndAnswersRef.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
+  console.log(questionsAndAnswers?.length, 'questionsAndAnswers');
+
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
     dispatch(listProductFeatures(match.params.id));
@@ -139,15 +169,27 @@ const ProductScreen = ({ history, match }) => {
               <div className="product_details_info">
                 <div className="product_details_title">{product.title}</div>
                 <div className="product_details_brand">
-                  by <strong>{product.brand}</strong>
+                  <span>by</span>
+                  <Button types="text">
+                    <strong onClick={gotoComparison}>{product.brand}</strong>
+                  </Button>
                 </div>
-                <div className="product_details_rating">
-                  <Rating
-                    rating={product.rating}
-                    text={` from ${product.reviewCount} reviews`}
-                    color="orange"
-                  ></Rating>
+                <span className="product_details_rating">
+                  <Rating rating={product.rating} color="orange"></Rating>
+                  <Button types="text" onClick={gotoReviews}>
+                    {`from ${product.reviewCount} customer reviews `}
+                  </Button>
+                </span>
+                <span className="product_details_questions">
+                  <Button types="text" onClick={gotoQuestionsAndAnswers}>
+                    {` ${questionsAndAnswers?.length} answered questions`}
+                  </Button>
+                </span>
+                <Divider />
+                <div className="features">
+                  Main features: <p>{product.description}</p>
                 </div>
+                <Divider />
                 <div className="product_details_description">
                   Description: <p>{product.description}</p>
                 </div>
@@ -224,7 +266,7 @@ const ProductScreen = ({ history, match }) => {
           <ProductSpecifications product={product} />
         )}
       </section>
-      <section className="comparison_table_container">
+      <section className="comparison_table_container" ref={comparisonRef}>
         <h2>{`Compare ${product.brand} Laptops:`}</h2>
         {loadingCompared ? (
           <Loader />
@@ -234,7 +276,7 @@ const ProductScreen = ({ history, match }) => {
           <ComparisonTable products={productsCompared} currentProductId={+match.params.id} />
         )}
       </section>
-      <section className="reviews_container">
+      <section className="reviews_container" ref={reviewsRef}>
         <h2>Reviews:</h2>
         {loadingReviews ? (
           <Loader />
@@ -248,7 +290,7 @@ const ProductScreen = ({ history, match }) => {
           <Message type="success">There are no reviews for this product</Message>
         )}
       </section>
-      <section className="questions_and_answers_container">
+      <section className="questions_and_answers_container" ref={questionsAndAnswersRef}>
         <h2>Questions & Answers:</h2>
         {loadingQuestionsAndAnswers ? (
           <Loader />
