@@ -9,7 +9,7 @@ import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
 import Button from '../components/Button';
-import ReviewList from '../components/Review/ReviewList';
+import Reviews from '../components/Review/Reviews';
 import { listReviews } from '../actions/reviewActions';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
@@ -18,6 +18,10 @@ import ComparisonTable from '../components/ComparisonTable';
 import Accordion from '../components/Accordion';
 import ProductSpecifications from '../components/ProductSpecifications';
 import Divider from '../components/Divider';
+import productSpecificationsEnum from '../constants/product-specifications.enum';
+import { numberDecimalFix, poundToKg } from '../constants/utility-functions/utility-functions';
+
+const productFeaturesInfoCount = 5;
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
@@ -120,7 +124,51 @@ const ProductScreen = ({ history, match }) => {
     });
   };
 
-  console.log(questionsAndAnswers?.length, 'questionsAndAnswers');
+  // Go to features section
+  const featuresRef = useRef(null);
+  const gotoFeatures = () => {
+    window.scrollTo({
+      top: featuresRef.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
+  // Go to Specs section
+  const specsRef = useRef(null);
+  const gotoSpecs = () => {
+    window.scrollTo({
+      top: specsRef.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
+  const specificationListInInfo = [
+    'modelNumber',
+    'releaseYear',
+    'displayType',
+    'processorModelNumber',
+    'storageCapacity',
+    'systemMemory'
+  ].map((spec, index) => (
+    <tr key={index}>
+      <td>{productSpecificationsEnum[spec]}</td>
+      <td key={product.productId}>
+        {spec === 'displayType' ? (
+          <span>{`${product['screenSize']?.toFixed(1)}-inch ${product['displayType']} with ${
+            product['screenResolution']
+          } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
+        ) : spec === 'storageCapacity' ? (
+          <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
+        ) : spec === 'systemMemory' ? (
+          <span>{`${product['systemMemory']} GB`}</span>
+        ) : spec === 'graphicsModel' ? (
+          `${product['graphicsModel']} (${product['graphicsType']})`
+        ) : (
+          product[spec]
+        )}
+      </td>
+    </tr>
+  ));
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
@@ -180,18 +228,48 @@ const ProductScreen = ({ history, match }) => {
                     {`from ${product.reviewCount} customer reviews `}
                   </Button>
                 </span>
-                <span className="product_details_questions">
-                  <Button types="text" onClick={gotoQuestionsAndAnswers}>
-                    {` ${questionsAndAnswers?.length} answered questions`}
-                  </Button>
-                </span>
+                {questionsAndAnswers?.length && (
+                  <span className="product_details_questions">
+                    <Button types="text" onClick={gotoQuestionsAndAnswers}>
+                      {` ${questionsAndAnswers?.length} answered questions`}
+                    </Button>
+                  </span>
+                )}
+
                 <Divider />
-                <div className="features">
-                  Main features: <p>{product.description}</p>
+                <div className="product_details_specifications">
+                  <h3>Main specs:</h3>
+                  <p>
+                    <table>
+                      <tbody>{specificationListInInfo}</tbody>
+                    </table>
+                    <Button types="text" onClick={gotoSpecs}>
+                      See full specifications
+                    </Button>
+                  </p>
                 </div>
+
+                {productFeatures?.length && (
+                  <>
+                    <Divider />
+                    <div className="product_details_features">
+                      <h3>Main features:</h3>
+                      <p>
+                        <ul>
+                          {productFeatures?.slice(0, productFeaturesInfoCount).map((feature) => (
+                            <li>{feature.featureTitle}</li>
+                          ))}
+                        </ul>
+                        <Button types="text" onClick={gotoFeatures}>
+                          See all features
+                        </Button>
+                      </p>
+                    </div>
+                  </>
+                )}
                 <Divider />
                 <div className="product_details_description">
-                  Description: <p>{product.description}</p>
+                  <h3>Description:</h3> <p>{product.description}</p>
                 </div>
               </div>
             )}
@@ -233,7 +311,7 @@ const ProductScreen = ({ history, match }) => {
         </section>
       )}
       {productFeatures?.length && (
-        <section className="product_features">
+        <section className="product_features" ref={featuresRef}>
           <h2>Product Features:</h2>
           {loadingFeatures ? (
             <Loader />
@@ -256,7 +334,7 @@ const ProductScreen = ({ history, match }) => {
           )}
         </section>
       )}
-      <section className="product_specifications">
+      <section className="product_specifications" ref={specsRef}>
         <h2>Product Specifications</h2>
         {loading ? (
           <Loader />
@@ -285,7 +363,7 @@ const ProductScreen = ({ history, match }) => {
             {errorReviews || errorCreateReview || errorDeleteReview || errorEditReview}
           </Message>
         ) : product.reviewCount > 0 ? (
-          <ReviewList reviews={reviews} currentUser={currentUser} productId={product.productId} />
+          <Reviews reviews={reviews} currentUser={currentUser} productId={product.productId} />
         ) : (
           <Message type="success">There are no reviews for this product</Message>
         )}
