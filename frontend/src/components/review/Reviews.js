@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ReviewCard from './ReviewCard';
 import Button from '../Button';
-import './styles/ReviewList.css';
+import './styles/Reviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../actions/userActions';
 
-const ReviewList = ({ reviews, currentUser, productId }) => {
+const reviewCountAtStart = 3;
+
+const Reviews = ({ reviews, currentUser, productId }) => {
   const dispatch = useDispatch();
   const [createMode, setCreateMode] = useState(false);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const handleOpenCreateForm = () => {
     setCreateMode(true);
@@ -40,10 +43,16 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
           avatar={user.avatar}
         />
       )}
-      {[
-        ...reviews?.filter((review) => +review.userId === +currentUser?.userId),
-        ...reviews?.filter((review) => +review.userId !== +currentUser?.userId)
-      ]?.map((review) => {
+      {(showAllReviews
+        ? [
+            ...reviews?.filter((review) => +review.userId === +currentUser?.userId),
+            ...reviews?.filter((review) => +review.userId !== +currentUser?.userId)
+          ]
+        : [
+            ...reviews?.filter((review) => +review.userId === +currentUser?.userId),
+            ...reviews?.filter((review) => +review.userId !== +currentUser?.userId)
+          ].slice(0, reviewCountAtStart)
+      ).map((review) => {
         return (
           <ReviewCard
             key={review.reviewId}
@@ -54,8 +63,19 @@ const ReviewList = ({ reviews, currentUser, productId }) => {
           />
         );
       })}
+      {reviews?.length > 1 &&
+        (!showAllReviews ? (
+          <Button types="text" onClick={() => setShowAllReviews(!showAllReviews)}>
+            <i class="fa fa-chevron-down"></i>{' '}
+            {`See more reviews (${reviews?.length - reviewCountAtStart})`}
+          </Button>
+        ) : (
+          <Button types="text" onClick={() => setShowAllReviews(!showAllReviews)}>
+            <i class="fa fa-chevron-up"></i> {`Collapse reviews`}
+          </Button>
+        ))}
     </div>
   );
 };
 
-export default ReviewList;
+export default Reviews;
