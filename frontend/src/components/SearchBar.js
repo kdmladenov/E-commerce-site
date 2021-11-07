@@ -88,7 +88,6 @@ const SearchBar = () => {
           ? previousSearches.shift().push(keyword.trim())
           : previousSearches.push(keyword.trim())
       );
-      console.log(previousSearches, 'in');
       localStorage.setItem('previousSearches', JSON.stringify(previousSearches));
     }
   };

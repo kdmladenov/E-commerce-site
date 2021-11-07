@@ -34,7 +34,7 @@
   grid-template-areas: 'image_sidebar image info action-box';
   grid-gap: 40px;
   background: white;
-  max-height: 100vh;
+  height: 100%;
   padding: 30px;
 }
 

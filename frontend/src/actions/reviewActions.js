@@ -71,11 +71,11 @@ export const deleteReview = (reviewId) => async (dispatch, getState) => {
   }
 };
 
-export const listReviews = (productId) => async (dispatch, getState) => {
+export const listReviews = (productId, endpoint='') => async (dispatch) => {
   try {
     dispatch({ type: REVIEW_LIST_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/reviews/${productId}`);
+    const { data } = await axios.get(`${BASE_URL}/reviews/${productId}?${endpoint}`);
 
     dispatch({ type: REVIEW_LIST_SUCCESS, payload: data });
   } catch (error) {
