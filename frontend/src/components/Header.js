@@ -89,7 +89,6 @@ const Header = () => {
             className="header_option login_menu"
             onMouseEnter={() => setShowLoginMenu(true)}
             onMouseLeave={() => setShowLoginMenu(false)}
-            // onClick={() => setShowLoginMenu(false)}
           >
             <i className="fas fa-user" />
             {showLoginMenu && (

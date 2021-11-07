@@ -19,12 +19,24 @@ import Accordion from '../components/Accordion';
 import ProductSpecifications from '../components/ProductSpecifications';
 import Divider from '../components/Divider';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
-import { numberDecimalFix, poundToKg } from '../constants/utility-functions/utility-functions';
+import { scrollTo } from '../constants/utility-functions/utility-functions';
+import ScrollToTopButton from '../components/ScrollToTopButton';
+import Tooltip from '../components/Tooltip';
+import RatingWidget from '../components/RatingWidget';
 
 const productFeaturesInfoCount = 5;
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
+
+  const [showRatingWidget, setShowRatingWidget] = useState(false); ;
+  console.log(showRatingWidget, 'showRatingWidget');
+  const reviewsRef = useRef(null);
+  const comparisonRef = useRef(null);
+  const questionsAndAnswersRef = useRef(null);
+  const featuresRef = useRef(null);
+  const specsRef = useRef(null);
+
   const zoomedImageRef = useRef(null);
   const zoomedImageRect = useResize(zoomedImageRef);
   const [showZoomedImage, setShowZoomedImage] = useState(false);
@@ -97,51 +109,6 @@ const ProductScreen = ({ history, match }) => {
     </li>
   ));
 
-  // Go to reviews section
-  const reviewsRef = useRef(null);
-  const gotoReviews = () => {
-    window.scrollTo({
-      top: reviewsRef.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
-
-  // Go to comparison section
-  const comparisonRef = useRef(null);
-  const gotoComparison = () => {
-    window.scrollTo({
-      top: comparisonRef.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
-
-  // Go to Q&A section
-  const questionsAndAnswersRef = useRef(null);
-  const gotoQuestionsAndAnswers = () => {
-    window.scrollTo({
-      top: questionsAndAnswersRef.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
-
-  // Go to features section
-  const featuresRef = useRef(null);
-  const gotoFeatures = () => {
-    window.scrollTo({
-      top: featuresRef.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
-
-  // Go to Specs section
-  const specsRef = useRef(null);
-  const gotoSpecs = () => {
-    window.scrollTo({
-      top: specsRef.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
-
   const specificationListInInfo = [
     'modelNumber',
     'releaseYear',
@@ -191,7 +158,9 @@ const ProductScreen = ({ history, match }) => {
         <Message type="error">{error}</Message>
       ) : (
         <section className="product_details">
-          <ul className="product_image_sidebar">{imagesSideBarToRender}</ul>
+          <div className="product_image_sidebar">
+            <ul>{imagesSideBarToRender}</ul>
+          </div>
           <div className="product_details_image">
             <ProductImageGallery
               images={images}
@@ -219,18 +188,28 @@ const ProductScreen = ({ history, match }) => {
                 <div className="product_details_brand">
                   <span>by</span>
                   <Button types="text">
-                    <strong onClick={gotoComparison}>{product.brand}</strong>
+                    <strong onClick={() => scrollTo(comparisonRef)}>{product.brand}</strong>
                   </Button>
                 </div>
-                <span className="product_details_rating">
-                  <Rating rating={product.rating} color="orange"></Rating>
-                  <Button types="text" onClick={gotoReviews}>
+                <span className="product_details_rating" onClick={() => scrollTo(reviewsRef)}>
+                  <div
+                    onMouseEnter={() => setShowRatingWidget(true)}
+                    onMouseLeave={() => setShowRatingWidget(false)}
+                  >
+                    <Rating rating={product.rating} color="orange"></Rating>
+                    {showRatingWidget && (
+                      <Tooltip visible={showRatingWidget} direction={'top'}>
+                        <RatingWidget reviews={reviews} productId={match.params.id} />
+                      </Tooltip>
+                    )}
+                  </div>
+                  <Button types="text" onClick={() => scrollTo(reviewsRef)}>
                     {`from ${product.reviewCount} customer reviews `}
                   </Button>
                 </span>
                 {questionsAndAnswers?.length && (
                   <span className="product_details_questions">
-                    <Button types="text" onClick={gotoQuestionsAndAnswers}>
+                    <Button types="text" onClick={() => scrollTo(questionsAndAnswersRef)}>
                       {` ${questionsAndAnswers?.length} answered questions`}
                     </Button>
                   </span>
@@ -243,7 +222,7 @@ const ProductScreen = ({ history, match }) => {
                     <table>
                       <tbody>{specificationListInInfo}</tbody>
                     </table>
-                    <Button types="text" onClick={gotoSpecs}>
+                    <Button types="text" onClick={() => scrollTo(specsRef)}>
                       See full specifications
                     </Button>
                   </p>
@@ -260,7 +239,7 @@ const ProductScreen = ({ history, match }) => {
                             <li>{feature.featureTitle}</li>
                           ))}
                         </ul>
-                        <Button types="text" onClick={gotoFeatures}>
+                        <Button types="text" onClick={() => scrollTo(featuresRef)}>
                           See all features
                         </Button>
                       </p>
@@ -384,6 +363,7 @@ const ProductScreen = ({ history, match }) => {
           <Message type="success">Ask Question Box</Message>
         )}
       </section>
+      <ScrollToTopButton />
     </main>
   );
 };

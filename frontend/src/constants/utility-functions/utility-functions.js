@@ -71,11 +71,20 @@ export const inchesToCm = (inchLength, decimals = 2) => {
 export const areReviewsFiltered = (reviews) => {
   const starMap = {};
 
-  for (let i = 0; i < reviews.length; i++) {
-    const currReviewRating = reviews[i].rating;
+  for (let i = 0; i < reviews?.length; i++) {
+    const currReviewRating = reviews[i]?.rating;
 
     starMap[currReviewRating] = starMap[currReviewRating] + 1 || 1;
   }
 
   return Object.keys(starMap).filter((key) => key > 0).length === 1;
 };
+
+
+// Scroll to a specified element
+  export const scrollTo = (ref) => {
+    window.scrollTo({
+      top: ref.current.offsetTop,
+      behavior: 'smooth'
+    });
+  };

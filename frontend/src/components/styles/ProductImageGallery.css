@@ -3,6 +3,8 @@
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 1fr;
+  position: sticky;
+  top: 0;
 }
 
 .selected_image {

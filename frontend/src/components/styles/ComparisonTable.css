@@ -89,9 +89,12 @@ table.comparison_table tbody tr > td:nth-child(2) {
   position: sticky;
 }
 
-table.comparison_table tbody tr:nth-child(odd) > td:first-child,
-table.comparison_table tbody tr:nth-child(odd) > td:nth-child(2) {
+table.comparison_table tbody tr:nth-child(odd) > td:first-child{
   background: #f2f2f2;
+}
+
+table.comparison_table tbody tr:nth-child(odd) > td:nth-child(2) {
+  background: beige;
 }
 
 table.comparison_table tbody tr:nth-child(even) > td:first-child,

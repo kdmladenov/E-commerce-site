@@ -1,7 +1,25 @@
-.reviews-list {
-  margin: 0 175px;
+.reviews {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: ' sidebar review_list';
+  gap: 80px;
+  margin-bottom: 20px;
 }
 
-.reviews-list > button{
-margin: 20px auto;
+.reviews_sidebar {
+  grid-area: sidebar;
+}
+
+.reviews .rating_widget {
+  position: sticky;
+  top: 0;
+}
+
+.reviews-list {
+  grid-area: review_list;
+}
+
+.reviews-list > button {
+  margin: 20px auto;
 }
