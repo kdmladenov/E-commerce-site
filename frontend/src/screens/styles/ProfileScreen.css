@@ -1,28 +1,51 @@
-.profile {
-  height:fit-content;
-  justify-content: space-between;
-  margin-right: 20px;
+.profile_screen{
+  background-color: rgb(234, 237, 237);
 }
 
-.orders {
-    margin-bottom: auto;
-    flex-direction: column;
-}
-
-.profile table {
+.profile_container {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.profile  th{
-  margin: auto;
+/* Tab Buttons  Header*/
+.profile_container .content,
+.profile_container .header {
+  margin: 5px 0;
+  background-color: var(--white);
+  color: var(--gray_dark);
+  padding: 5px;
+  border: 1px solid var(--gray);
+  outline: none;
+  border-radius: 5px;
 }
-.profile  td{
 
+.profile_container .tab {
+  background-color: var(--white);
+  color: var(--gray_dark);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
 }
 
-
-.profile  tr:nth-child(even) {
-  background-color: #D6EEEE;
+.profile_container .tab:hover {
+  background-color: var(--blue_light);
+  border-radius: 5px;
 }
 
-.profile  tr:hover {background-color: lightblue;}
+.profile_container .tab.active {
+  color: var(--blue_middle);
+  font-weight: bold;
+  border-bottom: 3px solid var(--blue_middle);
+}
+
+.profile_container .content {
+  display:none;
+}
+
+.profile_container .content.active {
+  display: block;
+}
