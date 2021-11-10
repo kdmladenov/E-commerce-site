@@ -6,9 +6,9 @@ import { useHistory } from 'react-router';
 import Loader from '../Loader';
 import Message from '../Message';
 import validateInput from '../../validations/userValidator';
-import { overviewInitialInputState } from '../../constants/inputStates';
+import { addressInitialInputState } from '../../constants/inputStates';
 
-const Overview = () => {
+const Address = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -16,12 +16,15 @@ const Overview = () => {
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const [isUserUpdated, setIsUserUpdated] = useState(false);
 
-  const [form, setForm] = useState(overviewInitialInputState);
+  const [form, setForm] = useState(addressInitialInputState);
 
   const [inputErrors, setInputErrors] = useState({
-    fullName: '',
-    email: '',
-    phone: ''
+    address: '',
+    address2: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: ''
   });
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -55,7 +58,7 @@ const Overview = () => {
     setIsFormValid(Object.values(updatedForm).every((elem) => elem.valid));
   };
 
-  const overviewToRender = Object.keys(form)
+  const addressToRender = Object.keys(form)
 
     .map((name) => {
       return {
@@ -131,7 +134,7 @@ const Overview = () => {
     <Message>{error}</Message>
   ) : (
     <form onSubmit={handleSubmit}>
-      {overviewToRender}
+      {addressToRender}
       {Object.values(form).some((input) => input.touched) && (
         <button type="submit" disabled={!isFormValid}>
           Save Changes
@@ -141,4 +144,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default Address;

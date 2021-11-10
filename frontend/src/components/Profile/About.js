@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Address from './Address';
 import Overview from './Overview';
 import './styles/About.css';
 
@@ -26,7 +27,9 @@ const About = () => {
         <div className={`form ${activeTab === 'overview' ? 'active' : ''}`}>
           <Overview />
         </div>
-        <div className={`form ${activeTab === 'address' ? 'active' : ''}`}>Address</div>
+        <div className={`form ${activeTab === 'address' ? 'active' : ''}`}>
+          <Address />
+        </div>
       </div>
     </div>
   );
