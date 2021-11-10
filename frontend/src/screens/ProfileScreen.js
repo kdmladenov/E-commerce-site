@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import About from '../components/About';
+import About from '../components/Profile/About';
+import Orders from '../components/Orders';
 import './styles/ProfileScreen.css';
 
 const ProfileScreen = () => {
@@ -8,7 +9,7 @@ const ProfileScreen = () => {
   return (
     <main className="profile_screen">
       <div className="profile_container">
-        <div className="header">
+        <div className="header card">
           <button
             className={`tab ${activeTab === 'about' && 'active'}`}
             onClick={() => setActiveTab('about')}
@@ -34,20 +35,20 @@ const ProfileScreen = () => {
             Wish List
           </button>
         </div>
-        <section className={`about_container content ${activeTab === 'about' && 'active'}`}>
+        <section className={`about_container card content ${activeTab === 'about' && 'active'}`}>
           <About />
         </section>
-        <section className={`orders_container content ${activeTab === 'orders' && 'active'}`}>
-          order content
+        <section className={`orders_container card content ${activeTab === 'orders' && 'active'}`}>
+          <Orders />
         </section>
         <section
-          className={`browsing_history_container content ${
+          className={`browsing_history_container card content ${
             activeTab === 'browsing_history' && 'active'
           }`}
         >
           history content
         </section>
-        <section className={`wish_list_container content ${activeTab === 'wish_list' && 'active'}`}>
+        <section className={`wish_list_container card content ${activeTab === 'wish_list' && 'active'}`}>
           wish content
         </section>
       </div>

@@ -1,4 +1,4 @@
-.profile_screen{
+.profile_screen {
   background-color: rgb(234, 237, 237);
 }
 
@@ -12,12 +12,14 @@
 .profile_container .content,
 .profile_container .header {
   margin: 5px 0;
-  background-color: var(--white);
   color: var(--gray_dark);
   padding: 5px;
-  border: 1px solid var(--gray);
   outline: none;
   border-radius: 5px;
+}
+
+.profile_container .header {
+  padding-bottom: 0;
 }
 
 .profile_container .tab {
@@ -36,6 +38,10 @@
   border-radius: 5px;
 }
 
+.profile_container .tab.active:hover {
+  border-radius: 5px 5px 0 0;
+}
+
 .profile_container .tab.active {
   color: var(--blue_middle);
   font-weight: bold;
@@ -43,7 +49,7 @@
 }
 
 .profile_container .content {
-  display:none;
+  display: none;
 }
 
 .profile_container .content.active {

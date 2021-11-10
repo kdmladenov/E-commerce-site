@@ -15,7 +15,7 @@
   --orange: #ffa41c;
   --green: rgb(4, 214, 4);
   --green_lime: lime;
-  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
   --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
     4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
     inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
@@ -98,8 +98,8 @@ img {
   position: relative;
   background-color: var(--white);
   border-radius: 5px;
-  border: 1px solid var(--gray);
-  /* box-shadow: var(--box-shadow); */
+  /* border: 1px solid var(--gray); */
+  box-shadow: var(--box-shadow);
   color: var(--black);
 }
 
