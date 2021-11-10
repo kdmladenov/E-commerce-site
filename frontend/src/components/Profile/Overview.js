@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './styles/About.css';
-import { USER } from '../../constants/constants.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails, updateUserProfile } from '../../actions/userActions';
 import { useHistory } from 'react-router';
 import Loader from '../Loader';
 import Message from '../Message';
+import validateInput from '../../validations/userValidator';
+import { overviewInitialInputState } from '../../constants/inputStates';
 
 const Overview = () => {
   const dispatch = useDispatch();
@@ -13,31 +14,14 @@ const Overview = () => {
 
   const [isFormValid, setIsFormValid] = useState(true);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
 
-  const [form, setForm] = useState({
-    fullName: {
-      label: 'Full Name',
-      placeholder: 'Your full name...',
-      value: '',
-      validations: {
-        required: true,
-        minLength: USER.MIN_FULL_NAME_LENGTH,
-        maxLength: USER.MAX_FULL_NAME_LENGTH
-      },
-      valid: true
-    },
-    email: {
-      label: 'Email',
-      placeholder: 'Your email name...',
-      value: '',
-      validations: {
-        required: true,
-        minLength: USER.MIN_EMAIL_LENGTH,
-        maxLength: USER.MAX_EMAIL_LENGTH,
-        format: USER.EMAIL_REGEX
-      },
-      valid: true
-    }
+  const [form, setForm] = useState(overviewInitialInputState);
+
+  const [inputErrors, setInputErrors] = useState({
+    fullName: '',
+    email: '',
+    phone: ''
   });
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -49,37 +33,11 @@ const Overview = () => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const data = Object.keys(form).reduce((acc, elementKey) => {
-      return {
-        ...acc,
-        [elementKey]: form[elementKey].value
-      };
-    }, {});
-
-    dispatch(
-      updateUserProfile({
-        id: userInfo.userId,
-        ...data
-      })
-    );
-  };
-
   const isInputValid = (input, validations) => {
-    if (validations.required && input.length === 0) {
-      return false;
-    }
-    if (validations.minLength && input.length <= validations.minLength) {
-      return false;
-    }
-    if (validations.maxLength && input.length >= validations.maxLength) {
-      return false;
-    }
-    if (validations.format && !validations.format.test(input)) {
-      return false;
-    }
+    if (validations.required && input.length === 0) return false;
+    if (validations.minLength && input.length <= validations.minLength) return false;
+    if (validations.maxLength && input.length >= validations.maxLength) return false;
+    if (validations.format && !validations.format.test(input)) return false;
 
     return true;
   };
@@ -89,15 +47,16 @@ const Overview = () => {
 
     const updatedForm = { ...form };
     updatedForm[name].value = value;
+    updatedForm[name].touched = true;
     updatedForm[name].valid = isInputValid(value, updatedForm[name].validations);
 
+    setInputErrors({ ...inputErrors, [name]: validateInput[name](value) });
     setForm(updatedForm);
-
-    const formValid = Object.values(updatedForm).every((elem) => elem.valid);
-    setIsFormValid(formValid);
+    setIsFormValid(Object.values(updatedForm).every((elem) => elem.valid));
   };
 
   const overviewToRender = Object.keys(form)
+
     .map((name) => {
       return {
         id: name,
@@ -105,16 +64,22 @@ const Overview = () => {
       };
     })
     .map(({ id, config }) => {
-      const isValidCSSClass = config.valid ? 'valid' : 'invalid';
-
       return (
-        <div className='wrapper'>
+        <div
+          className={`wrapper ${config.value ? 'filled' : ''} ${inputErrors[id] ? 'error' : ''} ${
+            config.touched ? 'touched' : ''
+          }`}
+        >
           <label htmlFor={id}>{config.label}</label>
+          <div className="underline" />
+          {inputErrors[id] && (
+            <div className="error_message">{`${config.label} ${inputErrors[id]}`}</div>
+          )}
           <input
-            type="text"
+            type={config.type}
             key={id}
             name={id}
-            className={isValidCSSClass}
+            // className={config.valid ? 'valid' : 'invalid'}
             placeholder={config.value}
             value={config.value}
             onChange={handleInputChange}
@@ -123,21 +88,42 @@ const Overview = () => {
       );
     });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = Object.keys(form).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: form[key].value
+      };
+    }, {});
+
+    dispatch(
+      updateUserProfile({
+        id: userInfo.userId,
+        ...data
+      })
+    );
+
+    setIsUserUpdated(true);
+  };
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user?.email) {
+      if (!user?.email || isUserUpdated) {
         dispatch(getUserDetails(userInfo.userId));
+        setIsUserUpdated(false);
       } else {
-        const formCopy = form;
+        const formCopy = { ...form };
         Object.keys(formCopy).forEach((key) => (formCopy[key].value = user[key]));
 
         setForm(formCopy);
         setIsUserLoaded(true);
       }
     }
-  }, [dispatch, history, userInfo, user, success, loading, isUserLoaded]);
+  }, [dispatch, history, userInfo, user, success, loading, isUserLoaded, isUserUpdated]);
 
   return loading ? (
     <Loader />
@@ -146,9 +132,11 @@ const Overview = () => {
   ) : (
     <form onSubmit={handleSubmit}>
       {overviewToRender}
-      <button type="submit" disabled={!isFormValid}>
-        Submit
-      </button>
+      {Object.values(form).some((input) => input.touched) && (
+        <button type="submit" disabled={!isFormValid}>
+          Save Changes
+        </button>
+      )}
     </form>
   );
 };
