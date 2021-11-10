@@ -5,7 +5,6 @@ import './styles/About.css';
 const About = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
-
   return (
     <div className="about">
       <div className="sidebar">

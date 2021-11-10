@@ -53,7 +53,7 @@
 }
 
 .about .about_form {
-  padding: 20px 100px;
+  padding: 20px 40px;
 }
 
 .about .about_form form {
@@ -69,11 +69,14 @@
 }
 
 .about .about_form form .wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 40px;
-  position: relative;
+  margin-bottom: 40px;
 }
-
+/* Input */
 .about .about_form .form input {
   height: 100%;
   width: 100%;
@@ -82,15 +85,69 @@
   font-size: 17px;
 }
 
-.about .about_form .form input:focus ~ label{
-  transform: translateY(-20px);
+.about .about_form .form input:focus {
+  outline: none;
 }
 
+/* Label */
 .about .about_form form label {
   position: absolute;
   bottom: 7px;
   left: 0;
-  color: var(--gray_dark);
   pointer-events: none;
+  transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  color: var(--gray_dark);
+  font-size: 17px;
 }
 
+.about .about_form .wrapper:focus-within label,
+.about .about_form .wrapper.filled label {
+  transform: translateY(-25px);
+  font-size: 14px;
+}
+
+/* Underline */
+.about .about_form form .underline {
+  position: absolute;
+  bottom: 0px;
+  height: 2px;
+  width: 100%;
+}
+.about .about_form form .underline:before {
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--gray_dark);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.about .about_form form .underline:before {
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--gray_dark);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.about .about_form .wrapper:focus-within .underline:before,
+.about .about_form .wrapper.filled .underline:before {
+  transform: scaleX(1);
+}
+
+.about .about_form .wrapper.error .underline:before,
+.about .about_form .wrapper.filled.error .underline,
+.about .about_form .wrapper.error:focus-within .underline:before {
+  background: var(--red);
+}
+
+/* Error Message */
+.about .about_form form .wrapper .error_message{
+position: absolute;
+bottom: -20px;
+font-size: 14px;
+color: var(--red);
+}
