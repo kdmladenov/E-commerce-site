@@ -78,11 +78,11 @@ const UserListScreenAdmin = ({ history }) => {
                 {!user.isDeleted && (
                   <td>
                     <Link to={`/admin/user/${user.userId}/edit`}>
-                      <Button types="icon">
+                      <Button classes="icon">
                         <i className="fa fa-edit"></i>
                       </Button>
                     </Link>
-                    <Button types="icon" onClick={() => deleteUserHandler(user.userId)}>
+                    <Button classes="icon" onClick={() => deleteUserHandler(user.userId)}>
                       <i className="fas fa-trash"></i>
                     </Button>
                   </td>

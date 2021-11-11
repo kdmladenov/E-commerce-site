@@ -181,7 +181,7 @@ const OrderScreen = ({ match }) => {
             )}
             {userInfo.role === 'admin' && order.isPaid && !order.isDelivered && (
               <div className="deliver_btn">
-                <Button onClick={deliverHandler} types="large">
+                <Button onClick={deliverHandler} classes="large">
                   Mark as Delivered
                 </Button>
               </div>

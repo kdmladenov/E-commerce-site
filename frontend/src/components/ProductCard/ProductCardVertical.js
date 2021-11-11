@@ -34,7 +34,7 @@ const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) =>
         />
       </Link>
       <div className="product_button">
-        <Button onClick={addToCartHandler} types={' rounded medium'} disabled={stockCount === 0}>
+        <Button onClick={addToCartHandler} classes={' rounded medium'} disabled={stockCount === 0}>
           {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
         </Button>
       </div>

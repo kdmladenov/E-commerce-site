@@ -62,12 +62,12 @@ const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) =>
       })}
       {questionsAndAnswers?.length > 1 &&
         (!showAllQuestions ? (
-          <Button types="text" onClick={() => setShowAllQuestions(!showAllQuestions)}>
+          <Button classes="text" onClick={() => setShowAllQuestions(!showAllQuestions)}>
             <i class="fa fa-chevron-down"></i>{' '}
             {`See more answered questions (${questionsAndAnswers?.length - questionCountAtStart})`}
           </Button>
         ) : (
-          <Button types="text" onClick={() => setShowAllQuestions(!showAllQuestions)}>
+          <Button classes="text" onClick={() => setShowAllQuestions(!showAllQuestions)}>
             <i class="fa fa-chevron-up"></i> {`Collapse questions`}
           </Button>
         ))}

@@ -13,19 +13,19 @@ const EditButtons = ({
   return (
     <div className="edit_buttons">
       {!createMode && !editMode && isCurrentUserId && (
-        <Button types="icon" onClick={handleEditButton}>
+        <Button classes="icon" onClick={handleEditButton}>
           <i className="fa fa-edit"></i>
         </Button>
       )}
       {(createMode || (editMode && isCurrentUserId)) && (
         <div className="button_group_edit">
-          <Button types="icon" onClick={handleCloseButton}>
+          <Button classes="icon" onClick={handleCloseButton}>
             <i className="fa fa-times"></i>
           </Button>
-          <Button types="icon">
+          <Button classes="icon">
             <i className="fas fa-trash" onClick={handleDeleteButton}></i>
           </Button>
-          <Button types="icon" onClick={handleSaveButton}>
+          <Button classes="icon" onClick={handleSaveButton}>
             <i class="fa fa-save"></i>
           </Button>
         </div>

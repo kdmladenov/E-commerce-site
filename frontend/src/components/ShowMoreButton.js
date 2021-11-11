@@ -9,7 +9,7 @@ const ShowMoreButton = ({ text, breakpoint }) => {
   return (
     <div className="show_more_button">
       {text.slice(0, numberOfItems)}{' '}
-      <button types="text" onClick={() => setShowMore(!showMore)}>
+      <button classes="text" onClick={() => setShowMore(!showMore)}>
         {!showMore ? ' ...show more' : ' ...show less'}
       </button>
     </div>

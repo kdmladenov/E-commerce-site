@@ -138,12 +138,12 @@ const QuestionsAndAnswersCard = ({
               : 'There is no answer yet'}
             {answers?.length > answerCountAtStart &&
               (!showAllAnswers ? (
-                <Button types="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
+                <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
                   <i class="fa fa-chevron-down"></i>{' '}
                   {`See more answers (${answers?.length - answerCountAtStart})`}
                 </Button>
               ) : (
-                <Button types="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
+                <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
                   <i class="fa fa-chevron-up"></i> {`Collapse answers`}
                 </Button>
               ))}

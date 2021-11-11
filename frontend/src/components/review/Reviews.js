@@ -70,12 +70,12 @@ const Reviews = ({ reviews, currentUser, productId }) => {
         })}
         {reviews?.length > 1 &&
           (!showAllReviews ? (
-            <Button types="text" onClick={() => setShowAllReviews(!showAllReviews)}>
+            <Button classes="text" onClick={() => setShowAllReviews(!showAllReviews)}>
               <i class="fa fa-chevron-down"></i>{' '}
               {`See more reviews (${reviews?.length - reviewCountAtStart})`}
             </Button>
           ) : (
-            <Button types="text" onClick={() => setShowAllReviews(!showAllReviews)}>
+            <Button classes="text" onClick={() => setShowAllReviews(!showAllReviews)}>
               <i class="fa fa-chevron-up"></i> {`Collapse reviews`}
             </Button>
           ))}

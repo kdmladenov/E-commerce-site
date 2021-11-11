@@ -64,7 +64,7 @@ const Votes = ({
       <div className="votes" style={{ flexDirection: `${type === 'vertical' ? 'Column' : 'row'}` }}>
         <Button
           className="vote_button_up"
-          types="icon"
+          classes="icon"
           onClick={
             currentVote === '' || currentVote === 'DOWN'
               ? () => handleVoteButton('POST', `${reactionNameUp}`)
@@ -86,7 +86,7 @@ const Votes = ({
         )}
         <Button
           className="vote_button_down"
-          types="icon"
+          classes="icon"
           onClick={
             currentVote === '' || currentVote === 'UP'
               ? () => handleVoteButton('POST', `${reactionNameDown}`)

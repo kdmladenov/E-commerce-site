@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import About from '../components/Profile/About';
 import Orders from '../components/Orders';
 import './styles/ProfileScreen.css';
+import TimelineVertical from '../components/TimelineVertical';
 
 const ProfileScreen = () => {
   const [activeTab, setActiveTab] = useState('about');
@@ -46,7 +47,7 @@ const ProfileScreen = () => {
             activeTab === 'browsing_history' && 'active'
           }`}
         >
-          history content
+          <TimelineVertical />
         </section>
         <section className={`wish_list_container card content ${activeTab === 'wish_list' && 'active'}`}>
           wish content

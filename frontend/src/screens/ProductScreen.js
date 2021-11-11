@@ -187,7 +187,7 @@ const ProductScreen = ({ history, match }) => {
                 <div className="product_details_title">{product.title}</div>
                 <div className="product_details_brand">
                   <span>by</span>
-                  <Button types="text">
+                  <Button classes="text">
                     <strong onClick={() => scrollTo(comparisonRef)}>{product.brand}</strong>
                   </Button>
                 </div>
@@ -203,13 +203,13 @@ const ProductScreen = ({ history, match }) => {
                       </Tooltip>
                     )}
                   </div>
-                  <Button types="text" onClick={() => scrollTo(reviewsRef)}>
+                  <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
                     {`from ${product.reviewCount} customer reviews `}
                   </Button>
                 </span>
                 {questionsAndAnswers?.length && (
                   <span className="product_details_questions">
-                    <Button types="text" onClick={() => scrollTo(questionsAndAnswersRef)}>
+                    <Button classes="text" onClick={() => scrollTo(questionsAndAnswersRef)}>
                       {` ${questionsAndAnswers?.length} answered questions`}
                     </Button>
                   </span>
@@ -222,7 +222,7 @@ const ProductScreen = ({ history, match }) => {
                     <table>
                       <tbody>{specificationListInInfo}</tbody>
                     </table>
-                    <Button types="text" onClick={() => scrollTo(specsRef)}>
+                    <Button classes="text" onClick={() => scrollTo(specsRef)}>
                       See full specifications
                     </Button>
                   </p>
@@ -239,7 +239,7 @@ const ProductScreen = ({ history, match }) => {
                             <li>{feature.featureTitle}</li>
                           ))}
                         </ul>
-                        <Button types="text" onClick={() => scrollTo(featuresRef)}>
+                        <Button classes="text" onClick={() => scrollTo(featuresRef)}>
                           See all features
                         </Button>
                       </p>

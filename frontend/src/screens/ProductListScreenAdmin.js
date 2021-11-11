@@ -54,7 +54,7 @@ const ProductListScreenAdmin = ({ history }) => {
     <div className="user_list container">
       <div className="create_product">
         <h1>Products</h1>
-        <Button types="blue" onClick={createProductHandler}>
+        <Button classes="blue" onClick={createProductHandler}>
           <i className="fas fa-plus" /> Create Product
         </Button>
       </div>
@@ -99,12 +99,12 @@ const ProductListScreenAdmin = ({ history }) => {
                   {!product.isDeleted && (
                     <td>
                       <Link to={`/admin/product/${product.productId}/edit`}>
-                        <Button types="icon">
+                        <Button classes="icon">
                           <i className="fa fa-edit"></i>
                         </Button>
                       </Link>
 
-                      <Button types="icon" onClick={() => deleteProductHandler(product.productId)}>
+                      <Button classes="icon" onClick={() => deleteProductHandler(product.productId)}>
                         <i className="fas fa-trash"></i>
                       </Button>
                     </td>
