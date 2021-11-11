@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import Address from './Address';
-import Overview from './Overview';
+import FormComponent from './FormComponent';
+// import Address from './Address';
+// import Overview from './Overview';
+import { addressInitialInputState, overviewInitialInputState } from '../../constants/inputStates';
 import './styles/About.css';
 
+// To DO : Delete Address and Overview compenents
 const About = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -25,10 +28,10 @@ const About = () => {
       </div>
       <div className="about_form">
         <div className={`form ${activeTab === 'overview' ? 'active' : ''}`}>
-          <Overview />
+          <FormComponent inputData={overviewInitialInputState} />
         </div>
         <div className={`form ${activeTab === 'address' ? 'active' : ''}`}>
-          <Address />
+          <FormComponent inputData={addressInitialInputState} />
         </div>
       </div>
     </div>

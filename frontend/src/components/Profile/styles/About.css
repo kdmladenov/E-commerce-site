@@ -145,9 +145,21 @@
 }
 
 /* Error Message */
-.about .about_form form .wrapper .error_message{
-position: absolute;
-bottom: -20px;
-font-size: 14px;
-color: var(--red);
+.about .about_form form .wrapper .error_message {
+  position: absolute;
+  bottom: -20px;
+  font-size: 14px;
+  color: var(--red);
+}
+
+/* Button group */
+.about .about_form form .button_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.about .about_form form .button_group button{
+  width: 200px;
 }
