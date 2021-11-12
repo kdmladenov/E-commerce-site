@@ -7,8 +7,8 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-/* Colors : orange (default), blue, red, yellow, white */
-.button_container,
+
+/* Colors : orange , blue, red, yellow(default), white */
 .button_container.orange {
   background: var(--orange);
   color: var(--black);
@@ -25,7 +25,7 @@
   color: var(--white);
   border: 1px solid rgb(170, 1, 1);
 }
-
+.button_container,
 .button_container.yellow {
   background: var(--yellow);
   color: var(--black);
