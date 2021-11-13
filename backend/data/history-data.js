@@ -18,20 +18,20 @@ const getAllHistory = async (
 
   const sortColumn = [
     'historyId',
-    'dateCreated',
+    'dateVisited',
     'title',
     'brand',
     'description',
     'productCategory'
   ].includes(sort)
     ? sort
-    : 'dateCreated';
+    : 'dateVisited';
   const offset = page ? (page - 1) * pageSize : 0;
 
   const sql = `
   SELECT
       h.browsing_history_id as historyId,
-      h.date_created as dateCreated,
+      h.date_visited as dateVisited,
       h.user_id as userId,
       p.product_id as productId,
       p.title,
@@ -55,7 +55,7 @@ const getAllHistory = async (
     WHERE h.is_deleted = 0 AND ${searchColumn} Like '%${search}%' AND h.user_id = ?
     ${
       dateRangeLow && dateRangeHigh
-        ? `AND h.date_created BETWEEN "${dateRangeLow}" AND "${dateRangeHigh}"`
+        ? `AND h.date_visited BETWEEN "${dateRangeLow}" AND "${dateRangeHigh}"`
         : ''
     }
     ORDER BY ${sortColumn} ${direction}
@@ -71,7 +71,7 @@ const getBy = async (column, value, userId) => {
       browsing_history_id as historyId,
       product_id as productId,
       user_id as userId,
-      date_created as dateCreated
+      date_visited as dateVisited
     FROM browsing_history
     WHERE ${column} = ? AND user_id = ? AND is_deleted = 0
   `;
@@ -86,7 +86,7 @@ const getById = async (historyId) => {
       browsing_history_id as historyId,
       product_id as productId,
       user_id as userId,
-      date_created as dateCreated
+      date_visited as dateVisited
     FROM browsing_history
     WHERE browsing_history_id = ? AND is_deleted = 0
   `;
@@ -118,10 +118,21 @@ const remove = async (historyId) => {
   return db.query(sql, [+historyId]);
 };
 
+const updateDate = async (historyId) => {
+  const sql = `
+        UPDATE browsing_history
+        SET date_visited = CURRENT_TIMESTAMP()
+        WHERE browsing_history_id = ?
+    `;
+
+  return db.query(sql, [+historyId]);
+};
+
 export default {
   getAllHistory,
   getById,
   getBy,
   create,
-  remove
+  remove,
+  updateDate
 };

@@ -24,7 +24,7 @@ historyController
       const {
         search = '',
         searchBy = 'title',
-        sort = 'dateCreated',
+        sort = 'dateVisited',
         order = 'desc',
         dateRangeLow = Date.now(),
         dateRangeHigh = Date.now()

@@ -20,13 +20,18 @@ const createHistory = (historyData) => async (productId, userId) => {
   const existingRecord = await historyData.getBy('product_id', productId, userId);
 
   if (existingRecord) {
-    await historyData.remove(existingRecord.historyId);
-  }
+    await historyData.updateDate(existingRecord.historyId);
 
-  return {
-    error: null,
-    history: await historyData.create(productId, userId)
-  };
+    return {
+      error: null,
+      history: await historyData.getById(existingRecord.historyId)
+    };
+  } else {
+    return {
+      error: null,
+      history: await historyData.create(productId, userId)
+    };
+  }
 };
 
 const deleteHistoryRecord = (historyData) => async (historyId, userId) => {
