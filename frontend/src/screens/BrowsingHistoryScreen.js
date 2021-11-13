@@ -23,6 +23,7 @@ const BrowsingHistory = () => {
   const productsToShow = browsingHistory?.map((historyRecord) => (
     <li className="product" key={historyRecord.historyId}>
       <ProductCardVertical
+        id={historyRecord.productId}
         title={historyRecord.title}
         image={historyRecord.image}
         price={historyRecord.price}

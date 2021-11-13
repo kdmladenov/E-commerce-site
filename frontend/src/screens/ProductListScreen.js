@@ -19,6 +19,7 @@ const ProductListScreen = ({ history }) => {
   const productsToShow = products?.map((product) => (
     <li className="product" key={product.productId}>
       <ProductCardVertical
+        id={product.productId}
         title={product.title}
         image={product.image}
         price={product.price}

@@ -23,6 +23,7 @@ const WishListScreen = () => {
   const listToShow = wishList?.map((wish) => (
     <li className="product" key={wish.wishListId}>
       <ProductCardVertical
+        id={wish.productId}
         title={wish.title}
         image={wish.image}
         price={wish.price}

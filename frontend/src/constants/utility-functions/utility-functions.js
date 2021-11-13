@@ -60,6 +60,35 @@ export const getTimeDuration = (start, end) => {
     : 'just now';
 };
 
+export const getDate = (date) => {
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
+  const startDate = new Date(date);
+  const endDate = new Date();
+
+  const dayDiff = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+
+  return dayDiff >= 2
+    ? `${weekDays[startDate.getDay()]}, ${startDate.getDate()} ${months[startDate.getMonth()]}`
+    : dayDiff >= 1
+    ? `Yesterday`
+    : `Today`;
+};
+
 export const poundToKg = (poundWeight, decimals = 2) => {
   return numberDecimalFix(poundWeight / 2.2046, decimals);
 };
@@ -80,11 +109,10 @@ export const areReviewsFiltered = (reviews) => {
   return Object.keys(starMap).filter((key) => key > 0).length === 1;
 };
 
-
 // Scroll to a specified element
-  export const scrollTo = (ref) => {
-    window.scrollTo({
-      top: ref.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
+export const scrollTo = (ref) => {
+  window.scrollTo({
+    top: ref.current.offsetTop,
+    behavior: 'smooth'
+  });
+};

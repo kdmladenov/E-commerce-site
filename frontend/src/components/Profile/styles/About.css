@@ -113,7 +113,7 @@
   height: 2px;
   width: 100%;
 }
-.about .about_form form .underline:before {
+.about .about_form form .underline::before {
   position: absolute;
   content: '';
   height: 100%;
@@ -123,7 +123,7 @@
   transition: transform 0.3s ease;
 }
 
-.about .about_form form .underline:before {
+.about .about_form form .underline::before {
   position: absolute;
   content: '';
   height: 100%;
@@ -133,14 +133,14 @@
   transition: transform 0.3s ease;
 }
 
-.about .about_form .wrapper:focus-within .underline:before,
-.about .about_form .wrapper.filled .underline:before {
+.about .about_form .wrapper:focus-within .underline::before,
+.about .about_form .wrapper.filled .underline::before {
   transform: scaleX(1);
 }
 
-.about .about_form .wrapper.error .underline:before,
+.about .about_form .wrapper.error .underline::before,
 .about .about_form .wrapper.filled.error .underline,
-.about .about_form .wrapper.error:focus-within .underline:before {
+.about .about_form .wrapper.error:focus-within .underline::before {
   background: var(--red);
 }
 

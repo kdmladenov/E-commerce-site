@@ -1,4 +1,4 @@
-import { USER } from '../constants/constants.js';
+import { USER } from './constants.js';
 
 export const overviewInitialInputState = {
   fullName: {

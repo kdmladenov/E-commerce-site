@@ -14,7 +14,7 @@ const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) =>
   };
 
   return (
-    <div className="product card">
+    <div className="product_card">
       <div className="product_info">
         <div className="product_title">
           <Link to={`/products/${id}`}>{title}</Link>
