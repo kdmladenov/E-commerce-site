@@ -6,17 +6,6 @@
   padding-top: 10px;
 }
 
-.timeline_container.horizontal {
-  flex-direction: row;
-  width: fit-content;
-  height: 500px;
-}
-
-/* .timeline_container h2 {
-  padding-left: 20px;
-  color: black;
-} */
-
 /* The line */
 .timeline_container::after {
   content: '';
@@ -27,14 +16,7 @@
   height: calc(100% - 10px);
 }
 
-.timeline_container.horizontal::after {
-  left: 0;
-  top: calc(100% - 60px);
-  background-color: var(--gray);
-  width: 100%;
-  height: 10px;
-}
-
+/* Item */
 .timeline_item {
   display: flex;
   justify-content: flex-end;
@@ -44,14 +26,6 @@
   width: 50%;
 }
 
-.timeline_container.horizontal .timeline_item {
-  align-self: flex-start;
-  display: flex;
-  justify-content: flex-start;
-  padding: 0 5px;
-  width: 300px;
-}
-
 .timeline_item:nth-child(odd) {
   align-self: flex-end;
   justify-content: flex-start;
@@ -59,6 +33,7 @@
   padding-right: 0;
 }
 
+/* Content */
 .timeline_item_content {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
@@ -73,12 +48,12 @@
   padding: 10px;
 }
 
-.timeline_container.horizontal .timeline_item_content {
-  width: 300px;
-  height: 400px;
-  text-align: top;
+.timeline_item:nth-child(odd) .timeline_item_content {
+  text-align: left;
+  align-items: flex-start;
 }
 
+/* Pointer */
 .timeline_item_content::after {
   content: ' ';
   background-color: #fff;
@@ -90,10 +65,6 @@
   width: 15px;
   height: 15px;
 }
-.timeline_item:nth-child(odd) .timeline_item_content {
-  text-align: left;
-  align-items: flex-start;
-}
 
 .timeline_item:nth-child(odd) .timeline_item_content::after {
   right: auto;
@@ -101,21 +72,7 @@
   box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-.timeline_container.horizontal .timeline_item_content::after,
-.timeline_container.horizontal .timeline_item:nth-child(odd) .timeline_item_content::after {
-  box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  right: 50%;
-  top: calc(100% - 7.5px);
-  transform: rotate(135deg);
-  width: 15px;
-  height: 15px;
-}
-
-.timeline_container.horizontal .timeline_item:nth-child(odd) .timeline_item_content::after {
-  left: calc(50% - 7.5px);
-}
-
+/* Point, button, date */
 .timeline_item_content .remove_btn,
 .timeline_item_content .point {
   background-color: var(--orange);
@@ -165,6 +122,7 @@
 .timeline_item:nth-child(odd) .timeline_item_content .point {
   left: -35px;
 }
+
 .timeline_item:nth-child(odd) .timeline_item_content .remove_btn {
   left: -40px;
 }
@@ -173,6 +131,7 @@
   text-align: right;
 }
 
+/* Horizontal version */
 .timeline_container.horizontal .timeline_item_content .point {
   top: calc(100% + 20px);
   right: calc(50% + 2.5px);
@@ -187,6 +146,46 @@
   top: calc(100% + 35px);
   right: calc(50% - 80px + 7.5px);
   text-align: center;
+}
+
+.timeline_container.horizontal {
+  flex-direction: row;
+  width: fit-content;
+  height: 500px;
+}
+.timeline_container.horizontal::after {
+  left: 0;
+  top: calc(100% - 60px);
+  background-color: var(--gray);
+  width: 100%;
+  height: 10px;
+}
+.timeline_container.horizontal .timeline_item {
+  align-self: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 5px;
+  width: 300px;
+}
+
+.timeline_container.horizontal .timeline_item_content {
+  width: 300px;
+  height: 400px;
+  text-align: top;
+}
+.timeline_container.horizontal .timeline_item_content::after,
+.timeline_container.horizontal .timeline_item:nth-child(odd) .timeline_item_content::after {
+  box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  right: 50%;
+  top: calc(100% - 7.5px);
+  transform: rotate(135deg);
+  width: 15px;
+  height: 15px;
+}
+
+.timeline_container.horizontal .timeline_item:nth-child(odd) .timeline_item_content::after {
+  left: calc(50% - 7.5px);
 }
 
 .timeline_container.horizontal .timeline_item:nth-child(odd) .timeline_item_content .point,
@@ -210,6 +209,7 @@
   text-align: center;
 }
 
+/* Media Queries */
 @media (max-width: 900px) {
   .timeline_container::after {
     left: calc(120px - 5px);

@@ -7,6 +7,7 @@
   background: var(--white);
   justify-content: flex-end;
   z-index: 1;
+  position: relative;
 }
 /* Product Info */
 .product_info {
@@ -59,6 +60,21 @@
   justify-content: center;
   height: 15%;
   width: 100%;
+}
+
+.product_wish_list_button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.product_wish_list_button i {
+  color: rgb(202, 188, 188);
+  font-weight: 15px;
+}
+
+.product_wish_list_button.active i {
+  color: rgb(245, 109, 109);
 }
 
 /* Tablets and under */

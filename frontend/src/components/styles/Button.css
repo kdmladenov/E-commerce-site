@@ -74,12 +74,12 @@
   font-size: 15px;
 }
 
-/* Rounded - small rounding by default */
-.button_container.rounded,
+/* Rounded - medium rounding by default */
 .button_container.small.rounded {
   border-radius: 11px;
 }
 
+.button_container.rounded,
 .button_container.medium.rounded {
   border-radius: 14px;
 }

@@ -9,14 +9,14 @@ import {
   WISH_LIST_DELETE_FAIL,
   WISH_LIST_DELETE_REQUEST,
   WISH_LIST_DELETE_SUCCESS
-} from '../constants/wishlLstConstants';
+} from '../constants/wishListConstants';
 
 export const wishListAddReducer = (state = {}, action) => {
   switch (action.type) {
     case WISH_LIST_ADD_REQUEST:
       return { loading: true };
     case WISH_LIST_ADD_SUCCESS:
-      return { loading: false };
+      return { loading: false, success: true };
     case WISH_LIST_ADD_FAIL:
       return { loading: false, error: action.payload };
     case WISH_LIST_ADD_RESET:

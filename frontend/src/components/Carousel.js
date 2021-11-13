@@ -34,12 +34,12 @@ const Carousel = ({ title, children }) => {
       </div>
       {showControls && (
         <button onClick={() => slide('right')} className="carousel_btn next">
-          <i class="fas fa-chevron-right"></i>
+          <i className="fas fa-chevron-right"></i>
         </button>
       )}
       {showControls && (
         <button onClick={() => slide('left')} className="carousel_btn prev">
-          <i class="fas fa-chevron-left"></i>
+          <i className="fas fa-chevron-left"></i>
         </button>
       )}
     </div>

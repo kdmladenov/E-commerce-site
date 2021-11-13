@@ -10,7 +10,7 @@ import {
   WISH_LIST_DELETE_FAIL,
   WISH_LIST_DELETE_REQUEST,
   WISH_LIST_DELETE_SUCCESS
-} from '../constants/wishlLstConstants';
+} from '../constants/wishListConstants';
 
 export const addWishToList = (productId) => async (dispatch, getState) => {
   try {
@@ -27,7 +27,7 @@ export const addWishToList = (productId) => async (dispatch, getState) => {
       }
     };
 
-    await axios.post(`${BASE_URL}/history/${productId}`, {}, config);
+    await axios.post(`${BASE_URL}/wishlist/${productId}`, {}, config);
 
     dispatch({ type: WISH_LIST_ADD_SUCCESS });
   } catch (error) {
