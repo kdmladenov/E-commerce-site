@@ -2,31 +2,12 @@ import React, { useEffect, useState } from 'react';
 import About from '../components/Profile/About';
 import Orders from '../components/Orders';
 import './styles/ProfileScreen.css';
-import Timeline from '../components/Timeline';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
-import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+import History from '../components/History';
+import WishList from '../components/WishList';
 
 const ProfileScreen = () => {
+
   const [activeTab, setActiveTab] = useState('browsing_history');
-
-  const dispatch = useDispatch();
-
-  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { loading: loadingHistory, browsingHistory, error: errorHistory } = browsingHistoryList;
-
-  const browsingHistoryDelete = useSelector((state) => state.browsingHistoryDelete);
-  const { success: successDeleteHIstory } = browsingHistoryDelete;
-
-  const deleteHistoryItemHandler = (id) => {
-    dispatch(deleteBrowsingHistory(id));
-  };
-
-  useEffect(() => {
-    dispatch(listBrowsingHistory());
-  }, [dispatch, successDeleteHIstory]);
 
   return (
     <main className="profile_screen">
@@ -68,37 +49,12 @@ const ProfileScreen = () => {
             activeTab === 'browsing_history' && 'active'
           }`}
         >
-          {loadingHistory ? (
-            <Loader />
-          ) : errorHistory ? (
-            <Message type="error">{errorHistory}</Message>
-          ) : browsingHistory.length === 0 ? (
-            <h2>Your Browsing History Is Empty</h2>
-          ) : (
-            <Timeline title="Your Browsing History">
-              {browsingHistory?.map((historyRecord) => (
-                <Timeline.Item
-                  key={historyRecord.historyId}
-                  deleteHistoryItem={deleteHistoryItemHandler}
-                  historyRecord={historyRecord}
-                >
-                  <ProductCardVertical
-                    id={historyRecord.productId}
-                    title={historyRecord.title}
-                    image={historyRecord.image}
-                    price={historyRecord.price}
-                    rating={historyRecord.rating}
-                    stockCount={historyRecord.stockCount}
-                  />
-                </Timeline.Item>
-              ))}
-            </Timeline>
-          )}
+          <History />
         </section>
         <section
           className={`wish_list_container card content ${activeTab === 'wish_list' && 'active'}`}
         >
-          wish content
+          <WishList />
         </section>
       </div>
     </main>

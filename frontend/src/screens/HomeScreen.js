@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
 import './styles/HomeScreen.css';
 import { categoriesTiles, images } from '../constants/for-developing/sliderImages';
 import ProductTileRecommendedFour from '../components/ProductTiles/ProductTileRecommendedFour';
@@ -11,47 +8,28 @@ import ProductTileRecent from '../components/ProductTiles/ProductTileRecent';
 import ProductTileDeal from '../components/ProductTiles/ProductTileDeal';
 import ProductTileRecentFour from '../components/ProductTiles/ProductTileRecentFour';
 import ProductTileRecommended from '../components/ProductTiles/ProductTileRecommended';
-import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
+import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider/Slider';
 import { Link } from 'react-router-dom';
-import Timeline from '../components/Timeline';
+import History from '../components/History';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const productlist = useSelector((state) => state.productList);
-  const { loading, products, error } = productlist;
+  const { products } = productlist;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { loading: loadingHistory, browsingHistory, error: errorHistory } = browsingHistoryList;
-
-  const browsingHistoryDelete = useSelector((state) => state.browsingHistoryDelete);
-  const { success: successDeleteHIstory } = browsingHistoryDelete;
-
-  const deleteHistoryItemHandler = (id) => {
-    dispatch(deleteBrowsingHistory(id));
-  };
+  const {  browsingHistory } = browsingHistoryList;
 
   useEffect(() => {
     dispatch(listProducts());
     dispatch(listBrowsingHistory());
-  }, [dispatch, successDeleteHIstory]);
-
-  // const productsToShow = products?.map((product) => (
-  //   <ProductCardVertical
-  //     key={product.productId}
-  //     id={product.productId}
-  //     title={product.title}
-  //     image={product.image}
-  //     price={product.price}
-  //     rating={product.rating}
-  //     stockCount={product.stockCount}
-  //   />
-  // ));
+  }, [dispatch]);
 
   const slidesRowToRender = (
     <ul>
@@ -174,51 +152,9 @@ const HomeScreen = () => {
 
         <div className="carousel_2">
           <Carousel title={'Your Browsing History'} isPageVisible={true}>
-            {loadingHistory ? (
-              <Loader />
-            ) : errorHistory ? (
-              <Message type="error">{errorHistory}</Message>
-            ) : browsingHistory.length === 0 ? (
-              <h2>Your Browsing History Is Empty</h2>
-            ) : (
-              <Timeline horizontal='true'>
-                {browsingHistory?.map((historyRecord) => (
-                  <Timeline.Item
-                    key={historyRecord.historyId}
-                    deleteHistoryItem={deleteHistoryItemHandler}
-                    historyRecord={historyRecord}
-                  >
-                    <ProductCardVertical
-                      id={historyRecord.productId}
-                      title={historyRecord.title}
-                      image={historyRecord.image}
-                      price={historyRecord.price}
-                      rating={historyRecord.rating}
-                      stockCount={historyRecord.stockCount}
-                    />
-                  </Timeline.Item>
-                ))}
-              </Timeline>
-            )}
+            <History horizontal={true}/>
           </Carousel>
         </div>
-        {/* <div className="product_tile_group_2">
-        <div className="tile_11">
-          {tilesToShow('Recommended for you', [recommendedProducts[0]])}
-        </div>
-        <div className="tile_12">
-          {tilesToShow('Recommended for you', [recommendedProducts[0]])}
-        </div>
-        <div className="tile_13">
-          {tilesToShow('Recommended for you', [recommendedProducts[0]])}
-        </div>
-        <div className="tile_14">
-          {tilesToShow('Recommended for you', [recommendedProducts[0]])}
-        </div>
-        <div className="tile_15">
-          {tilesToShow('Recommended for you', [recommendedProducts[0]])}
-        </div>
-      </div> */}
       </div>
     </main>
   );
