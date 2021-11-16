@@ -1,36 +1,36 @@
-.order_title_left{
+.my_orders .order_title_left{
   display: grid;
   grid-template-columns: 120px 120px 1fr;
 }
 
-.order_title_left > div{
+.my_orders .order_title_left > div{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.order_title_left > div span{
+.my_orders .order_title_left > div span{
   text-align: left;
   width: 100%;
   font-size: 12px;
 }
 
-.order_title_right > div{
+.my_orders .order_title_right > div{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.order_title_right > div span,
-.order_title_right span{
+.my_orders.order_title_right > div span,
+.my_orders .order_title_right span{
   text-align: left;
   width: 100%;
   font-size: 12px;
 }
 
-.orders .order_item{
+.my_orders .order_item{
   display: grid;
   grid-template-columns: 75px 1fr 100px 170px;
   grid-template-rows: 75px;
@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-.orders .order_item .title a{
+.my_orders .order_item .title a{
   grid-area: title;
   display: -webkit-box;
   -webkit-line-clamp: 2;

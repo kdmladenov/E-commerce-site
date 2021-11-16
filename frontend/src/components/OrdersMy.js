@@ -5,7 +5,6 @@ import { listMyOrders } from '../actions/orderActions';
 import Loader from './Loader';
 import Message from './Message';
 import { getDate, numberDecimalFix } from '../constants/utility-functions/utility-functions';
-import OrderDetails from './OrderDetails';
 import './styles/OrdersMy.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
@@ -30,7 +29,7 @@ const OrdersMy = () => {
   }, [dispatch, userInfo]);
 
   return (
-    <div className="orders">
+    <div className="my_orders">
       {loading ? (
         <Loader />
       ) : error ? (
