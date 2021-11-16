@@ -1,0 +1,57 @@
+.profile {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 550px;
+  grid-template-areas: 'sidebar form';
+}
+
+.profile .sidebar {
+  grid-area: sidebar;
+  background: var(--white);
+  border-right: 2px solid var(--gray);
+  padding: 10px;
+}
+
+.profile .sidebar h2 {
+  padding-left: 10px;
+}
+
+/* Sidebar Tab Buttons */
+.profile .sidebar .tab_button {
+  background-color: var(--white);
+  color: var(--gray_dark);
+  text-align: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  font-size: 17px;
+  width: 100%;
+  margin: 2px 0;
+}
+
+.profile .sidebar .tab_button:hover {
+  background-color: var(--gray_light);
+  border-radius: 5px;
+}
+
+.profile .sidebar .tab_button.active {
+  background-color: var(--blue_light);
+  color: var(--blue_middle);
+  /* font-weight: bold; */
+  border-radius: 5px;
+}
+
+/* Form  */
+.profile .profile_form .form {
+  grid-area: form;
+  display: none;
+}
+
+.profile .profile_form .form.active {
+  display: block;
+}
+
+.profile .profile_form {
+  padding: 20px 40px;
+}

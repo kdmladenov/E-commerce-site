@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import './styles/Profile.css';
+import './styles/FormComponent.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUserProfile } from '../../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { useHistory } from 'react-router';
-import Loader from '../Loader';
-import Message from '../Message';
-import validateInput from '../../validations/userValidator';
-import Button from '../Button';
+import Loader from './Loader';
+import Message from './Message';
+import validateInput from '../validations/userValidator';
+import Button from './Button';
 
-const ProfileForm = ({ inputData }) => {
+const FormComponent = ({ inputData }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -144,7 +144,7 @@ const ProfileForm = ({ inputData }) => {
   ) : error ? (
     <Message>{error}</Message>
   ) : (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form_component'>
       {formToRender}
       {Object.values(form).some((input) => input.touched) && (
         <div className="button_group">
@@ -160,4 +160,4 @@ const ProfileForm = ({ inputData }) => {
   );
 };
 
-export default ProfileForm;
+export default FormComponent;
