@@ -1,16 +1,16 @@
-.profile_screen {
+.account_screen {
   background-color: rgb(234, 237, 237);
 }
 
-.profile_container {
+.account_container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 /* Tab Buttons  Header*/
-.profile_container .content,
-.profile_container .header {
+.account_container .content,
+.account_container .header {
   margin: 5px 0;
   color: var(--gray_dark);
   padding: 5px;
@@ -18,11 +18,15 @@
   border-radius: 5px;
 }
 
-.profile_container .header {
+.account_container .content.orders_container {
+  padding: 0px;
+}
+
+.account_container .header {
   padding-bottom: 0;
 }
 
-.profile_container .tab {
+.account_container .tab {
   background-color: var(--white);
   color: var(--gray_dark);
   border: none;
@@ -33,25 +37,25 @@
   width: 25%;
 }
 
-.profile_container .tab:hover {
+.account_container .tab:hover {
   background-color: var(--blue_light);
   border-radius: 5px;
 }
 
-.profile_container .tab.active:hover {
+.account_container .tab.active:hover {
   border-radius: 5px 5px 0 0;
 }
 
-.profile_container .tab.active {
+.account_container .tab.active {
   color: var(--blue_middle);
   font-weight: bold;
   border-bottom: 3px solid var(--blue_middle);
 }
 
-.profile_container .content {
+.account_container .content {
   display: none;
 }
 
-.profile_container .content.active {
+.account_container .content.active {
   display: block;
 }

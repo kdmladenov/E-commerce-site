@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './styles/About.css';
+import './styles/Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails, updateUserProfile } from '../../actions/userActions';
 import { useHistory } from 'react-router';
@@ -8,7 +8,7 @@ import Message from '../Message';
 import validateInput from '../../validations/userValidator';
 import Button from '../Button';
 
-const FormComponent = ({ inputData }) => {
+const ProfileForm = ({ inputData }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -160,4 +160,4 @@ const FormComponent = ({ inputData }) => {
   );
 };
 
-export default FormComponent;
+export default ProfileForm;

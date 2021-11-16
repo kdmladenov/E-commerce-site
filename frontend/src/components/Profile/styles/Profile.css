@@ -1,23 +1,23 @@
-.about {
+.profile {
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-template-rows: 550px;
   grid-template-areas: 'sidebar form';
 }
 
-.about .sidebar {
+.profile .sidebar {
   grid-area: sidebar;
   background: var(--white);
   border-right: 2px solid var(--gray);
   padding: 10px;
 }
 
-.about .sidebar h2 {
+.profile .sidebar h2 {
   padding-left: 10px;
 }
 
 /* Sidebar Tab Buttons */
-.about .sidebar .tab_button {
+.profile .sidebar .tab_button {
   background-color: var(--white);
   color: var(--gray_dark);
   text-align: left;
@@ -30,12 +30,12 @@
   margin: 2px 0;
 }
 
-.about .sidebar .tab_button:hover {
+.profile .sidebar .tab_button:hover {
   background-color: var(--gray_light);
   border-radius: 5px;
 }
 
-.about .sidebar .tab_button.active {
+.profile .sidebar .tab_button.active {
   background-color: var(--blue_light);
   color: var(--blue_middle);
   /* font-weight: bold; */
@@ -43,32 +43,32 @@
 }
 
 /* Form  */
-.about .about_form .form {
+.profile .profile_form .form {
   grid-area: form;
   display: none;
 }
 
-.about .about_form .form.active {
+.profile .profile_form .form.active {
   display: block;
 }
 
-.about .about_form {
+.profile .profile_form {
   padding: 20px 40px;
 }
 
-.about .about_form form {
+.profile .profile_form form {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.about .about_form form .wrapper {
+.profile .profile_form form .wrapper {
   width: 100%;
   height: 40px;
   position: relative;
 }
 
-.about .about_form form .wrapper {
+.profile .profile_form form .wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@
   margin-bottom: 30px;
 }
 /* Input */
-.about .about_form .form input {
+.profile .profile_form .form input {
   height: 100%;
   width: 100%;
   border: none;
@@ -85,12 +85,12 @@
   font-size: 17px;
 }
 
-.about .about_form .form input:focus {
+.profile .profile_form .form input:focus {
   outline: none;
 }
 
 /* Label */
-.about .about_form form label {
+.profile .profile_form form label {
   position: absolute;
   bottom: 7px;
   left: 0;
@@ -100,20 +100,20 @@
   font-size: 17px;
 }
 
-.about .about_form .wrapper:focus-within label,
-.about .about_form .wrapper.filled label {
+.profile .profile_form .wrapper:focus-within label,
+.profile .profile_form .wrapper.filled label {
   transform: translateY(-25px);
   font-size: 14px;
 }
 
 /* Underline */
-.about .about_form form .underline {
+.profile .profile_form form .underline {
   position: absolute;
   bottom: 0px;
   height: 2px;
   width: 100%;
 }
-.about .about_form form .underline::before {
+.profile .profile_form form .underline::before {
   position: absolute;
   content: '';
   height: 100%;
@@ -123,7 +123,7 @@
   transition: transform 0.3s ease;
 }
 
-.about .about_form form .underline::before {
+.profile .profile_form form .underline::before {
   position: absolute;
   content: '';
   height: 100%;
@@ -133,19 +133,19 @@
   transition: transform 0.3s ease;
 }
 
-.about .about_form .wrapper:focus-within .underline::before,
-.about .about_form .wrapper.filled .underline::before {
+.profile .profile_form .wrapper:focus-within .underline::before,
+.profile .profile_form .wrapper.filled .underline::before {
   transform: scaleX(1);
 }
 
-.about .about_form .wrapper.error .underline::before,
-.about .about_form .wrapper.filled.error .underline,
-.about .about_form .wrapper.error:focus-within .underline::before {
+.profile .profile_form .wrapper.error .underline::before,
+.profile .profile_form .wrapper.filled.error .underline,
+.profile .profile_form .wrapper.error:focus-within .underline::before {
   background: var(--red);
 }
 
 /* Error Message */
-.about .about_form form .wrapper .error_message {
+.profile .profile_form form .wrapper .error_message {
   position: absolute;
   bottom: -20px;
   font-size: 14px;
@@ -153,13 +153,13 @@
 }
 
 /* Button group */
-.about .about_form form .button_group {
+.profile .profile_form form .button_group {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.about .about_form form .button_group button{
+.profile .profile_form form .button_group button{
   width: 200px;
 }

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import FormComponent from './FormComponent';
+import ProfileForm from './ProfileForm';
 import {
   addressInitialInputState,
   overviewInitialInputState
 } from '../../constants/inputInitialData';
-import './styles/About.css';
+import './styles/Profile.css';
 
-const About = () => {
+const Profile = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <div className="about">
+    <div className="profile">
       <div className="sidebar">
-        <h2>About</h2>
+        <h2>Profile</h2>
         <button
           className={`tab_button ${activeTab === 'overview' && 'active'}`}
           onClick={() => setActiveTab('overview')}
@@ -26,16 +26,16 @@ const About = () => {
           Address
         </button>
       </div>
-      <div className="about_form">
+      <div className="profile_form">
         <div className={`form ${activeTab === 'overview' ? 'active' : ''}`}>
-          <FormComponent inputData={overviewInitialInputState} />
+          <ProfileForm inputData={overviewInitialInputState} />
         </div>
         <div className={`form ${activeTab === 'address' ? 'active' : ''}`}>
-          <FormComponent inputData={addressInitialInputState} />
+          <ProfileForm inputData={addressInitialInputState} />
         </div>
       </div>
     </div>
   );
 };
 
-export default About;
+export default Profile;

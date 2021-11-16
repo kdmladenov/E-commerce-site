@@ -46,7 +46,16 @@ const Header = () => {
   const userMenuToRender = (
     <ul>
       <li>
-        <Link to={'/profile'}>Profile</Link>
+        <Link to={'/account/profile'}>Profile</Link>
+      </li>
+      <li>
+        <Link to={'/account/orders'}>Orders</Link>
+      </li>
+      <li>
+        <Link to={'/account/history'}>Browsing History</Link>
+      </li>
+      <li>
+        <Link to={'/account/wishlist'}>Wish List</Link>
       </li>
       <li onClick={logoutHandler}>Log out</li>
     </ul>
