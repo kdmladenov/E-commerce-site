@@ -3,12 +3,12 @@
 }
 
 .home_container {
-  width: 100%;
+  width: calc(100vw - 20px);
   max-width: 1920px;
   display: grid;
   grid-auto-columns: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 10px;
   gap: 20px;
   grid-template-areas:
     'slider'
@@ -24,7 +24,7 @@
   height: 600px;
   z-index: 1;
   overflow: hidden;
-  margin: 0 -45px -330px -45px;
+  margin: 0 -12.5px -330px -12.5px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 

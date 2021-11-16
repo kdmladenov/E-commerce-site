@@ -8,6 +8,7 @@ import Button from './Button';
 import Rating from './Rating';
 import './styles/WishList.css';
 import { BASE_URL } from '../constants/constants';
+import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
 
 const WishList = () => {
   const history = useHistory();
@@ -38,33 +39,33 @@ const WishList = () => {
   ) : wishList.length === 0 ? (
     <h2>Your Wish List Is Empty</h2>
   ) : (
-    wishList?.map((wish) => (
-      <div className="wish_list_item">
-        <div className="wish_card">
-        <Link to={`/products/${wish.productId}`}>
-          <img
-            src={wish.image?.startsWith('http') ? wish.image : `${BASE_URL}/${wish.image}`}
-            alt="wish"
-            className="wish_image"
-          />
-        </Link>
+    <div className="wish_list_items">
+      {wishList?.map((wish) => (
+        <div className="wish_list_item card">
+          <Link to={`/products/${wish.productId}`}>
+            <img
+              src={wish.image?.startsWith('http') ? wish.image : `${BASE_URL}/${wish.image}`}
+              alt="wish"
+              className="wish_image"
+            />
+          </Link>
           <div className="wish_title">
             <Link to={`/products/${wish.productId}`}>{wish.title}</Link>
           </div>
           <div className="wish_price">
-            <strong>$ {wish.price}</strong>
+            <strong>$ {numberDecimalFix(wish.price)}</strong>
           </div>
           <div className="wish_rating">
             <Rating rating={wish.rating} />
           </div>
+          <div className="wish_button">
+            <Button onClick={() => deleteWishHandler(wish.wishListId)} classes={'white card'}>
+              Remove
+            </Button>
+          </div>
         </div>
-        <div>
-          <Button onClick={() => deleteWishHandler(wish.wishListId)} classes={'white'}>
-            Remove
-          </Button>
-        </div>
-      </div>
-    ))
+      ))}
+    </div>
   );
 };
 

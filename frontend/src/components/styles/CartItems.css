@@ -19,7 +19,7 @@
 }
 
 .cart_items_menu .subtotal_value {
-  color: rgb(170, 2, 2);
+  color: var(--red_dark);
 }
 
 .cart_items_menu ul {

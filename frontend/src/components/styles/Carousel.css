@@ -67,6 +67,7 @@
   align-items: center;
   cursor: pointer;
   opacity: 0.8;
+  z-index: 100;
 }
 
 .carousel_btn.next {
