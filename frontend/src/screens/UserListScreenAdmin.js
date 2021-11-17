@@ -5,7 +5,9 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import './styles/UserListScreenAdmin.css';
+// import './styles/UserListScreenAdmin.css';
+
+// TO DELETE
 
 const UserListScreenAdmin = ({ history }) => {
   const dispatch = useDispatch();

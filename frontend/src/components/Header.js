@@ -32,13 +32,13 @@ const Header = () => {
   const adminMenuToRender = (
     <ul>
       <li>
-        <Link to={'/admin/userlist'}>Users</Link>
+        <Link to={'/admin/main/userlist'}>Users</Link>
       </li>
       <li>
-        <Link to={'/admin/productlist'}>Products</Link>
+        <Link to={'/admin/main/productlist'}>Products</Link>
       </li>
       <li>
-        <Link to={'/admin/orderlist'}>Orders</Link>
+        <Link to={'/admin/main/orderlist'}>Orders</Link>
       </li>
     </ul>
   );

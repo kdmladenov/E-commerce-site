@@ -1,34 +1,39 @@
-.my_orders .order_title{
+.user_list .user_title {
   display: grid;
-  grid-template-columns: 120px 120px 1fr;
+  grid-template-columns: 50px 250px 1fr;
+  gap: 15px;
 }
 
-.my_orders .order_title > div{
+.user_list .user_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.my_orders .order_title > div span{
+.user_list .user_title > div span {
   text-align: left;
   width: 100%;
-  font-size: 12px;
+  font-size: 17px;
 }
 
-.my_orders .order_title > div{
+.user_list .user_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.my_orders .order_title > div > span,
-.my_orders .button_group span{
+.user_list .button_group {
+  width: fit-content;
+  display: flex;
+}
+
+.user_list .user_title > div > span{
   text-align: left;
   width: 100%;
-  line-height: 12px;
-  font-size: 12px;
+  line-height: 16px;
+  font-size: 16px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -37,7 +42,7 @@
   text-decoration: none;
 }
 
-.my_orders .order_item{
+.user_list .order_item {
   display: grid;
   grid-template-columns: 75px 1fr 100px 170px;
   grid-template-rows: 75px;
@@ -47,7 +52,7 @@
   align-items: center;
 }
 
-.my_orders .order_item .title a{
+.user_list .order_item .title a {
   grid-area: title;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -61,3 +66,17 @@
   text-decoration: none;
 }
 
+
+/* Form  */
+.user_list .profile_form .form {
+  grid-area: form;
+  display: none;
+}
+
+.user_list .profile_form .form.active {
+  display: block;
+}
+
+.user_list .profile_form {
+  padding: 20px 40px;
+}

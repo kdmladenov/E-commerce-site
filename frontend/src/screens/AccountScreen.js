@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Profile from '../components/Profile/Profile';
+import Profile from '../components/Profile';
 import OrdersMy from '../components/OrdersMy';
 import './styles/AccountScreen.css';
 import History from '../components/History';

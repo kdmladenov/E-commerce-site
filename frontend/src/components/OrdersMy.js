@@ -40,7 +40,7 @@ const OrdersMy = () => {
             <Accordion.Item id={order.orderId}>
               <Accordion.Header>
                 <Accordion.Title>
-                  <div className="order_title_left">
+                  <div className="order_title">
                     <div>
                       <span>ORDER DATE</span>
                       <span>{getDate(order.orderDate)}</span>
@@ -60,7 +60,7 @@ const OrdersMy = () => {
                   </div>
                 </Accordion.Title>
                 <Accordion.ButtonGroup>
-                  <div className="order_title_right">
+                  <div className="button_group">
                     <span>{`ORDER # ${order.orderId}`}</span>
                     <Link to={`/order/${order.orderId}`}>
                       <Button classes="text">View order details</Button>
@@ -102,7 +102,7 @@ const OrdersMy = () => {
           ))}
         </Accordion>
       ) : (
-        <Message type="success">Ask Question Box</Message>
+        <h2>You have no orders</h2>
       )}
     </div>
   );
