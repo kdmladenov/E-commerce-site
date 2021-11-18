@@ -1,0 +1,62 @@
+.order_list .order_title{
+  display: grid;
+  grid-template-columns: 120px 120px 1fr;
+}
+
+.order_list .order_title > div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order_list .order_title > div span{
+  text-align: left;
+  width: 100%;
+  font-size: 12px;
+}
+
+.order_list .order_title > div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order_list .order_title > div > span,
+.order_list .button_group span{
+  text-align: left;
+  width: 100%;
+  line-height: 12px;
+  font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+
+.order_list .order_item{
+  display: grid;
+  grid-template-columns: 75px 1fr 100px 170px;
+  grid-template-rows: 75px;
+  grid-template-areas: 'image' 'title' 'total' 'btn';
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.order_list .order_item .title a{
+  grid-area: title;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-align: left;
+  line-height: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
