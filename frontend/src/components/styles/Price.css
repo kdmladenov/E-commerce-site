@@ -1,0 +1,46 @@
+.price_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 22px;
+  font-weight: bold;
+}
+
+.price_container .currency_sign,
+.price_container .decimal_number {
+  vertical-align: super;
+  line-height: 13px;
+  font-size: 13px;
+}
+
+.price_container .whole_number {
+  line-height: 20px;
+  font-size: 22px;
+}
+
+
+/* size small */
+.price_container.small .currency_sign,
+.price_container.small .decimal_number {
+  line-height: 12px;
+  font-size: 12px;
+}
+
+.price_container.small .whole_number {
+  line-height: 19px;
+  font-size: 21px;
+}
+
+/* red color */
+.price_container.red {
+  color: var(--red_dark);
+}
+
+/* Superscript OFF */
+.price_container .currency_sign.baseline_script,
+.price_container .decimal_number.baseline_script,
+.price_container .whole_number.baseline_script {
+  vertical-align: baseline;
+  line-height: 20px;
+  font-size: 20px;
+}
