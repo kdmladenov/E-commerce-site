@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Loader from './Loader';
 import Message from './Message';
-import ProductCardVertical from './ProductCard/ProductCardVertical';
+import ProductCard from './ProductCard';
 import './styles/History.css';
 import Timeline from './Timeline';
 
@@ -38,13 +38,15 @@ const History = ({horizontal}) => {
           deleteHistoryItem={deleteHistoryItemHandler}
           historyRecord={historyRecord}
         >
-          <ProductCardVertical
+          <ProductCard
             id={historyRecord.productId}
             title={historyRecord.title}
             image={historyRecord.image}
             price={historyRecord.price}
             rating={historyRecord.rating}
             stockCount={historyRecord.stockCount}
+            reviewCount={historyRecord.reviewCount}
+            horizontal={!horizontal}
           />
         </Timeline.Item>
       ))}

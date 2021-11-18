@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
+import ProductCard from '../components/ProductCard';
 import './styles/ProductListScreen.css';
 
 const ProductListScreen = ({ history }) => {
@@ -18,13 +18,14 @@ const ProductListScreen = ({ history }) => {
 
   const productsToShow = products?.map((product) => (
     <li className="product" key={product.productId}>
-      <ProductCardVertical
+      <ProductCard
         id={product.productId}
         title={product.title}
         image={product.image}
         price={product.price}
         rating={product.rating}
         stockCount={product.stockCount}
+        reviewCount={product.reviewCount}
       />
     </li>
   ));

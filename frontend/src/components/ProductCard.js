@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import Rating from '../Rating';
-import './styles/ProductCardVertical.css';
+import Rating from './Rating';
+import './styles/ProductCard.css';
 import { Link, useHistory } from 'react-router-dom';
-import Button from '../Button';
-import { BASE_URL } from '../../constants/constants';
+import Button from './Button';
+import { BASE_URL } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { addWishToList, deleteWishFromList, listWishedItems } from '../../actions/wishListActions';
+import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/wishListActions';
+import Price from './Price';
 
-const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) => {
+const ProductCard = ({
+  id,
+  title,
+  image,
+  price,
+  rating,
+  reviewCount,
+  stockCount,
+  horizontal = false
+}) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -36,32 +45,35 @@ const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) =>
   }, [dispatch, successDelete, successAdd]);
 
   return (
-    <div className="product_card">
-      <div className="product_info">
-        <div className="product_title">
-          <Link to={`/products/${id}`}>{title}</Link>
-        </div>
-        <div className="product_price">
-          <strong>$ {price}</strong>
-        </div>
-        <div className="product_rating">
-          <Rating rating={rating} />
-        </div>
-      </div>
+    <div className={`product_card ${horizontal ? 'horizontal' : ''}`}>
       <Link to={`/products/${id}`}>
         <img
           src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`}
           alt="product"
-          className="product_image"
+          className="image"
         />
       </Link>
-      <div className="product_button">
-        <Button onClick={addToCartHandler} classes={'rounded medium'} disabled={stockCount === 0}>
+      <div className="title">
+        <Link to={`/products/${id}`}>{title}</Link>
+      </div>
+      <div className="rating_review">
+        <Rating rating={rating} />
+        {reviewCount > 0 ? (
+          <span>{`from ${reviewCount} reviews `}</span>
+        ) : (
+          <span>no reviews yet</span>
+        )}
+      </div>
+      <div className="price">
+        <Price price={price} />
+      </div>
+      <div className="add_to_cart_btn">
+        <Button onClick={addToCartHandler} classes={'rounded small'} disabled={stockCount === 0}>
           {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
         </Button>
       </div>
       <div
-        className={`product_wish_list_button ${
+        className={`wish_list_btn ${
           wishList.some((wish) => wish.productId === id) ? 'active' : ''
         }`}
       >
@@ -73,20 +85,4 @@ const ProductCardVertical = ({ id, title, image, price, rating, stockCount }) =>
   );
 };
 
-ProductCardVertical.defaultProps = {
-  id: 0,
-  title: '',
-  image: '',
-  price: 0,
-  rating: 0
-};
-
-ProductCardVertical.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
-  rating: PropTypes.number
-};
-
-export default ProductCardVertical;
+export default ProductCard;

@@ -1,0 +1,112 @@
+.product_card {
+  width: 300px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 200px 50px 30px 30px 1fr;
+  grid-template-areas: 'image' ' title' 'rating' 'price' 'cart_button';
+  gap: 10px;
+  background: var(--white);
+  z-index: 1;
+  position: relative;
+  padding: 10px;
+}
+
+.product_card.horizontal {
+  width: 500px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 30px 30px 1fr;
+  grid-template-areas:
+    'image title'
+    'image rating'
+    'image price'
+    'image cart_button';
+}
+
+/* Product Image */
+.product_card a {
+  grid-area: image;
+  width: 100%;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+}
+
+.product_card .title {
+  grid-area: title;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-align: center;
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+
+.product_card .title a {
+  padding: 0;
+}
+
+.product_card.horizontal .title a {
+  padding: 0 15px 0 0;
+}
+
+.product_card .rating_review {
+  grid-area: rating;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_card .rating_review > span {
+  margin-left: 5px;
+}
+
+.product_card .price {
+  grid-area: price;
+}
+/* Add to cart button */
+.product_card .add_to_cart_btn {
+  grid-area: cart_button;
+  display: flex;
+  justify-content: center;
+}
+
+.product_card .wish_list_btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.product_card .wish_list_btn i {
+  color: rgb(202, 188, 188);
+  font-weight: 15px;
+}
+
+.product_card .wish_list_btn.active i {
+  color: rgb(245, 109, 109);
+}
+
+/* Tablets and under */
+/* @media (max-width: 768px) {
+  .product.card {
+    margin: 10px 0;
+    max-height: 80vh;
+  }
+  Product Image
+  .product.card a {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .product.card a > img {
+    max-height: 30vh;
+    max-width: 30vh;
+  }
+} */

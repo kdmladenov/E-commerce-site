@@ -30,7 +30,6 @@ const productFeaturesInfoCount = 5;
 const ProductScreen = ({ history, match }) => {
 
   const [showRatingWidget, setShowRatingWidget] = useState(false); ;
-  console.log(showRatingWidget, 'showRatingWidget');
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);
   const questionsAndAnswersRef = useRef(null);
@@ -203,9 +202,9 @@ const ProductScreen = ({ history, match }) => {
                       </Tooltip>
                     )}
                   </div>
-                  <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
+                  {product.reviewCount > 0 ? <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
                     {`from ${product.reviewCount} customer reviews `}
-                  </Button>
+                  </Button> : <span>no reviews yet</span>}
                 </span>
                 {questionsAndAnswers?.length && (
                   <span className="product_details_questions">

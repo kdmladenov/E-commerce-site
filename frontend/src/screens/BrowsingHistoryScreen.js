@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
+import ProductCard from '../components/ProductCard';
 import './styles/BrowsingHistory.css';
 
 const BrowsingHistory = () => {
@@ -22,13 +22,14 @@ const BrowsingHistory = () => {
 
   const productsToShow = browsingHistory?.map((historyRecord) => (
     <li className="product" key={historyRecord.historyId}>
-      <ProductCardVertical
+      <ProductCard
         id={historyRecord.productId}
         title={historyRecord.title}
         image={historyRecord.image}
         price={historyRecord.price}
         rating={historyRecord.rating}
         stockCount={historyRecord.stockCount}
+        reviewCount={historyRecord.reviewCount}
       />
       <Button onClick={() => dispatch(deleteBrowsingHistory(historyRecord.historyId))}>
         Delete

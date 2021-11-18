@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteWishFromList, listWishedItems } from '../actions/wishListActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ProductCardVertical from '../components/ProductCard/ProductCardVertical';
+import ProductCard from '../components/ProductCard';
 import './styles/WishListScreen.css';
 import Button from '../components/Button';
 
@@ -22,13 +22,14 @@ const WishListScreen = () => {
 
   const listToShow = wishList?.map((wish) => (
     <li className="product" key={wish.wishListId}>
-      <ProductCardVertical
+      <ProductCard
         id={wish.productId}
         title={wish.title}
         image={wish.image}
         price={wish.price}
         rating={wish.rating}
         stockCount={wish.stockCount}
+        reviewCount={wish.reviewCount}
       />
       <Button onClick={() => dispatch(deleteWishFromList(wish.wishListId))}>Delete</Button>
     </li>
