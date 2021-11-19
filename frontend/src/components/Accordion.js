@@ -29,7 +29,11 @@ Accordion.Header = function AccordionHeader({ children, ...restProps }) {
   const { toggleShow, setToggleShow } = useContext(ToggleContext);
 
   return (
-    <div className="accordion_header" {...restProps} onClick={() => setToggleShow(!toggleShow)}>
+    <div
+      className={`accordion_header ${toggleShow ? 'show' : ''}`}
+      {...restProps}
+      onClick={() => setToggleShow(!toggleShow)}
+    >
       {children}
     </div>
   );

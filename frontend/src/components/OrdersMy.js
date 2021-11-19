@@ -9,6 +9,7 @@ import './styles/OrdersMy.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Button from './Button';
+import Price from './Price';
 
 const OrdersMy = () => {
   const dispatch = useDispatch();
@@ -83,14 +84,16 @@ const OrdersMy = () => {
                             <Link to={`/products/${item.id}`}>{item.title}</Link>
                           </div>
                           <div className="total">
-                            {`$ ${numberDecimalFix(item.price)} x ${item.qty}`}
+                            <Price price={item.price} size="small" />
+                            <span>{` x ${item.qty}`}</span>
                           </div>
                           <Button
                             onClick={() => addToCartHandler(item.id)}
-                            classes="small"
+                            classes="rounded small"
                             className="order_item_btn"
+                            disabled={item.stockCount === 0}
                           >
-                            Add to cart
+                            {item.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
                           </Button>
                         </div>
                       </li>

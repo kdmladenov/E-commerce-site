@@ -1,22 +1,22 @@
-.my_orders .order_title{
+.my_orders .order_title {
   display: grid;
   grid-template-columns: 120px 120px 1fr;
 }
 
-.my_orders .order_title > div{
+.my_orders .order_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.my_orders .order_title > div span{
+.my_orders .order_title > div span {
   text-align: left;
   width: 100%;
   font-size: 12px;
 }
 
-.my_orders .order_title > div{
+.my_orders .order_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +24,7 @@
 }
 
 .my_orders .order_title > div > span,
-.my_orders .button_group span{
+.my_orders .button_group span {
   text-align: left;
   width: 100%;
   line-height: 12px;
@@ -37,17 +37,17 @@
   text-decoration: none;
 }
 
-.my_orders .order_item{
+.my_orders .order_item {
   display: grid;
   grid-template-columns: 75px 1fr 100px 170px;
   grid-template-rows: 75px;
-  grid-template-areas: 'image' 'title' 'total' 'btn';
+  grid-template-areas: 'image title total btn';
   gap: 10px;
   justify-content: center;
   align-items: center;
 }
 
-.my_orders .order_item .title a{
+.my_orders .order_item .title a {
   grid-area: title;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -61,3 +61,13 @@
   text-decoration: none;
 }
 
+.my_orders .order_item .total {
+  grid-area: total;
+  display: flex;
+  flex-direction: row;
+}
+
+.my_orders .order_item .total .price_container {
+  width: fit-content;
+  margin: 3px 5px 0 0;
+}

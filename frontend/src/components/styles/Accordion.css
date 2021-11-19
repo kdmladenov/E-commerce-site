@@ -40,6 +40,10 @@
   cursor: pointer;
 }
 
+.accordion_header.show {
+  box-shadow: var(--box-shadow);
+}
+
 .accordion_title {
   height: 100%;
   font-size: 20px;
@@ -66,5 +70,6 @@
 
 .accordion_body.show {
   max-height: 10000px;
+  padding: 10px 30px;
   transition: all 0.5s;
 }

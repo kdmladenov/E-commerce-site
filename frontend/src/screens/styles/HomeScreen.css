@@ -117,12 +117,10 @@ div[class^='tile_'] {
 /* Carousels */
 .carousel_1 {
   grid-area: carousel_1;
-  height: 350px;
 }
 
 .carousel_2 {
   grid-area: carousel_2;
-  height: 600px;
 }
 
 /* Media queries */

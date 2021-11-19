@@ -4,9 +4,9 @@
   height: 45px;
   outline: none;
   border: none;
-  font-size: 25px;
+  font-size: 20px;
   background: var(--gray);
-  color: var(--gray_dark);
+  color: var(--black);
   border-radius: 50%;
   display: flex;
   justify-content: center;

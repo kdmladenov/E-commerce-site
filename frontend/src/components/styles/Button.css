@@ -57,6 +57,7 @@
 .button_container.small {
   min-width: 100px;
   width: fit-content;
+  padding: 0 10px;
   height: 22px;
   border-radius: 4px;
   font-size: 14px;

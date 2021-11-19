@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import OrderList from '../components/OrderList';
 import UserList from '../components/UserList';
 import './styles/AdminScreen.css';
 
@@ -39,7 +40,7 @@ const AdminScreen = ({ match }) => {
         <section
           className={`orderlist_container card content ${activeTab === 'orderlist' && 'active'}`}
         >
-          Order list
+          <OrderList />
         </section>
         <section
           className={`productlist_container card content ${
