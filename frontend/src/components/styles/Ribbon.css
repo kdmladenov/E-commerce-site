@@ -1,0 +1,73 @@
+.ribbon {
+  width: fit-content;
+  height: 24px;
+  color: var(--black);
+  background: var(--yellow);
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  text-align: left;
+  font-size: 16px;
+  /* font-weight: bold; */
+  padding-left: 10px;
+}
+
+.ribbon::before {
+  content: '';
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 24px;
+  left: 0px;
+  border-top: 5px solid var(--yellow_dark);
+  border-right: 5px solid var(--yellow_dark);
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
+.ribbon::after {
+  content: '';
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 0px;
+  right: -24px;
+  border-top: 12px solid var(--yellow);
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--yellow);
+  border-left: 12px solid var(--yellow);
+}
+
+/* Blue */
+.ribbon.blue {
+  color: var(--white);
+  background: var(--blue_middle);
+}
+
+.ribbon.blue::before {
+  border-top: 5px solid var(--blue);
+  border-right: 5px solid var(--blue);
+}
+
+.ribbon.blue::after {
+  border-top: 12px solid var(--blue_middle);
+  border-bottom: 12px solid var(--blue_middle);
+  border-left: 12px solid var(--blue_middle);
+}
+
+/* Red */
+.ribbon.red {
+  background: var(--red);
+  color: var(--white);
+}
+
+.ribbon.red::before {
+  border-top: 5px solid var(--red_dark);
+  border-right: 5px solid var(--red_dark);
+}
+
+.ribbon.red::after {
+  border-top: 12px solid var(--red);
+  border-bottom: 12px solid var(--red);
+  border-left: 12px solid var(--red);
+}

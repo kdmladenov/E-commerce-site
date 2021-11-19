@@ -7,6 +7,7 @@ import { BASE_URL } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/wishListActions';
 import Price from './Price';
+import Ribbon from './Ribbon';
 
 const ProductCard = ({
   id,
@@ -16,7 +17,8 @@ const ProductCard = ({
   rating,
   reviewCount,
   stockCount,
-  horizontal = false
+  horizontal,
+  ribbonText
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -81,6 +83,7 @@ const ProductCard = ({
           {<i className={`fa fa-heart`} />}
         </Button>
       </div>
+      {ribbonText && <Ribbon>{ribbonText}</Ribbon>}
     </div>
   );
 };
