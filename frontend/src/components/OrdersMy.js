@@ -38,7 +38,7 @@ const OrdersMy = () => {
       ) : orders?.length > 0 ? (
         <Accordion>
           {orders?.map((order) => (
-            <Accordion.Item id={order.orderId}>
+            <Accordion.Item key={order.orderId}>
               <Accordion.Header>
                 <Accordion.Title>
                   <div className="order_title">

@@ -84,6 +84,7 @@ const FormComponent = ({ inputData }) => {
           className={`wrapper ${config.value ? 'filled' : ''} ${inputErrors[id] ? 'error' : ''} ${
             config.touched ? 'touched' : ''
           }`}
+          key={id}
         >
           <label htmlFor={id}>{config.label}</label>
           <div className="underline" />

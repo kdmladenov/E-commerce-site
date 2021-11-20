@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/wishListActions';
 import Price from './Price';
 import Ribbon from './Ribbon';
+import Popover from './Popover';
+import RatingWidget from './RatingWidget';
 
 const ProductCard = ({
   id,
@@ -18,7 +20,8 @@ const ProductCard = ({
   reviewCount,
   stockCount,
   horizontal,
-  ribbonText
+  ribbonText,
+  ratingMap
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -58,14 +61,39 @@ const ProductCard = ({
       <div className="title">
         <Link to={`/products/${id}`}>{title}</Link>
       </div>
-      <div className="rating_review">
-        <Rating rating={rating} />
-        {reviewCount > 0 ? (
-          <span>{`from ${reviewCount} reviews `}</span>
-        ) : (
-          <span>no reviews yet</span>
-        )}
-      </div>
+      {reviewCount > 0 ? (
+        <Popover
+          header={
+            <div className="rating_review">
+              <Rating rating={rating}></Rating>
+              {reviewCount > 0 ? (
+                <span>{`from ${reviewCount} reviews `}</span>
+              ) : (
+                <span>no reviews yet</span>
+              )}
+            </div>
+          }
+        >
+          {
+            <RatingWidget
+              productRating={rating}
+              reviewCount={reviewCount}
+              ratingMap={ratingMap}
+              productId={id}
+            />
+          }
+        </Popover>
+      ) : (
+        <div className="rating_review">
+          <Rating rating={rating} />
+          {reviewCount > 0 ? (
+            <span>{`from ${reviewCount} reviews `}</span>
+          ) : (
+            <span>no reviews yet</span>
+          )}
+        </div>
+      )}
+
       <div className="price">
         <Price price={price} />
       </div>

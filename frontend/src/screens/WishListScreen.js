@@ -30,6 +30,13 @@ const WishListScreen = () => {
         rating={wish.rating}
         stockCount={wish.stockCount}
         reviewCount={wish.reviewCount}
+        ratingMap={{
+          1: wish.starOne || 0,
+          2: wish.starTwo || 0,
+          3: wish.starThree || 0,
+          4: wish.starFour || 0,
+          5: wish.starFive || 0
+        }}
       />
       <Button onClick={() => dispatch(deleteWishFromList(wish.wishListId))}>Delete</Button>
     </li>

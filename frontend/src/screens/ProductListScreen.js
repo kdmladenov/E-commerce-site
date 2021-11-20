@@ -26,6 +26,13 @@ const ProductListScreen = ({ history }) => {
         rating={product.rating}
         stockCount={product.stockCount}
         reviewCount={product.reviewCount}
+        ratingMap={{
+          1: product.starOne || 0,
+          2: product.starTwo || 0,
+          3: product.starThree || 0,
+          4: product.starFour || 0,
+          5: product.starFive || 0
+        }}
       />
     </li>
   ));

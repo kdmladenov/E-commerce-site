@@ -5,9 +5,9 @@ import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingH
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCard from '../components/ProductCard';
-import './styles/BrowsingHistory.css';
+import './styles/BrowsingHistoryScreen.css';
 
-const BrowsingHistory = () => {
+const BrowsingHistoryScreen = () => {
   const dispatch = useDispatch();
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
@@ -54,4 +54,4 @@ const BrowsingHistory = () => {
   );
 };
 
-export default BrowsingHistory;
+export default BrowsingHistoryScreen;

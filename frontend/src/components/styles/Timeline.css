@@ -83,7 +83,7 @@
   right: -35px;
   width: 10px;
   height: 10px;
-  z-index: 100;
+  z-index: 2;
 }
 
 .timeline_item_content .remove_btn {

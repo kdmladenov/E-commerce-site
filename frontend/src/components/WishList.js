@@ -9,6 +9,8 @@ import Rating from './Rating';
 import './styles/WishList.css';
 import { BASE_URL } from '../constants/constants';
 import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import  Popover  from './Popover';
+import RatingWidget from './RatingWidget';
 
 const WishList = () => {
   const history = useHistory();
@@ -28,6 +30,7 @@ const WishList = () => {
     history.push(`/cart/${id}?qty=1`);
   };
 
+  console.log(wishList, 'wishList');
   useEffect(() => {
     dispatch(listWishedItems());
   }, [dispatch, successDeleteWish]);
@@ -41,7 +44,7 @@ const WishList = () => {
   ) : (
     <div className="wish_list_items">
       {wishList?.map((wish) => (
-        <div className="wish_list_item card">
+        <div className="wish_list_item card" key={wish.wishListId}>
           <Link to={`/products/${wish.productId}`}>
             <img
               src={wish.image?.startsWith('http') ? wish.image : `${BASE_URL}/${wish.image}`}
@@ -55,9 +58,35 @@ const WishList = () => {
           <div className="wish_price">
             <strong>$ {numberDecimalFix(wish.price)}</strong>
           </div>
-          <div className="wish_rating">
-            <Rating rating={wish.rating} />
-          </div>
+            {wish.reviewCount > 0 ? (
+              <Popover
+                header={
+                  <div className="wish_rating">
+                    <Rating rating={wish.rating}></Rating>
+                  </div>
+                }
+              >
+                {
+                  <RatingWidget
+                    productRating={wish.rating}
+                    reviewCount={wish.reviewCount}
+                    ratingMap={{
+                      1: wish.starOne || 0,
+                      2: wish.starTwo || 0,
+                      3: wish.starThree || 0,
+                      4: wish.starFour || 0,
+                      5: wish.starFive || 0
+                    }}
+                    productId={wish.productId}
+                  />
+                }
+              </Popover>
+            ) : (
+              <div className="wish_rating">
+                <Rating rating={wish.rating} />
+              </div>
+            )}
+      
           <div className="wish_button">
             <Button onClick={() => deleteWishHandler(wish.wishListId)} classes={'white card'}>
               Remove

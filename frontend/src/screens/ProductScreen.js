@@ -198,7 +198,6 @@ const ProductScreen = ({ history, match }) => {
                       <RatingWidget reviews={reviews} productId={match.params.id} />
                     )}
                   </Popover>
-
                   {product.reviewCount > 0 ? (
                     <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
                       {`from ${product.reviewCount} customer reviews `}

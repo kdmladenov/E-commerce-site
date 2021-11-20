@@ -8,14 +8,14 @@
   margin: 10px 0;
 }
 
-.rating_widget .header p {
+.rating_widget .header .rating_stars {
   display: flex;
   justify-content: left;
   align-items: center;
   margin: 0;
 }
 
-.rating_widget .header p h3 {
+.rating_widget .header .rating_stars h3 {
   margin-left: 10px;
   font-size: 20px;
 }

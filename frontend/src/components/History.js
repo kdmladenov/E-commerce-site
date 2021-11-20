@@ -47,7 +47,14 @@ const History = ({horizontal}) => {
             stockCount={historyRecord.stockCount}
             reviewCount={historyRecord.reviewCount}
             horizontal={!horizontal}
-            ribbonText='history'
+            ratingMap={{
+              1: historyRecord.starOne || 0,
+              2: historyRecord.starTwo || 0,
+              3: historyRecord.starThree || 0,
+              4: historyRecord.starFour || 0,
+              5: historyRecord.starFive || 0
+            }}
+            ribbonText="history"
           />
         </Timeline.Item>
       ))}
