@@ -92,6 +92,15 @@
   color: rgb(245, 109, 109);
 }
 
+.product_card .product_ribbon {
+  height: 24px;
+  width: fit-content;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  z-index: 2;
+}
+
 /* Tablets and under */
 /* @media (max-width: 768px) {
   .product.card {

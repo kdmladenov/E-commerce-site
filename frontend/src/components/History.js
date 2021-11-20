@@ -47,6 +47,7 @@ const History = ({horizontal}) => {
             stockCount={historyRecord.stockCount}
             reviewCount={historyRecord.reviewCount}
             horizontal={!horizontal}
+            ribbonText='history'
           />
         </Timeline.Item>
       ))}

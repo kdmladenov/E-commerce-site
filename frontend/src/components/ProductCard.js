@@ -83,7 +83,7 @@ const ProductCard = ({
           {<i className={`fa fa-heart`} />}
         </Button>
       </div>
-      {ribbonText && <Ribbon>{ribbonText}</Ribbon>}
+      <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>
     </div>
   );
 };

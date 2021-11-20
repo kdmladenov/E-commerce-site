@@ -1,5 +1,6 @@
 .rating_widget {
-  max-width: 300px;
+  width: 300px;
+  height: 222px;
   padding: 10px;
 }
 
@@ -19,22 +20,22 @@
   font-size: 20px;
 }
 
-.rating_widget .body {
+.rating_widget .content {
   display: flex;
   flex-direction: column;
 }
 
-.rating_widget .body {
+.rating_widget .content {
   display: flex;
   flex-direction: column;
 }
 
-.rating_widget .body {
+.rating_widget .content {
   display: flex;
   flex-direction: column;
 }
 
-.rating_widget .body .row {
+.rating_widget .content .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -80,11 +81,11 @@
 }
 
 /* Labels */
-/* .rating_widget .body .row .label {
+/* .rating_widget .content .row .label {
   min-width: 18%;
 } */
 
-.rating_widget .body .row .label.right {
+.rating_widget .content .row .label.right {
   text-align: right;
   width: 30px;
 }

@@ -23,13 +23,13 @@ import { scrollTo } from '../constants/utility-functions/utility-functions';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import Tooltip from '../components/Tooltip';
 import RatingWidget from '../components/RatingWidget';
+import Popover from '../components/Popover';
 
 const productFeaturesInfoCount = 5;
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
-
-  const [showRatingWidget, setShowRatingWidget] = useState(false); ;
+  const [showRatingWidget, setShowRatingWidget] = useState(false);
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);
   const questionsAndAnswersRef = useRef(null);
@@ -190,22 +190,23 @@ const ProductScreen = ({ history, match }) => {
                     <strong onClick={() => scrollTo(comparisonRef)}>{product.brand}</strong>
                   </Button>
                 </div>
-                <span className="product_details_rating" onClick={() => scrollTo(reviewsRef)}>
-                  <div
-                    onMouseEnter={() => setShowRatingWidget(true)}
-                    onMouseLeave={() => setShowRatingWidget(false)}
+                <div className="product_details_rating" onClick={() => scrollTo(reviewsRef)}>
+                  <Popover
+                    header={<Rating rating={product.rating} color="orange"></Rating>}
                   >
-                    <Rating rating={product.rating} color="orange"></Rating>
-                    {showRatingWidget && (
-                      <Tooltip visible={showRatingWidget} direction={'top'}>
-                        <RatingWidget reviews={reviews} productId={match.params.id} />
-                      </Tooltip>
+                    {reviews?.length > 0 && (
+                      <RatingWidget reviews={reviews} productId={match.params.id} />
                     )}
-                  </div>
-                  {product.reviewCount > 0 ? <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
-                    {`from ${product.reviewCount} customer reviews `}
-                  </Button> : <span>no reviews yet</span>}
-                </span>
+                  </Popover>
+
+                  {product.reviewCount > 0 ? (
+                    <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
+                      {`from ${product.reviewCount} customer reviews `}
+                    </Button>
+                  ) : (
+                    <span>no reviews yet</span>
+                  )}
+                </div>
                 {questionsAndAnswers?.length && (
                   <span className="product_details_questions">
                     <Button classes="text" onClick={() => scrollTo(questionsAndAnswersRef)}>
@@ -282,7 +283,11 @@ const ProductScreen = ({ history, match }) => {
               </li>
             </ul>
 
-            <Button onClick={addToCartHandler} disabled={product.stockCount === 0} classes="rounded">
+            <Button
+              onClick={addToCartHandler}
+              disabled={product.stockCount === 0}
+              classes="rounded"
+            >
               {product.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
             </Button>
           </div>

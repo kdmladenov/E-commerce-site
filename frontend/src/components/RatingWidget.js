@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { listReviews } from '../actions/reviewActions';
 import {
@@ -32,7 +32,7 @@ const RatingWidget = ({ reviews, productId }) => {
           </p>
           {`${reviews.length} ratings`}
         </div>
-        <div className="body">
+        <div className="content">
           {[5, 4, 3, 2, 1].map((starCount) => (
             <div
               className={`row ${
