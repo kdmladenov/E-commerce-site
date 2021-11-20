@@ -66,7 +66,12 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
       s.battery_type as batteryType,
       s.backlit_keyboard as backlitKeyboard,
       r.review_count as reviewCount,
-      r.rating
+      r.rating,
+      rt.starOne,
+      rt.starTwo,
+      rt.starThree,
+      rt.starFour,
+      rt.starFive
     FROM products p
     LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
                 FROM reviews
@@ -77,6 +82,15 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
             graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
             battery_type, backlit_keyboard
             FROM specifications) as s using (product_id)
+    LEFT JOIN (select product_id,
+        count(if(rating=1,1,null)) as starOne,
+        count(if(rating=2,1,null)) as starTwo,
+        count(if(rating=3,1,null)) as starThree,
+        count(if(rating=4,1,null)) as starFour,
+        count(if(rating=5,1,null)) as starFive
+        from reviews
+        WHERE is_deleted = 0
+        group by product_id) rt USING (product_id)
     WHERE ${
       role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''
     } ${searchColumn} Like '%${search}%'
@@ -123,7 +137,12 @@ const getBy = async (column, value, role) => {
       s.battery_type as batteryType,
       s.backlit_keyboard as backlitKeyboard,
       r.review_count as reviewCount,
-      r.rating
+      r.rating,
+      rt.starOne,
+      rt.starTwo,
+      rt.starThree,
+      rt.starFour,
+      rt.starFive
     FROM products p
     LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
             FROM reviews
@@ -134,6 +153,15 @@ const getBy = async (column, value, role) => {
             graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
             battery_type, backlit_keyboard
             FROM specifications) as s using (product_id)
+    LEFT JOIN (select product_id,
+            count(if(rating=1,1,null)) as starOne,
+            count(if(rating=2,1,null)) as starTwo,
+            count(if(rating=3,1,null)) as starThree,
+            count(if(rating=4,1,null)) as starFour,
+            count(if(rating=5,1,null)) as starFive
+            from reviews
+            WHERE is_deleted = 0
+            group by product_id) rt USING (product_id)
     WHERE ${column} = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''};
   `;
 

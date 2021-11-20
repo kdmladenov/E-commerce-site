@@ -43,6 +43,11 @@ const getAllWishListRecords = async (
       r.review_count as reviewCount,
       p.stock_count as stockCount,
       r.rating,
+      rt.starOne,
+      rt.starTwo,
+      rt.starThree,
+      rt.starFour,
+      rt.starFive,
       p.is_deleted as isProductDeleted
     FROM wishlist w
     LEFT JOIN (SELECT product_id, title, brand, description, image, product_category, price, stock_count, is_deleted 
@@ -52,6 +57,15 @@ const getAllWishListRecords = async (
                 FROM reviews
                 WHERE is_deleted = 0
                 GROUP BY product_id) as r using (product_id)
+    LEFT JOIN (select product_id,
+        count(if(rating=1,1,null)) as starOne,
+        count(if(rating=2,1,null)) as starTwo,
+        count(if(rating=3,1,null)) as starThree,
+        count(if(rating=4,1,null)) as starFour,
+        count(if(rating=5,1,null)) as starFive
+        from reviews
+        WHERE is_deleted = 0
+        group by product_id) rt USING (product_id)
     WHERE w.is_deleted = 0 AND ${searchColumn} Like '%${search}%' AND w.user_id = ?
     ${
       dateRangeLow && dateRangeHigh
