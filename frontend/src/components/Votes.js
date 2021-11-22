@@ -61,7 +61,7 @@ const Votes = ({
 
   return (
     showButtons && (
-      <div className="votes" style={{ flexDirection: `${type === 'vertical' ? 'Column' : 'row'}` }}>
+      <div className="votes" style={{ flexDirection: `${type === 'vertical' ? 'column' : 'row'}` }}>
         <Button
           className="vote_button_up"
           classes="icon"

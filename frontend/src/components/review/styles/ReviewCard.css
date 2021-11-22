@@ -1,11 +1,10 @@
 .review_card {
   position: relative;
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 10px 20px 0 20px;
 }
 
-.review_card .user_info,
-.review_card .dates {
+.review_card .user_info{
   display: flex;
   justify-content: start;
   align-items: center;
@@ -16,13 +15,14 @@
   margin-right: 20px;
 }
 
-.review_card .title {
-  font-weight: bold;
-  margin: 10px 0;
+.review_card .rating_title {
+  display: flex;
+  align-items: center;
 }
 
-.review_card .date_created {
-  margin-right: 20px;
+.review_card .title {
+  font-weight: bold;
+  margin-left: 10px;
 }
 
 .review_card .textarea.card,
@@ -43,7 +43,16 @@
   right: 30px;
 }
 
-.review_card .button_group_edit{
+.review_card .button_group_edit {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.review_card .footer {
+  display: flex;
+  align-items: center;
+}
+
+.review_card .dates{
+  margin-left: 20px;
 }

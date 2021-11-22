@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { createReview, deleteReview, editReview, voteReview } from '../../actions/reviewActions';
 import Votes from '../Votes';
 import EditButtons from '../EditButtons';
+import { getTimeDuration } from '../../constants/utility-functions/utility-functions';
 
 const ReviewCard = ({
   user,
@@ -84,16 +85,6 @@ const ReviewCard = ({
           <div className="title">{title}</div>
         )}
       </div>
-      {!createMode && (
-        <div className="dates">
-          <div className="date_created">
-            {`Date created: ${new Date(dateCreated || Date.now()).toLocaleDateString('en-US')}`}
-          </div>
-          <div className="date_updated">
-            {dateEdited && `Date edited: ${new Date(dateEdited).toLocaleDateString('en-US')}`}
-          </div>
-        </div>
-      )}
       {editMode || createMode ? (
         <input
           type="text"
@@ -106,18 +97,27 @@ const ReviewCard = ({
           {content?.length > 300 ? <ShowMoreButton breakpoint={300} text={content} /> : content}
         </div>
       )}
-      <Votes
-        showButtons={!createMode}
-        voteAction={voteReview}
-        itemId={reviewId}
-        reactionNameUp="THUMBS_UP"
-        reactionNameDown="THUMBS_DOWN"
-        votesUpCount={thumbsUp}
-        votesDownCount={thumbsDown}
-        userVotesUpList={userThumbsUpList}
-        userVotesDownList={userThumbsDownList}
-        currentUserId={currentUser?.userId}
-      />
+      <div className="footer">
+        <Votes
+          showButtons={!createMode}
+          voteAction={voteReview}
+          itemId={reviewId}
+          reactionNameUp="THUMBS_UP"
+          reactionNameDown="THUMBS_DOWN"
+          votesUpCount={thumbsUp}
+          votesDownCount={thumbsDown}
+          userVotesUpList={userThumbsUpList}
+          userVotesDownList={userThumbsDownList}
+          currentUserId={currentUser?.userId}
+        />
+        {!createMode && (
+          <div className="dates">
+            {!dateEdited
+              ? `${getTimeDuration(dateCreated, new Date())}`
+              : `edited ${getTimeDuration(dateEdited, new Date())}`}
+          </div>
+        )}
+      </div>
       <EditButtons
         createMode={createMode}
         editMode={editMode}
