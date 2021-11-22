@@ -19,17 +19,17 @@ header {
   align-items: center;
 }
 
-.mega_menu {
+header .mega_menu {
   z-index: 1000;
 }
 
-.header_logo {
+header .header_logo {
   width: 100px;
   object-fit: contain;
   padding-top: 2px;
 }
 
-.search {
+header .search {
   grid-area: search;
   display: flex;
   justify-content: center;
@@ -37,18 +37,18 @@ header {
   margin-top: 12px;
 }
 
-.header_options {
+header .header_menu_btn_group {
   grid-area: user_cart;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.header_option {
+header .header_menu_btn {
   position: relative;
   width: 45px;
   height: 45px;
-  margin-left: 20px;
+  margin: 0 10px;
   outline: none;
   border: none;
   font-size: 20px;
@@ -60,42 +60,42 @@ header {
   align-items: center;
 }
 
-.header_option:hover {
+header .header_menu_btn:hover {
   box-shadow: var(--box_shadow_angle);
 }
 
-.header_option:active {
-  box-shadow: var(--box_shadow_angle_active);
-}
-
-.header_optionAdminMenu,
-.header_optionUserMenu {
+header .menu_admin ul,
+header .menu_user ul {
   display: flex;
-  font-size: larger;
-  height: fit-content;
   flex-direction: column;
   background-color: white;
   text-decoration: none;
   justify-content: left;
 }
-.header_option.cart .badge {
+
+header .menu_admin li a,
+header .menu_user li a,
+header .menu_user > div {
+  white-space: nowrap;
+}
+
+header .menu_user > div{
+  cursor: pointer;
+  border-top: 2px solid var(--gray);
+}
+
+header .header_menu_btn .badge {
   position: absolute;
   top: 0;
   right: 0;
   width: auto;
-  min-width: 20px;
   height: 20px;
   line-height: 20px;
   font-size: 16px;
-  background: red;
+  background: var(--red);
   color: var(--white);
   border-radius: 10px;
   padding: 0 6px;
-}
-
-.header_option.admin .tooltip:hover {
-  visibility: visible;
-  opacity: 1;
 }
 
 @media (max-width: 1000px) {

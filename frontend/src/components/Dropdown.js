@@ -1,34 +1,20 @@
-import { Dropdown } from 'react-bootstrap';
+import React, { useState } from 'react';
+import './styles/DropDown.css';
+import Tooltip from './Tooltip';
 
-const DropDown = ({
-  options,
-  selected,
-  onSelectedChange,
-  dropDownToggleId,
-  className,
-  classNameMenu
-}) => {
-  const renderedOptions = options.map((option, index) => {
-    return (
-      <Dropdown.Item key={index} onClick={() => onSelectedChange(option)}>
-        {option}
-      </Dropdown.Item>
-    );
-  });
+const DropDown = ({ button, tooltipText, children }) => {
+  const [showBody, setShowBody] = useState(false);
 
   return (
-    <Dropdown>
-      <Dropdown.Toggle className={className} variant="success" id={dropDownToggleId}>
-        {selected}
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu className={classNameMenu}>{renderedOptions}</Dropdown.Menu>
-    </Dropdown>
+    <div
+      className="dropdown"
+      onClick={() => setShowBody(!showBody)}
+      onMouseLeave={() => setShowBody(false)}
+    >
+      {(tooltipText && !showBody) ? <Tooltip text={tooltipText}>{button}</Tooltip> : button}
+      <div className={`body ${showBody ? 'show' : ''}`}>{children}</div>
+    </div>
   );
-};
-
-DropDown.defaultProps = {
-  onSelectedChange: () => {}
 };
 
 export default DropDown;

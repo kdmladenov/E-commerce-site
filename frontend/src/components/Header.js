@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/Header.css';
 import { logout } from '../actions/userActions';
 import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
-import Tooltip from './Tooltip';
 import Login from './Login';
 import CartItems from './CartItems';
 import { useHistory } from 'react-router';
+import DropDown from './Dropdown';
 
 const Header = () => {
-  const [showAdminMenu, setShowAdminMenu] = useState(false);
-  const [showCartMenu, setShowCartMenu] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const [showLoginMenu, setShowLoginMenu] = useState(false);
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -30,35 +25,36 @@ const Header = () => {
   };
 
   const adminMenuToRender = (
-    <ul>
+    <ul className="menu_admin">
       <li>
-        <Link to={'/admin/main/userlist'}>Users</Link>
+        <NavLink to={'/admin/main/userlist'}>Users</NavLink>
       </li>
       <li>
-        <Link to={'/admin/main/productlist'}>Products</Link>
+        <NavLink to={'/admin/main/productlist'}>Products</NavLink>
       </li>
       <li>
-        <Link to={'/admin/main/orderlist'}>Orders</Link>
+        <NavLink to={'/admin/main/orderlist'}>Orders</NavLink>
       </li>
     </ul>
   );
-// Navlink?
+
   const userMenuToRender = (
+    <div className="menu_user">
     <ul>
       <li>
-        <Link to={'/account/profile'}>Profile</Link>
+        <NavLink to={'/account/profile'}>Profile</NavLink>
       </li>
       <li>
-        <Link to={'/account/orders'}>Orders</Link>
+        <NavLink to={'/account/orders'}>Orders</NavLink>
       </li>
       <li>
-        <Link to={'/account/history'}>Browsing History</Link>
+        <NavLink to={'/account/history'}>Browsing History</NavLink>
       </li>
       <li>
-        <Link to={'/account/wishlist'}>Wish List</Link>
+        <NavLink to={'/account/wishlist'}>Wish List</NavLink>
       </li>
-      <li onClick={logoutHandler}>Log out</li>
     </ul>
+      <div onClick={logoutHandler}>Log out</div></div> 
   );
 
   return (
@@ -67,80 +63,56 @@ const Header = () => {
         <div className="mega_menu">
           <MegaMenu />
         </div>
-        <Link to="/">
+        <NavLink to="/">
           <img
             src="https://clipartart.com/images/clipart-logo-maker-online-free-9.png"
             alt="logo"
             className="header_logo"
           />
-        </Link>
+        </NavLink>
       </div>
       <div className="search">
         <SearchBar />
       </div>
-      <div className="header_options">
-        {userInfo?.token ? (
-          <div
-            className="header_option user"
-            onMouseEnter={() => setShowUserMenu(true)}
-            onMouseLeave={() => setShowUserMenu(false)}
-            onClick={() => setShowUserMenu(false)}
-          >
-            <i className="fas fa-user" />
-            {showUserMenu && (
-              <Tooltip visible={showUserMenu} direction={'top'}>
-                {userMenuToRender}
-              </Tooltip>
-            )}
-          </div>
-        ) : (
-          <div
-            className="header_option login_menu"
-            onMouseEnter={() => setShowLoginMenu(true)}
-            onMouseLeave={() => setShowLoginMenu(false)}
-          >
-            <i className="fas fa-user" />
-            {showLoginMenu && (
-              <Tooltip visible={showLoginMenu} direction={'top'}>
-                <Login />
-              </Tooltip>
-            )}
-          </div>
-        )}
-        {userInfo?.role === 'admin' && (
-          <div
-            className="header_option admin"
-            onMouseEnter={() => setShowAdminMenu(true)}
-            onMouseLeave={() => setShowAdminMenu(false)}
-            onClick={() => setShowAdminMenu(false)}
-          >
-            <i className="fa fa-user-plus" />
-            {showAdminMenu && (
-              <Tooltip visible={showAdminMenu} direction={'top'}>
-                {adminMenuToRender}
-              </Tooltip>
-            )}
-          </div>
-        )}
-        <div
-          className="header_option cart"
-          onMouseEnter={() => setShowCartMenu(true)}
-          onMouseLeave={() => setShowCartMenu(false)}
+      <div className="header_menu_btn_group">
+        <DropDown
+          button={
+            <div className={`header_menu_btn ${userInfo?.token ? 'user' : 'login_menu'}`}>
+              <i className="fas fa-user" />
+            </div>
+          }
+          tooltipText={`${userInfo?.token ? 'User Menu' : 'Login'}`}
         >
-          <i
-            onClick={() => {
-              history.push('/cart');
-              setShowCartMenu(false);
-            }}
-            className="fa fa-shopping-cart"
-          ></i>
-          {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}
-          {showCartMenu && (
-            <Tooltip visible={showCartMenu} direction={'left'}>
-              <CartItems cartItems={cartItems} setShowCartMenu={setShowCartMenu} />
-            </Tooltip>
-          )}
-        </div>
+          {userInfo?.token ? userMenuToRender : <Login />}
+        </DropDown>
+        {userInfo?.role === 'admin' && (
+          <DropDown
+            button={
+              <div className="header_menu_btn admin">
+                <i className="fa fa-user-plus" />
+              </div>
+            }
+            tooltipText="Admin Menu"
+          >
+            {adminMenuToRender}
+          </DropDown>
+        )}
+        <DropDown
+          button={
+            <div className="header_menu_btn cart">
+              <i
+                onClick={() => {
+                  history.push('/cart');
+                }}
+                className="fa fa-shopping-cart"
+              ></i>
+              {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}
+            </div>
+          }
+          tooltipText="Cart"
+        >
+          <CartItems cartItems={cartItems} />
+        </DropDown>
       </div>
     </header>
   );
