@@ -8,6 +8,7 @@ import Button from '../components/Button';
 import './styles/ProductListScreenAdmin.css';
 import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import Tooltip from '../components/Tooltip';
 
 const ProductListScreenAdmin = ({ history }) => {
   const dispatch = useDispatch();
@@ -91,21 +92,32 @@ const ProductListScreenAdmin = ({ history }) => {
                   <td>{product.brand}</td>
                   <td>
                     {!product.isDeleted ? (
-                      <i className="fa fa-check" style={{ color: 'green' }}></i>
+                      <Tooltip text="Deleted">
+                        <i className="fa fa-check" style={{ color: 'green' }}></i>
+                      </Tooltip>
                     ) : (
-                      <i className="fa fa-times" style={{ color: 'red' }}></i>
+                      <Tooltip text="Not Deleted">
+                        <i className="fa fa-times" style={{ color: 'red' }}></i>
+                      </Tooltip>
                     )}
                   </td>
                   {!product.isDeleted && (
                     <td>
                       <Link to={`/admin/product/${product.productId}/edit`}>
                         <Button classes="icon">
-                          <i className="fa fa-edit"></i>
+                          <Tooltip text="Edit">
+                            <i className="fa fa-edit"></i>
+                          </Tooltip>
                         </Button>
                       </Link>
 
-                      <Button classes="icon" onClick={() => deleteProductHandler(product.productId)}>
-                        <i className="fas fa-trash"></i>
+                      <Button
+                        classes="icon"
+                        onClick={() => deleteProductHandler(product.productId)}
+                      >
+                        <Tooltip text="Delete">
+                          <i className="fas fa-trash"></i>
+                        </Tooltip>
                       </Button>
                     </td>
                   )}

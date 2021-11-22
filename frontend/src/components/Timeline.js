@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getDate } from '../constants/utility-functions/utility-functions';
 import './styles/Timeline.css';
+import Tooltip from './Tooltip';
 
 const Timeline = ({ children, ...restProps }) => {
   return (
@@ -27,7 +28,9 @@ Timeline.Item = function TimelineItem({ children, ...restProps }) {
         {children}
         {removeMode ? (
           <span className="remove_btn" onClick={() => deleteHistoryItem(historyRecord.historyId)}>
-            <i className="fa fa-times"></i>
+            <Tooltip text="Remove">
+              <i className="fa fa-times"></i>
+            </Tooltip>
           </span>
         ) : (
           <span className="point" />

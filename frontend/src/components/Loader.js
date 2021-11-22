@@ -1,12 +1,14 @@
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
 import './styles/Loader.css';
+import Tooltip from './Tooltip';
 
 const Loader = () => {
   return (
-    <Spinner animation="border" role="status" className="spinner">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
+    <div className="spinner">
+      <Tooltip direction="top" text="Loading...">
+        <i className="fa fa-spinner"></i>
+      </Tooltip>
+    </div>
   );
 };
 

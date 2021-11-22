@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import './styles/Accordion.css';
+import Tooltip from './Tooltip';
 
 const ToggleContext = createContext();
 
@@ -64,9 +65,13 @@ Accordion.ButtonGroup = function AccordionButtonGroup({ children, ...restProps }
       {children ? (
         children
       ) : !toggleShow ? (
-        <i class="fa fa-chevron-down"></i>
+        <Tooltip direction="top" text="Open">
+          <i class="fa fa-chevron-down"></i>
+        </Tooltip>
       ) : (
-        <i class="fa fa-chevron-up"></i>
+        <Tooltip direction="top" text="Close">
+          <i class="fa fa-chevron-up"></i>
+        </Tooltip>
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './styles/Message.css';
+import Tooltip from './Tooltip';
 
 const Message = ({ type, children }) => {
   const [showMessage, setShowMessage] = useState(true);
@@ -9,7 +10,9 @@ const Message = ({ type, children }) => {
       <div className="message_container">
         <div className={`message ${type}`}>
           {children}
-          <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"></i>
+          <Tooltip direction="top" text="Remove">
+            <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"></i>
+          </Tooltip>
         </div>
       </div>
     )

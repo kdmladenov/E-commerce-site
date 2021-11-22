@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { login } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { useHistory } from 'react-router';
 import './styles/Login.css';
 
-const Login = ({ match, history }) => {
+const Login = ({ match }) => {
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const [showPassword, setShowPassword] = useState(false);
 

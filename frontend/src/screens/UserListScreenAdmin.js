@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
+import Tooltip from '../components/Tooltip';
 // import './styles/UserListScreenAdmin.css';
 
 // TO DELETE
@@ -65,27 +66,39 @@ const UserListScreenAdmin = ({ history }) => {
                 </td>
                 <td>
                   {user.role === 'admin' ? (
-                    <i className="fa fa-check" style={{ color: 'green' }}></i>
+                    <Tooltip text="Admin">
+                      <i className="fa fa-check" style={{ color: 'green' }}></i>
+                    </Tooltip>
                   ) : (
-                    <i className="fa fa-times" style={{ color: 'red' }}></i>
+                    <Tooltip text="Not Admin">
+                      <i className="fa fa-times" style={{ color: 'red' }}></i>
+                    </Tooltip>
                   )}
                 </td>
                 <td>
                   {user.isDeleted ? (
-                    <i className="fa fa-check" style={{ color: 'green' }}></i>
+                    <Tooltip text="Not Deleted">
+                      <i className="fa fa-check" style={{ color: 'green' }}></i>
+                    </Tooltip>
                   ) : (
-                    <i className="fa fa-times" style={{ color: 'red' }}></i>
+                    <Tooltip text="Deleted">
+                      <i className="fa fa-times" style={{ color: 'red' }}></i>
+                    </Tooltip>
                   )}
                 </td>
                 {!user.isDeleted && (
                   <td>
                     <Link to={`/admin/user/${user.userId}/edit`}>
                       <Button classes="icon">
-                        <i className="fa fa-edit"></i>
+                        <Tooltip text="Edit">
+                          <i className="fa fa-edit"></i>
+                        </Tooltip>
                       </Button>
                     </Link>
                     <Button classes="icon" onClick={() => deleteUserHandler(user.userId)}>
-                      <i className="fas fa-trash"></i>
+                      <Tooltip text="Delete">
+                        <i className="fas fa-trash"></i>
+                      </Tooltip>
                     </Button>
                   </td>
                 )}

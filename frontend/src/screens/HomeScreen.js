@@ -63,13 +63,15 @@ const HomeScreen = () => {
                   content={categoriesTiles['recommended'].content}
                 />
               </div>
-              <div className="tile_2">{<ProductTileRecent product={browsingHistory[0]} />}</div>
+              <div className="tile_2">
+                {<ProductTileRecent product={browsingHistory && browsingHistory[0]} />}
+              </div>
               <div className="tile_3">{<ProductTileDeal product={products[5]} />}</div>
               <div className="tile_4">
-                {browsingHistory.length >= 4 ? (
+                {browsingHistory?.length >= 4 ? (
                   <ProductTileRecentFour products={products.slice(0, 4)} />
                 ) : (
-                  <ProductTileRecent product={browsingHistory[2]} />
+                  <ProductTileRecent product={browsingHistory && browsingHistory[2]} />
                 )}
               </div>
               <div className="tile_5">
@@ -152,7 +154,7 @@ const HomeScreen = () => {
 
         <div className="carousel_2">
           <Carousel title={'Your Browsing History'} isPageVisible={true}>
-            <History horizontal={true}/>
+            <History horizontal={true} />
           </Carousel>
         </div>
       </div>

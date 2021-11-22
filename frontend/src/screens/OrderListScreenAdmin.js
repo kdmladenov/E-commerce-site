@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 // import './styles/UserListScreenAdmin.css';
 import { listOrders } from '../actions/orderActions';
+import Tooltip from '../components/Tooltip';
 
 const OrderListScreenAdmin = ({ history }) => {
   const dispatch = useDispatch();
@@ -55,14 +56,18 @@ const OrderListScreenAdmin = ({ history }) => {
                   {order.isPaid ? (
                     <td>{order.paymentDate.slice(0, 10)}</td>
                   ) : (
-                    <i className="fa fa-times" style={{ color: 'red' }}></i>
+                    <Tooltip text="Remove">
+                      <i className="fa fa-times style={{ color: 'red' }}"></i>
+                    </Tooltip>
                   )}
                 </td>
                 <td>
                   {order.isDelivered ? (
                     <td>{order.deliveryDate.slice(0, 10)}</td>
                   ) : (
-                    <i className="fa fa-times" style={{ color: 'red' }}></i>
+                    <Tooltip text="Remove">
+                      <i className="fa fa-times style={{ color: 'red' }}"></i>
+                    </Tooltip>
                   )}
                 </td>
                 <td>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import Button from './Button'
 import './styles/ScrollToTopButton.css';
+import Tooltip from './Tooltip';
 
 const ScrollToTopButton = () => {
   const [topOfPage, setTopOfPage] = useState(true);
@@ -28,7 +29,9 @@ const ScrollToTopButton = () => {
 
   return (
     <div className={`scroll_to_top_btn ${!topOfPage && 'top'}`} onClick={scrollToTop}>
-      <i class="fa fa-arrow-circle-up"></i>
+      <Tooltip direction="top" text="Scroll To Top">
+        <i class="fa fa-arrow-circle-up"></i>
+      </Tooltip>
     </div>
   );
 };

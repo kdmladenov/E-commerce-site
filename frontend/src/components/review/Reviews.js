@@ -5,6 +5,7 @@ import './styles/Reviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../actions/userActions';
 import RatingWidget from '../RatingWidget';
+import Tooltip from '../Tooltip';
 
 const reviewCountAtStart = 3;
 
@@ -29,12 +30,14 @@ const Reviews = ({ reviews, currentUser, productId }) => {
   return (
     <div className="reviews">
       <div className="reviews_sidebar">
-        <RatingWidget reviews={reviews} productId={productId}/>
+        <RatingWidget reviews={reviews} productId={productId} />
       </div>
       <div className="reviews-list">
         {!hasUserLeftReview && !createMode && (
           <Button onClick={handleOpenCreateForm}>
-            <i className="fa fa-plus"></i> Create Review
+            <Tooltip text="Write Review">
+              <i className="fa fa-plus"></i> Write Review
+            </Tooltip>
           </Button>
         )}
         {createMode && (

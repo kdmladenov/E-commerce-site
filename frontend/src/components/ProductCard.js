@@ -10,6 +10,7 @@ import Price from './Price';
 import Ribbon from './Ribbon';
 import Popover from './Popover';
 import RatingWidget from './RatingWidget';
+import Tooltip from './Tooltip';
 
 const ProductCard = ({
   id,
@@ -108,7 +109,9 @@ const ProductCard = ({
         }`}
       >
         <Button onClick={wishlistHandler} classes={'icon'}>
-          {<i className={`fa fa-heart`} />}
+          <Tooltip text="Wish List">
+            {<i className={`fa fa-heart`} />}
+          </Tooltip>
         </Button>
       </div>
       <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>

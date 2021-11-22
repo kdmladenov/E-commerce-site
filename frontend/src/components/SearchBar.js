@@ -10,6 +10,7 @@ import {
 import { categories } from '../constants/for-developing/categoriesMega';
 import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
 import { useHistory } from 'react-router';
+import Tooltip from './Tooltip';
 
 const AUTOCOMPLETE_SUGGESTIONS_COUNT = 5;
 const TRENDING_SEARCHES_COUNT = 5;
@@ -41,7 +42,8 @@ const SearchBar = () => {
     .map((suggestion) => (
       <li key={suggestion} onClick={() => setKeyword(suggestion)}>
         <div>
-          <i className="fa fa-search"></i> {suggestion}
+          <i className="fa fa-search"></i>
+          {suggestion}
         </div>
       </li>
     ))
@@ -179,12 +181,16 @@ const SearchBar = () => {
               className="reset_search_term_button"
               onClick={resetInputButtonHandler}
             >
-              <i className="fa fa-times" aria-hidden="true"></i>
+              <Tooltip text="Clear">
+                <i className="fa fa-times" aria-hidden="true"></i>
+              </Tooltip>
             </button>
           )}
 
           <button type="submit" className="search_button" onClick={searchButtonHandler}>
-            <i className="fa fa-search"></i>
+            <Tooltip text="Search">
+              <i className="fa fa-search"></i>
+            </Tooltip>
           </button>
         </div>
       </div>

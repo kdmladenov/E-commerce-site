@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import './styles/CartScreen.css';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import Tooltip from '../components/Tooltip';
 
 const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
@@ -67,7 +68,9 @@ const CartScreen = ({ match, location, history }) => {
                     className="cart_item_delete_btn"
                     onClick={() => removeFromCartHandler(item.id)}
                   >
-                    <i className="fas fa-trash"></i>{' '}
+                    <Tooltip text="Remove">
+                      <i className="fas fa-trash"></i>
+                    </Tooltip>
                   </div>
                 </div>
               </li>
