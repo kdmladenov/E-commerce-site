@@ -68,6 +68,12 @@
 }
 
 .question_and_answer .created_info {
+  display: flex;
   font-size: 14px;
   color: var(--gray_dark);
 }
+.question_and_answer .created_info .avatar{
+  margin-right: 10px;
+}
+
+

@@ -57,6 +57,8 @@ const QuestionsAndAnswers = ({ questionsAndAnswers, currentUser, productId }) =>
             currentUser={currentUser}
             createMode={false}
             setCreateMode={setCreateMode}
+            fullName={question.fullName}
+            avatar={question.avatar}
           />
         );
       })}

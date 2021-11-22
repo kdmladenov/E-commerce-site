@@ -8,6 +8,7 @@ import { createReview, deleteReview, editReview, voteReview } from '../../action
 import Votes from '../Votes';
 import EditButtons from '../EditButtons';
 import { getTimeDuration } from '../../constants/utility-functions/utility-functions';
+import Avatar from '../Avatar';
 
 const ReviewCard = ({
   user,
@@ -67,8 +68,7 @@ const ReviewCard = ({
   return (
     <div className="review_card card">
       <div className="user_info">
-        <i className="fa fa-user"></i>
-        <div>{fullName}</div>
+        <Avatar imageUrl={avatar} fullName={fullName}  />
       </div>
       <div className="rating_title">
         <div className="rating">

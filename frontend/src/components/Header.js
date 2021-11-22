@@ -9,6 +9,7 @@ import Login from './Login';
 import CartItems from './CartItems';
 import { useHistory } from 'react-router';
 import DropDown from './Dropdown';
+import Avatar from './Avatar';
 
 const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -16,6 +17,9 @@ const Header = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, error, user } = userDetails;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,21 +44,22 @@ const Header = () => {
 
   const userMenuToRender = (
     <div className="menu_user">
-    <ul>
-      <li>
-        <NavLink to={'/account/profile'}>Profile</NavLink>
-      </li>
-      <li>
-        <NavLink to={'/account/orders'}>Orders</NavLink>
-      </li>
-      <li>
-        <NavLink to={'/account/history'}>Browsing History</NavLink>
-      </li>
-      <li>
-        <NavLink to={'/account/wishlist'}>Wish List</NavLink>
-      </li>
-    </ul>
-      <div onClick={logoutHandler}>Log out</div></div> 
+      <ul>
+        <li>
+          <NavLink to={'/account/profile'}>Profile</NavLink>
+        </li>
+        <li>
+          <NavLink to={'/account/orders'}>Orders</NavLink>
+        </li>
+        <li>
+          <NavLink to={'/account/history'}>Browsing History</NavLink>
+        </li>
+        <li>
+          <NavLink to={'/account/wishlist'}>Wish List</NavLink>
+        </li>
+      </ul>
+      <div onClick={logoutHandler}>Log out</div>
+    </div>
   );
 
   return (
@@ -78,7 +83,7 @@ const Header = () => {
         <DropDown
           button={
             <div className={`header_menu_btn ${userInfo?.token ? 'user' : 'login_menu'}`}>
-              <i className="fas fa-user" />
+              <Avatar type='header' imageUrl={user?.avatar} fullName={user?.fullName} />
             </div>
           }
           tooltipText={`${userInfo?.token ? 'User Menu' : 'Login'}`}

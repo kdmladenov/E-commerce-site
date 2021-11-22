@@ -11,10 +11,6 @@
   margin-bottom: 10px;
 }
 
-.review_card .user_info i {
-  margin-right: 20px;
-}
-
 .review_card .rating_title {
   display: flex;
   align-items: center;

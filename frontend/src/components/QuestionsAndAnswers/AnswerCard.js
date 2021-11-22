@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createAnswer, deleteAnswer, editAnswer } from '../../actions/questionsAndAnswersActions';
 import { getTimeDuration } from '../../constants/utility-functions/utility-functions';
+import Avatar from '../Avatar';
 import EditButtons from '../EditButtons';
 import ShowMoreButton from '../ShowMoreButton';
+import './styles/QuestionsAndAnswers.css';
 
 const AnswerCard = ({
   currentUser,
@@ -16,7 +18,8 @@ const AnswerCard = ({
   answerContent,
   dateCreated,
   dateEdited,
-  fullName
+  fullName,
+  avatar
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [contentAnswer, setContentAnswer] = useState(!createAnswerMode ? answerContent : '');
@@ -68,10 +71,10 @@ const AnswerCard = ({
         </div>
       )}
       <div className="created_info">
-        {`By ${currentUser?.userId === authorId ? 'you' : fullName} on ${dateCreated.slice(
-          0,
-          10
-        )} ${dateEdited ? `(edited ${getTimeDuration(dateEdited, new Date())}) ` : ''}`}
+        {<Avatar type="small name_only" avatar={avatar} fullName={fullName} />} on{' '}
+        {!dateEdited
+          ? `${dateCreated.slice(0, 10)}`
+          : `${getTimeDuration(dateEdited, new Date())}(edited)`}
       </div>
       <EditButtons
         createMode={createAnswerMode}

@@ -27,6 +27,7 @@ const QuestionsAndAnswersCard = ({
   dateCreated,
   dateEdited,
   fullName,
+  avatar,
   thumbsUp,
   thumbsDown,
   userThumbsUpList,
@@ -132,6 +133,8 @@ const QuestionsAndAnswersCard = ({
                       currentUser={currentUser}
                       createAnswerMode={false}
                       setCreateAnswerMode={setCreateAnswerMode}
+                      fullName={answer.fullName}
+                      avatar={answer.avatar}
                     />
                   );
                 })

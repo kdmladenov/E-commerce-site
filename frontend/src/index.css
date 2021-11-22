@@ -1,23 +1,70 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap'); */
 
 :root {
-  --black: #333;
-  --blue: rgb(21,161,250);
+  --black: #000;
+  --black_2: #333;
+  --ramones: #2c363f;
+  --inkwell: #1d2228;
+  --midnight: #101518;
+  --batcave: #232a31;
+  --malbec: #39007d;
+  --sapphire: #2f0060;
   --blue_dark: #222f3e;
+  --cobalt: #003abc;
+  --blurple: #5d5eff;
+  --grape-jelly: #6001d2;
+  --hulk-pants: #7e1fff;
+  --starfish: #7759ff;
+  --thanos: #907cff;
+  --dory: #0f69ff;
+  --blue: rgb(21, 161, 250);
+  --peeps: #7dcbff;
+  --sky: #12a9ff;
+  --smurfette: #188fff;
   --blue_middle: rgb(85, 151, 238);
   --blue_light: #d9f2fb;
+  --red_dark: rgb(170, 2, 2);
   --red: #ff0000;
-  --red_dark:rgb(170, 2, 2);
-  --white: #fff;
-  --gray: #e0e5ec;
-  --gray_dark: #838383;
-  --gray_light: #f3f3f3;
+  --barbie: #f80e5d;
+  --barney: #cc008c;
+  --malibu: #ff0080;
+  --solo-cup: #eb0f29;
+  --swedish-fish: #ff333a;
+  --carrot-juice: #ff520d;
+  --watermelon: #ff4d52;
+  --cheetos: #ff6e0c;
+  --orange: #ffa41c;
+  --turmeric: #ffa700;
+  --masala: #ff8b12;
   --yellow: #ffd712;
   --yellow_dark: #d4b100;
-  --orange: #ffa41c;
+  --mimosa: #ffd333;
+  --canary: #ffde00;
+  --sea-foam: #11d3cd;
+  --spirulina: #009c94;
   --green: rgb(4, 214, 4);
   --green_lime: lime;
-  --box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+  --kiwi: #00d15e;
+  --mulah: #1ac567;
+  --ninja-turtle: #00ab5e;
+  --playdoh: #21d87d;
+  --bonsai: #00873c;
+  --battleship: #5b636a;
+  --charcoal: #464e56;
+  --gray: #e0e5ec;
+  --gray_dark: #838383;
+  --dolphin: #6e7780;
+  --gray_light: #f3f3f3;
+  --bob: #b0b9c1;
+  --gandalf: #979ea8;
+  --shark: #828a93;
+  --grey-hair: #f0f3f5;
+  --hendrix: #f8f4ff;
+  --marshmallow: #f5f8fa;
+  --pebble: #c7cdd2;
+  --dirty-seagull: #e0e4e9;
+  --white: #fff;
+  --box-shadow: 0 0 1px rgb(0 0 0 / 20%), 0 4px 8px rgb(0 0 0 / 10%);
   --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
     4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
     inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
@@ -104,6 +151,10 @@ img {
   box-shadow: var(--box-shadow);
   color: var(--black);
 }
+
+.card:hover{
+}
+
 
 .btn {
   height: 100%;
