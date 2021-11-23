@@ -16,19 +16,7 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
   ].includes(searchBy)
     ? searchBy
     : 'title';
-  const sortColumn = [
-    'title',
-    'brand',
-    'description',
-    'image',
-    'productCategory',
-    'price',
-    'stockCount',
-    'reviewCount',
-    'rating'
-  ].includes(sort)
-    ? sort
-    : 'title';
+  const sortColumn = ['price', 'rating', 'dateCreated'].includes(sort) ? sort : 'price';
   const offset = page ? (page - 1) * pageSize : 0;
 
   const sql = `
@@ -45,6 +33,7 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
       p.model_number as modelNumber,
       p.sku,
       p.release_year as releaseYear,
+      p.date_created as dateCreated,
       p.color,
       p.weight,
       p.dimensions,
@@ -116,6 +105,7 @@ const getBy = async (column, value, role) => {
       p.model_number as modelNumber,
       p.sku,
       p.release_year as releaseYear,
+      p.date_created as dateCreated,
       p.color,
       p.weight,
       p.dimensions,

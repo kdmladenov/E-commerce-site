@@ -30,7 +30,6 @@ const WishList = () => {
     history.push(`/cart/${id}?qty=1`);
   };
 
-  console.log(wishList, 'wishList');
   useEffect(() => {
     dispatch(listWishedItems());
   }, [dispatch, successDeleteWish]);

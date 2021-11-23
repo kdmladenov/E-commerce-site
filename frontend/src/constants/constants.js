@@ -31,3 +31,19 @@ export const USER = {
   DEFAULT_AVATAR: `storage/avatars/defaultAvatar.png`,
   PASSWORD_REGEX: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/ // letters, numbers and at least 1 uppercase
 };
+
+export const PAGING = {
+  DEFAULT_PAGE: 1,
+  MIN_USERS_PAGESIZE: 5,
+  MAX_USERS_PAGESIZE: 20,
+  DEFAULT_USERS_PAGESIZE: 12,
+  MIN_PRODUCT_PAGESIZE: 5,
+  MAX_PRODUCT_PAGESIZE: 20,
+  DEFAULT_PRODUCT_PAGESIZE: 20,
+  MIN_HISTORY_PAGESIZE: 5,
+  MAX_HISTORY_PAGESIZE: 20,
+  DEFAULT_HISTORY_PAGESIZE: 12,
+  MIN_WISH_LIST_PAGESIZE: 5,
+  MAX_WISH_LIST_PAGESIZE: 20,
+  DEFAULT_WISH_LIST_PAGESIZE: 12
+};
