@@ -22,8 +22,10 @@ productsController
   // @access Public
   .get(
     '/',
-    errorHandler(async (req, res) => {
-      const { search = '', searchBy = 'title', sort = 'title', order = 'asc' } = req.query;
+    // errorHandler(
+    async (req, res) => {
+      const { search = '', sort = 'sort=price asc' } = req.query;
+      console.log(search, 'search');
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -33,17 +35,16 @@ productsController
 
       const product = await productsServices.getAllProducts(productsData)(
         search,
-        searchBy,
         sort,
-        order,
         +pageSize,
         +page,
         'admin' // TO BE FIXED
       );
 
       res.status(200).send(product);
-    })
+    }
   )
+  // )
   // @desc GET Products by ID
   // @route GET /products/:productId
   // @access Public

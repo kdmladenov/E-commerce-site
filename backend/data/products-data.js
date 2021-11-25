@@ -1,23 +1,25 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAllProducts = async (search, searchBy, sort, order, pageSize, page, role) => {
-  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'asc';
-  const searchColumn = [
-    'title',
-    'brand',
-    'description',
-    'image',
-    'productCategory',
-    'price',
-    'stockCount',
-    'reviewCount',
-    'rating'
-  ].includes(searchBy)
-    ? searchBy
-    : 'title';
-  const sortColumn = ['price', 'rating', 'dateCreated'].includes(sort) ? sort : 'price';
+const getAllProducts = async (search, sort, pageSize, page, role) => {
+  const sortArr = sort.split(' ')
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
+  const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0]) ? sortArr[0] : 'price';
+  // const searchColumn = [
+  //   'title',
+  //   'brand',
+  //   'description',
+  //   'image',
+  //   'productCategory',
+  //   'price',
+  //   'stockCount',
+  //   'reviewCount',
+  //   'rating'
+  // ].includes(searchBy)
+  //   ? searchBy
+  //   : 'title';
   const offset = page ? (page - 1) * pageSize : 0;
+  console.log(search,'search');
 
   const sql = `
   SELECT 
@@ -80,12 +82,18 @@ const getAllProducts = async (search, searchBy, sort, order, pageSize, page, rol
         from reviews
         WHERE is_deleted = 0
         group by product_id) rt USING (product_id)
-    WHERE ${
-      role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''
-    } ${searchColumn} Like '%${search}%'
-    ORDER BY ${sortColumn} ${direction} 
-    LIMIT ? OFFSET ?
-  `;
+        ${
+          Array.isArray(search)
+            ? `WHERE ${search.filter((query) => !query.startsWith('AND')).join(' OR ')} ${search
+                .filter((query) => query.startsWith('AND'))
+                .join('')}`
+            : search.length
+            ? `WHERE ${search}`
+            : ''
+        }
+        ORDER BY ${sortColumn} ${direction} 
+        LIMIT ? OFFSET ?
+        `;
 
   return db.query(sql, [+pageSize, +offset]);
 };
