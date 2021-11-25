@@ -1,8 +1,8 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAllProducts = async (search, sort, pageSize, page, role) => {
-  const sortArr = sort.split(' ')
+const getAllProducts = async (searchOr = '', searchAnd = '', sort, pageSize, page, role) => {
+  const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0]) ? sortArr[0] : 'price';
   // const searchColumn = [
@@ -19,8 +19,19 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
   //   ? searchBy
   //   : 'title';
   const offset = page ? (page - 1) * pageSize : 0;
-  console.log(search,'search');
 
+  console.log(
+    `${(searchAnd || searchOr) && 'WHERE'} ${
+      Array.isArray(searchAnd)
+        ? `${searchAnd?.join(' AND ')}`
+        : searchAnd.length
+        ? `${searchAnd}`
+        : ''
+    } ${searchAnd && searchOr && 'AND'} ${
+      Array.isArray(searchOr) ? `(${searchOr?.join(' OR ')})` : searchOr.length ? `${searchOr}` : ''
+    }`,
+    'WHERE'
+  );
   const sql = `
   SELECT 
       p.product_id as productId,
@@ -37,6 +48,7 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
       p.release_year as releaseYear,
       p.date_created as dateCreated,
       p.color,
+      p.color_family as colorFamily,
       p.weight,
       p.dimensions,
       s.screen_size as screenSize,
@@ -82,15 +94,15 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
         from reviews
         WHERE is_deleted = 0
         group by product_id) rt USING (product_id)
-        ${
-          Array.isArray(search)
-            ? `WHERE ${search.filter((query) => !query.startsWith('AND')).join(' OR ')} ${search
-                .filter((query) => query.startsWith('AND'))
-                .join('')}`
-            : search.length
-            ? `WHERE ${search}`
-            : ''
-        }
+        ${(searchAnd || searchOr) && 'WHERE'} ${
+    Array.isArray(searchAnd)
+      ? `${searchAnd?.join(' AND ')}`
+      : searchAnd.length
+      ? `${searchAnd}`
+      : ''
+  } ${searchAnd && searchOr && 'AND'} ${
+    Array.isArray(searchOr) ? `(${searchOr?.join(' OR ')})` : searchOr.length ? `${searchOr}` : ''
+  }
         ORDER BY ${sortColumn} ${direction} 
         LIMIT ? OFFSET ?
         `;

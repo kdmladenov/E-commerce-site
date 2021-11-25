@@ -1,9 +1,10 @@
 import errors from '../constants/service-errors.js';
 
 const getAllProducts =
-  (productsData) => async (search, sort, pageSize, page, role) => {
+  (productsData) => async (searchOr, searchAnd, sort, pageSize, page, role) => {
     const result = await productsData.getAllProducts(
-      search,
+      searchOr,
+      searchAnd,
       sort,
       pageSize,
       page,
@@ -111,7 +112,6 @@ const getProductFeaturesById = (productsData) => async (productId) => {
     productFeatures
   };
 };
-
 
 export default {
   getAllProducts,
