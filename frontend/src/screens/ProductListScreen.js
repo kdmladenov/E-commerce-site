@@ -9,6 +9,7 @@ import ProductCard from '../components/ProductCard';
 import ProductsSidebar from '../components/ProductsSidebar';
 import { PAGING } from '../constants/constants';
 import { productsDatabase } from '../constants/for-developing/productsDatabase';
+import { checkBoxInput } from '../constants/ProductListSidebarInputs';
 import { endpointMapper } from '../constants/utility-functions/utility-functions';
 import './styles/ProductListScreen.css';
 
@@ -18,20 +19,25 @@ const ProductListScreen = () => {
     page: 'page=1&',
     pageSize: 'pageSize=12&',
     sort: 'sort=price asc&',
-    search: []
+    searchOr: [],
+    searchAnd: []
   });
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
-  console.log(productsDatabase.length, 'productsDatabase');
+  console.log(endpoint.searchOr, 'searchOr');
+  console.log(endpoint.searchAnd, 'searchAnd');
 
   useEffect(() => {
-    const { page, pageSize, sort, search } = endpoint;
-    console.log(`${page}${pageSize}${sort}${search.join('&')}`, 'end');
-    dispatch(listProducts(`${page}${pageSize}${sort}${search.join('&')}`));
+    const { page, pageSize, sort, searchAnd, searchOr } = endpoint;
+    console.log(`${page}${pageSize}${sort}${searchAnd.join('&')}&${searchOr.join('&')}}`, 'end');
+    dispatch(
+      listProducts(
+        `${page}${pageSize}${sort}${searchAnd.join('&')}${searchAnd && '&'}${searchOr.join('&')}`
+      )
+    );
   }, [dispatch, endpoint]);
 
-  console.log(products, 'products');
   const productsToShow = (
     <ul>
       {products?.map((product) => (
@@ -70,68 +76,20 @@ const ProductListScreen = () => {
     { label: 'Oldest first', value: 'sort=dateCreated asc&' }
   ];
 
-  const filterHandler = (e) => {
-    // e.preventDefault();
-    const { search } = endpoint;
+  const filterHandler = (e, searchType) => {
     if (e.target.checked) {
-      setEndpoint({ ...endpoint, search: [...search, e.target.value] });
+      setEndpoint({
+        ...endpoint,
+        [`${searchType}`]: [...endpoint[`${searchType}`], e.target.value]
+      });
     } else if (!e.target.checked) {
       setEndpoint({
         ...endpoint,
-        search: [...search.filter((query) => query !== e.target.value)]
+        [`${searchType}`]: [
+          ...endpoint[`${searchType}`].filter((query) => query !== e.target.value)
+        ]
       });
     }
-  };
-
-  const checkBoxInput = {
-    Brand: Array.from(new Set(Object.values(productsDatabase).map((product) => product.brand))).map(
-      (brand) => ({
-        label: `${brand} (${
-          Object.values(productsDatabase).filter((product) => product.brand === brand).length
-        })`,
-        value: `search=brand = '${brand}'`,
-        type: 'checkbox'
-      })
-    ),
-    'Release Year': Array.from(
-      new Set(Object.values(productsDatabase).map((product) => product.releaseYear))
-    ).map((releaseYear) => ({
-      label: `${releaseYear} (${
-        Object.values(productsDatabase).filter((product) => product.releaseYear === releaseYear)
-          .length
-      })`,
-      value: `search=release_year = ${releaseYear}`,
-      type: 'checkbox'
-    })),
-    'Processor Model': Array.from(
-      new Set(Object.values(productsDatabase).map((product) => product.processorModel))
-    ).map((processorModel) => ({
-      label: `${processorModel} (${
-        Object.values(productsDatabase).filter(
-          (product) => product.processorModel === processorModel
-        ).length
-      })`,
-      value: `search=processor_model = '${processorModel}'`,
-      type: 'checkbox'
-    })),
-    // 'Product Category': Array.from(
-    //   new Set(Object.values(productsDatabase).map((product) => product.productCategory))
-    // ).map((productCategory) => ({
-    //   label: `${productCategory} (${
-    //     Object.values(productsDatabase).filter(
-    //       (product) => product.productCategory === productCategory
-    //     ).length
-    //   })`,
-    //   value: `search=AND product_category = '${productCategory}'`,
-    //   type: 'checkbox'
-    // }))
-    // 'Availability': Array.from(
-    //   new Set(Object.values(productsDatabase).map((product) => product.stockCount > 0))
-    // ).map((inStock) => ({
-    //   label: 'In Stock',
-    //   value: `search= AND stock_count > 0`,
-    //   type: 'checkbox'
-    // }))
   };
 
   return (
@@ -144,13 +102,10 @@ const ProductListScreen = () => {
               <div>
                 <input
                   type={checkboxInput.type}
-                  // name={checkboxInput.name}
                   value={checkboxInput.value}
-                  onChange={(e) => filterHandler(e)}
+                  onChange={(e) => filterHandler(e, checkboxInput.searchType)}
                 ></input>
-                <label 
-                // htmlFor={checkboxInput.htmlFor}
-                >{checkboxInput.label}</label>
+                <label>{checkboxInput.label}</label>
               </div>
             ))}
           </fieldset>
