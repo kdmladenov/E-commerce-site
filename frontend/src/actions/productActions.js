@@ -27,7 +27,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
-      const { data } = await axios.get(`${BASE_URL}/products${endpoint}`);
+      const { data } = await axios.get(`${BASE_URL}/products?${endpoint}`);
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
         payload: data

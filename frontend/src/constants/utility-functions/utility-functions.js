@@ -56,7 +56,7 @@ export const getTimeDuration = (start, end) => {
     : dayDiff >= 365
     ? `1 year ago`
     : dayDiff >= 30
-    ? `${(dayDiff/30).toFixed(0)} months ago`
+    ? `${(dayDiff / 30).toFixed(0)} months ago`
     : dayDiff >= 1
     ? `${dayDiff.toFixed(0)} days ago`
     : hourDiff >= 1
@@ -125,4 +125,29 @@ export const scrollTo = (ref) => {
 
 export const randomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
+};
+
+export const endpointMapper = (endpoint) => {
+  const endpointMap = {
+    page: '',
+    pageSize: '',
+    sort: '',
+    order: '',
+    search: ''
+  };
+  const endpointArr = endpoint.slice(1).split('&');
+  endpoint['page'] = endpointArr?.find((i) => i.startsWith('page='))
+    ? `${endpointArr?.find((i) => i.startsWith('page='))}&`
+    : '';
+  endpoint['pageSize'] = endpointArr?.find((i) => i.startsWith('pageSize='))
+    ? `${endpointArr?.find((i) => i.startsWith('pageSize='))}&`
+    : '';
+  endpoint['sort'] = endpointArr?.find((i) => i.startsWith('sort='))
+    ? `${endpointArr?.find((i) => i.startsWith('sort='))}&`
+    : '';
+  endpoint['order'] = endpointArr?.find((i) => i.startsWith('order='))
+    ? `${endpointArr?.find((i) => i.startsWith('order='))}&`
+    : '';
+
+  return endpointMap;
 };

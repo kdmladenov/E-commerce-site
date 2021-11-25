@@ -52,6 +52,7 @@
   --battleship: #5b636a;
   --charcoal: #464e56;
   --gray: #e0e5ec;
+  --gray_background: rgb(239, 242, 245);
   --gray_dark: #838383;
   --dolphin: #6e7780;
   --gray_light: #f3f3f3;
@@ -152,9 +153,8 @@ img {
   color: var(--black);
 }
 
-.card:hover{
+.card:hover {
 }
-
 
 .btn {
   height: 100%;

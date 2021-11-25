@@ -1,12 +1,10 @@
 import errors from '../constants/service-errors.js';
 
 const getAllProducts =
-  (productsData) => async (search, searchBy, sort, order, pageSize, page, role) => {
+  (productsData) => async (search, sort, pageSize, page, role) => {
     const result = await productsData.getAllProducts(
       search,
-      searchBy,
       sort,
-      order,
       pageSize,
       page,
       role

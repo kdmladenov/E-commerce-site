@@ -5,9 +5,14 @@
 }
 
 .product_list_container .sidebar{
-  grid-area: ;
+  grid-area: sidebar;
   background-color: var(--white);
-  border-right: 1px solid var(--gray);
+  box-shadow: var(--box_shadow_angle);;
+}
+
+.product_list_container .product_list {
+  grid-area: product_list;
+  background-color: var(--gray_background);
 }
 
 .product_list_container .product_list .filters{
