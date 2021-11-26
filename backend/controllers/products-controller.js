@@ -24,7 +24,7 @@ productsController
     '/',
     // errorHandler(
     async (req, res) => {
-      const { searchOr = '', searchAnd = '', sort = 'sort=price asc' } = req.query;
+      const { search='', sort = 'sort=price asc' } = req.query;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -33,8 +33,7 @@ productsController
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
       const product = await productsServices.getAllProducts(productsData)(
-        searchOr,
-        searchAnd,
+        search,
         sort,
         +pageSize,
         +page,
