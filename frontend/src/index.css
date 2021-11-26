@@ -66,6 +66,8 @@
   --dirty-seagull: #e0e4e9;
   --white: #fff;
   --box-shadow: 0 0 1px rgb(0 0 0 / 20%), 0 4px 8px rgb(0 0 0 / 10%);
+  --box-shadow_2: 0 0.0625rem 0.125rem 0.0625rem rgb(0 0 0 / 15%);
+  --box-shadow_3: 0 3px 10px rgba(0, 0, 0, 0.2);
   --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
     4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
     inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;

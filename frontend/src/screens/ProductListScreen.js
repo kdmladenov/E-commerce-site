@@ -13,26 +13,32 @@ import { checkBoxInput } from '../constants/ProductListSidebarInputs';
 import { endpointMapper } from '../constants/utility-functions/utility-functions';
 import './styles/ProductListScreen.css';
 
-const ProductListScreen = () => {
+const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
+  const searchTerm = match.params?.searchTerm;
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
     pageSize: 'pageSize=12&',
     sort: 'sort=price asc&',
-    search: []
+    filter: [],
+    search: ''
   });
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
 
   useEffect(() => {
-    const { page, pageSize, sort, search} = endpoint;
-    dispatch(
-      listProducts(
-        `${page}${pageSize}${sort}${search.join('&')}`
-      )
-    );
+    const { page, pageSize, sort, search, filter } = endpoint;
+
+    dispatch(listProducts(`${page}${pageSize}${sort}${search}${filter.join('&')}`));
   }, [dispatch, endpoint]);
+
+  useEffect(() => {
+    setEndpoint({
+      ...endpoint,
+      search: `search=${searchTerm}&`
+    });
+  }, [searchTerm]);
 
   const productsToShow = (
     <ul>
@@ -76,12 +82,12 @@ const ProductListScreen = () => {
     if (e.target.checked) {
       setEndpoint({
         ...endpoint,
-        search: [...endpoint[`search`], e.target.value]
+        filter: [...endpoint[`filter`], e.target.value]
       });
     } else if (!e.target.checked) {
       setEndpoint({
         ...endpoint,
-        search: [...endpoint[`search`].filter((query) => query !== e.target.value)]
+        filter: [...endpoint[`filter`].filter((query) => query !== e.target.value)]
       });
     }
   };
@@ -114,7 +120,8 @@ const ProductListScreen = () => {
       ) : (
         <div className="product_list">
           <div className="header">
-            <div className="breadcrumbs">
+            <div className="breadcrumbs"></div>
+            <div className="filters">
               <select
                 name="pageSize"
                 onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
@@ -146,7 +153,6 @@ const ProductListScreen = () => {
                   ))}
               </select>
             </div>
-            <div className="filters"></div>
           </div>
           {productsToShow}
         </div>

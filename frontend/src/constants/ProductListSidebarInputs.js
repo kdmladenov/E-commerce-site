@@ -7,7 +7,7 @@ export const checkBoxInput = {
       label: `${brand} (${
         Object.values(productsDatabase).filter((product) => product.brand === brand).length
       })`,
-      value: `search=brand = '${brand}'`,
+      value: `filter=brand = '${brand}'`,
       type: 'checkbox'
     })),
   'Release Year': Array.from(
@@ -19,7 +19,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.releaseYear === releaseYear)
           .length
       })`,
-      value: `search=release_year = ${releaseYear}`,
+      value: `filter=release_year = ${releaseYear}`,
       type: 'checkbox'
     })),
   'Processor Model': Array.from(
@@ -32,7 +32,7 @@ export const checkBoxInput = {
           (product) => product.processorModel === processorModel
         ).length
       })`,
-      value: `search=processor_model = '${processorModel}'`,
+      value: `filter=processor_model = '${processorModel}'`,
       type: 'checkbox'
     })),
   'Product Category': Array.from(
@@ -43,7 +43,7 @@ export const checkBoxInput = {
         (product) => product.productCategory === productCategory
       ).length
     })`,
-    value: `search=product_category = '${productCategory}'`,
+    value: `filter=product_category = '${productCategory}'`,
     type: 'checkbox'
   })),
   Availability: Array.from(
@@ -61,7 +61,7 @@ export const checkBoxInput = {
           ? Object.values(productsDatabase).filter((product) => product.stockCount > 0).length
           : Object.values(productsDatabase).filter((product) => product.stockCount === 0).length
       })`,
-      value: `${stock === 'In stock' ? 'search=stock_count > 0' : 'search=stock_count = 0'}`,
+      value: `${stock === 'In stock' ? 'filter=stock_count > 0' : 'filter=stock_count = 0'}`,
       type: 'checkbox'
     })),
   Color: Array.from(new Set(Object.values(productsDatabase).map((product) => product.colorFamily)))
@@ -71,7 +71,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.colorFamily === mainColor)
           .length
       })`,
-      value: `search=color_family ='${mainColor}'`,
+      value: `filter=color_family ='${mainColor}'`,
       type: 'checkbox'
     })),
   'Display Resolution': Array.from(
@@ -84,7 +84,7 @@ export const checkBoxInput = {
           (product) => product.screenResolution === screenResolution
         ).length
       })`,
-      value: `search=screen_resolution = '${screenResolution}'`,
+      value: `filter=screen_resolution = '${screenResolution}'`,
       type: 'checkbox'
     })),
 
@@ -97,7 +97,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.screenSize === screenSize)
           .length
       })`,
-      value: `search=screen_size between ${screenSize - 0.001} and ${screenSize + 0.001}`,
+      value: `filter=screen_size between ${screenSize - 0.001} and ${screenSize + 0.001}`,
       type: 'checkbox'
     })),
   'Hard Disk Size': Array.from(
@@ -110,7 +110,7 @@ export const checkBoxInput = {
           (product) => product.storageCapacity === storageCapacity
         ).length
       })`,
-      value: `search=storage_capacity = ${storageCapacity}`,
+      value: `filter=storage_capacity = ${storageCapacity}`,
       type: 'checkbox'
     })),
   'RAM Capacity': Array.from(
@@ -122,7 +122,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.systemMemory === systemMemory)
           .length
       })`,
-      value: `search=system_memory = ${systemMemory}`,
+      value: `filter=system_memory = ${systemMemory}`,
       type: 'checkbox'
     })),
   'Graphics Type': Array.from(
@@ -134,7 +134,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.graphicsType === graphicsType)
           .length
       })`,
-      value: `search=graphics_type = '${graphicsType}'`,
+      value: `filter=graphics_type = '${graphicsType}'`,
       type: 'checkbox'
     })),
   'Graphics Model': Array.from(
@@ -146,7 +146,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.graphicsModel === graphicsModel)
           .length
       })`,
-      value: `search=graphics_model = '${graphicsModel}'`,
+      value: `filter=graphics_model = '${graphicsModel}'`,
       type: 'checkbox'
     })),
   'Operating System': Array.from(
@@ -159,7 +159,7 @@ export const checkBoxInput = {
           (product) => product.operatingSystem === operatingSystem
         ).length
       })`,
-      value: `search=operating_system = '${operatingSystem}'`,
+      value: `filter=operating_system = '${operatingSystem}'`,
       type: 'checkbox'
     })),
   'Battery Type': Array.from(
@@ -171,7 +171,7 @@ export const checkBoxInput = {
         Object.values(productsDatabase).filter((product) => product.batteryType === batteryType)
           .length
       })`,
-      value: `search=battery_type = '${batteryType}'`,
+      value: `filter=battery_type = '${batteryType}'`,
       type: 'checkbox'
     })),
   'Voice Assistant': Array.from(
@@ -184,7 +184,7 @@ export const checkBoxInput = {
           (product) => product.voiceAssistant === voiceAssistant
         ).length
       })`,
-      value: `search=voice_assistant = '${voiceAssistant}'`,
+      value: `filter=voice_assistant = '${voiceAssistant}'`,
       type: 'checkbox'
     })),
   'Backlit Keyboard': Array.from(
@@ -197,7 +197,7 @@ export const checkBoxInput = {
           ? Object.values(productsDatabase).filter((product) => product.backlitKeyboard).length
           : Object.values(productsDatabase).filter((product) => !product.backlitKeyboard).length
       })`,
-      value: `search=backlit_keyboard = ${backlitKeyboard}`,
+      value: `filter=backlit_keyboard = ${backlitKeyboard}`,
       type: 'checkbox'
     })),
   'Touch Screen': Array.from(
@@ -210,7 +210,7 @@ export const checkBoxInput = {
           ? Object.values(productsDatabase).filter((product) => product.touchScreen).length
           : Object.values(productsDatabase).filter((product) => !product.touchScreen).length
       })`,
-      value: `search=touch_screen = ${touchScreen}`,
+      value: `filter=touch_screen = ${touchScreen}`,
       type: 'checkbox'
     }))
 };
