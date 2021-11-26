@@ -19,21 +19,17 @@ const ProductListScreen = () => {
     page: 'page=1&',
     pageSize: 'pageSize=12&',
     sort: 'sort=price asc&',
-    searchOr: [],
-    searchAnd: []
+    search: []
   });
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
-  console.log(endpoint.searchOr, 'searchOr');
-  console.log(endpoint.searchAnd, 'searchAnd');
 
   useEffect(() => {
-    const { page, pageSize, sort, searchAnd, searchOr } = endpoint;
-    console.log(`${page}${pageSize}${sort}${searchAnd.join('&')}&${searchOr.join('&')}}`, 'end');
+    const { page, pageSize, sort, search} = endpoint;
     dispatch(
       listProducts(
-        `${page}${pageSize}${sort}${searchAnd.join('&')}${searchAnd && '&'}${searchOr.join('&')}`
+        `${page}${pageSize}${sort}${search.join('&')}`
       )
     );
   }, [dispatch, endpoint]);
@@ -76,18 +72,16 @@ const ProductListScreen = () => {
     { label: 'Oldest first', value: 'sort=dateCreated asc&' }
   ];
 
-  const filterHandler = (e, searchType) => {
+  const filterHandler = (e) => {
     if (e.target.checked) {
       setEndpoint({
         ...endpoint,
-        [`${searchType}`]: [...endpoint[`${searchType}`], e.target.value]
+        search: [...endpoint[`search`], e.target.value]
       });
     } else if (!e.target.checked) {
       setEndpoint({
         ...endpoint,
-        [`${searchType}`]: [
-          ...endpoint[`${searchType}`].filter((query) => query !== e.target.value)
-        ]
+        search: [...endpoint[`search`].filter((query) => query !== e.target.value)]
       });
     }
   };
@@ -103,7 +97,7 @@ const ProductListScreen = () => {
                 <input
                   type={checkboxInput.type}
                   value={checkboxInput.value}
-                  onChange={(e) => filterHandler(e, checkboxInput.searchType)}
+                  onChange={(e) => filterHandler(e)}
                 ></input>
                 <label>{checkboxInput.label}</label>
               </div>
