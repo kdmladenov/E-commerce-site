@@ -1,7 +1,7 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAllProducts = async (search, sort, pageSize, page, role) => {
+const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0]) ? sortArr[0] : 'price';
@@ -20,12 +20,12 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
   //   : 'title';
   const offset = page ? (page - 1) * pageSize : 0;
 
-  const whereClause = (search) => {
+  const whereClause = (filter) => {
     const queryMap = {};
-    const searchLength = Array.isArray(search) ? search.length : 1;
+    const filterLength = Array.isArray(filter) ? filter.length : 1;
 
-    for (let i = 0; i < searchLength; i++) {
-      const currQuery = Array.isArray(search) ? search[i] : search;
+    for (let i = 0; i < filterLength; i++) {
+      const currQuery = Array.isArray(filter) ? filter[i] : filter;
       const currQueryKey = currQuery.split(' ')[0];
       if (!queryMap[currQueryKey]) queryMap[currQueryKey] = [];
       queryMap[currQueryKey].push(currQuery);
@@ -37,6 +37,12 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
     return resultString;
   };
 
+  console.log(
+    `${(filter || search) && 'WHERE'} ${search ? `masterSearchString Like '%${search}%'` : ''} ${
+      filter && search && ' AND '
+    }${Array.isArray(filter) ? whereClause(filter) : filter}`,
+    'kk'
+  );
   const sql = `
   SELECT 
       p.product_id as productId,
@@ -79,14 +85,15 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
       rt.starTwo,
       rt.starThree,
       rt.starFour,
-      rt.starFive
-    FROM products p
-    LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
-                FROM reviews
-                WHERE is_deleted = 0
-                GROUP BY product_id) as r using (product_id)
-    LEFT JOIN (SELECT product_id, screen_size, screen_resolution, display_type, touch_screen, processor_brand, 
-            processor_model, processor_model_number, storage_type, storage_capacity, system_memory, 
+      rt.starFive,
+      COUNT(*) OVER () AS totalDBItems
+      FROM products p
+      LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
+      FROM reviews
+      WHERE is_deleted = 0
+      GROUP BY product_id) as r using (product_id)
+      LEFT JOIN (SELECT product_id, screen_size, screen_resolution, display_type, touch_screen, processor_brand, 
+        processor_model, processor_model_number, storage_type, storage_capacity, system_memory, 
             graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
             battery_type, backlit_keyboard
             FROM specifications) as s using (product_id)
@@ -99,7 +106,13 @@ const getAllProducts = async (search, sort, pageSize, page, role) => {
         from reviews
         WHERE is_deleted = 0
         group by product_id) rt USING (product_id)
-        ${search && 'WHERE'} ${Array.isArray(search) ? whereClause(search) : search}
+        ${(filter || search) && 'WHERE'} ${
+    search
+      ? `CONCAT_WS(',', p.title, p.description, p.brand, p.product_category, p.model_number, p.sku, p.release_year, p.color, p.color_family, s.display_type, s.processor_brand,
+      s.processor_model, s.processor_model_number, s.storage_type, s.graphics_type, s.graphics_brand, s.graphics_model, s.operating_system, s.voice_assistant, 
+      s.battery_type) Like '%${search}%'`
+      : ''
+  } ${filter && search && ' AND '}${Array.isArray(filter) ? whereClause(filter) : filter}
         ORDER BY ${sortColumn} ${direction} 
         LIMIT ? OFFSET ?
         `;
