@@ -15,15 +15,7 @@
   background-color: var(--gray_background);
 }
 
-.product_list_container .product_list .filters {
-  border-top: 1px solid var(--gray);
-  border-bottom: 1px solid var(--gray);
-  padding: 10px;
-  margin: 0 20px;
-}
-
-.product_list_container .product_list .breadcrumbs {
-  border-top: 1px solid var(--gray);
+.product_list_container .product_list .header {
   border-bottom: 1px solid var(--gray);
   padding: 10px;
   margin: 0 20px;

@@ -105,7 +105,7 @@ const ProductCard = ({
       </div>
       <div
         className={`wish_list_btn ${
-          wishList.some((wish) => wish.productId === id) ? 'active' : ''
+          wishList?.some((wish) => wish.productId === id) ? 'active' : ''
         }`}
       >
         <Button onClick={wishlistHandler} classes={'icon'}>

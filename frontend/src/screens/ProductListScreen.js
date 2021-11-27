@@ -19,7 +19,7 @@ const ProductListScreen = ({ match }) => {
   const searchTerm = match.params?.searchTerm || '';
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
-    pageSize: 'pageSize=1&',
+    pageSize: 'pageSize=12&',
     sort: 'sort=price asc&',
     filter: [],
     search: ''
@@ -66,7 +66,7 @@ const ProductListScreen = ({ match }) => {
     </ul>
   );
   const pageSizeSelect = [
-    { label: 12, value: 'pageSize=1&' },
+    { label: 12, value: 'pageSize=12&' },
     { label: 16, value: 'pageSize=16&' },
     { label: 20, value: 'pageSize=20&' }
   ];
@@ -121,46 +121,43 @@ const ProductListScreen = ({ match }) => {
       ) : (
         <div className="product_list">
           <div className="header">
-            <div className="breadcrumbs"></div>
-            <div className="filters">
-              <select
-                name="pageSize"
-                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-              >
-                <option value="">{`Page size ${
-                  pageSizeSelect.find((item) => item.value === endpoint.pageSize).label
-                }`}</option>
-                {pageSizeSelect
-                  .filter((size) => size.value !== endpoint.pageSize)
-                  .map((size) => (
-                    <option key={size.label} value={size.value}>
-                      {size.label}
-                    </option>
-                  ))}
-              </select>
-              <select
-                name="sort"
-                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-              >
-                <option value="">{`Sort by: ${
-                  sortSelect.find((item) => item.value === endpoint.sort).label
-                }`}</option>
-                {sortSelect
-                  .filter((item) => item.value !== endpoint.sort)
-                  .map((item) => (
-                    <option key={item.label} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-              </select>
-            </div>
+            <select
+              name="pageSize"
+              onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
+            >
+              <option value="">{`Page size ${
+                pageSizeSelect.find((item) => item.value === endpoint.pageSize).label
+              }`}</option>
+              {pageSizeSelect
+                .filter((size) => size.value !== endpoint.pageSize)
+                .map((size) => (
+                  <option key={size.label} value={size.value}>
+                    {size.label}
+                  </option>
+                ))}
+            </select>
+            <select
+              name="sort"
+              onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
+            >
+              <option value="">{`Sort by: ${
+                sortSelect.find((item) => item.value === endpoint.sort).label
+              }`}</option>
+              {sortSelect
+                .filter((item) => item.value !== endpoint.sort)
+                .map((item) => (
+                  <option key={item.label} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+            </select>
           </div>
           {productsToShow}
           <div className="footer">
             {products?.length > 0 && (
               <Pagination
                 updatePagingQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                page={+endpoint.page.slice('page='.length).replace('&', '')}
+                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
                 pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
                 totalItems={products[0].totalDBItems}
               />

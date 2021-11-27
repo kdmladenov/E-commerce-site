@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import './styles/Pagination.css';
 
-const Pagination = ({ updatePagingQuery, page, pageSize, totalItems }) => {
+const Pagination = ({ updatePagingQuery, currentPage, pageSize, totalItems }) => {
   const [rangePageNumber, setRangePageNumber] = useState([1]);
 
   useEffect(() => {
@@ -11,85 +11,104 @@ const Pagination = ({ updatePagingQuery, page, pageSize, totalItems }) => {
       : setRangePageNumber([1]);
   }, [totalItems, pageSize]);
 
-  const addStyle = (page, numberLabel) => {
-    let style = [];
-
-    if (page === numberLabel && !style.includes('active')) {
-      style.push('active');
-    }
-
-    if (
-      page <= 3 &&
-      numberLabel > 5 &&
-      !style.includes('hidden')
-    ) {
-      style.push('hidden');
-    }
-
-    if (
-      page > 3 && ((page < numberLabel - 2) || (numberLabel < page - 2)) &&
-      !style.includes('hidden')
-    ) {
-      style.push('hidden');
-    }
-    return style.join([' ']);
+  const filteredMiddleSection = () => {
+    const totalButtonCount = rangePageNumber.length;
+    return totalButtonCount <= 5
+      ? rangePageNumber.slice(1, totalButtonCount - 1)
+      : currentPage < 4
+      ? rangePageNumber.slice(1, 5)
+      : currentPage > 4 && currentPage < totalButtonCount - 3
+      ? rangePageNumber.slice(currentPage - 2, currentPage + 1)
+      : currentPage > 4 && currentPage >= totalButtonCount - 3
+      ? rangePageNumber.slice(totalButtonCount - 5, totalButtonCount - 1)
+      : rangePageNumber.slice(1, 5);
   };
 
-  const PageButtonsList = rangePageNumber.map((numberLabel) => {
+  const PageButtonsList = filteredMiddleSection().map((numberLabel) => {
     return (
-      <li key={numberLabel} className={`page-btn ${addStyle(page, numberLabel)}`}>
+      <li key={numberLabel} className={`page_btn ${currentPage === numberLabel ? 'current' : ''}`}>
         <Button
           classes="icon"
           onClick={() => {
             updatePagingQuery('page', `page=${numberLabel}&`);
           }}
         >
-          {numberLabel}
+          <span>{numberLabel}</span>
         </Button>
       </li>
     );
   });
-
   const FirstPageBtn = () => {
     return (
-      <Button
-        onClick={() => {
-          updatePagingQuery('page', `page=1&`);
-        }}
+      <li
+        className={`page_btn edge left ${currentPage === 1 ? 'current' : ''} ${
+          rangePageNumber.length === 1 ? 'right' : ''
+        }`}
       >
-        <span>&laquo;</span>
-        <span>First</span>
-      </Button>
+        <Button
+          classes="icon"
+          onClick={() => {
+            updatePagingQuery('page', `page=1&`);
+          }}
+        >
+          <span>1</span>
+        </Button>
+      </li>
     );
   };
 
   const LastPageBtn = () => {
     return (
-      <Button
-        onClick={() => {
-          updatePagingQuery('page', `page=${rangePageNumber.length}&`);
-        }}
+      <li
+        className={`page_btn edge right ${currentPage === rangePageNumber.length ? 'current' : ''}`}
       >
-        <span>Last</span>
-        <span>&raquo;</span>
-      </Button>
+        <Button
+          classes="icon"
+          onClick={() => {
+            updatePagingQuery('page', `page=${rangePageNumber.length}&`);
+          }}
+        >
+          <span>{rangePageNumber.length}</span>
+        </Button>
+      </li>
+    );
+  };
+  const DotsBtnLeft = () => {
+    return (
+      <li className={`dots ${rangePageNumber.length > 5 && currentPage > 4 ? 'visible' : ''}`}>
+        <Button classes="icon">
+          <span>...</span>
+        </Button>
+      </li>
+    );
+  };
+
+  const DotsBtnRight = () => {
+    return (
+      <li
+        className={`dots ${
+          rangePageNumber.length > 5 && currentPage < rangePageNumber.length - 3 ? 'visible' : ''
+        }`}
+      >
+        <Button classes="icon">
+          <span>...</span>
+        </Button>
+      </li>
     );
   };
 
   return (
-    <nav className="pagination">
-      <div className="page_link">
-        <FirstPageBtn />
-      </div>
-      <ul>
-        <li className={`dots ${page > 3 ? 'visible' : ''} `}>...</li>
-        {PageButtonsList}
-        <li className={`dots ${page < rangePageNumber.length - 3 ? 'visible' : ''} `}>...</li>
-      </ul>
-      <div className="page_link">
-        <LastPageBtn />
-      </div>
-    </nav>
+    rangePageNumber.length > 1 && (
+      <nav className="pagination">
+        <ul className="card">
+          <FirstPageBtn />
+          <DotsBtnLeft />
+          {PageButtonsList}
+          <DotsBtnRight />
+          <LastPageBtn />
+        </ul>
+      </nav>
+    )
   );
 };
 

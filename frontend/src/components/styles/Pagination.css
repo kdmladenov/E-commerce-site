@@ -10,38 +10,59 @@
   width: fit-content;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.pagination .page_btn.edge.left {
+  border-radius: 5px 0 0 5px;
+}
+
+.pagination .page_btn.edge.right {
+  border-radius: 0 5px 5px 0;
+}
+
+/* In case pagination is visible with a single page */
+.pagination .page_btn.edge.right.left {
+  border-radius: 5px;
 }
 
 .pagination > ul button,
-.pagination > ul button .button_container,
+.pagination > ul button.button_container,
 .pagination > ul li,
 .pagination > ul span {
-  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
   height: 30px;
   padding: 0;
-  margin: 0 10px;
+  margin: 0;
 }
 
-.pagination .page_link {
-  width: 100px;
-  height: 30px;
+.pagination > ul li {
+  border-left: 1px solid var(--gray_light);
 }
 
-.pagination .page-btn.active {
-  background-color: #2bbbad;
-  color: #fff;
-  border-radius: 0.25rem;
+.pagination .page_btn.current {
+  background-color: var(--gray_light);
 }
 
-.pagination .page-btn.hidden{
+.pagination .page_btn.current span {
+  font-weight: 700;
+}
+
+.pagination > ul li:first-child {
+  border-left: none;
+}
+
+.pagination .dots {
   display: none;
 }
 
-.pagination  .dots {
-  display: none;
-
-}
 .pagination .dots.visible {
   display: block;
+}
+
+.pagination .dots button {
+  pointer-events: none;
 }
