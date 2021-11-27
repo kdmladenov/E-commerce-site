@@ -5,8 +5,9 @@ import { listProducts } from '../actions/productActions';
 import Button from '../components/Button';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
-import ProductsSidebar from '../components/ProductsSidebar';
+// import ProductsSidebar from '../components/ProductsSidebar';
 import { PAGING } from '../constants/constants';
 import { productsDatabase } from '../constants/for-developing/productsDatabase';
 import { checkBoxInput } from '../constants/ProductListSidebarInputs';
@@ -15,15 +16,15 @@ import './styles/ProductListScreen.css';
 
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
-  const searchTerm = match.params?.searchTerm;
+  const searchTerm = match.params?.searchTerm || '';
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
-    pageSize: 'pageSize=12&',
+    pageSize: 'pageSize=1&',
     sort: 'sort=price asc&',
     filter: [],
     search: ''
   });
-
+  console.log(endpoint, 'endpoint');
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
 
@@ -65,7 +66,7 @@ const ProductListScreen = ({ match }) => {
     </ul>
   );
   const pageSizeSelect = [
-    { label: 12, value: 'pageSize=12&' },
+    { label: 12, value: 'pageSize=1&' },
     { label: 16, value: 'pageSize=16&' },
     { label: 20, value: 'pageSize=20&' }
   ];
@@ -155,6 +156,17 @@ const ProductListScreen = ({ match }) => {
             </div>
           </div>
           {productsToShow}
+          <div className="footer">
+            {products?.length > 0 && (
+              <Pagination
+                updatePagingQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                page={+endpoint.page.slice('page='.length).replace('&', '')}
+                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                totalItems={products[0].totalDBItems}
+              />
+            )}
+          </div>
+          ;
         </div>
       )}
     </main>

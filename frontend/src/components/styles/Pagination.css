@@ -1,0 +1,47 @@
+.pagination {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination ul {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pagination > ul button,
+.pagination > ul button .button_container,
+.pagination > ul li,
+.pagination > ul span {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 10px;
+}
+
+.pagination .page_link {
+  width: 100px;
+  height: 30px;
+}
+
+.pagination .page-btn.active {
+  background-color: #2bbbad;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.pagination .page-btn.hidden{
+  display: none;
+}
+
+.pagination  .dots {
+  display: none;
+
+}
+.pagination .dots.visible {
+  display: block;
+}
