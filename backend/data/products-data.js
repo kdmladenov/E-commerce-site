@@ -1,23 +1,11 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
+const getAllProducts = async (search, filter, sort, pageSize, page) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0]) ? sortArr[0] : 'price';
-  // const searchColumn = [
-  //   'title',
-  //   'brand',
-  //   'description',
-  //   'image',
-  //   'productCategory',
-  //   'price',
-  //   'stockCount',
-  //   'reviewCount',
-  //   'rating'
-  // ].includes(searchBy)
-  //   ? searchBy
-  //   : 'title';
+
   const offset = page ? (page - 1) * pageSize : 0;
 
   const whereClause = (filter) => {
@@ -37,12 +25,6 @@ const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
     return resultString;
   };
 
-  console.log(
-    `${(filter || search) && 'WHERE'} ${search ? `masterSearchString Like '%${search}%'` : ''} ${
-      filter && search && ' AND '
-    }${Array.isArray(filter) ? whereClause(filter) : filter}`,
-    'kk'
-  );
   const sql = `
   SELECT 
       p.product_id as productId,
@@ -92,10 +74,7 @@ const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
       FROM reviews
       WHERE is_deleted = 0
       GROUP BY product_id) as r using (product_id)
-      LEFT JOIN (SELECT product_id, screen_size, screen_resolution, display_type, touch_screen, processor_brand, 
-        processor_model, processor_model_number, storage_type, storage_capacity, system_memory, 
-            graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
-            battery_type, backlit_keyboard
+      LEFT JOIN (SELECT *
             FROM specifications) as s using (product_id)
     LEFT JOIN (select product_id,
         count(if(rating=1,1,null)) as starOne,

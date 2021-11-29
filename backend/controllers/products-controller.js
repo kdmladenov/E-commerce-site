@@ -37,8 +37,7 @@ productsController
         filter,
         sort,
         +pageSize,
-        +page,
-        'admin' // TO BE FIXED
+        +page
       );
 
       res.status(200).send(product);

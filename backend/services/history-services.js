@@ -1,17 +1,8 @@
 import errors from '../constants/service-errors.js';
 
 const getAllUserHistory =
-  (productsData) =>
-  async (userId, search, searchBy, sort, order, pageSize, page, dateRangeLow, dateRangeHigh) => {
-    const result = await productsData.getAllHistory(
-      userId,
-      search,
-      searchBy,
-      sort,
-      order,
-      pageSize,
-      page
-    );
+  (productsData) => async (userId, search, filter, pageSize, page, sort) => {
+    const result = await productsData.getAllHistory(userId, search, filter, pageSize, page, sort);
 
     return result;
   };

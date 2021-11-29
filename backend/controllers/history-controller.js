@@ -20,33 +20,20 @@ historyController
     loggedUserGuard,
     errorHandler(async (req, res) => {
       const userId = req.user.userId;
-
-      const {
-        search = '',
-        searchBy = 'title',
-        sort = 'dateVisited',
-        order = 'desc',
-        dateRangeLow = Date.now(),
-        dateRangeHigh = Date.now()
-      } = req.query;
+      const { search = '', filter = '', sort = 'sort=dateVisited desc&' } = req.query;
 
       let { pageSize = paging.DEFAULT_HISTORY_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
       if (+pageSize > paging.MAX_HISTORY_PAGESIZE) pageSize = paging.MAX_HISTORY_PAGESIZE;
       if (+pageSize < paging.MIN_HISTORY_PAGESIZE) pageSize = paging.MIN_HISTORY_PAGESIZE;
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
-      if (new Date(dateRangeHigh) > Date.now()) dateRangeHigh = Date.now();
-      if (new Date(dateRangeLow) > new Date(dateRangeHigh)) dateRangeLow = dateRangeHigh;
 
       const history = await historyServices.getAllUserHistory(historyData)(
         +userId,
         search,
-        searchBy,
+        filter,
         sort,
-        order,
         +pageSize,
-        +page,
-        dateRangeLow,
-        dateRangeHigh
+        +page
       );
 
       res.status(200).send(history);
