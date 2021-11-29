@@ -23,7 +23,18 @@
 .product_list_container .product_list .header {
   border-bottom: 1px solid var(--gray);
   padding: 10px;
-  margin: 0 20px;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product_list_container .product_list .header .dropdown_group_container select{
+  margin: 0 10px;
+  border-radius: 5px;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .product_list_container .product_list .footer {

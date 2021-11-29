@@ -6,6 +6,7 @@ import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
+import Breadcrumbs from '../components/Breadcrumbs';
 import {
   productListPageSizeSelect,
   productListSidebarInput,
@@ -16,6 +17,7 @@ import './styles/ProductListScreen.css';
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
   const searchTerm = match.params?.searchTerm || '';
+  console.log(match, 'match');
 
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
@@ -78,36 +80,41 @@ const ProductListScreen = ({ match }) => {
       ) : (
         <div className="product_list">
           <div className="header">
-            <select
-              name="pageSize"
-              onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-            >
-              <option value="">{`Page size ${
-                productListPageSizeSelect.find((item) => item.value === endpoint.pageSize).label
-              }`}</option>
-              {productListPageSizeSelect
-                .filter((size) => size.value !== endpoint.pageSize)
-                .map((size) => (
-                  <option key={size.label} value={size.value}>
-                    {size.label}
-                  </option>
-                ))}
-            </select>
-            <select
-              name="sort"
-              onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-            >
-              <option value="">{`Sort by: ${
-                productListSortSelect.find((item) => item.value === endpoint.sort).label
-              }`}</option>
-              {productListSortSelect
-                .filter((item) => item.value !== endpoint.sort)
-                .map((item) => (
-                  <option key={item.label} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-            </select>
+            <div className="breadcrumbs_container">
+              <Breadcrumbs />
+            </div>
+            <div className="dropdown_group_container">
+              <select
+                name="pageSize"
+                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
+              >
+                <option value="">{`Page size: ${
+                  productListPageSizeSelect.find((item) => item.value === endpoint.pageSize).label
+                }`}</option>
+                {productListPageSizeSelect
+                  .filter((size) => size.value !== endpoint.pageSize)
+                  .map((size) => (
+                    <option key={size.label} value={size.value}>
+                      {size.label}
+                    </option>
+                  ))}
+              </select>
+              <select
+                name="sort"
+                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
+              >
+                <option value="">{`Sort by: ${
+                  productListSortSelect.find((item) => item.value === endpoint.sort).label
+                }`}</option>
+                {productListSortSelect
+                  .filter((item) => item.value !== endpoint.sort)
+                  .map((item) => (
+                    <option key={item.label} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
           {productsToShow}
           <div className="footer">
