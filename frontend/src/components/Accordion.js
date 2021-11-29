@@ -15,7 +15,7 @@ const Accordion = ({ children, ...restProps }) => {
 export default Accordion;
 
 Accordion.Item = function AccordionItem({ children, ...restProps }) {
-  const [toggleShow, setToggleShow] = useState(false);
+  const [toggleShow, setToggleShow] = useState(restProps.open || false);
 
   return (
     <ToggleContext.Provider value={{ toggleShow, setToggleShow }}>

@@ -1,6 +1,7 @@
 .product_list_container {
   display: grid;
   grid-template-columns: 300px 1fr;
+  grid-template-rows: 1fr;
   grid-template-areas: 'sidebar product_list';
 }
 
@@ -13,6 +14,10 @@
 .product_list_container .product_list {
   grid-area: product_list;
   background-color: var(--gray_background);
+  min-height: 100vh;
+  height: fit-content;
+  position: sticky;
+  top: 0;
 }
 
 .product_list_container .product_list .header {
@@ -22,7 +27,7 @@
 }
 
 .product_list_container .product_list .footer {
-  height: 100px;
+  height: 60px;
   width: 100%;
   padding: 10px;
   margin: 0 auto;
