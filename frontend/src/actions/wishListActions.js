@@ -54,7 +54,7 @@ export const listWishedItems =
           Authorization: `Bearer ${userInfo.token}`
         }
       };
-      const { data } = await axios.get(`${BASE_URL}/wishlist${endpoint}`, config);
+      const { data } = await axios.get(`${BASE_URL}/wishlist?${endpoint}`, config);
 
       dispatch({
         type: WISH_ITEMS_LIST_SUCCESS,
