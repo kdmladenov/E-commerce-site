@@ -54,7 +54,7 @@ export const listBrowsingHistory =
           Authorization: `Bearer ${userInfo.token}`
         }
       };
-      const { data } = await axios.get(`${BASE_URL}/history${endpoint}`, config);
+      const { data } = await axios.get(`${BASE_URL}/history?${endpoint}`, config);
 
       dispatch({
         type: BROWSING_HISTORY_LIST_SUCCESS,

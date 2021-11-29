@@ -17,7 +17,6 @@ import './styles/ProductListScreen.css';
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
   const searchTerm = match.params?.searchTerm || '';
-  console.log(match, 'match');
 
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
