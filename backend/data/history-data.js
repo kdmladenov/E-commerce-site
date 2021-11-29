@@ -1,9 +1,11 @@
 import db from './pool.js';
 
 const getAllHistory = async (userId, search, filter, sort, pageSize, page) => {
-  const sortArr = sort.split(' ');
-  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
-  const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0]) ? sortArr[0] : 'price';
+  const sortArr = sort?.split(' ');
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
+  const sortColumn = ['price', 'rating', 'dateVisited'].includes(sortArr[0])
+    ? sortArr[0]
+    : 'dateVisited';
   const offset = page ? (page - 1) * pageSize : 0;
 
   const whereClause = (filter) => {

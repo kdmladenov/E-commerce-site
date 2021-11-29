@@ -18,40 +18,29 @@ wishListController
     '/',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    // errorHandler(
+      async (req, res) => {
       const userId = req.user.userId;
 
-      const {
-        search = '',
-        searchBy = 'title',
-        sort = 'dateCreated',
-        order = 'desc',
-        dateRangeLow = Date.now(),
-        dateRangeHigh = Date.now()
-      } = req.query;
+      const { search = '', filter = '', sort = 'dateCreated desc' } = req.query;
 
       let { pageSize = paging.DEFAULT_WISH_LIST_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
       if (+pageSize > paging.MAX_WISH_LIST_PAGESIZE) pageSize = paging.MAX_WISH_LIST_PAGESIZE;
       if (+pageSize < paging.MIN_WISH_LIST_PAGESIZE) pageSize = paging.MIN_WISH_LIST_PAGESIZE;
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
-      if (new Date(dateRangeHigh) > Date.now()) dateRangeHigh = Date.now();
-      if (new Date(dateRangeLow) > new Date(dateRangeHigh)) dateRangeLow = dateRangeHigh;
 
       const wishList = await wishListServices.getAllUserWishList(wishListData)(
         +userId,
         search,
-        searchBy,
+        filter,
         sort,
-        order,
         +pageSize,
-        +page,
-        dateRangeLow,
-        dateRangeHigh
+        +page
       );
 
       res.status(200).send(wishList);
     })
-  )
+  // )
 
   // @desc CREATE wishlist by ID
   // @route POST /wishlist/:wishlistId

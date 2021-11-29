@@ -1,14 +1,12 @@
 import errors from '../constants/service-errors.js';
 
 const getAllUserWishList =
-  (productsData) =>
-  async (userId, search, searchBy, sort, order, pageSize, page, dateRangeLow, dateRangeHigh) => {
+  (productsData) => async (userId, search, filter, sort, pageSize, page) => {
     const result = await productsData.getAllWishListRecords(
       userId,
       search,
-      searchBy,
+      filter,
       sort,
-      order,
       pageSize,
       page
     );

@@ -20,7 +20,7 @@ historyController
     loggedUserGuard,
     errorHandler(async (req, res) => {
       const userId = req.user.userId;
-      const { search = '', filter = '', sort = 'sort=dateVisited desc&' } = req.query;
+      const { search = '', filter = '', sort = 'sort=dateVisited desc' } = req.query;
 
       let { pageSize = paging.DEFAULT_HISTORY_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
       if (+pageSize > paging.MAX_HISTORY_PAGESIZE) pageSize = paging.MAX_HISTORY_PAGESIZE;
