@@ -1,5 +1,5 @@
 import React from 'react';
-import { randomNumber } from '../constants/utility-functions/utility-functions';
+import { randomNumber } from '../constants/utility-functions';
 import './styles/Avatar.css';
 
 const Avatar = ({ type, imageUrl, fullName }) => {

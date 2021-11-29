@@ -11,7 +11,7 @@ import {
   TAX_RATE
 } from '../constants/constants';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
-import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import { numberDecimalFix } from '../constants/utility-functions';
 import './styles/PlaceOrderScreen.css';
 
 const PlaceOrderScreen = ({ history }) => {

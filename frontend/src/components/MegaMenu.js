@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { categories } from '../constants/for-developing/categoriesMega';
 import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
-import { alphabeticalSort } from '../constants/utility-functions/utility-functions';
+import { alphabeticalSort } from '../constants/utility-functions';
 import './styles/MegaMenu.css';
 
 const menuLevels = ['top', 'mid', 'sub'];

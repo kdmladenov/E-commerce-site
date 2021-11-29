@@ -45,6 +45,20 @@
 
 .pagination .page_btn.current {
   background-color: var(--gray_light);
+  pointer-events: none;
+}
+
+.pagination .page_btn:not(.pagination .page_btn.current):hover {
+  background-color: var(--gray_light)
+}
+
+.pagination .page_btn span:not(.pagination .page_btn.current span):hover {
+  font-weight: 700;
+}
+
+.pagination .page_btn.current {
+  background-color: var(--gray_light);
+  pointer-events: none;
 }
 
 .pagination .page_btn.current span {

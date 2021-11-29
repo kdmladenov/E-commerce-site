@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
+import { profileAddressInitialInputState, profileOverviewInitialInputState } from '../constants/inputMaps';
 import FormComponent from './FormComponent';
-import {
-  addressInitialInputState,
-  overviewInitialInputState
-} from '../constants/inputInitialData';
 import './styles/Profile.css';
 
 const Profile = () => {
@@ -28,10 +25,10 @@ const Profile = () => {
       </div>
       <div className="profile_form">
         <div className={`form ${activeTab === 'overview' ? 'active' : ''}`}>
-          <FormComponent inputData={overviewInitialInputState} />
+          <FormComponent inputData={profileOverviewInitialInputState} />
         </div>
         <div className={`form ${activeTab === 'address' ? 'active' : ''}`}>
-          <FormComponent inputData={addressInitialInputState} />
+          <FormComponent inputData={profileAddressInitialInputState} />
         </div>
       </div>
     </div>

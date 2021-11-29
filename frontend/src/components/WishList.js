@@ -8,7 +8,7 @@ import Button from './Button';
 import Rating from './Rating';
 import './styles/WishList.css';
 import { BASE_URL } from '../constants/constants';
-import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import { numberDecimalFix } from '../constants/utility-functions';
 import  Popover  from './Popover';
 import RatingWidget from './RatingWidget';
 

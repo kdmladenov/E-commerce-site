@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
-import { numberDecimalFix, poundToKg } from '../constants/utility-functions/utility-functions';
+import { numberDecimalFix, poundToKg } from '../constants/utility-functions';
 import Rating from './Rating';
 import './styles/ComparisonTable.css';
 

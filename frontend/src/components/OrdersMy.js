@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listMyOrders } from '../actions/orderActions';
 import Loader from './Loader';
 import Message from './Message';
-import { getDate, numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import { getDate, numberDecimalFix } from '../constants/utility-functions';
 import './styles/OrdersMy.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';

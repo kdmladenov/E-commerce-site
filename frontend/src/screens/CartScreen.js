@@ -6,7 +6,7 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 import Message from '../components/Message';
 import './styles/CartScreen.css';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
-import { numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import { numberDecimalFix } from '../constants/utility-functions';
 import Tooltip from '../components/Tooltip';
 
 const CartScreen = ({ match, location, history }) => {

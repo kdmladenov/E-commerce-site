@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './styles/OrderList.css';
 import { listOrders } from '../actions/orderActions';
 import  Accordion  from './Accordion';
-import { getDate, numberDecimalFix } from '../constants/utility-functions/utility-functions';
+import { getDate, numberDecimalFix } from '../constants/utility-functions';
 
 const OrderList = ({ history }) => {
   const dispatch = useDispatch();

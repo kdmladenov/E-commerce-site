@@ -19,7 +19,7 @@ import Accordion from '../components/Accordion';
 import ProductSpecifications from '../components/ProductSpecifications';
 import Divider from '../components/Divider';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
-import { scrollTo } from '../constants/utility-functions/utility-functions';
+import { scrollTo } from '../constants/utility-functions';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import Tooltip from '../components/Tooltip';
 import RatingWidget from '../components/RatingWidget';

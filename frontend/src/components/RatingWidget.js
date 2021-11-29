@@ -4,7 +4,7 @@ import { listReviews } from '../actions/reviewActions';
 import {
   areReviewsFiltered,
   numberDecimalFix
-} from '../constants/utility-functions/utility-functions';
+} from '../constants/utility-functions';
 import Rating from './Rating';
 import './styles/RatingWidget.css';
 
