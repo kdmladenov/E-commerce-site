@@ -151,3 +151,5 @@ export const endpointMapper = (endpoint) => {
 
   return endpointMap;
 };
+
+export const uniqueId = () => new Date().getTime();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Rating from './Rating';
 import './styles/ProductCard.css';
 import { Link, useHistory } from 'react-router-dom';
@@ -11,6 +11,7 @@ import Ribbon from './Ribbon';
 import Popover from './Popover';
 import RatingWidget from './RatingWidget';
 import Tooltip from './Tooltip';
+import Toast from './Toast';
 
 const ProductCard = ({
   id,
@@ -26,6 +27,7 @@ const ProductCard = ({
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const addToCartToastRef = useRef();
 
   const wishListItems = useSelector((state) => state.wishListItems);
   const { wishList } = wishListItems;
@@ -37,7 +39,9 @@ const ProductCard = ({
   const { success: successDelete } = wishListDelete;
 
   const addToCartHandler = () => {
-    history.push(`/cart/${id}?qty=1`);
+    // history.push(`/cart/${id}?qty=1`);
+    addToCartToastRef.current.createToast({ message: `${id} added to cart` });
+    console.log('cart');
   };
 
   const wishlistHandler = () => {
@@ -109,12 +113,11 @@ const ProductCard = ({
         }`}
       >
         <Button onClick={wishlistHandler} classes={'icon'}>
-          <Tooltip text="Wish List">
-            {<i className={`fa fa-heart`} />}
-          </Tooltip>
+          <Tooltip text="Wish List">{<i className={`fa fa-heart`} />}</Tooltip>
         </Button>
       </div>
       <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>
+      <Toast ref={addToCartToastRef} autoClose={true} />
     </div>
   );
 };
