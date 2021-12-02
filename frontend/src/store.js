@@ -54,8 +54,10 @@ import {
   questionsAndAnswersListReducer,
   questionVoteReducer
 } from './reducers/questionsAndAnswersReducers';
+import { portalRefsReducer } from './reducers/portalReducers';
 
 const reducer = combineReducers({
+  portalRefs: portalRefsReducer,
   cart: cartReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,

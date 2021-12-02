@@ -1,5 +1,5 @@
-import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import React, { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import Header from './components/Header';
 import ProductScreen from './screens/ProductScreen';
@@ -22,11 +22,15 @@ import ProductListScreen from './screens/ProductListScreen';
 import BrowsingHistoryScreen from './screens/BrowsingHistoryScreen';
 import WishListScreen from './screens/WishListScreen';
 import AdminScreen from './screens/AdminScreen';
+import Toast from './components/Toast';
 
 const App = () => {
+  const toastRef = useRef();
+  const toastCartRef = useRef();
+
   return (
     <Router>
-      <Header />
+      <Header toastRef={toastRef} />
       <Route path="/cart/:id?" component={CartScreen} />
       <Route path="/shipping" component={ShippingScreen} />
       <Route path="/payment" component={PaymentScreen} />
@@ -37,7 +41,10 @@ const App = () => {
       <Route path="/admin/product/create" component={ProductCreateScreenAdmin} />
       <Route path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
       <Route path="/products/:id" component={ProductScreen} />
-      <Route path="/productlist" component={ProductListScreen} />
+      <Route
+        path="/productlist"
+        component={() => <ProductListScreen toastCartRef={toastCartRef} />}
+      />
       <Route path="/wishlist" component={WishListScreen} />
       <Route path="/history" component={BrowsingHistoryScreen} />
       <Route path="/login" component={LoginScreen} />
@@ -49,6 +56,8 @@ const App = () => {
       <Route path="/search/:searchTerm" component={ProductListScreen} />
       <Route exact path="/" component={HomeScreen} />
       {/* <Footer /> */}
+      <Toast ref={toastRef} autoClose={true} />;
+      <Toast ref={toastCartRef} autoClose={true} idDiv="toast_cart" />
     </Router>
   );
 };

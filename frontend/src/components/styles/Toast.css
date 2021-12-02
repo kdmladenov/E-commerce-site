@@ -1,4 +1,18 @@
-.toasts_container {
+#toast {
+  position: fixed;
+  bottom: 70px;
+  right: 10px;
+  z-index: 10000;
+}
+
+#toast_cart {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  z-index: 10000;
+}
+
+ .toasts_container {
   gap: 10px;
   display: flex;
   flex-direction: column;

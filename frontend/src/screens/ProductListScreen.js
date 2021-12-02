@@ -13,10 +13,12 @@ import {
   productListSortSelect
 } from '../constants/inputMaps';
 import './styles/ProductListScreen.css';
+import { useParams } from 'react-router';
 
-const ProductListScreen = ({ match }) => {
+const ProductListScreen = ({ toastCartRef }) => {
   const dispatch = useDispatch();
-  const searchTerm = match.params?.searchTerm || '';
+  const params = useParams();
+  const searchTerm = params?.searchTerm || '';
 
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
@@ -47,6 +49,7 @@ const ProductListScreen = ({ match }) => {
       {products?.map((product) => (
         <li className="product_list_item card" key={product.productId}>
           <ProductCard
+            toastCartRef={toastCartRef}
             id={product.productId}
             title={product.title}
             image={product.image}

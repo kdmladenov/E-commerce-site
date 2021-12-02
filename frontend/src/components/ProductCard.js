@@ -11,7 +11,6 @@ import Ribbon from './Ribbon';
 import Popover from './Popover';
 import RatingWidget from './RatingWidget';
 import Tooltip from './Tooltip';
-import Toast from './Toast';
 
 const ProductCard = ({
   id,
@@ -23,11 +22,11 @@ const ProductCard = ({
   stockCount,
   horizontal,
   ribbonText,
-  ratingMap
+  ratingMap,
+  toastCartRef
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const addToCartToastRef = useRef();
 
   const wishListItems = useSelector((state) => state.wishListItems);
   const { wishList } = wishListItems;
@@ -40,8 +39,7 @@ const ProductCard = ({
 
   const addToCartHandler = () => {
     // history.push(`/cart/${id}?qty=1`);
-    addToCartToastRef.current.createToast({ message: `${id} added to cart` });
-    console.log('cart');
+    toastCartRef.current.createToast({ message: `${id} added to cart` });
   };
 
   const wishlistHandler = () => {
@@ -117,7 +115,6 @@ const ProductCard = ({
         </Button>
       </div>
       <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>
-      <Toast ref={addToCartToastRef} autoClose={true} />
     </div>
   );
 };
