@@ -46,7 +46,7 @@ const HomeScreen = () => {
   return (
     <main className="home">
       <div className="home_container">
-        <div className="home_slider" onClick={() => console.log('slider')}>
+        <div className="home_slider">
           <Slider
             images={images}
             dots={false}

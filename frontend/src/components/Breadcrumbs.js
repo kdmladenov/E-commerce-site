@@ -7,7 +7,7 @@ const Breadcrumbs = () => {
   const history = useHistory();
 
   const paths = ['/', ...history.location.pathname.slice(1).split('/')];
-  console.log(paths);
+
   return (
     paths.length && (
       <div className="breadcrumbs">

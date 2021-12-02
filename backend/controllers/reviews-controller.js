@@ -222,7 +222,6 @@ reviewsController
     authMiddleware,
     loggedUserGuard,
     errorHandler(async (req, res) => {
-      console.log(req.user);
       const { reviewId } = req.params;
       const { role } = req.user;
       // const userId = role === rolesEnum.admin ? req.body.userId : req.user.userId;

@@ -165,7 +165,6 @@ export const listProductFeatures = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_FEATURES_LIST_REQUEST });
 
     const { data } = await axios.get(`${BASE_URL}/products/${id}/features`);
-    console.log(`${BASE_URL}/products/${id}/features`, 'ff');
 
     dispatch({
       type: PRODUCT_FEATURES_LIST_SUCCESS,

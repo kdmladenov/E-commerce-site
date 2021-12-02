@@ -1,7 +1,6 @@
 import db from './pool.js';
 
 const getAllWishListRecords = async (userId, search, filter, sort, pageSize, page) => {
-  console.log(userId, search, filter, pageSize, page, sort, 'data');
   const sortArr = sort?.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
   const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0])

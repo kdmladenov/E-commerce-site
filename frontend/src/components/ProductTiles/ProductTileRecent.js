@@ -4,7 +4,7 @@ import './style/ProductTileRecent.css';
 
 const ProductTileRecent = ({ product }) => {
   const contentToShow = <img src={product?.image} alt={product?.title} />;
-  console.log(product, 'product');
+
   return (
     <div className="tile_recent card">
       <h2 className="title">Recently viewed</h2>

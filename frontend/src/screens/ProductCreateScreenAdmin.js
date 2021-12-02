@@ -68,11 +68,9 @@ const ProductCreateScreenAdmin = ({ match, history }) => {
         }
       };
       const { data } = await axios.post(`${BASE_URL}/products/image`, formData, config);
-      console.log(data);
       setImage(data);
       setUploading(false);
     } catch (error) {
-      console.error(error);
       setUploading(false);
     }
   };

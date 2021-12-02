@@ -25,7 +25,6 @@ const ProductEditScreenAdmin = ({ match, history }) => {
   const [rating, setRating] = useState(0);
   const [uploading, setUploading] = useState(false);
 
-  console.log(productCategory, 'productCategory');
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -104,11 +103,9 @@ const ProductEditScreenAdmin = ({ match, history }) => {
         }
       };
       const { data } = await axios.post(`${BASE_URL}/products/image`, formData, config);
-      console.log(data);
       setImage(data);
       setUploading(false);
     } catch (error) {
-      console.error(error);
       setUploading(false);
     }
   };
