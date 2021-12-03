@@ -22,8 +22,7 @@ const ProductCard = ({
   stockCount,
   horizontal,
   ribbonText,
-  ratingMap,
-  toastCartRef
+  ratingMap
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -36,6 +35,9 @@ const ProductCard = ({
 
   const wishListDelete = useSelector((state) => state.wishListDelete);
   const { success: successDelete } = wishListDelete;
+
+  const portalRefs = useSelector((state) => state.portalRefs);
+  const { portalRefsMap: {toast_cart: toastCartRef }} = portalRefs;
 
   const addToCartHandler = () => {
     // history.push(`/cart/${id}?qty=1`);

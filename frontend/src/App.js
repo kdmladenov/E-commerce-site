@@ -23,14 +23,22 @@ import BrowsingHistoryScreen from './screens/BrowsingHistoryScreen';
 import WishListScreen from './screens/WishListScreen';
 import AdminScreen from './screens/AdminScreen';
 import Toast from './components/Toast';
+import { useDispatch } from 'react-redux';
+import { addToPortalRefs } from './actions/portalActions';
 
 const App = () => {
+  const dispatch = useDispatch();
   const toastRef = useRef();
   const toastCartRef = useRef();
 
+  useEffect(() => {
+    dispatch(addToPortalRefs({ toast: toastRef }));
+    dispatch(addToPortalRefs({ toast_cart: toastCartRef }));
+  }, [dispatch, toastRef, toastCartRef]);
+
   return (
     <Router>
-      <Header toastRef={toastRef} />
+      <Header />
       <Route path="/cart/:id?" component={CartScreen} />
       <Route path="/shipping" component={ShippingScreen} />
       <Route path="/payment" component={PaymentScreen} />
@@ -41,10 +49,7 @@ const App = () => {
       <Route path="/admin/product/create" component={ProductCreateScreenAdmin} />
       <Route path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
       <Route path="/products/:id" component={ProductScreen} />
-      <Route
-        path="/productlist"
-        component={() => <ProductListScreen toastCartRef={toastCartRef} />}
-      />
+      <Route path="/productlist" component={ProductListScreen} />
       <Route path="/wishlist" component={WishListScreen} />
       <Route path="/history" component={BrowsingHistoryScreen} />
       <Route path="/login" component={LoginScreen} />
@@ -56,8 +61,8 @@ const App = () => {
       <Route path="/search/:searchTerm" component={ProductListScreen} />
       <Route exact path="/" component={HomeScreen} />
       {/* <Footer /> */}
-      <Toast ref={toastRef} autoClose={true} />;
-      <Toast ref={toastCartRef} autoClose={true} idDiv="toast_cart" />
+      <Toast ref={toastRef} />;
+      <Toast ref={toastCartRef} idDiv="toast_cart" />
     </Router>
   );
 };
