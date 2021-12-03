@@ -7,7 +7,7 @@
 
 #toast_cart {
   position: fixed;
-  top: 70px;
+  top: 60px;
   right: 10px;
   z-index: 10000;
 }
@@ -31,7 +31,8 @@
   border-radius: 5px;
   border: 1px solid var(--white);
   transition: 0.2s;
-  animation: fadeIn 0.75s;
+  /* animation: fadeIn 0.75s; */
+  animation: slideFromRight 0.75s;
   box-shadow: var(--box-shadow_3);
 }
 
@@ -44,7 +45,8 @@
   border: 1px solid var(--gray);
 }
 
-.toast:hover {
+.toast:hover,
+.toast_cart:hover {
   transition: 0.2s;
   transform: scale(0.95);
 }
@@ -150,5 +152,14 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    right: -350px;
+  }
+  100% {
+    right: 10px;
   }
 }

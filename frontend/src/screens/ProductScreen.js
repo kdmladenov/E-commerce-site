@@ -24,12 +24,14 @@ import ScrollToTopButton from '../components/ScrollToTopButton';
 import Tooltip from '../components/Tooltip';
 import RatingWidget from '../components/RatingWidget';
 import Popover from '../components/Popover';
+import { addToCart } from '../actions/cartActions';
 
 const productFeaturesInfoCount = 5;
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ history, match }) => {
-  const [showRatingWidget, setShowRatingWidget] = useState(false);
+  const productId = match.params.id;
+  // const [showRatingWidget, setShowRatingWidget] = useState(false);
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);
   const questionsAndAnswersRef = useRef(null);
@@ -99,9 +101,18 @@ const ProductScreen = ({ history, match }) => {
   const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
   const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();
 
+  const portalRefs = useSelector((state) => state.portalRefs);
+  const {
+    portalRefsMap: { toast_cart: toastCartRef }
+  } = portalRefs;
+
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    const { title, image, price, qty } = product;
+
+    dispatch(addToCart(productId, qty));
+    toastCartRef.current.createToast({ title, image, price, qty });
   };
+
   const imagesSideBarToRender = images.map((image, index) => (
     <li key={index} onMouseEnter={() => setSelectedImage(image)}>
       <img src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`} alt="" />
@@ -137,11 +148,11 @@ const ProductScreen = ({ history, match }) => {
   ));
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
-    dispatch(listProductFeatures(match.params.id));
-    dispatch(listReviews(match.params.id));
-    dispatch(listQuestionsAndAnswers(match.params.id));
-    dispatch(addBrowsingHistoryRecord(match.params.id));
+    dispatch(listProductDetails(productId));
+    dispatch(listProductFeatures(productId));
+    dispatch(listReviews(productId));
+    dispatch(listQuestionsAndAnswers(productId));
+    dispatch(addBrowsingHistoryRecord(productId));
   }, [dispatch, match, successCreateReview, successDeleteReview, successEditReview]);
 
   useEffect(() => {
@@ -191,11 +202,9 @@ const ProductScreen = ({ history, match }) => {
                   </Button>
                 </div>
                 <div className="product_details_rating" onClick={() => scrollTo(reviewsRef)}>
-                  <Popover
-                    header={<Rating rating={product.rating} color="orange"></Rating>}
-                  >
+                  <Popover header={<Rating rating={product.rating} color="orange"></Rating>}>
                     {reviews?.length > 0 && (
-                      <RatingWidget reviews={reviews} productId={match.params.id} />
+                      <RatingWidget reviews={reviews} productId={productId} />
                     )}
                   </Popover>
                   {product.reviewCount > 0 ? (
@@ -333,7 +342,7 @@ const ProductScreen = ({ history, match }) => {
         ) : errorCompared ? (
           <Message type="error">{errorCompared}</Message>
         ) : (
-          <ComparisonTable products={productsCompared} currentProductId={+match.params.id} />
+          <ComparisonTable products={productsCompared} currentProductId={+productId} />
         )}
       </section>
       <section className="reviews_container" ref={reviewsRef}>
@@ -360,7 +369,7 @@ const ProductScreen = ({ history, match }) => {
           <QuestionsAndAnswers
             questionsAndAnswers={questionsAndAnswers}
             currentUser={currentUser}
-            productId={match.params.id}
+            productId={productId}
           />
         ) : (
           <Message type="success">Ask Question Box</Message>

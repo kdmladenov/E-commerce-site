@@ -4,13 +4,20 @@ import { uniqueId } from '../constants/utility-functions';
 import useCreateDiv from '../hooks/useCreateDiv';
 import './styles/Toast.css';
 import Price from './Price';
+import { useHistory } from 'react-router';
 
 const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod = 6000 }, ref) => {
+  const history = useHistory();
   const { loaded, divId } = useCreateDiv(idDiv);
   const [toasts, setToasts] = useState([]);
   const [deletingToastId, setDeletingToastId] = useState('');
 
   const deleteToast = (id) => setToasts(toasts.filter((toast) => toast.id !== id));
+
+  const onClickHandlerCartToast = () => {
+    history.push('/cart');
+    setToasts([]);
+  };
 
   useImperativeHandle(ref, () => ({
     createToast(toast) {
@@ -37,7 +44,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
       <div className="toasts_container">
         {toasts.map((toast) =>
           divId === 'toast_cart' ? (
-            <div key={toast.id} onClick={() => deleteToast(toast.id)} className={`toast_cart card`}>
+            <div key={toast.id} onClick={onClickHandlerCartToast} className={`toast_cart card`}>
               <div className="image ">
                 <img src={toast.image} alt={toast.title} />
                 <div className="badge">
@@ -47,7 +54,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
               <div className="content">
                 <div className="title">{toast.title}</div>
                 <div className="price_qty">
-                  <Price price={toast.price} color='red'/> <span>x {toast.qty}</span> 
+                  <Price price={toast.price} color="red" /> <span>x {toast.qty}</span>
                 </div>
               </div>
             </div>

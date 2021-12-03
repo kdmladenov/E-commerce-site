@@ -86,16 +86,20 @@ header .menu_user > div{
 
 header .header_menu_btn .badge {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: auto;
-  height: 20px;
-  line-height: 20px;
-  font-size: 16px;
-  background: var(--red);
+  top: -5px;
+  right: -5px;
+  width: fit-content;
+  height: 24px;
+  line-height: 16px;
+  font-size: 12px;
+  background: var(--cheetos);
   color: var(--white);
-  border-radius: 10px;
-  padding: 0 6px;
+  border: 3px solid var(--white);
+  border-radius: 12px;
+  padding: 0px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 1000px) {

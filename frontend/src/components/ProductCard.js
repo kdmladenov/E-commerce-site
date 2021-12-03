@@ -6,6 +6,7 @@ import Button from './Button';
 import { BASE_URL } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/wishListActions';
+import { addToCart } from '../actions/cartActions';
 import Price from './Price';
 import Ribbon from './Ribbon';
 import Popover from './Popover';
@@ -40,7 +41,7 @@ const ProductCard = ({
   const { portalRefsMap: {toast_cart: toastCartRef }} = portalRefs;
 
   const addToCartHandler = () => {
-    // history.push(`/cart/${id}?qty=1`);
+    dispatch(addToCart(id, 1));
     toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
 
