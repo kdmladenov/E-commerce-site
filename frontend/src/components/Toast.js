@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { uniqueId } from '../constants/utility-functions';
 import useCreateDiv from '../hooks/useCreateDiv';
 import './styles/Toast.css';
-import ToastCard from './ToastCard';
+import Price from './Price';
 
 const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod = 6000 }, ref) => {
   const { loaded, divId } = useCreateDiv(idDiv);
@@ -35,11 +35,32 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
   return loaded ? (
     ReactDOM.createPortal(
       <div className="toasts_container">
-        {toasts.map((toast) => (
-          <ToastCard key={toast.id} type={toast.type} onClose={() => deleteToast(toast.id)}>
-            {toast.message}
-          </ToastCard>
-        ))}
+        {toasts.map((toast) =>
+          divId === 'toast_cart' ? (
+            <div key={toast.id} onClick={() => deleteToast(toast.id)} className={`toast_cart card`}>
+              <div className="image ">
+                <img src={toast.image} alt={toast.title} />
+                <div className="badge">
+                  <i className="fa fa-shopping-cart"></i>
+                </div>
+              </div>
+              <div className="content">
+                <div className="title">{toast.title}</div>
+                <div className="price_qty">
+                  <Price price={toast.price} color='red'/> <span>x {toast.qty}</span> 
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              key={toast.id}
+              onClick={() => deleteToast(toast.id)}
+              className={`toast card ${toast.type}`}
+            >
+              {toast.message}
+            </div>
+          )
+        )}
       </div>,
       document.getElementById(divId)
     )

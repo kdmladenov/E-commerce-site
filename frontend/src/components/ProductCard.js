@@ -41,7 +41,7 @@ const ProductCard = ({
 
   const addToCartHandler = () => {
     // history.push(`/cart/${id}?qty=1`);
-    toastCartRef.current.createToast({ message: `${id} added to cart` });
+    toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
 
   const wishlistHandler = () => {
