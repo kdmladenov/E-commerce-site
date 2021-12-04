@@ -1,6 +1,33 @@
-.order-item{
-  justify-content: flex-start;
+.payment_screen {
+  background-color: rgb(234, 237, 237);
 }
-.item-card{
-  justify-content: space-between;
+
+.payment_container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto;
+}
+
+.payment_container .header {
+  padding: 0;
+  color: var(--gray_dark);
+  margin-bottom: 10px;
+}
+
+.payment_options_container {
+  color: var(--gray_dark);
+  outline: none;
+  border-radius: 5px;
+  padding: 40px 100px;
+  position: relative;
+}
+
+.payment_options_container h1{
+  margin-bottom: 30px;
+  padding-top: 0px;
+}
+
+.payment_options_container button{
+  margin: 60px auto 0px auto;
+  padding-top: 0px;
 }
