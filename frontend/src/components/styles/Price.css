@@ -1,9 +1,10 @@
 .price_container {
-  width: 100%;
+  width: fit-content;
   display: flex;
   justify-content: center;
   height: 22px;
   font-weight: bold;
+  margin: 0 auto;
 }
 
 .price_container .currency_sign,

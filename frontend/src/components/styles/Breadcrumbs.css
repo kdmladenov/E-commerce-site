@@ -1,7 +1,7 @@
 .breadcrumbs {
   height: 30px;
   width: fit-content;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box_shadow);
   border-radius: 5px;
 }
 

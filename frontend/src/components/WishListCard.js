@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteWishFromList } from '../actions/wishListActions';
 import { BASE_URL } from '../constants/constants';
@@ -8,25 +8,29 @@ import Button from './Button';
 import Popover from './Popover';
 import Rating from './Rating';
 import RatingWidget from './RatingWidget';
-import { useHistory } from 'react-router';
 import './styles/WishListCard.css';
 import Tooltip from './Tooltip';
+import { addToCart } from '../actions/cartActions';
 
 const WishListCard = ({ wish }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
-  const addToCartHandler = (id) => {
-    history.push(`/cart/${id}?qty=1`);
+  const portalRefs = useSelector((state) => state.portalRefs);
+  const {
+    portalRefsMap: { toast_cart: toastCartRef }
+  } = portalRefs;
+
+  const addToCartHandler = (id, title, image, price) => {
+    dispatch(addToCart(id, 1));
+    toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
 
   return (
     <li className="wish_list_item card" key={wish.wishListId}>
-      <Link to={`/products/${wish.productId}`}>
+      <Link className="wish_image" to={`/products/${wish.productId}`}>
         <img
           src={wish.image?.startsWith('http') ? wish.image : `${BASE_URL}/${wish.image}`}
           alt="wish"
-          className="wish_image"
         />
       </Link>
       <div className="wish_title">
@@ -73,7 +77,7 @@ const WishListCard = ({ wish }) => {
       <div className="add_to_cart_btn">
         <Button
           className="add_to_cart_btn"
-          onClick={() => history.push(`/cart/${wish.wishListId}?qty=1`)}
+          onClick={() => addToCartHandler(wish.productId, wish.title, wish.image, wish.price)}
           classes={'white card'}
         >
           Add To Cart

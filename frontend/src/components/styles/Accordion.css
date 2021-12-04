@@ -41,7 +41,7 @@
 }
 
 .accordion_header.show {
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box_shadow);
 }
 
 .accordion_title {

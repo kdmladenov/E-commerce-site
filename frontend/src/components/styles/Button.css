@@ -4,7 +4,7 @@
   border: none;
   margin: 0 20px;
   text-decoration: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 1px;
 }
 
@@ -93,7 +93,7 @@
 /* Effects */
 .button_container:hover {
   cursor: pointer;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box_shadow);
 }
 
 .button_container:active {
@@ -147,6 +147,7 @@
   align-items: center;
   border: none;
   margin: 0;
+  padding: 0;
   font-size: 13px;
   text-decoration: none;
   text-transform: none;

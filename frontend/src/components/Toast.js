@@ -54,7 +54,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
               <div className="content">
                 <div className="title">{toast.title}</div>
                 <div className="price_qty">
-                  <Price price={toast.price} color="red" /> <span>x {toast.qty}</span>
+                  <Price price={toast.price}/> <span>x {toast.qty}</span>
                 </div>
               </div>
             </div>

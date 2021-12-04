@@ -1,12 +1,14 @@
 import React from 'react';
 import './styles/Price.css'
 
-function Price({ price, currencySign = '$', superscript=true, color, size}) {
+function Price({ price, currencySign = '$', superscript = true, color = 'red', size }) {
   const decimalNumber = (price % 1).toFixed(2).slice(1);
-  const wholeNumber = (price - decimalNumber).toFixed(0)
+  const wholeNumber = (price - decimalNumber).toFixed(0);
   return (
     <div
-      className={`price_container ${color === 'red' ? 'red' : ''} ${size === 'small' ? 'small' : ''}`}
+      className={`price_container ${color === 'red' ? 'red' : ''} ${
+        size === 'small' ? 'small' : ''
+      }`}
     >
       <span className={`currency_sign ${!superscript ? 'baseline_script' : ''}`}>
         {currencySign}

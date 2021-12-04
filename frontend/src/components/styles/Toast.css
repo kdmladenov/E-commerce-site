@@ -33,7 +33,7 @@
   transition: 0.2s;
   /* animation: fadeIn 0.75s; */
   animation: slideFromRight 0.75s;
-  box-shadow: var(--box-shadow_3);
+  box-shadow: var(--box_shadow_3);
 }
 
 .toast {
@@ -88,7 +88,7 @@
   height: 80px;
   width: 100px;
   border-radius: 40px;
-  box-shadow: var(--box-shadow_3);
+  box-shadow: var(--box_shadow_3);
   position: relative;
 }
 
@@ -104,7 +104,7 @@
   font-size: 12px;
   border-radius: 13px;
   border: 3px solid var(--white);
-  box-shadow: var(--box-shadow_3);
+  box-shadow: var(--box_shadow_3);
   display: flex;
   justify-content: center;
   align-items: center;
