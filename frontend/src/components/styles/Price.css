@@ -4,7 +4,7 @@
   justify-content: center;
   height: 22px;
   font-weight: bold;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .price_container .currency_sign,

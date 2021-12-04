@@ -37,10 +37,9 @@ const CartScreen = ({ match, location, history }) => {
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { browsingHistory } = browsingHistoryList;
 
-
   const wishlistHandler = (id) => {
-    wishList.some((wish) => wish.productId === id)
-      ? dispatch(deleteWishFromList(id))
+    wishList.find((wish) => wish.productId === id)
+      ? dispatch(deleteWishFromList(wishList.find((wish) => wish.productId === id).wishListId))
       : dispatch(addWishToList(id));
   };
 
@@ -77,11 +76,11 @@ const CartScreen = ({ match, location, history }) => {
       {browsingHistory?.slice(0, 5).map((item) => (
         <li key={item.productId}>
           <div className="recent_item">
-            <Link className="image" to={`/products/${item.id}`}>
+            <Link className="image" to={`/products/${item.productId}`}>
               <img src={item.image} alt={item.title} />
             </Link>
             <div className="content">
-              <Link className="title" to={`/products/${item.id}`}>
+              <Link className="title" to={`/products/${item.productId}`}>
                 {item.title}
               </Link>
               <Price price={item.price} />
@@ -161,7 +160,7 @@ const CartScreen = ({ match, location, history }) => {
                         Delete
                       </Button>
                       <Button classes="text" onClick={() => wishlistHandler(item.id)}>
-                        {wishList.some((wish) => wish.productId === item.id)
+                        {wishList.find((wish) => wish.productId === item.id)
                           ? 'Remove from Wish List'
                           : 'Add to Wish List'}
                       </Button>
@@ -184,20 +183,24 @@ const CartScreen = ({ match, location, history }) => {
           </div>
         )}
       </div>
-      <div className="sidebar">
-        <div className="cart_action_box card">
-          <h3>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items:</h3>
-          <Price price={cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)} />
-          <Button classes="rounded" disabled={cartItems.length === 0} onClick={checkoutHandler}>
-            {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
-          </Button>
+      <aside className="sidebar">
+        <div className="sidebar_group">
+          <div className="cart_action_box card">
+            <h3>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items:</h3>
+            <Price price={cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)} />
+            <Button classes="rounded" disabled={cartItems.length === 0} onClick={checkoutHandler}>
+              {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
+            </Button>
+          </div>
+          <div className="recent_items card">
+            <h3>Your recently viewed items</h3>
+            {recentItemsToShow}
+            <Button classes="text" onClick={() => history.push('/history')}>
+              Your Full Browsing History
+            </Button>
+          </div>
         </div>
-        <div className="recent_items card">
-          <h3>Your recently viewed items</h3>
-          {recentItemsToShow}
-          <Button classes='text' onClick={() => history.push('/history')}>Your Full Browsing History</Button>
-        </div>
-      </div>
+      </aside>
       <Carousel title={'Your Wish List'}>{wishListCardsToShow}</Carousel>
     </main>
   );

@@ -18,7 +18,12 @@ const Breadcrumbs = () => {
                 onClick={(e) => index === paths.length - 1 && e.preventDefault()}
                 to={`/${paths.slice(1, index + 1).join('/')}`}
               >
-                {path === '/' ? 'Home' : `${path[0].toUpperCase()}${path.slice(1)}`}
+                {path === '/' ? (
+                  // 'Home'
+                  <i className="fa fa-home"></i>
+                ) : (
+                  `${path[0].toUpperCase()}${path.slice(1)}`
+                )}
               </Link>
             </li>
           ))}

@@ -14,8 +14,9 @@
 
 .wish_list_item .wish_title {
   grid-area: title;
+  height: 45px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-align: center;
   line-height: 15px;

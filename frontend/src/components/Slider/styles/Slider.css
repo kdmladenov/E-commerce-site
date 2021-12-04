@@ -1,11 +1,11 @@
-.slider_container {
+.slider_container .slider_container {
   position: relative;
   overflow: hidden;
   height: 100%;
   width: 100%;
 }
 
-.slide {
+.slider_container .slide {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -13,16 +13,16 @@
   transition: opacity ease-in-out 0.4s;
 }
 
-.slide.active {
+.slider_container .slide.active {
   opacity: 1;
 }
 
-.slide img {
+.slider_container .slide img {
   object-fit: cover;
 }
 
 /* Arrow buttons */
-.slider_btn {
+.slider_container .slider_btn {
   width: 60px;
   height: 130px;
   font-size: 40px;
@@ -36,20 +36,20 @@
   cursor: pointer;
 }
 
-.slider_btn:hover {
+.slider_container .slider_btn:hover {
   border: 4px solid #fff;
   border-radius: 5px;
   box-shadow: 0 3px 10px rgba(22, 17, 17, 1);
   font-size: 50px;
 }
 
-.next {
+.slider_container .next {
   top: 120px;
   right: 20px;
   transform: translateY(-60%);
 }
 
-.prev {
+.slider_container .prev {
   top: 120px;
   left: 20px;
   transform: translateY(-60%);
@@ -58,7 +58,7 @@
 
 
 /* Dot group */
-.slider_dots {
+.slider_container .slider_dots {
   display: flex;
   position: absolute;
   bottom: 10px;
@@ -66,7 +66,7 @@
   transform: translateX(-50%);
 }
 
-.dot {
+.slider_container  .dot {
   margin: 5px;
   background: #fff;
   width: 12px;
@@ -76,7 +76,7 @@
   cursor: pointer;
 }
 
-.dot.active {
+.slider_container  .dot.active {
   margin: 5px;
   background: red;
   width: 12px;
@@ -86,7 +86,7 @@
   cursor: pointer;
 }
 
-.dot:hover,
-.dot.active:hover {
+.slider_container  .dot:hover,
+.slider_container  .dot.active:hover {
   transform: scale(1.3);
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../actions/orderActions';
-import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutBreadcrumbs from '../components/CheckoutBreadcrumbs';
 import Message from '../components/Message';
 import { CART_REMOVE_ALL_ITEMS } from '../constants/cartConstants';
 import {
@@ -60,7 +60,9 @@ const PlaceOrderScreen = ({ history }) => {
 
   return (
     <div className="container">
-      <CheckoutSteps step1 step2 step3 step4 />
+      <div className="header">
+        <CheckoutBreadcrumbs currentStep="Place Order" />
+      </div>{' '}
       <div className="flex">
         <dir className="col-8">
           <ul>

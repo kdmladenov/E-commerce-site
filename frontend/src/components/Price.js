@@ -13,7 +13,9 @@ function Price({ price, currencySign = '$', superscript = true, color = 'red', s
       <span className={`currency_sign ${!superscript ? 'baseline_script' : ''}`}>
         {currencySign}
       </span>
-      <span className="whole_number">{wholeNumber}</span>
+      <span className="whole_number">
+        {wholeNumber >= 1000 ? `${Math.floor(wholeNumber/1000)} ${wholeNumber.toString().slice(-3)}` : wholeNumber}
+      </span>
       <span className={`decimal_number ${!superscript ? 'baseline_script' : ''}`}>
         {decimalNumber}
       </span>

@@ -14,10 +14,10 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
 
   const deleteToast = (id) => setToasts(toasts.filter((toast) => toast.id !== id));
 
-  const onClickHandlerCartToast = () => {
-    history.push('/cart');
-    setToasts([]);
-  };
+  // const onClickHandlerCartToast = () => {
+  //   history.push('/cart');
+  //   setToasts([]);
+  // };
 
   useImperativeHandle(ref, () => ({
     createToast(toast) {
@@ -44,7 +44,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
       <div className="toasts_container">
         {toasts.map((toast) =>
           divId === 'toast_cart' ? (
-            <div key={toast.id} onClick={onClickHandlerCartToast} className={`toast_cart card`}>
+            <div key={toast.id} onClick={() => deleteToast(toast.id)} className={`toast_cart card`}>
               <div className="image ">
                 <img src={toast.image} alt={toast.title} />
                 <div className="badge">
@@ -54,7 +54,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
               <div className="content">
                 <div className="title">{toast.title}</div>
                 <div className="price_qty">
-                  <Price price={toast.price}/> <span>x {toast.qty}</span>
+                  <Price price={toast.price} /> <span>x {toast.qty}</span>
                 </div>
               </div>
             </div>

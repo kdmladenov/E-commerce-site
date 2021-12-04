@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteWishFromList } from '../actions/wishListActions';
 import { BASE_URL } from '../constants/constants';
-import { numberDecimalFix } from '../constants/utility-functions';
 import Button from './Button';
 import Popover from './Popover';
 import Rating from './Rating';
@@ -11,6 +10,7 @@ import RatingWidget from './RatingWidget';
 import './styles/WishListCard.css';
 import Tooltip from './Tooltip';
 import { addToCart } from '../actions/cartActions';
+import Price from './Price';
 
 const WishListCard = ({ wish }) => {
   const dispatch = useDispatch();
@@ -36,8 +36,8 @@ const WishListCard = ({ wish }) => {
       <div className="wish_title">
         <Link to={`/products/${wish.productId}`}>{wish.title}</Link>
       </div>
-      <div className="wish_price">
-        <strong>$ {numberDecimalFix(wish.price)}</strong>
+      <div className="wish_price flex">
+        <Price price={wish.price} />
       </div>
       {wish.reviewCount > 0 ? (
         <Popover
@@ -76,7 +76,6 @@ const WishListCard = ({ wish }) => {
       </div>
       <div className="add_to_cart_btn">
         <Button
-          className="add_to_cart_btn"
           onClick={() => addToCartHandler(wish.productId, wish.title, wish.image, wish.price)}
           classes={'white card'}
         >

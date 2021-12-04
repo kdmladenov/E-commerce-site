@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { savePaymentMethod } from '../actions/cartActions';
-import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutBreadcrumbs from '../components/CheckoutBreadcrumbs';
 import './styles/PaymentScreen.css';
 
 const PaymentScreen = ({ history }) => {
@@ -23,7 +23,9 @@ const PaymentScreen = ({ history }) => {
   return (
     <div className="shipping">
       <div className="container">
-        <CheckoutSteps step1 step2 step3 />
+        <div className="header">
+          <CheckoutBreadcrumbs currentStep="Payment" />
+        </div>
         <form>
           <legend>Select A Payment Method</legend>
           <input
