@@ -1,0 +1,27 @@
+.shipping_screen {
+  background-color: rgb(234, 237, 237);
+}
+
+.shipping_container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto;
+}
+
+.shipping_container .header {
+  padding: 0;
+  color: var(--gray_dark);
+  margin-bottom: 10px;
+}
+
+.address_container {
+  color: var(--gray_dark);
+  outline: none;
+  border-radius: 5px;
+  padding: 40px 100px;
+}
+
+.address_container h1{
+  margin-bottom: 30px;
+  padding-top: 0px;
+}

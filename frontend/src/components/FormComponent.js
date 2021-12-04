@@ -7,8 +7,9 @@ import Loader from './Loader';
 import Message from './Message';
 import validateInput from '../validations/userValidator';
 import Button from './Button';
+import { saveShippingAddress } from '../actions/cartActions';
 
-const FormComponent = ({ inputData }) => {
+const FormComponent = ({ inputData, screen }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -120,7 +121,11 @@ const FormComponent = ({ inputData }) => {
       })
     );
 
+    dispatch(saveShippingAddress({ ...data }));
+
     setIsUserUpdated(true);
+
+    screen === 'shipping' && history.push('/payment');
   };
 
   useEffect(() => {
@@ -145,18 +150,21 @@ const FormComponent = ({ inputData }) => {
   ) : error ? (
     <Message>{error}</Message>
   ) : (
-    <form onSubmit={handleSubmit} className='form_component'>
+    <form onSubmit={handleSubmit} className="form_component">
       {formToRender}
-      {Object.values(form).some((input) => input.touched) && (
-        <div className="button_group">
-          <Button classes="yellow" type="submit" disabled={!isFormValid}>
-            Save Changes
+
+      <div className="button_group">
+        {Object.values(form).some((input) => input.touched || screen === 'shipping') && (
+          <Button classes="yellow rounded" type="submit" disabled={!isFormValid}>
+            {screen !== 'shipping' ? 'Save Changes' : 'Proceed to Payment'}
           </Button>
-          <Button classes="yellow" type="Button" onClick={handleCancelButton}>
+        )}
+        {Object.values(form).some((input) => input.touched) && (
+          <Button classes="yellow rounded" type="Button" onClick={handleCancelButton}>
             Cancel Changes
           </Button>
-        </div>
-      )}
+        )}
+      </div>
     </form>
   );
 };
