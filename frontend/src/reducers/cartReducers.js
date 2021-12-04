@@ -1,5 +1,6 @@
 import {
   CART_ADD_ITEM,
+  CART_ITEM_UPDATE_QTY,
   CART_REMOVE_ALL_ITEMS,
   CART_REMOVE_ITEM,
   CART_SAVE_PAYMENT_METHOD,
@@ -12,14 +13,31 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
       const cartItem = action.payload;
       const existItem = state.cartItems.find((item) => item.id === cartItem.id);
       if (existItem) {
+        const cartItemUpdatedQty = { ...cartItem, qty: existItem.qty + cartItem.qty };
         return {
           ...state,
-          cartItems: state.cartItems.map((item) => (item.id === existItem.id ? cartItem : item))
+          cartItems: state.cartItems.map((item) =>
+            item.id === existItem.id ? cartItemUpdatedQty : item
+          )
         };
       } else {
         return {
           ...state,
           cartItems: [...state.cartItems, cartItem]
+        };
+      }
+    case CART_ITEM_UPDATE_QTY:
+      const updatedItem = action.payload;
+      if (updatedItem) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map((item) =>
+            item.id === updatedItem.id ? updatedItem : item
+          )
+        };
+      } else {
+        return {
+          ...state
         };
       }
     case CART_REMOVE_ITEM:

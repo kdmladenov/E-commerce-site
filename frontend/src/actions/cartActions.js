@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   CART_ADD_ITEM,
+  CART_ITEM_UPDATE_QTY,
   CART_REMOVE_ITEM,
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS
@@ -18,7 +19,21 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       title: data.title,
       image: data.image,
       price: data.price,
-      stockCount: data.stockCount
+      stockCount: data.stockCount,
+      rating: data.rating,
+      reviewCount: data.reviewCount
+    }
+  });
+
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+};
+
+export const updateCartItemQty = (item, qty) => async (dispatch, getState) => {
+  dispatch({
+    type: CART_ITEM_UPDATE_QTY,
+    payload: {
+      ...item,
+      qty
     }
   });
 

@@ -61,7 +61,7 @@ const App = () => {
       <Route path="/search/:searchTerm" component={ProductListScreen} />
       <Route exact path="/" component={HomeScreen} />
       {/* <Footer /> */}
-      <Toast ref={toastRef} />;
+      <Toast ref={toastRef} />
       <Toast ref={toastCartRef} idDiv="toast_cart" />
     </Router>
   );
