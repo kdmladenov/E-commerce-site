@@ -8,7 +8,11 @@ import Message from '../components/Message';
 import { BASE_URL } from '../constants/constants';
 import './styles/OrderScreen.css';
 import axios from 'axios';
-import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../constants/orderConstants';
+import {
+  ORDER_CREATE_RESET,
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET
+} from '../constants/orderConstants';
 import { numberDecimalFix } from '../constants/utility-functions';
 import Button from '../components/Button';
 
@@ -30,6 +34,18 @@ const OrderScreen = ({ match }) => {
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(orderId, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order));
+  };
+
+  useEffect(() => {
+    dispatch({ type: ORDER_CREATE_RESET });
+  }, []);
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
@@ -61,14 +77,6 @@ const OrderScreen = ({ match }) => {
       }
     }
   }, [dispatch, orderId, order, successPay, successDeliver]);
-
-  const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(orderId, paymentResult));
-  };
-
-  const deliverHandler = () => {
-    dispatch(deliverOrder(order));
-  };
 
   return loading ? (
     <Loader />

@@ -4,10 +4,8 @@ import { uniqueId } from '../constants/utility-functions';
 import useCreateDiv from '../hooks/useCreateDiv';
 import './styles/Toast.css';
 import Price from './Price';
-import { useHistory } from 'react-router';
 
 const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod = 6000 }, ref) => {
-  const history = useHistory();
   const { loaded, divId } = useCreateDiv(idDiv);
   const [toasts, setToasts] = useState([]);
   const [deletingToastId, setDeletingToastId] = useState('');
