@@ -8,7 +8,7 @@ const ShippingScreen = () => {
   return (
     <main className="shipping_screen">
       <div className="shipping_container">
-        <div className="header card">
+        <div className="nav card">
           <CheckoutBreadcrumbs currentStep="Shipping" />
         </div>
         <section className={`address_container card `}>

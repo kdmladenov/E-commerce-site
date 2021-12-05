@@ -1,0 +1,177 @@
+.place_order_screen {
+  background-color: rgb(234, 237, 237);
+}
+
+.place_order_container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    'nav nav'
+    'order_details sidebar';
+  gap: 20px;
+}
+
+/* Breadcrumbs */
+.place_order_screen .nav {
+  grid-area: nav;
+  padding: 0;
+  color: var(--gray_dark);
+}
+
+/* Body */
+.place_order_screen .body {
+  grid-area: order_details;
+  display: grid;
+  grid-template-rows: 250px 1fr;
+  grid-template-areas:
+    'order_header'
+    'order_items';
+  gap: 20px;
+}
+
+/* Order Address and Payment */
+.place_order_screen .order_header {
+  grid-area: order_header;
+  display: flex;
+  padding: 30px 90px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* Order Items */
+.place_order_screen .place_order_container .body .order_items {
+  grid-area: order_items;
+  padding: 20px 40px;
+}
+
+.place_order_screen .place_order_container .body .order_items > ul > li {
+  display: grid;
+  grid-template-columns: 1fr 80px;
+  grid-template-rows: 200px;
+  gap: 10px;
+  border-bottom: 1px solid var(--gray);
+}
+
+.place_order_screen .place_order_container .body .order_items > ul > li:last-child {
+  border-bottom: none;
+}
+
+.place_order_screen .place_order_container .body .order_items li .price_container {
+  margin-top: 20px;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-areas: 'image content';
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item .image {
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item .content {
+  grid-area: content;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item .title {
+  height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-align: left;
+  line-height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item .rating_review,
+.place_order_screen .place_order_container .body .order_items .order_item .control_group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item .control_group {
+  gap: 30px;
+}
+
+.place_order_screen .place_order_container .body .order_items .order_item .control_group select {
+  padding: 0 5px;
+  border-radius: 5px;
+  background: rgb(239, 242, 242);
+  font-size: 13px;
+  font-weight: 400;
+  box-shadow: var(--box_shadow_2);
+}
+
+/* Sidebar */
+.place_order_screen .sidebar {
+  grid-area: sidebar;
+}
+
+.place_order_screen .sidebar .action_box {
+  position: sticky;
+  top: 20px;
+  padding: 0 20px 20px 20px;
+}
+
+/* Summary Table */
+.place_order_screen .sidebar .action_box table{
+  width: 100%;
+}
+
+.place_order_screen .sidebar .action_box table tr{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.place_order_screen .sidebar .action_box table tr td:last-child{
+  font-weight: 700;
+}
+
+/* Subtotal */
+.place_order_screen .sidebar .action_box table tr:nth-child(2) td:last-child{
+  border-bottom: 1px solid var(--gray);
+}
+
+.place_order_screen .sidebar .action_box table tr:nth-child(2){
+  margin-bottom: 10px;
+}
+
+/* Total */
+.place_order_screen .sidebar .action_box table tr:last-child{
+  border-top: 1px solid var(--gray);
+  padding-top: 10px;
+}
+
+.place_order_screen .sidebar .action_box table tr:last-child td:first-child{
+  color: var(--red_dark);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.place_order_screen .sidebar .action_box .button_container{
+  margin: 20px auto 10px auto;
+}

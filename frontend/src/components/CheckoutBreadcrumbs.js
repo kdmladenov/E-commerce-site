@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles/CheckoutBreadcrumbs.css';
 
-const CheckoutBreadcrumbs = ({ currentStep = 'Cart' }) => {
+const CheckoutBreadcrumbs = ({ currentStep = 'Cart', orderId }) => {
   const steps = [
     { label: 'Cart', path: '/cart' },
     { label: 'Shipping', path: '/shipping' },
-    { label: 'Payment', path: '/payment' },
-    { label: 'Place Order', path: '/placeorder' }
+    { label: 'Pay Info', path: '/payment' },
+    { label: 'Place Order', path: '/placeorder' },
+    { label: 'Pay Order', path: `/order/${orderId}`}
   ];
 
   // disable Link for next steps

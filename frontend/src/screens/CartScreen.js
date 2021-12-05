@@ -102,7 +102,7 @@ const CartScreen = ({ match, location, history }) => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, cartItems, productId, qty]);
 
   useEffect(() => {
     dispatch(listWishedItems());
@@ -160,7 +160,7 @@ const CartScreen = ({ match, location, history }) => {
                         Delete
                       </Button>
                       <Button classes="text" onClick={() => wishlistHandler(item.id)}>
-                        {wishList.find((wish) => wish.productId === item.id)
+                        {wishList?.find((wish) => wish.productId === item.id)
                           ? 'Remove from Wish List'
                           : 'Add to Wish List'}
                       </Button>

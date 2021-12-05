@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { removeFromCart, updateCartItemQty } from '../actions/cartActions';
 import { createOrder } from '../actions/orderActions';
+import Button from '../components/Button';
 import CheckoutBreadcrumbs from '../components/CheckoutBreadcrumbs';
 import Message from '../components/Message';
+import Price from '../components/Price';
+import Rating from '../components/Rating';
 import { CART_REMOVE_ALL_ITEMS } from '../constants/cartConstants';
 import {
   FREE_SHIPPING_THRESHOLD,
+  MAX_PRODUCT_QTY_FOR_PURCHASE,
   SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE,
   TAX_RATE
 } from '../constants/constants';
@@ -23,6 +28,9 @@ const PlaceOrderScreen = ({ history }) => {
     paymentMethod: { paymentMethod },
     cartItems
   } = cart;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
 
   cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   cart.shippingPrice =
@@ -58,101 +66,141 @@ const PlaceOrderScreen = ({ history }) => {
     dispatch({ type: CART_REMOVE_ALL_ITEMS });
   };
 
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
   return (
-    <div className="container">
-      <div className="header">
-        <CheckoutBreadcrumbs currentStep="Place Order" />
-      </div>{' '}
-      <div className="flex">
-        <dir className="col-8">
-          <ul>
-            <li>
-              <h1>Shipping</h1>
-              <p>
-                <strong>Address:</strong>
-                {shippingAddress?.address} {shippingAddress?.address2}, {shippingAddress?.city},{' '}
-                {shippingAddress?.zip}, {shippingAddress?.state}, {shippingAddress?.country}
-              </p>
-            </li>
-            <li>
-              <h1>Payment Method</h1>
+    <main className="place_order_screen">
+      <div className="place_order_container">
+        <div className="nav card">
+          <CheckoutBreadcrumbs currentStep="Place Order" />
+        </div>
+        <section className={`body`}>
+          <div className="order_header card">
+            <div className="shipping_address">
+              <h3>Shipping Address:</h3>
+              <ul>
+                <li>{`${user?.fullName}`}</li>
+                <address>
+                  {`${shippingAddress?.address} ${shippingAddress?.address2}`.toUpperCase()}
+                </address>
+                <address>
+                  {`${shippingAddress?.city},${shippingAddress?.state} ${shippingAddress?.zip}`.toUpperCase()}
+                </address>
+                <address>{`${shippingAddress?.country}`.toUpperCase()}</address>
+                <li>{`Phone: ${user?.phone}`}</li>
+                <li>{`Email: ${user?.email}`}</li>
+              </ul>
+            </div>
+            <div className="payment_method">
+              <h3>Payment Method</h3>
+              <i class="fa fa-paypal"></i>
               {paymentMethod}
-            </li>
-            <li>
-              <h1>Order Items</h1>
-              {cartItems?.length === 0 ? (
-                <Message type="error">Your cart is empty</Message>
-              ) : (
-                <ul>
-                  {cartItems?.map((item) => (
-                    <li key={item.id}>
-                      <div className="flex order-item">
-                        <div className="col-1 mx-4 p-auto">
-                          <img src={item.image} alt={item.title} />
+            </div>
+          </div>
+          <div className="order_items card">
+            {cartItems?.length > 0 ? (
+              <ul>
+                {cartItems?.map((item) => (
+                  <li key={item.id}>
+                    <div className="order_item">
+                      <Link className="image" to={`/products/${item.id}`}>
+                        <img src={item.image} alt={item.title} />
+                      </Link>
+                      <div className="content">
+                        <Link className="title" to={`/products/${item.id}`}>
+                          {item.title}
+                        </Link>
+                        <div className="rating_review">
+                          <Rating rating={item.rating}></Rating>
+                          <span>{`(${item.reviewCount})`}</span>
                         </div>
-                        <div className="col-7 p-auto text text-center">
-                          <Link to={`/products/${item.id}`}>{item.title}</Link>
+                        <div className="status">
+                          <h5 style={{ color: item.stockCount <= 10 ? 'red' : 'green' }}>
+                            {item.stockCount === 0
+                              ? 'Out of Stock'
+                              : item.stockCount <= 10
+                              ? `Only ${item.stockCount} left in stock - order soon.`
+                              : 'In Stock'}
+                          </h5>
                         </div>
-                        <div className="col-4 p-auto text text-center">
-                          {item.qty} x ${numberDecimalFix(item.price)} = $
-                          {numberDecimalFix(item.qty * item.price)}
+                        <div className="control_group">
+                          <select
+                            onChange={(e) => dispatch(updateCartItemQty(item, +e.target.value))}
+                          >
+                            <option value="">{`Qty: ${item.qty}`}</option>
+                            {[...Array(item.stockCount).keys()]
+                              .slice(0, Math.min(item.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
+                              .map((index) => (
+                                <option key={index + 1} value={index + 1}>
+                                  {index + 1}
+                                </option>
+                              ))}
+                          </select>
+                          <Button
+                            className="delete_btn"
+                            onClick={() => removeFromCartHandler(item.id)}
+                            classes="text"
+                          >
+                            Delete
+                          </Button>
                         </div>
                       </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          </ul>
-        </dir>
-        <div className="col-4">
-          <div className="card">
-            <ul>
-              <li>
-                <h1>Order summary:</h1>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Items</div>
-                  <dir>$ {numberDecimalFix(cart.itemsPrice)}</dir>
-                </div>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Shipping</div>
-                  <dir>$ {numberDecimalFix(cart.shippingPrice)}</dir>
-                </div>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Tax</div>
-                  <dir>$ {numberDecimalFix(cart.taxPrice)}</dir>
-                </div>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Total</div>
-                  <dir>$ {numberDecimalFix(cart.totalPrice)}</dir>
-                </div>
-              </li>
-              <li>{error && <Message type="error">{error}</Message>}</li>
-              <li>
-                <div className="flex">
-                  <button
-                    type="button"
-                    disabled={cartItems.length === 0}
-                    className="btn btn-primary"
-                    onClick={placeOrderHandler}
-                  >
-                    Place Order
-                  </button>
-                </div>
-              </li>
-            </ul>
+                    </div>
+                    <Price price={item.price} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <Message type="info">
+                Your cart is empty <Link to="/">Go Back to Home Screen</Link>
+              </Message>
+            )}
           </div>
-        </div>
+        </section>
+        <aside className={`sidebar`}>
+          <div className="action_box card">
+            <h2>Order summary:</h2>
+            <table>
+              <tr>
+                <td>{`Items (${cartItems.reduce((acc, item) => acc + item.qty, 0)}):`}</td>
+                <td>
+                  <span>$ {numberDecimalFix(cart.itemsPrice)}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Shipping & handling:</td>
+                <td>
+                  <span>$ {numberDecimalFix(cart.shippingPrice)}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Total before tax:</td>
+                <td>
+                  <span>$ {numberDecimalFix(cart.itemsPrice + cart.shippingPrice)}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Estimated tax:</td>
+                <td>
+                  <span>$ {numberDecimalFix(cart.taxPrice)}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Order total:</td>
+                <td>
+                  <Price price={cart.totalPrice} />
+                </td>
+              </tr>
+            </table>
+            <Button classes="rounded" disabled={cartItems.length === 0} onClick={placeOrderHandler}>
+              {cartItems.length === 0 ? 'Cart is empty' : 'Place order'}
+            </Button>
+          </div>
+        </aside>
       </div>
-    </div>
+    </main>
   );
 };
 

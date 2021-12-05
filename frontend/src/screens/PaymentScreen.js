@@ -25,8 +25,8 @@ const PaymentScreen = ({ history }) => {
   return (
     <main className="payment_screen">
       <div className="payment_container">
-        <div className="header card">
-          <CheckoutBreadcrumbs currentStep="Payment" />
+        <div className="nav card">
+          <CheckoutBreadcrumbs currentStep="Pay Info" />
         </div>
         <section className={`payment_options_container card `}>
           <h1>Select A Payment Method</h1>
@@ -41,9 +41,9 @@ const PaymentScreen = ({ history }) => {
             />
             <label htmlFor="Paypal">Paypal or Credit Card</label>
           </form>
-            <Button classes="yellow rounded" type="submit" onClick={submitHandler}>
-              Continue to Place Order
-            </Button>
+          <Button classes="yellow rounded" type="submit" onClick={submitHandler}>
+            Continue to Place Order
+          </Button>
         </section>
       </div>
     </main>
