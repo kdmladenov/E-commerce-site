@@ -29,37 +29,55 @@ const getBy = async (column, value, isProfileOwner, role) => {
   return result[0];
 };
 
-const getAll = async (search, searchBy, sort, order, page, pageSize, role) => {
-  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'asc';
-  const searchColumn = [
-    'user_id',
-    'full_name',
-    'address',
-    'address2',
-    'city',
-    'zip',
-    'state',
-    'country',
-    'email',
-    'phone'
-  ].includes(searchBy)
-    ? searchBy
-    : 'full_name';
-  const sortColumn = [
-    'user_id',
-    'full_name',
-    'address',
-    'address2',
-    'city',
-    'zip',
-    'state',
-    'country',
-    'email',
-    'phone'
-  ].includes(sort)
-    ? sort
-    : 'full_name';
+const getAll = async (search, sort, page, pageSize, role) => {
+  const sortArr = sort.split(' ');
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
+  const sortColumn = ['user_id', 'full_name', 'email'].includes(sortArr[0])
+    ? sortArr[0]
+    : 'user_id';
+
   const offset = page ? (page - 1) * pageSize : 0;
+
+console.log(`
+    SELECT
+      user_id as userId, 
+      full_name as fullName,
+      role,
+      avatar
+      ${
+        role === rolesEnum.admin
+          ? `,address ,
+          address2,
+          city,
+          zip,
+          state,
+          country,
+          email,
+          phone,
+          is_deleted as isDeleted `
+          : ''
+      }
+    FROM users
+    WHERE ${role === rolesEnum.basic ? ' is_deleted = 0 AND ' : ''} ${
+  search.length > 0
+    ? `CONCAT_WS(',', user_id, full_name, role, avatar ${
+        role === rolesEnum.admin &&
+        `,address ,
+            address2,
+            city,
+            zip,
+            state,
+            country,
+            email,
+            phone,
+            is_deleted`
+      }
+      )`
+    : ' full_name '
+} Like '%${search}%'
+    ORDER BY ${sortColumn} ${direction} 
+    LIMIT ? OFFSET ?
+    `, 'kon');
 
   const sql = `
     SELECT
@@ -81,14 +99,28 @@ const getAll = async (search, searchBy, sort, order, page, pageSize, role) => {
           : ''
       }
     FROM users
-    WHERE ${
-      role === rolesEnum.basic ? ' is_deleted = 0 AND' : ''
-    } ${searchColumn} Like '%${search}%'
+    WHERE ${role === rolesEnum.basic ? ' is_deleted = 0 AND ' : ''} ${
+    search.length > 0
+      ? `CONCAT_WS(',', user_id, full_name, role, avatar ${
+          role === rolesEnum.admin &&
+          `,address ,
+            address2,
+            city,
+            zip,
+            state,
+            country,
+            email,
+            phone,
+            is_deleted`
+        }
+      )`
+      : ' full_name '
+  } Like '%${search}%'
     ORDER BY ${sortColumn} ${direction} 
     LIMIT ? OFFSET ?
-  `;
+    `;
 
-  return db.query(sql, [pageSize, offset]);
+  return db.query(sql, [+pageSize, +offset]);
 };
 
 const create = async (user) => {

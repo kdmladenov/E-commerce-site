@@ -38,8 +38,8 @@ const getUser = (usersData) => async (userId, isProfileOwner, role) => {
 //   };
 // };
 
-const getAllUsers = (usersData) => async (search, searchBy, sort, order, page, pageSize, role) => {
-  const result = await usersData.getAll(search, searchBy, sort, order, page, pageSize, role);
+const getAllUsers = (usersData) => async (search, sort, page, pageSize, role) => {
+  const result = await usersData.getAll(search, sort, page, pageSize, role);
 
   return result;
 };
@@ -120,7 +120,6 @@ const changePassword = (usersData) => async (passwordData, userId, role) => {
 
 // update profile
 const update = (usersData) => async (userUpdate, userId) => {
-
   // const { email, reenteredEmail } = userUpdate;
   // if (email && email !== reenteredEmail) {
   //   return {
@@ -279,40 +278,40 @@ const resetPassword = (usersData) => async (password, reenteredPassword, userId,
   };
 };
 
-const changeAvatar = usersData => async (userId, path) => {
+const changeAvatar = (usersData) => async (userId, path) => {
   await usersData.avatarChange(+userId, path);
 };
 
-const getUserAvatar = usersData => async (userId) => {
+const getUserAvatar = (usersData) => async (userId) => {
   const userAvatar = await usersData.getAvatar(userId);
 
   if (!userAvatar) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
   return {
     error: null,
-    result: userAvatar,
+    result: userAvatar
   };
 };
 
-const deleteUserAvatar = usersData => async (userId) => {
+const deleteUserAvatar = (usersData) => async (userId) => {
   const userAvatar = await usersData.getAvatar(userId);
 
   if (!userAvatar) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      result: null,
+      result: null
     };
   }
 
   await usersData.avatarChange(+userId, userConstants.DEFAULT_AVATAR);
   return {
     error: null,
-    result: { message: `Avatar successfully deleted.` },
+    result: { message: `Avatar successfully deleted.` }
   };
 };
 

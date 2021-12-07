@@ -52,20 +52,20 @@ usersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    // errorHandler(
+      async (req, res) => {
       const { role } = req.user;
-      const { search = '', searchBy = 'fullName', sort = 'fullName', order = 'ASC' } = req.query;
+      const { search = '', sort = 'sort=user_id asc' } = req.query;
       let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
       if (+pageSize > paging.MAX_USERS_PAGESIZE) pageSize = paging.MAX_USERS_PAGESIZE;
       if (+pageSize < paging.MIN_USERS_PAGESIZE) pageSize = paging.MIN_USERS_PAGESIZE;
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
+      
       const result = await usersServices.getAllUsers(usersData)(
         search,
-        searchBy,
         sort,
-        order,
         +page,
         +pageSize,
         role
@@ -73,7 +73,7 @@ usersController
 
       res.status(200).send(result);
     })
-  )
+  // )
 
   // @desc Get user by ID
   // @route GET /users/:userId
