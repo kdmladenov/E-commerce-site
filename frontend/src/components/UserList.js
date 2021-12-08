@@ -8,10 +8,21 @@ import Accordion from './Accordion';
 import Loader from './Loader';
 import Message from './Message';
 import Profile from './Profile';
+import { adminUserListPageSizeSelect, adminUserListSortSelect } from '../constants/inputMaps';
+import Pagination from './Pagination';
+import SearchBox from './SearchBox';
 
 const UserList = ({ history }) => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('profile');
+  const [endpoint, setEndpoint] = useState({
+    page: 'page=1&',
+    pageSize: 'pageSize=10&',
+    sort: 'sort=user_id asc&',
+    search: ''
+  });
+
+  console.log(endpoint, 'endpoint');
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
@@ -25,11 +36,13 @@ const UserList = ({ history }) => {
   useEffect(() => {
     // only admins to have access to the url
     if (userInfo?.role === 'admin') {
-      dispatch(listUsers());
+      const { page, pageSize, sort, search } = endpoint;
+
+      dispatch(listUsers(`${page}${pageSize}${sort}${search}`));
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo, deleteSuccess]);
+  }, [dispatch, history, userInfo, deleteSuccess, endpoint]);
 
   // // TO DO implement restore user
   // const deleteUserHandler = (userId) => {
@@ -38,13 +51,48 @@ const UserList = ({ history }) => {
   // };
 
   return (
-    <div className="user_list">
+    <div className="user_list_container">
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : users?.length > 0 ? (
-        <Accordion>
+        <Accordion className="user_list">
+          <div className="header">
+            <SearchBox updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })} />
+            <div className="dropdown_group_container">
+              <select
+                name="pageSize"
+                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
+              >
+                <option value="">{`Page size: ${
+                  adminUserListPageSizeSelect.find((item) => item.value === endpoint.pageSize).label
+                }`}</option>
+                {adminUserListPageSizeSelect
+                  .filter((size) => size.value !== endpoint.pageSize)
+                  .map((size) => (
+                    <option key={size.label} value={size.value}>
+                      {size.label}
+                    </option>
+                  ))}
+              </select>
+              <select
+                name="sort"
+                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
+              >
+                <option value="">{`Sort by: ${
+                  adminUserListSortSelect.find((item) => item.value === endpoint.sort).label
+                }`}</option>
+                {adminUserListSortSelect
+                  .filter((item) => item.value !== endpoint.sort)
+                  .map((item) => (
+                    <option key={item.label} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
           {users?.map((user) => (
             <Accordion.Item id={user.userId}>
               <Accordion.Header>
@@ -82,41 +130,23 @@ const UserList = ({ history }) => {
                 ) : (
                   <h2>Orders</h2>
                 )}
-                {/* {user?.orderItems?.length === 0 ? (
-                  <Message type="error">Order is empty</Message>
-                ) : (
-                  <ul>
-                    {user?.orderItems?.map((item) => (
-                      <li key={item.id}>
-                        <div className="order_item">
-                          <div className="image">
-                            <img src={item.image} alt={item.title} />
-                          </div>
-                          <div className="title">
-                            <Link to={`/products/${item.id}`}>{item.title}</Link>
-                          </div>
-                          <div className="total">
-                            {`$ ${numberDecimalFix(item.price)} x ${item.qty}`}
-                          </div>
-                          <Button
-                            onClick={() => addToCartHandler(item.id)}
-                            classes="small"
-                            className="order_item_btn"
-                          >
-                            Add to cart
-                          </Button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )} */}
               </Accordion.Body>
             </Accordion.Item>
           ))}
         </Accordion>
       ) : (
-        <h2>There are no users</h2>
+        <h2>There are no users to show</h2>
       )}
+      <div className="footer">
+        {users?.length > 0 && (
+          <Pagination
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+            totalItems={users[0].totalDBItems}
+          />
+        )}
+      </div>
     </div>
   );
 };

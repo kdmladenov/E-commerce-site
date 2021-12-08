@@ -768,3 +768,16 @@ export const browsingHistorySortSelect = [
   { label: 'Price: High to Low', value: 'sort=price desc&' },
   { label: 'Avg. Customer Rating', value: 'sort=rating desc&' }
 ];
+
+export const adminUserListPageSizeSelect = [
+  { label: 10, value: 'pageSize=10&' },
+  { label: 15, value: 'pageSize=15&' },
+  { label: 20, value: 'pageSize=20&' }
+];
+
+export const adminUserListSortSelect = [
+  { label: 'User Id: Low to High', value: 'sort=user_id asc&' },
+  { label: 'User Id: High to Low', value: 'sort=user_id desc&' },
+  { label: 'Name: A to Z', value: 'sort=full_name asc&' },
+  { label: 'Name: Z to A', value: 'sort=full_name desc&' }
+];

@@ -164,7 +164,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
-export const listUsers = () => async (dispatch, getState) => {
+export const listUsers =  (endpoint = '') => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_LIST_REQUEST
@@ -180,7 +180,7 @@ export const listUsers = () => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.get(`${BASE_URL}/users`, config);
+    const { data } = await axios.get(`${BASE_URL}/users?${endpoint}`, config);
 
     dispatch({
       type: USER_LIST_SUCCESS,

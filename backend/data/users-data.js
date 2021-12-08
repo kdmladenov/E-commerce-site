@@ -38,47 +38,6 @@ const getAll = async (search, sort, page, pageSize, role) => {
 
   const offset = page ? (page - 1) * pageSize : 0;
 
-console.log(`
-    SELECT
-      user_id as userId, 
-      full_name as fullName,
-      role,
-      avatar
-      ${
-        role === rolesEnum.admin
-          ? `,address ,
-          address2,
-          city,
-          zip,
-          state,
-          country,
-          email,
-          phone,
-          is_deleted as isDeleted `
-          : ''
-      }
-    FROM users
-    WHERE ${role === rolesEnum.basic ? ' is_deleted = 0 AND ' : ''} ${
-  search.length > 0
-    ? `CONCAT_WS(',', user_id, full_name, role, avatar ${
-        role === rolesEnum.admin &&
-        `,address ,
-            address2,
-            city,
-            zip,
-            state,
-            country,
-            email,
-            phone,
-            is_deleted`
-      }
-      )`
-    : ' full_name '
-} Like '%${search}%'
-    ORDER BY ${sortColumn} ${direction} 
-    LIMIT ? OFFSET ?
-    `, 'kon');
-
   const sql = `
     SELECT
       user_id as userId, 
@@ -97,7 +56,8 @@ console.log(`
           phone,
           is_deleted as isDeleted `
           : ''
-      }
+      },
+      COUNT(*) OVER () AS totalDBItems
     FROM users
     WHERE ${role === rolesEnum.basic ? ' is_deleted = 0 AND ' : ''} ${
     search.length > 0
