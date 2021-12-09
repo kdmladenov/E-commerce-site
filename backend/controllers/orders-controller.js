@@ -10,6 +10,7 @@ import errorHandler from '../middleware/errorHandler.js';
 import createOrderSchema from '../validator/create-order-schema.js';
 import errors from '../constants/service-errors.js';
 import updateOrderSchema from '../validator/update-order-schema.js';
+import { paging } from '../constants/constants.js';
 
 const ordersController = express.Router();
 
@@ -41,7 +42,18 @@ ordersController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     errorHandler(async (req, res) => {
-      const { orders } = await ordersServices.getALLOrders(ordersData)();
+      const { search = '', sort = 'sort=order_date desc' } = req.query;
+      let { pageSize = paging.DEFAULT_ORDER_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
+
+      if (+pageSize > paging.MAX_ORDER_PAGESIZE) pageSize = paging.MAX_ORDER_PAGESIZE;
+      if (+pageSize < paging.MIN_ORDER_PAGESIZE) pageSize = paging.MIN_ORDER_PAGESIZE;
+      if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
+      const { orders } = await ordersServices.getALLOrders(ordersData)(
+        search,
+        sort,
+        +page,
+        +pageSize
+      );
 
       res.status(200).send(orders);
     })
@@ -55,7 +67,21 @@ ordersController
     loggedUserGuard,
     errorHandler(async (req, res) => {
       const { userId, role } = req.user;
-      const { orders } = await ordersServices.getALLOrdersByUser(ordersData)(userId, role);
+      const { search = '', sort = 'sort=order_date desc' } = req.query;
+      let { pageSize = paging.DEFAULT_ORDER_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
+
+      if (+pageSize > paging.MAX_ORDER_PAGESIZE) pageSize = paging.MAX_ORDER_PAGESIZE;
+      if (+pageSize < paging.MIN_ORDER_PAGESIZE) pageSize = paging.MIN_ORDER_PAGESIZE;
+      if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
+
+      const { orders } = await ordersServices.getALLOrdersByUser(ordersData)(
+        +userId,
+        role,
+        search,
+        sort,
+        +page,
+        +pageSize
+      );
 
       res.status(200).send(orders);
     })
@@ -70,7 +96,7 @@ ordersController
     errorHandler(async (req, res) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
-      const { error, order } = await ordersServices.getOrderById(ordersData)(orderId, role, userId);
+      const { error, order } = await ordersServices.getOrderById(ordersData)(+orderId, role, userId);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({

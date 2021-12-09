@@ -61,18 +61,7 @@ const getAll = async (search, sort, page, pageSize, role) => {
     FROM users
     WHERE ${role === rolesEnum.basic ? ' is_deleted = 0 AND ' : ''} ${
     search.length > 0
-      ? `CONCAT_WS(',', user_id, full_name, role, avatar ${
-          role === rolesEnum.admin &&
-          `,address ,
-            address2,
-            city,
-            zip,
-            state,
-            country,
-            email,
-            phone,
-            is_deleted`
-        }
+      ? `CONCAT_WS(',', user_id, full_name ${role === rolesEnum.admin && `, email`}
       )`
       : ' full_name '
   } Like '%${search}%'

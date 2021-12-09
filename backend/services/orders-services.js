@@ -118,7 +118,6 @@ const updateOrderToPaid = (ordersData) => async (orderId, role, userId, paymentD
   };
 };
 
-
 const updateOrderToDelivered = (ordersData) => async (orderId) => {
   const orderWithoutItems = await ordersData.getOrderBy('order_id', +orderId, 'admin');
 
@@ -141,9 +140,15 @@ const updateOrderToDelivered = (ordersData) => async (orderId) => {
   };
 };
 
-
-const getALLOrdersByUser = (ordersData) => async (userId, role) => {
-  const ordersWithoutItems = await ordersData.getAllByUser(userId, role);
+const getALLOrdersByUser = (ordersData) => async (userId, role, search, sort, page, pageSize) => {
+  const ordersWithoutItems = await ordersData.getAllByUser(
+    userId,
+    role,
+    search,
+    sort,
+    page,
+    pageSize
+  );
 
   const ordersWithItems = await Promise.all(
     await ordersWithoutItems.map(async (order) => {
@@ -157,9 +162,9 @@ const getALLOrdersByUser = (ordersData) => async (userId, role) => {
   };
 };
 
-const getALLOrders = (ordersData) => async () => {
-  const ordersWithoutItems = await ordersData.getAll();
-
+const getALLOrders = (ordersData) => async (search, sort, page, pageSize) => {
+  const ordersWithoutItems = await ordersData.getAll(search, sort, page, pageSize);
+  // console.log(ordersWithoutItems);
   const ordersWithItems = await Promise.all(
     await ordersWithoutItems.map(async (order) => {
       const orderItems = await Promise.all(await ordersData.getAllOrderItemsByOrder(order.orderId));
@@ -171,7 +176,6 @@ const getALLOrders = (ordersData) => async () => {
     orders: ordersWithItems
   };
 };
-
 
 export default {
   addOrderItems,

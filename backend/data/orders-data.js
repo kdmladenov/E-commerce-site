@@ -1,7 +1,15 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAllByUser = async (userId, role) => {
+const getAllByUser = async (userId, role, search, sort, page, pageSize) => {
+const sortArr = sort.split(' ');
+const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
+const sortColumn = ['order_id', 'order_date', 'total_price'].includes(sortArr[0])
+  ? sortArr[0]
+  : 'order_date';
+
+const offset = page ? (page - 1) * pageSize : 0;
+
   const sql = `
   SELECT
     o.order_id as orderId,
@@ -24,20 +32,35 @@ const getAllByUser = async (userId, role) => {
     o.payment_date as paymentDate,
     o.is_delivered as isDelivered,
     o.order_date as orderDate,
-    o.delivery_date as deliveryDate
+    o.delivery_date as deliveryDate,
+    COUNT(*) OVER () AS totalDBItems
     FROM orders o
     LEFT JOIN (SELECT
       user_id,
       full_name,
       email
       FROM users) as u using(user_id)
-    WHERE user_id = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''};
+    WHERE user_id = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''} ${
+    search.length > 0
+      ? `AND CONCAT_WS(',', order_id, shipping_address, shipping_address2, shipping_city, shipping_zip, shipping_state, shipping_country)`
+      : 'AND order_id '
+  } Like '%${search}%'
+    ORDER BY ${sortColumn} ${direction} 
+    LIMIT ? OFFSET ?;
   `;
 
-  return db.query(sql, [+userId]);
+  return db.query(sql, [+userId, +pageSize, +offset]);
 };
 
-const getAll = async () => {
+const getAll = async (search, sort, page, pageSize) => {
+const sortArr = sort.split(' ');
+const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
+const sortColumn = ['order_id', 'order_date', 'total_price'].includes(sortArr[0])
+  ? sortArr[0]
+  : 'order_date';
+
+const offset = page ? (page - 1) * pageSize : 0;
+
   const sql = `
   SELECT
     o.order_id as orderId,
@@ -60,16 +83,24 @@ const getAll = async () => {
     o.payment_date as paymentDate,
     o.is_delivered as isDelivered,
     o.order_date as orderDate,
-    o.delivery_date as deliveryDate
+    o.delivery_date as deliveryDate,
+    COUNT(*) OVER () AS totalDBItems
     FROM orders o
     LEFT JOIN (SELECT
       user_id,
       full_name,
       email
       FROM users) as u using(user_id)
+    WHERE ${
+      search.length > 0
+        ? `CONCAT_WS(',', order_id, shipping_address, shipping_address2, shipping_city, shipping_zip, shipping_state, shipping_country)`
+        : ' order_id '
+    } Like '%${search}%'
+    ORDER BY ${sortColumn} ${direction} 
+    LIMIT ? OFFSET ?
   `;
 
-  return db.query(sql);
+  return db.query(sql, [+pageSize, +offset]);
 };
 
 const getOrderBy = async (column, value, role) => {
