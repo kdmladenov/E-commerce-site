@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -6,8 +6,12 @@ import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import './styles/OrderList.css';
 import { listOrders } from '../actions/orderActions';
-import  Accordion  from './Accordion';
+import Accordion from './Accordion';
 import { getDate, numberDecimalFix } from '../constants/utility-functions';
+import SearchBox from './SearchBox';
+import DropdownSelect from './DropdownSelect';
+import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
+import Pagination from './Pagination';
 
 const OrderList = ({ history }) => {
   const dispatch = useDispatch();
@@ -18,17 +22,48 @@ const OrderList = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const [endpoint, setEndpoint] = useState({
+    page: 'page=1&',
+    pageSize: 'pageSize=10&',
+    sort: 'sort=order_date desc&',
+    search: ''
+  });
+
   useEffect(() => {
     if (userInfo?.role === 'admin') {
-      dispatch(listOrders());
+      const { page, pageSize, sort, search } = endpoint;
+
+      dispatch(listOrders(`${page}${pageSize}${sort}${search}`));
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, endpoint]);
 
   return (
-    <main className="order_list">
+    <div className="order_list_container">
       <h1>Orders</h1>
+      <div className="header">
+        <SearchBox
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          resource="orders"
+        />
+        <div className="dropdown_group_container">
+          <DropdownSelect
+            name="pageSize"
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            labelStart="Page size"
+            optionsMap={adminListPageSizeOptionsMap}
+          />
+          <DropdownSelect
+            name="sort"
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            labelStart="Sort by"
+            optionsMap={adminOrderListSortOptionsMap}
+          />
+        </div>
+      </div>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -36,7 +71,7 @@ const OrderList = ({ history }) => {
       ) : orders?.length > 0 ? (
         <Accordion>
           {orders?.map((order) => (
-            <Accordion.Item id={order.orderId}>
+            <Accordion.Item key={order.orderId}>
               <Accordion.Header>
                 <Accordion.Title>
                   <div className="order_title">
@@ -96,7 +131,17 @@ const OrderList = ({ history }) => {
       ) : (
         <h2>You have no orders</h2>
       )}
-    </main>
+      <div className="footer">
+        {orders?.length > 0 && (
+          <Pagination
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+            totalItems={orders[0].totalDBItems}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 
