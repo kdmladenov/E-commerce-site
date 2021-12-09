@@ -9,12 +9,13 @@ import './styles/BrowsingHistoryScreen.css';
 import Breadcrumbs from '../components/Breadcrumbs';
 import {
   browsingHistorySidebarInput,
-  browsingHistorySortSelect,
-  productListPageSizeSelect
+  browsingHistorySortOptionsMap,
+  productListPageSizeOptionsMap
 } from '../constants/inputMaps';
 import Pagination from '../components/Pagination';
 import Sidebar from '../components/Sidebar';
 import Tooltip from '../components/Tooltip';
+import DropdownSelect from '../components/DropdownSelect';
 
 const BrowsingHistoryScreen = () => {
   const dispatch = useDispatch();
@@ -91,43 +92,27 @@ const BrowsingHistoryScreen = () => {
               <Breadcrumbs />
             </div>
             <div className="dropdown_group_container">
-              <select
+              <DropdownSelect
                 name="pageSize"
-                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-              >
-                <option value="">{`Page size: ${
-                  productListPageSizeSelect.find((item) => item.value === endpoint.pageSize).label
-                }`}</option>
-                {productListPageSizeSelect
-                  .filter((size) => size.value !== endpoint.pageSize)
-                  .map((size) => (
-                    <option key={size.label} value={size.value}>
-                      {size.label}
-                    </option>
-                  ))}
-              </select>
-              <select
+                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                query={endpoint}
+                labelStart="Page size"
+                optionsMap={productListPageSizeOptionsMap}
+              />
+              <DropdownSelect
                 name="sort"
-                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-              >
-                <option value="">{`Sort by: ${
-                  browsingHistorySortSelect.find((item) => item.value === endpoint.sort).label
-                }`}</option>
-                {browsingHistorySortSelect
-                  .filter((item) => item.value !== endpoint.sort)
-                  .map((item) => (
-                    <option key={item.label} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-              </select>
+                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                query={endpoint}
+                labelStart="Sort by"
+                optionsMap={browsingHistorySortOptionsMap}
+              />
             </div>
           </div>
           {productsToShow}
           <div className="footer">
             {browsingHistory?.length > 0 && (
               <Pagination
-                updatePagingQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
                 currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
                 pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
                 totalItems={browsingHistory[0].totalDBItems}

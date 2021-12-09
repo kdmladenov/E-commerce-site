@@ -8,9 +8,10 @@ import Accordion from './Accordion';
 import Loader from './Loader';
 import Message from './Message';
 import Profile from './Profile';
-import { adminUserListPageSizeSelect, adminUserListSortSelect } from '../constants/inputMaps';
+import { adminListPageSizeOptionsMap, adminUserListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
 import SearchBox from './SearchBox';
+import DropdownSelect from './DropdownSelect';
 
 const UserList = ({ history }) => {
   const dispatch = useDispatch();
@@ -21,8 +22,6 @@ const UserList = ({ history }) => {
     sort: 'sort=user_id asc&',
     search: ''
   });
-
-  console.log(endpoint, 'endpoint');
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
@@ -52,49 +51,36 @@ const UserList = ({ history }) => {
 
   return (
     <div className="user_list_container">
+      <div className="header">
+        <SearchBox
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          resource="users"
+        />
+        <div className="dropdown_group_container">
+          <DropdownSelect
+            name="pageSize"
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            labelStart="Page size"
+            optionsMap={adminListPageSizeOptionsMap}
+          />
+          <DropdownSelect
+            name="sort"
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            labelStart="Sort by"
+            optionsMap={adminUserListSortOptionsMap}
+          />
+        </div>
+      </div>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : users?.length > 0 ? (
         <Accordion className="user_list">
-          <div className="header">
-            <SearchBox updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })} />
-            <div className="dropdown_group_container">
-              <select
-                name="pageSize"
-                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-              >
-                <option value="">{`Page size: ${
-                  adminUserListPageSizeSelect.find((item) => item.value === endpoint.pageSize).label
-                }`}</option>
-                {adminUserListPageSizeSelect
-                  .filter((size) => size.value !== endpoint.pageSize)
-                  .map((size) => (
-                    <option key={size.label} value={size.value}>
-                      {size.label}
-                    </option>
-                  ))}
-              </select>
-              <select
-                name="sort"
-                onChange={(e) => setEndpoint({ ...endpoint, [e.target.name]: e.target.value })}
-              >
-                <option value="">{`Sort by: ${
-                  adminUserListSortSelect.find((item) => item.value === endpoint.sort).label
-                }`}</option>
-                {adminUserListSortSelect
-                  .filter((item) => item.value !== endpoint.sort)
-                  .map((item) => (
-                    <option key={item.label} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          </div>
           {users?.map((user) => (
-            <Accordion.Item id={user.userId}>
+            <Accordion.Item key={user.userId}>
               <Accordion.Header>
                 <Accordion.Title>
                   <div className="user_title">

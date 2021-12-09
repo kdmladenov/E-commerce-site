@@ -55,7 +55,7 @@ const HomeScreen = () => {
           />
         </div>
         <div className="product_tile_group_1">
-          {userInfo?.token ? (
+          {userInfo?.token && products ? (
             <div className="product_tile_group_1_row_1">
               <div className="tile_1">
                 <ProductTileRecommendedFour
