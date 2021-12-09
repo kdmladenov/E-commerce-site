@@ -1,35 +1,45 @@
-.user_list .user_title {
+.user_list_container .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user_list_container .dropdown_group_container {
+  display: flex;
+  gap: 20px;
+}
+
+.user_list_container .user_title {
   display: grid;
   grid-template-columns: 50px 250px 1fr;
   gap: 15px;
 }
 
-.user_list .user_title > div {
+.user_list_container .user_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.user_list .user_title > div span {
+.user_list_container .user_title > div span {
   text-align: left;
   width: 100%;
   font-size: 17px;
 }
 
-.user_list .user_title > div {
+.user_list_container .user_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.user_list .button_group {
+.user_list_container .button_group {
   width: fit-content;
   display: flex;
 }
 
-.user_list .user_title > div > span{
+.user_list_container .user_title > div > span{
   text-align: left;
   width: 100%;
   line-height: 16px;
@@ -42,7 +52,7 @@
   text-decoration: none;
 }
 
-.user_list .order_item {
+.user_list_container .order_item {
   display: grid;
   grid-template-columns: 75px 1fr 100px 170px;
   grid-template-rows: 75px;
@@ -52,7 +62,7 @@
   align-items: center;
 }
 
-.user_list .order_item .title a {
+.user_list_container .order_item .title a {
   grid-area: title;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -79,4 +89,9 @@
 
 .user_list .profile_form {
   padding: 20px 40px;
+}
+
+/* Footer */
+.user_list_container .footer .pagination{
+  margin: 20px 0;
 }

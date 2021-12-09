@@ -1,30 +1,40 @@
-.order_list .order_title{
+.order_list_container .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order_list_container .dropdown_group_container {
+  display: flex;
+  gap: 20px;
+}
+
+.order_list_container .order_title {
   display: grid;
   grid-template-columns: 120px 120px 1fr;
 }
 
-.order_list .order_title > div{
+.order_list_container .order_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.order_list .order_title > div span{
+.order_list_container .order_title > div span {
   text-align: left;
   width: 100%;
   font-size: 12px;
 }
 
-.order_list .order_title > div{
+.order_list_container .order_title > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.order_list .order_title > div > span,
-.order_list .button_group span{
+.order_list_container .order_title > div > span,
+.order_list_container .button_group span {
   text-align: left;
   width: 100%;
   line-height: 12px;
@@ -37,7 +47,7 @@
   text-decoration: none;
 }
 
-.order_list .order_item{
+.order_list_container .order_item {
   display: grid;
   grid-template-columns: 75px 1fr 100px 170px;
   grid-template-rows: 75px;
@@ -47,7 +57,7 @@
   align-items: center;
 }
 
-.order_list .order_item .title a{
+.order_list_container .order_item .title a {
   grid-area: title;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -59,4 +69,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-decoration: none;
+}
+
+/* Footer */
+.order_list_container .footer .pagination {
+  margin: 20px 0;
 }

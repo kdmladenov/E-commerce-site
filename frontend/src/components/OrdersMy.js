@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from './Accordion';
 import { useDispatch, useSelector } from 'react-redux';
 import { listMyOrders } from '../actions/orderActions';
@@ -10,10 +10,21 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Button from './Button';
 import Price from './Price';
+import SearchBox from './SearchBox';
+import DropdownSelect from './DropdownSelect';
+import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
+import Pagination from './Pagination';
 
 const OrdersMy = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [endpoint, setEndpoint] = useState({
+    page: 'page=1&',
+    pageSize: 'pageSize=10&',
+    sort: 'sort=order_date desc&',
+    search: ''
+  });
 
   const orderMyList = useSelector((state) => state.orderMyList);
   const { loading, error, orders } = orderMyList;
@@ -26,11 +37,35 @@ const OrdersMy = () => {
   };
 
   useEffect(() => {
-    dispatch(listMyOrders());
-  }, [dispatch, userInfo]);
+    const { page, pageSize, sort, search } = endpoint;
+
+    dispatch(listMyOrders(`${page}${pageSize}${sort}${search}`));
+  }, [dispatch, userInfo, endpoint]);
 
   return (
     <div className="my_orders">
+      <div className="header">
+        <SearchBox
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          resource="orders"
+        />
+        <div className="dropdown_group_container">
+          <DropdownSelect
+            name="pageSize"
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            labelStart="Page size"
+            optionsMap={adminListPageSizeOptionsMap}
+          />
+          <DropdownSelect
+            name="sort"
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            labelStart="Sort by"
+            optionsMap={adminOrderListSortOptionsMap}
+          />
+        </div>
+      </div>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -107,6 +142,16 @@ const OrdersMy = () => {
       ) : (
         <h2>You have no orders</h2>
       )}
+      <div className="footer">
+        {orders?.length > 0 && (
+          <Pagination
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+            totalItems={orders[0].totalDBItems}
+          />
+        )}
+      </div>
     </div>
   );
 };
