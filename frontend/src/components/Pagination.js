@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import './styles/Pagination.css';
 
-const Pagination = ({ updatePagingQuery, currentPage, pageSize, totalItems }) => {
+const Pagination = ({ updateQuery, currentPage, pageSize, totalItems }) => {
   const [rangePageNumber, setRangePageNumber] = useState([1]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Pagination = ({ updatePagingQuery, currentPage, pageSize, totalItems }) =>
         <Button
           classes="icon"
           onClick={() => {
-            updatePagingQuery('page', `page=${numberLabel}&`);
+            updateQuery('page', `page=${numberLabel}&`);
           }}
         >
           <span>{numberLabel}</span>
@@ -48,7 +48,7 @@ const Pagination = ({ updatePagingQuery, currentPage, pageSize, totalItems }) =>
         <Button
           classes="icon"
           onClick={() => {
-            updatePagingQuery('page', `page=1&`);
+            updateQuery('page', `page=1&`);
           }}
         >
           <span>1</span>
@@ -65,7 +65,7 @@ const Pagination = ({ updatePagingQuery, currentPage, pageSize, totalItems }) =>
         <Button
           classes="icon"
           onClick={() => {
-            updatePagingQuery('page', `page=${rangePageNumber.length}&`);
+            updateQuery('page', `page=${rangePageNumber.length}&`);
           }}
         >
           <span>{rangePageNumber.length}</span>

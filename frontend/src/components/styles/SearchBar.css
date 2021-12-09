@@ -44,7 +44,7 @@
   border: none;
   padding: 0 60px 0 20px;
   font-size: 18px;
-  border-radius: 0 25px 25px 0;
+  border-radius: 25px;
   background-color: var(--grey);
 }
 
@@ -134,9 +134,9 @@
   box-shadow: var(--box_shadow_angle);
 }
 
-.search_button:active,
+/* .search_button:active,
 .search_inputs button:active,
 .search_term_input:focus,
 .search_bar li > div:active {
   box-shadow: var(--box_shadow_angle_active);
-}
+} */

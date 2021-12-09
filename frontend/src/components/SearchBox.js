@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
-import './styles/SearchBar.css';
 import Tooltip from './Tooltip';
+import './styles/SearchBox.css';
+import useThrottle from '../hooks/useThrottle';
 
-const SearchBox = ({updateQuery}) => {
+const THROTTLE_DELAY = 1000;
+const RESET_BTN_THRESHOLD = 3
+
+const SearchBox = ({ updateQuery, resource }) => {
   const [searchTerm, setSearchTerm] = useState('');
-console.log(searchTerm, 'searchTerm');
+
+  const searchEnterKeyHandler = (e) => {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      updateQuery('search', `search=${searchTerm}&`);
+    }
+  };
+
   const resetInputButtonHandler = () => {
     setSearchTerm('');
+    updateQuery('search', `search=`);
   };
 
   const keywordInputHandler = (e) => {
@@ -14,46 +26,26 @@ console.log(searchTerm, 'searchTerm');
     setSearchTerm(e.target.value);
   };
 
-  const searchHandler = (e) => {
-    e.preventDefault();
-    if (e.key === 'Enter') {
-      if (searchTerm.trim()) {
-        updateQuery('search', `search=${searchTerm}&`);
-      } 
-    }
-  };
+  // Throttle (debounce) searches
+  useThrottle(() => updateQuery('search', `search=${searchTerm}&`), THROTTLE_DELAY, [searchTerm]);
 
   return (
-    <main className="search_container">
-      <div className={`search_bar ${searchTerm && 'active'}`}>
-        <div className="search_inputs">
-          <input
-            className="search_term_input"
-            type="text"
-            value={searchTerm}
-            onChange={keywordInputHandler}
-            onKeyUp={(e) => searchHandler(e)}
-            placeholder={'Search ...'}
-          />
-        </div>
-        <div className="search_button_group">
-          {searchTerm && (
-            <button
-              type="button"
-              className="reset_search_term_button"
-              onClick={resetInputButtonHandler}
-            >
-              <Tooltip text="Clear">
-                <i className="fa fa-times" aria-hidden="true"></i>
-              </Tooltip>
-            </button>
-          )}
-          <button type="submit" className="search_button" onClick={(e) => searchHandler(e)}>
-            <Tooltip text="Search">
-              <i className="fa fa-search"></i>
+    <main className="search_box_container">
+      <div className={`search_box ${searchTerm && 'active'}`}>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={keywordInputHandler}
+          onKeyUp={(e) => searchEnterKeyHandler(e)}
+          placeholder={`Search in ${resource}`}
+        />
+        {searchTerm.length >= RESET_BTN_THRESHOLD && (
+          <button type="button" className="reset_btn" onClick={resetInputButtonHandler}>
+            <Tooltip text="Clear">
+              <i className="fa fa-times" aria-hidden="true"></i>
             </Tooltip>
           </button>
-        </div>
+        )}
       </div>
     </main>
   );
