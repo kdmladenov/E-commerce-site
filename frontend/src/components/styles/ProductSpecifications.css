@@ -60,8 +60,9 @@ table.specification_table_left tr > td:first-child {
 
 table.specification_table_right .price,
 table.specification_table_left .price {
-  color: rgb(170, 2, 2);
-  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 table.specification_table_left tr:nth-child(odd),

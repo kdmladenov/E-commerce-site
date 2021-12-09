@@ -71,6 +71,14 @@
   text-decoration: none;
 }
 
+.order_list_container .order_item .total {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--black)
+}
+
 /* Footer */
 .order_list_container .footer .pagination {
   margin: 20px 0;

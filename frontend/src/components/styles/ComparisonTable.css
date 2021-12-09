@@ -55,8 +55,9 @@ table.comparison_table tbody tr > td:first-child {
 }
 
 table.comparison_table .price {
-  color: rgb(170, 2, 2);
-  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Sticky Header and first 2 columns */

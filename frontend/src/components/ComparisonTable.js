@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
-import { numberDecimalFix, poundToKg } from '../constants/utility-functions';
+import { poundToKg } from '../constants/utility-functions';
+import Price from './Price';
 import Rating from './Rating';
 import './styles/ComparisonTable.css';
 
@@ -20,7 +21,7 @@ const ComparisonTable = ({ products, currentProductId, sortBy }) => {
       {sortedProducts?.map((product) => (
         <td key={product.productId}>
           {spec === 'price' ? (
-            <div className="price">${numberDecimalFix(product[spec])}</div>
+            <div className="price">{<Price price={product[spec]} />}</div>
           ) : spec === 'backlitKeyboard' ? (
             product[spec] === 1 ? (
               <i className="fa fa-check"></i>

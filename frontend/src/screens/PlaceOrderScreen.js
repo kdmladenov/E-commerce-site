@@ -16,7 +16,6 @@ import {
   TAX_RATE
 } from '../constants/constants';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
-import { numberDecimalFix } from '../constants/utility-functions';
 import './styles/PlaceOrderScreen.css';
 
 const PlaceOrderScreen = ({ history }) => {
@@ -166,25 +165,25 @@ const PlaceOrderScreen = ({ history }) => {
               <tr>
                 <td>{`Items (${cartItems.reduce((acc, item) => acc + item.qty, 0)}):`}</td>
                 <td>
-                  <span>$ {numberDecimalFix(cart.itemsPrice)}</span>
+                  <Price price={cart.itemsPrice} size="small" color="black" />
                 </td>
               </tr>
               <tr>
                 <td>Shipping & handling:</td>
                 <td>
-                  <span>$ {numberDecimalFix(cart.shippingPrice)}</span>
+                  <Price price={cart.shippingPrice} size="small" color="black" />
                 </td>
               </tr>
               <tr>
                 <td>Total before tax:</td>
                 <td>
-                  <span>$ {numberDecimalFix(cart.itemsPrice + cart.shippingPrice)}</span>
+                  <Price price={cart.itemsPrice + cart.shippingPrice} size="small" color="black" />
                 </td>
               </tr>
               <tr>
                 <td>Estimated tax:</td>
                 <td>
-                  <span>$ {numberDecimalFix(cart.taxPrice)}</span>
+                  <Price price={cart.taxPrice} size="small" color="black" />
                 </td>
               </tr>
               <tr>
@@ -194,7 +193,11 @@ const PlaceOrderScreen = ({ history }) => {
                 </td>
               </tr>
             </table>
-            <Button classes="rounded" disabled={cartItems.length === 0} onClick={placeOrderHandler}>
+            <Button
+              classes="rounded"
+              disabled={cartItems.length === 0}
+              onClick={() => placeOrderHandler()}
+            >
               {cartItems.length === 0 ? 'Cart is empty' : 'Place order'}
             </Button>
           </div>

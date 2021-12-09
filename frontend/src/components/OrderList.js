@@ -7,11 +7,12 @@ import { Link } from 'react-router-dom';
 import './styles/OrderList.css';
 import { listOrders } from '../actions/orderActions';
 import Accordion from './Accordion';
-import { getDate, numberDecimalFix } from '../constants/utility-functions';
+import { getDate } from '../constants/utility-functions';
 import SearchBox from './SearchBox';
 import DropdownSelect from './DropdownSelect';
 import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
+import Price from './Price';
 
 const OrderList = ({ history }) => {
   const dispatch = useDispatch();
@@ -117,7 +118,8 @@ const OrderList = ({ history }) => {
                             <Link to={`/products/${item.id}`}>{item.title}</Link>
                           </div>
                           <div className="total">
-                            {`$ ${numberDecimalFix(item.price)} x ${item.qty}`}
+                            <Price price={item.price} size="small" color="black" />
+                            <span>{` x ${item.qty}`}</span>
                           </div>
                         </div>
                       </li>

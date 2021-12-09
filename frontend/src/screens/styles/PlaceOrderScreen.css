@@ -148,7 +148,7 @@
 }
 
 .place_order_screen .sidebar .action_box table tr td:last-child{
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 /* Subtotal */

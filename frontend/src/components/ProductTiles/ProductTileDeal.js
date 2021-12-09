@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { numberDecimalFix } from '../../constants/utility-functions';
+import Price from '../Price';
 import './style/ProductTileDeal.css';
 
 const ProductTileDeal = ({ product }) => {
@@ -8,7 +8,7 @@ const ProductTileDeal = ({ product }) => {
     <>
       <img src={product?.image} alt={product?.title} />
       <span>Today only: Up to 80% off</span>
-      <span>$ {numberDecimalFix(product?.price)}</span>
+      <Price price={product?.price} size="small" color="black" />
     </>
   );
 

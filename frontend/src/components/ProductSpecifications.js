@@ -1,7 +1,8 @@
 import React from 'react';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
-import { numberDecimalFix, poundToKg } from '../constants/utility-functions';
+import { poundToKg } from '../constants/utility-functions';
+import Price from './Price';
 import Rating from './Rating';
 import './styles/ProductSpecifications.css';
 
@@ -13,7 +14,7 @@ const ProductSpecifications = ({ product }) => {
         <td>{productSpecificationsEnum[spec]}</td>
         <td key={product.productId}>
           {spec === 'price' ? (
-            <div className="price">${numberDecimalFix(product[spec])}</div>
+            <div className="price">{<Price price={product[spec]} />}</div>
           ) : spec === 'backlitKeyboard' ? (
             product[spec] === 1 ? (
               <i className="fa fa-check"></i>
@@ -60,7 +61,7 @@ const ProductSpecifications = ({ product }) => {
         <td>{productSpecificationsEnum[spec]}</td>
         <td key={product.productId}>
           {spec === 'price' ? (
-            <div className="price">${numberDecimalFix(product[spec])}</div>
+            <div className="price">{<Price price={product[spec]} />}</div>
           ) : spec === 'backlitKeyboard' ? (
             product[spec] === 1 ? (
               <i className="fa fa-check"></i>

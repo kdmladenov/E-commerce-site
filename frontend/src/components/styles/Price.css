@@ -2,45 +2,58 @@
   width: fit-content;
   display: flex;
   justify-content: center;
-  height: 22px;
+  height: 20px;
   font-weight: bold;
-  /* margin: 0 auto; */
 }
 
+/* Superscript (default) */
 .price_container .currency_sign,
 .price_container .decimal_number {
   vertical-align: super;
   line-height: 13px;
   font-size: 13px;
 }
-
 .price_container .whole_number {
   line-height: 20px;
   font-size: 22px;
 }
 
-/* size small */
+/* Superscript OFF - baseline_script*/
+.price_container.baseline_script .currency_sign,
+.price_container.baseline_script .decimal_number,
+.price_container.baseline_script .whole_number {
+  vertical-align: baseline;
+  line-height: 20px;
+  font-size: 20px;
+}
+
+/* size Small and Superscript */
 .price_container.small .currency_sign,
 .price_container.small .decimal_number {
   line-height: 12px;
   font-size: 12px;
 }
-
 .price_container.small .whole_number {
-  line-height: 19px;
-  font-size: 21px;
+  line-height: 17px;
+  font-size: 16px;
 }
 
+/* size Small and Superscript OFF */
+.price_container.small.baseline_script .currency_sign,
+.price_container.small.baseline_script .decimal_number,
+.price_container.small.baseline_script .whole_number {
+  line-height: 17px;
+  font-size: 16px;
+}
+.price_container.small.baseline_script,
+.price_container.small {
+  height: 17px;
+}
 /* red color */
 .price_container.red {
   color: var(--red_dark);
 }
 
-/* Superscript OFF */
-.price_container .currency_sign.baseline_script,
-.price_container .decimal_number.baseline_script,
-.price_container .whole_number.baseline_script {
-  vertical-align: baseline;
-  line-height: 20px;
-  font-size: 20px;
+.price_container {
+  color: var(--black);
 }

@@ -17,6 +17,11 @@
   object-fit: contain;
 }
 
+.tile_deal .content > div {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .tile_deal .title,
 .tile_deal span {
   text-align: center;

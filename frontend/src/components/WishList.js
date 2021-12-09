@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { deleteWishFromList, listWishedItems } from '../actions/wishListActions';
+import { useHistory } from 'react-router-dom';
+import { listWishedItems } from '../actions/wishListActions';
 import Loader from './Loader';
 import Message from './Message';
-import Button from './Button';
-import Rating from './Rating';
 import './styles/WishList.css';
-import { BASE_URL } from '../constants/constants';
-import { numberDecimalFix } from '../constants/utility-functions';
-import Popover from './Popover';
-import RatingWidget from './RatingWidget';
 import WishListCard from './WishListCard';
 import SearchBox from './SearchBox';
 import DropdownSelect from './DropdownSelect';
