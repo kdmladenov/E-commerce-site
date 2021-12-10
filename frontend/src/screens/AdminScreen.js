@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import OrderList from '../components/OrderList';
+import ProductListAdmin from '../components/ProductListAdmin';
 import UserList from '../components/UserList';
 import './styles/AdminScreen.css';
 
@@ -47,7 +48,7 @@ const AdminScreen = ({ match }) => {
             activeTab === 'productlist' && 'active'
           }`}
         >
-          Product List
+          <ProductListAdmin />
         </section>
       </div>
     </main>

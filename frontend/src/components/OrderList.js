@@ -42,7 +42,7 @@ const OrderList = ({ history }) => {
 
   return (
     <div className="order_list_container">
-      <h1>Orders</h1>
+      {/* <h1>Orders</h1> */}
       <div className="header">
         <SearchBox
           updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}

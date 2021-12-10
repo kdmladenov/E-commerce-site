@@ -790,3 +790,11 @@ export const adminOrderListSortOptionsMap = [
   { label: 'Total: Low to High', value: 'sort=total_price asc&' },
   { label: 'Total: High to Low', value: 'sort=total_price desc&' }
 ];
+
+
+export const adminProductListSortOptionsMap = [
+  { label: 'Product Id: Low to High', value: 'sort=product_id asc&' },
+  { label: 'Product Id: High to Low', value: 'sort=product_id desc&' },
+  { label: 'Price: Low to High', value: 'sort=price asc&' },
+  { label: 'Price: High to Low', value: 'sort=price desc&' }
+];
