@@ -25,6 +25,7 @@ import AdminScreen from './screens/AdminScreen';
 import Toast from './components/Toast';
 import { useDispatch } from 'react-redux';
 import { addToPortalRefs } from './actions/portalActions';
+import ReviewsScreen from './screens/ReviewsScreen';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const App = () => {
       <Route path="/admin/product/create" component={ProductCreateScreenAdmin} />
       <Route path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
       <Route path="/products/:id" component={ProductScreen} />
+      <Route path="/reviews/:productId" component={ReviewsScreen} />
       <Route path="/productlist" component={ProductListScreen} />
       <Route path="/wishlist" component={WishListScreen} />
       <Route path="/history" component={BrowsingHistoryScreen} />

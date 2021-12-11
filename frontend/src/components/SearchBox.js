@@ -30,7 +30,7 @@ const SearchBox = ({ updateQuery, resource }) => {
   useThrottle(() => updateQuery('search', `search=${searchTerm}&`), THROTTLE_DELAY, [searchTerm]);
 
   return (
-    <main className="search_box_container">
+    <div className="search_box_container">
       <div className={`search_box ${searchTerm && 'active'}`}>
         <input
           type="text"
@@ -47,7 +47,7 @@ const SearchBox = ({ updateQuery, resource }) => {
           </button>
         )}
       </div>
-    </main>
+    </div>
   );
 };
 

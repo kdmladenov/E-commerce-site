@@ -19,30 +19,6 @@ export const numberDecimalFix = (number, decimals = 2) =>
 
 export const alphabeticalSort = (arr) => arr.sort((a, b) => a.localeCompare(b));
 
-export const getParam = (endpoint, param) => {
-  return endpoint.find((i) => i.startsWith(`${param}=`))
-    ? `${endpoint.find((i) => i.startsWith(`${param}=`))}&`
-    : '';
-};
-
-export const getParamsFromHistory = (history) => {
-  const endpoint = history.location.search.slice(1).split('&');
-  const page = endpoint.find((i) => i.startsWith('page='))
-    ? `${endpoint.find((i) => i.startsWith('page='))}&`
-    : '';
-  const pageSize = endpoint.find((i) => i.startsWith('pageSize='))
-    ? `${endpoint.find((i) => i.startsWith('pageSize='))}&`
-    : '';
-  const sort = endpoint.find((i) => i.startsWith('sort='))
-    ? `${endpoint.find((i) => i.startsWith('sort='))}&`
-    : '';
-  const order = endpoint.find((i) => i.startsWith('order='))
-    ? `${endpoint.find((i) => i.startsWith('order='))}&`
-    : '';
-
-  return;
-};
-
 export const getTimeDuration = (start, end) => {
   const startDate = new Date(start);
   const endDate = new Date(end);
@@ -125,31 +101,6 @@ export const scrollTo = (ref) => {
 
 export const randomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
-};
-
-export const endpointMapper = (endpoint) => {
-  const endpointMap = {
-    page: '',
-    pageSize: '',
-    sort: '',
-    order: '',
-    search: ''
-  };
-  const endpointArr = endpoint.slice(1).split('&');
-  endpoint['page'] = endpointArr?.find((i) => i.startsWith('page='))
-    ? `${endpointArr?.find((i) => i.startsWith('page='))}&`
-    : '';
-  endpoint['pageSize'] = endpointArr?.find((i) => i.startsWith('pageSize='))
-    ? `${endpointArr?.find((i) => i.startsWith('pageSize='))}&`
-    : '';
-  endpoint['sort'] = endpointArr?.find((i) => i.startsWith('sort='))
-    ? `${endpointArr?.find((i) => i.startsWith('sort='))}&`
-    : '';
-  endpoint['order'] = endpointArr?.find((i) => i.startsWith('order='))
-    ? `${endpointArr?.find((i) => i.startsWith('order='))}&`
-    : '';
-
-  return endpointMap;
 };
 
 export const uniqueId = () => new Date().getTime();

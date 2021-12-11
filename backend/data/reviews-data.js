@@ -2,12 +2,15 @@ import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
 const getAll = async (productId, search, sort, order, page, pageSize, ratingMin, ratingMax) => {
-  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(order) ? order : 'ASC';
-  const offset = (page - 1) * pageSize;
-  const sortColumn = ['date_created', 'rating', 'thumbs_up', 'thumbs_down'].includes(sort)
-    ? sort
+  const sortArr = sort.split(' ');
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
+  const sortColumn = ['dateCreated', 'rating', 'thumbsUp', 'thumbsDown'].includes(sortArr[0])
+    ? sortArr[0]
     : 'date_created';
+  const offset = (page - 1) * pageSize;
 
+  console.log(sort);
+  console.log(`ORDER BY ${sortColumn} ${direction}`);
   const sql = `
     SELECT
     r.product_id as productId,
@@ -23,7 +26,8 @@ const getAll = async (productId, search, sort, order, page, pageSize, ratingMin,
     rl.thumbs_up as thumbsUp,
     rl.thumbs_down as thumbsDown,
     rl.userThumbsUpList,
-    rl.userThumbsDownList
+    rl.userThumbsDownList,
+    COUNT(*) OVER () AS totalDBItems
     FROM reviews r
     LEFT JOIN users u USING (user_id)
     LEFT JOIN (select review_id,
@@ -34,7 +38,7 @@ const getAll = async (productId, search, sort, order, page, pageSize, ratingMin,
         from review_likes
         WHERE is_deleted = 0
         group by review_id) rl USING (review_id)
-    WHERE r.is_deleted = 0 AND r.product_id = ? AND r.rating BETWEEN ? AND ? AND (r.content Like '%${search}%' OR r.title Like '%${search}%')
+    WHERE r.is_deleted = 0 AND r.product_id = ? AND r.rating BETWEEN ? AND ? AND (r.content Like '%${search}%' OR r.title Like '%${search}%' OR u.full_name Like '%${search}%')
     ORDER BY ${sortColumn} ${direction}
     LIMIT ? OFFSET ?
     `;
