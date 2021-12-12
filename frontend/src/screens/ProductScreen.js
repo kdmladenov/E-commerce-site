@@ -9,7 +9,7 @@ import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
 import Button from '../components/Button';
-import Reviews from '../components/Review/Reviews';
+import Reviews from '../components/Reviews';
 import { listReviews } from '../actions/reviewActions';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
@@ -83,7 +83,7 @@ const ProductScreen = ({ history, match }) => {
 
   //TO DO to be replaced with backend data
   const images = [
-    product.image,
+    product?.image,
     'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg'
     // 'https://images-na.ssl-images-amazon.com/images/I/51aOzD8GuxL.jpg',
     // 'https://images-na.ssl-images-amazon.com/images/I/31PEdbmQZsL.jpg',
@@ -126,26 +126,29 @@ const ProductScreen = ({ history, match }) => {
     'processorModelNumber',
     'storageCapacity',
     'systemMemory'
-  ].map((spec, index) => (
-    <tr key={index}>
-      <td>{productSpecificationsEnum[spec]}</td>
-      <td key={product.productId}>
-        {spec === 'displayType' ? (
-          <span>{`${product['screenSize']?.toFixed(1)}-inch ${product['displayType']} with ${
-            product['screenResolution']
-          } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
-        ) : spec === 'storageCapacity' ? (
-          <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
-        ) : spec === 'systemMemory' ? (
-          <span>{`${product['systemMemory']} GB`}</span>
-        ) : spec === 'graphicsModel' ? (
-          `${product['graphicsModel']} (${product['graphicsType']})`
-        ) : (
-          product[spec]
-        )}
-      </td>
-    </tr>
-  ));
+  ].map(
+    (spec, index) =>
+      product && (
+        <tr key={index}>
+          <td>{productSpecificationsEnum[spec]}</td>
+          <td key={product?.productId}>
+            {spec === 'displayType' ? (
+              <span>{`${product['screenSize']?.toFixed(1)}-inch ${product['displayType']} with ${
+                product['screenResolution']
+              } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
+            ) : spec === 'storageCapacity' ? (
+              <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
+            ) : spec === 'systemMemory' ? (
+              <span>{`${product['systemMemory']} GB`}</span>
+            ) : spec === 'graphicsModel' ? (
+              `${product['graphicsModel']} (${product['graphicsType']})`
+            ) : (
+              product[spec]
+            )}
+          </td>
+        </tr>
+      )
+  );
 
   useEffect(() => {
     dispatch(listProductDetails(productId));
@@ -156,8 +159,8 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match, successCreateReview, successDeleteReview, successEditReview]);
 
   useEffect(() => {
-    setSelectedImage(product.image);
-    dispatch(listProducts(`?searchBy=brand&search=${product.brand}`));
+    setSelectedImage(product?.image);
+    dispatch(listProducts(`?searchBy=brand&search=${product?.brand}`));
   }, [dispatch, product]);
 
   return (
@@ -194,22 +197,20 @@ const ProductScreen = ({ history, match }) => {
           >
             {!showZoomedImage && (
               <div className="product_details_info">
-                <div className="product_details_title">{product.title}</div>
+                <div className="product_details_title">{product?.title}</div>
                 <div className="product_details_brand">
                   <span>by</span>
                   <Button classes="text">
-                    <strong onClick={() => scrollTo(comparisonRef)}>{product.brand}</strong>
+                    <strong onClick={() => scrollTo(comparisonRef)}>{product?.brand}</strong>
                   </Button>
                 </div>
                 <div className="product_details_rating" onClick={() => scrollTo(reviewsRef)}>
-                  <Popover header={<Rating rating={product.rating} color="orange"></Rating>}>
-                    {reviews?.length > 0 && (
-                      <RatingWidget reviews={reviews} productId={productId} />
-                    )}
+                  <Popover header={<Rating rating={product?.rating} color="orange"></Rating>}>
+                    {product && <RatingWidget product={product} />}
                   </Popover>
-                  {product.reviewCount > 0 ? (
+                  {product?.reviewCount > 0 ? (
                     <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
-                      {`from ${product.reviewCount} customer reviews `}
+                      {`from ${product?.reviewCount} customer reviews `}
                     </Button>
                   ) : (
                     <span>no reviews yet</span>
@@ -256,7 +257,7 @@ const ProductScreen = ({ history, match }) => {
                 )}
                 <Divider />
                 <div className="product_details_description">
-                  <h3>Description:</h3> <p>{product.description}</p>
+                  <h3>Description:</h3> <p>{product?.description}</p>
                 </div>
               </div>
             )}
@@ -265,21 +266,21 @@ const ProductScreen = ({ history, match }) => {
             <ul>
               <li>
                 <h2>Price</h2>
-                <h2>${product.price}</h2>
+                <h2>${product?.price}</h2>
               </li>
               <li>
                 <h2>Status</h2>
-                <h2 style={{ color: product.stockCount === 0 ? 'red' : 'green' }}>
-                  {product.stockCount === 0 ? 'Out of Stock' : 'In Stock'}
+                <h2 style={{ color: product?.stockCount === 0 ? 'red' : 'green' }}>
+                  {product?.stockCount === 0 ? 'Out of Stock' : 'In Stock'}
                 </h2>
               </li>
               <li>
-                {product.stockCount > 0 && (
+                {product?.stockCount > 0 && (
                   <>
                     <h2>Quantity </h2>
                     <select value={qty} onChange={(e) => setQty(e.target.value)}>
-                      {[...Array(product.stockCount).keys()]
-                        .slice(0, Math.min(product.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
+                      {[...Array(product?.stockCount).keys()]
+                        .slice(0, Math.min(product?.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
                         .map((index) => (
                           <option key={index + 1} value={index + 1}>
                             {index + 1}
@@ -293,10 +294,10 @@ const ProductScreen = ({ history, match }) => {
 
             <Button
               onClick={addToCartHandler}
-              disabled={product.stockCount === 0}
+              disabled={product?.stockCount === 0}
               classes="rounded"
             >
-              {product.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
+              {product?.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
             </Button>
           </div>
         </section>
@@ -336,7 +337,7 @@ const ProductScreen = ({ history, match }) => {
         )}
       </section>
       <section className="comparison_table_container" ref={comparisonRef}>
-        <h2>{`Compare ${product.brand} Laptops:`}</h2>
+        <h2>{`Compare ${product?.brand} Laptops:`}</h2>
         {loadingCompared ? (
           <Loader />
         ) : errorCompared ? (
@@ -347,17 +348,7 @@ const ProductScreen = ({ history, match }) => {
       </section>
       <section className="reviews_container" ref={reviewsRef}>
         <h2>Reviews:</h2>
-        {loadingReviews ? (
-          <Loader />
-        ) : errorReviews || errorCreateReview || errorDeleteReview || errorEditReview ? (
-          <Message type="error">
-            {errorReviews || errorCreateReview || errorDeleteReview || errorEditReview}
-          </Message>
-        ) : product.reviewCount > 0 ? (
-          <Reviews reviews={reviews} currentUser={currentUser} productId={product.productId} />
-        ) : (
-          <Message type="success">There are no reviews for this product</Message>
-        )}
+        <Reviews currentUser={currentUser} productId={productId} />
       </section>
       <section className="questions_and_answers_container" ref={questionsAndAnswersRef}>
         <h2>Questions & Answers:</h2>
