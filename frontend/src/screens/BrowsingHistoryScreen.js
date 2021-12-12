@@ -43,22 +43,7 @@ const BrowsingHistoryScreen = () => {
     <ul>
       {browsingHistory?.map((historyRecord) => (
         <li className="history_item card" key={historyRecord.productId}>
-          <ProductCard
-            id={historyRecord.productId}
-            title={historyRecord.title}
-            image={historyRecord.image}
-            price={historyRecord.price}
-            rating={historyRecord.rating}
-            stockCount={historyRecord.stockCount}
-            reviewCount={historyRecord.reviewCount}
-            ratingMap={{
-              1: historyRecord.starOne || 0,
-              2: historyRecord.starTwo || 0,
-              3: historyRecord.starThree || 0,
-              4: historyRecord.starFour || 0,
-              5: historyRecord.starFive || 0
-            }}
-          />
+          <ProductCard product={historyRecord} />
           <Button
             classes="icon"
             onClick={() => dispatch(deleteBrowsingHistory(historyRecord.historyId))}

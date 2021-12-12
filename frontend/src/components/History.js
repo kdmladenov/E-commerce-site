@@ -39,21 +39,8 @@ const History = ({horizontal}) => {
           historyRecord={historyRecord}
         >
           <ProductCard
-            id={historyRecord.productId}
-            title={historyRecord.title}
-            image={historyRecord.image}
-            price={historyRecord.price}
-            rating={historyRecord.rating}
-            stockCount={historyRecord.stockCount}
-            reviewCount={historyRecord.reviewCount}
+            product={historyRecord}
             horizontal={!horizontal}
-            ratingMap={{
-              1: historyRecord.starOne || 0,
-              2: historyRecord.starTwo || 0,
-              3: historyRecord.starThree || 0,
-              4: historyRecord.starFour || 0,
-              5: historyRecord.starFive || 0
-            }}
             ribbonText="history"
           />
         </Timeline.Item>

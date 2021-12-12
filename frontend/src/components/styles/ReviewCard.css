@@ -1,0 +1,54 @@
+.review_card {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 10px 20px 0 20px;
+}
+
+.review_card .user_info{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.review_card .rating_title {
+  display: flex;
+  align-items: center;
+}
+
+.review_card .title {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.review_card .textarea.card,
+.review_card input.textarea.card {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  resize: none;
+  min-height: 40px;
+  line-height: 20px;
+  padding: 10px 20px;
+  height: auto;
+}
+
+.review_card .edit_buttons {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.review_card .button_group_edit {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.review_card .footer {
+  display: flex;
+  align-items: center;
+}
+
+.review_card .dates{
+  margin-left: 20px;
+}

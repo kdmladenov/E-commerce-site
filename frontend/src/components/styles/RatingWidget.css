@@ -68,6 +68,11 @@
   margin: -1px 0 0 -1px;
 }
 
+.rating_widget .row.unfiltered .bar_level {
+  background-color: rgb(216, 214, 214);
+  border: 1px solid rgb(216, 214, 214);
+}
+
 .rating_widget .row.is_rated:hover .bar_level {
   height: 18px;
   background-color: var(--orange);

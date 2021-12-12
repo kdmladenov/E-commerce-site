@@ -14,19 +14,13 @@ import RatingWidget from './RatingWidget';
 import Tooltip from './Tooltip';
 
 const ProductCard = ({
-  id,
-  title,
-  image,
-  price,
-  rating,
-  reviewCount,
-  stockCount,
+  product,
   horizontal,
   ribbonText,
-  ratingMap
 }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
+
+  const { productId, title, image, price, rating, reviewCount, stockCount } = product;
 
   const wishListItems = useSelector((state) => state.wishListItems);
   const { wishList } = wishListItems;
@@ -41,14 +35,16 @@ const ProductCard = ({
   const { portalRefsMap: {toast_cart: toastCartRef }} = portalRefs;
 
   const addToCartHandler = () => {
-    dispatch(addToCart(id, 1));
+    dispatch(addToCart(productId, 1));
     toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
 
   const wishlistHandler = () => {
-    wishList.some((wish) => wish.productId === id)
-      ? dispatch(deleteWishFromList(wishList.find((wish) => wish.productId === id).wishListId))
-      : dispatch(addWishToList(id));
+    wishList.some((wish) => wish.productId === productId)
+      ? dispatch(
+          deleteWishFromList(wishList.find((wish) => wish.productId === productId).wishListId)
+        )
+      : dispatch(addWishToList(productId));
   };
 
   useEffect(() => {
@@ -57,7 +53,7 @@ const ProductCard = ({
 
   return (
     <div className={`product_card ${horizontal ? 'horizontal' : ''}`}>
-      <Link to={`/products/${id}`}>
+      <Link to={`/products/${productId}`}>
         <img
           src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`}
           alt="product"
@@ -65,7 +61,7 @@ const ProductCard = ({
         />
       </Link>
       <div className="title">
-        <Link to={`/products/${id}`}>{title}</Link>
+        <Link to={`/products/${productId}`}>{title}</Link>
       </div>
       {reviewCount > 0 ? (
         <Popover
@@ -80,14 +76,7 @@ const ProductCard = ({
             </div>
           }
         >
-          {
-            <RatingWidget
-              productRating={rating}
-              reviewCount={reviewCount}
-              ratingMap={ratingMap}
-              productId={id}
-            />
-          }
+          {product && <RatingWidget product={product} />}
         </Popover>
       ) : (
         <div className="rating_review">
@@ -110,7 +99,7 @@ const ProductCard = ({
       </div>
       <div
         className={`wish_list_btn ${
-          wishList?.some((wish) => wish.productId === id) ? 'active' : ''
+          wishList?.some((wish) => wish.productId === productId) ? 'active' : ''
         }`}
       >
         <Button onClick={wishlistHandler} classes={'icon'}>
