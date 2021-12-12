@@ -9,15 +9,14 @@ import { listReviews } from '../actions/reviewActions';
 import { useState } from 'react';
 import SearchBox from '../components/SearchBox';
 import {
-  browsingHistorySidebarInput,
   productListPageSizeOptionsMap,
   ratingFilterOptionsMap,
   reviewsSortOptionsMap
 } from '../constants/inputMaps';
 import Pagination from '../components/Pagination';
-import ReviewCard from '../components/Review/ReviewCard';
-import Sidebar from '../components/Sidebar';
+import ReviewCard from '../components/ReviewCard';
 import RatingWidget from '../components/RatingWidget';
+import { listProductDetails } from '../actions/productActions';
 
 const ReviewsScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -30,6 +29,9 @@ const ReviewsScreen = ({ match }) => {
     rating: 'ratingMin=1&ratingMax=5&',
     search: ''
   });
+
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading: loadingProduct, error: errorProduct } = productDetails;
   // To refresh on every change in reviews
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading, error } = reviewList;
@@ -62,6 +64,7 @@ const ReviewsScreen = ({ match }) => {
     const { page, pageSize, sort, search, rating } = endpoint;
 
     dispatch(listReviews(productId, `${page}${pageSize}${sort}${rating}${search}`));
+    dispatch(listProductDetails(productId));
   }, [
     dispatch,
     productId,
@@ -73,8 +76,46 @@ const ReviewsScreen = ({ match }) => {
     Array.isArray(reviews) && (
       <main className="reviews_screen_container">
         <aside className="sidebar">
-          {reviews && <RatingWidget reviews={reviews} productId={productId} />}
+          {reviews && (
+            <RatingWidget
+              product={product}
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              ratingQuery={endpoint.rating}
+            />
+          )}
         </aside>
+        <div className="header">
+          <div className="breadcrumbs_container">
+            <Breadcrumbs />
+          </div>
+          <SearchBox
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            resource="reviews"
+          />
+          <div className="dropdown_group_container">
+            <DropdownSelect
+              name="rating"
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              query={endpoint}
+              labelStart="Rating: "
+              optionsMap={ratingFilterOptionsMap}
+            />
+            <DropdownSelect
+              name="pageSize"
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              query={endpoint}
+              labelStart="Page size"
+              optionsMap={productListPageSizeOptionsMap}
+            />
+            <DropdownSelect
+              name="sort"
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              query={endpoint}
+              labelStart="Sort by"
+              optionsMap={reviewsSortOptionsMap}
+            />
+          </div>
+        </div>
         {loading ? (
           <Loader />
         ) : error ? (
@@ -82,39 +123,7 @@ const ReviewsScreen = ({ match }) => {
         ) : reviews.length === 0 ? (
           <h2>No reviews to display</h2>
         ) : (
-          <div className="reviews_screen">
-            <div className="header">
-              <div className="breadcrumbs_container">
-                <Breadcrumbs />
-              </div>
-              <SearchBox
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                resource="reviews"
-              />
-              <div className="dropdown_group_container">
-                <DropdownSelect
-                  name="rating"
-                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                  query={endpoint}
-                  labelStart="Rating: "
-                  optionsMap={ratingFilterOptionsMap}
-                />
-                <DropdownSelect
-                  name="pageSize"
-                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                  query={endpoint}
-                  labelStart="Page size"
-                  optionsMap={productListPageSizeOptionsMap}
-                />
-                <DropdownSelect
-                  name="sort"
-                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                  query={endpoint}
-                  labelStart="Sort by"
-                  optionsMap={reviewsSortOptionsMap}
-                />
-              </div>
-            </div>
+          <div className="reviews_list">
             <ul>{reviewsToShow}</ul>
             <div className="footer">
               {reviews?.length > 0 && (

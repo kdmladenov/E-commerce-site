@@ -1,67 +1,90 @@
 .reviews_screen_container {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-areas: 'sidebar review_list';
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    'sidebar header'
+    'sidebar review_list';
 }
 
-.reviews_screen_container .reviews_screen .sidebar {
+.reviews_screen_container .sidebar {
   grid-area: sidebar;
-  background-color: var(--white);
+  height: 100%;
+  padding: 10px;
   box-shadow: var(--box_shadow_angle);
+  background-color: var(--gray_background);
 }
 
-.reviews_screen_container .reviews_screen {
+.reviews_screen_container .sidebar .rating_widget {
+  background-color: var(--white);
+  border-radius: 5px;
+  box-shadow: var(--box_shadow);
+  color: var(--black);
+  position: sticky;
+  top: 10px;
+}
+
+.reviews_screen_container .reviews_list {
   grid-area: review_list;
   background-color: var(--gray_background);
   min-height: 100vh;
   height: fit-content;
-  position: sticky;
-  top: 0;
 }
 
-.reviews_screen_container .reviews_screen .header {
+.reviews_screen_container > .header {
+  grid-area: header;
   border-bottom: 1px solid var(--gray);
   padding: 10px;
-  margin: 0 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--gray_background);
 }
 
-.reviews_screen_container .reviews_screen .footer {
+.reviews_screen_container .header .dropdown_group_container {
+  display: flex;
+  gap: 20px;
+}
+
+.reviews_screen_container .header .search_box input {
+  background: var(--white);
+  border: 1px solid var(--gray);
+}
+
+.reviews_screen_container .reviews_list .footer {
   height: 60px;
   width: 100%;
   padding: 10px;
   margin: 0 auto;
 }
 /* Masonry layout */
-.reviews_screen_container .reviews_screen > ul {
+.reviews_screen_container .reviews_list > ul {
   grid-area: product_list;
   column-count: 3;
   column-gap: 20px;
   padding: 20px;
 }
 
-.reviews_screen_container .reviews_screen > ul li {
+.reviews_screen_container .reviews_list > ul li {
   display: inline-block;
   margin: 0;
   width: 100%;
 }
 
 @media (max-width: 1500px) {
-  .reviews_screen_container .reviews_screen {
+  .reviews_screen_container .reviews_list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1200px) {
-  .reviews_screen_container .reviews_screen {
+  .reviews_screen_container .reviews_list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 900px) {
-  .reviews_screen_container .reviews_screen {
+  .reviews_screen_container .reviews_list {
     grid-template-columns: 1;
   }
 }
