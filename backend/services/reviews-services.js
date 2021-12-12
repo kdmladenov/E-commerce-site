@@ -3,7 +3,7 @@ import errors from '../constants/service-errors.js';
 
 const getAllReviews =
   (reviewsData, productsData) =>
-  async (productId, search, sort, order, page, pageSize, ratingMin, ratingMax) => {
+  async (productId, search, sort, page, pageSize, ratingMin, ratingMax) => {
     const existingProduct = await productsData.getBy('product_id', productId);
 
     if (!existingProduct) {
@@ -17,7 +17,6 @@ const getAllReviews =
       productId,
       search,
       sort,
-      order,
       page,
       pageSize,
       ratingMin,

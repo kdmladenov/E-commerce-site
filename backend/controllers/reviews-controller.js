@@ -12,7 +12,7 @@ import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
 import createReviewSchema from '../validator/create-review-schema.js';
 import updateReviewSchema from '../validator/update-review-schema.js';
-import { review } from '../constants/constants.js';
+import { paging, review } from '../constants/constants.js';
 import voteReviewSchema from '../validator/vote-review-schema.js';
 import rolesEnum from '../constants/roles.enum.js';
 
@@ -68,27 +68,25 @@ reviewsController
     // errorHandler(
     async (req, res) => {
       const { productId } = req.params;
-      const {
-        search = '',
+      const { search = '', sort = 'date_created desc' } = req.query;
+
+      let {
         ratingMin = review.DEFAULT_RATING_MIN,
         ratingMax = review.DEFAULT_RATING_MAX,
-        sort = 'date_created',
-        order = 'DESC',
-        pageSize = review.DEFAULT_REVIEWS_PAGESIZE,
-        page = review.DEFAULT_PAGE
+        pageSize = paging.DEFAULT_REVIEWS_PAGESIZE,
+        page = paging.DEFAULT_PAGE
       } = req.query;
 
       if (+ratingMax > review.DEFAULT_RATING_MAX) ratingMax = review.DEFAULT_RATING_MAX;
       if (+ratingMin < review.DEFAULT_RATING_MIN) ratingMin = review.DEFAULT_RATING_MIN;
-      if (+pageSize > review.MAX_REVIEWS_PAGESIZE) pageSize = review.MAX_REVIEWS_PAGESIZE;
-      if (+pageSize < review.MIN_REVIEWS_PAGESIZE) pageSize = review.MIN_REVIEWS_PAGESIZE;
-      if (page < review.DEFAULT_PAGE) page = review.DEFAULT_PAGE;
+      if (+pageSize > paging.MAX_REVIEWS_PAGESIZE) pageSize = paging.MAX_REVIEWS_PAGESIZE;
+      if (+pageSize < paging.MIN_REVIEWS_PAGESIZE) pageSize = paging.MIN_REVIEWS_PAGESIZE;
+      if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
       const { error, result } = await reviewsServices.getAllReviews(reviewsData, productsData)(
         +productId,
         search,
         sort,
-        order,
         +page,
         +pageSize,
         +ratingMin,

@@ -1,7 +1,7 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAll = async (productId, search, sort, order, page, pageSize, ratingMin, ratingMax) => {
+const getAll = async (productId, search, sort, page, pageSize, ratingMin, ratingMax) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['dateCreated', 'rating', 'thumbsUp', 'thumbsDown'].includes(sortArr[0])
@@ -9,8 +9,6 @@ const getAll = async (productId, search, sort, order, page, pageSize, ratingMin,
     : 'date_created';
   const offset = (page - 1) * pageSize;
 
-  console.log(sort);
-  console.log(`ORDER BY ${sortColumn} ${direction}`);
   const sql = `
     SELECT
     r.product_id as productId,
