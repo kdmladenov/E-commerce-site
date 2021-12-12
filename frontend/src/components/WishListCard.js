@@ -15,6 +15,9 @@ import Price from './Price';
 const WishListCard = ({ wish }) => {
   const dispatch = useDispatch();
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading: loadingProduct, error: errorProduct } = productDetails;
+
   const portalRefs = useSelector((state) => state.portalRefs);
   const {
     portalRefsMap: { toast_cart: toastCartRef }
@@ -47,20 +50,7 @@ const WishListCard = ({ wish }) => {
             </div>
           }
         >
-          {
-            <RatingWidget
-              productRating={wish.rating}
-              reviewCount={wish.reviewCount}
-              ratingMap={{
-                1: wish.starOne || 0,
-                2: wish.starTwo || 0,
-                3: wish.starThree || 0,
-                4: wish.starFour || 0,
-                5: wish.starFive || 0
-              }}
-              productId={wish.productId}
-            />
-          }
+          {product && <RatingWidget product={product} />}
         </Popover>
       ) : (
         <div className="wish_rating">
