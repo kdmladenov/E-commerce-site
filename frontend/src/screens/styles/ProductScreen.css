@@ -105,33 +105,6 @@
   margin-right: 5px;
 }
 
-.product_details_action_box {
-  grid-area: action-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: fit-content;
-  padding: 20px;
-  position: sticky;
-  top: 0;
-}
-
-.product_details_action_box > ul {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.product_details_action_box > ul > li {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .reviews_container {
   grid-area: product_reviews;
 }

@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { listProductDetails, listProducts } from '../actions/productActions';
+import { listProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
+import { BASE_URL } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
 import Button from '../components/Button';
@@ -15,21 +15,20 @@ import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndA
 import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';
 import Divider from '../components/Divider';
-import productSpecificationsEnum from '../constants/product-specifications.enum';
 import { scrollTo } from '../constants/utility-functions';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import RatingWidget from '../components/RatingWidget';
 import Popover from '../components/Popover';
-import { addToCart } from '../actions/cartActions';
 import ProductFeaturesMain from '../components/ProductFeaturesMain';
 import ProductFeatures from '../components/ProductFeatures';
 import ProductSpecificationsMain from '../components/ProductSpecificationsMain';
+import ProductScreenActionBox from '../components/ProductScreenActionBox';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ match }) => {
   const productId = match.params.id;
   const dispatch = useDispatch();
-  const [qty, setQty] = useState(1);
+
   const [questionsCount, setQuestionsCount] = useState(0);
 
   const reviewsRef = useRef(null);
@@ -57,18 +56,6 @@ const ProductScreen = ({ match }) => {
   const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
   const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();
 
-  const portalRefs = useSelector((state) => state.portalRefs);
-  const {
-    portalRefsMap: { toast_cart: toastCartRef }
-  } = portalRefs;
-
-  const addToCartHandler = () => {
-    const { title, image, price, qty } = product;
-
-    dispatch(addToCart(productId, qty));
-    toastCartRef.current.createToast({ title, image, price, qty });
-  };
-
   const imagesSideBarToRender = images.map((image, index) => (
     <li key={index} onMouseEnter={() => setSelectedImage(image)}>
       <img src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`} alt="" />
@@ -82,7 +69,6 @@ const ProductScreen = ({ match }) => {
 
   useEffect(() => {
     setSelectedImage(product?.image);
-    dispatch(listProducts(`?searchBy=brand&search=${product?.brand}`));
   }, [dispatch, product]);
 
   return (
@@ -145,13 +131,10 @@ const ProductScreen = ({ match }) => {
                     </Button>
                   </span>
                 )}
-
                 <Divider />
                 <div className="product_details_specifications">
                   <h3>Main specs:</h3>
-                  {product?.productId && (
-                    <ProductSpecificationsMain product={product} specsRef={specsRef} />
-                  )}
+                  <ProductSpecificationsMain product={product} specsRef={specsRef} />
                 </div>
                 <Divider />
                 <div className="product_features_main">
@@ -165,44 +148,7 @@ const ProductScreen = ({ match }) => {
               </div>
             )}
           </div>
-          <div className="product_details_action_box card">
-            <ul>
-              <li>
-                <h2>Price</h2>
-                <h2>${product?.price}</h2>
-              </li>
-              <li>
-                <h2>Status</h2>
-                <h2 style={{ color: product?.stockCount === 0 ? 'red' : 'green' }}>
-                  {product?.stockCount === 0 ? 'Out of Stock' : 'In Stock'}
-                </h2>
-              </li>
-              <li>
-                {product?.stockCount > 0 && (
-                  <>
-                    <h2>Quantity </h2>
-                    <select value={qty} onChange={(e) => setQty(e.target.value)}>
-                      {[...Array(product?.stockCount).keys()]
-                        .slice(0, Math.min(product?.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
-                        .map((index) => (
-                          <option key={index + 1} value={index + 1}>
-                            {index + 1}
-                          </option>
-                        ))}
-                    </select>
-                  </>
-                )}
-              </li>
-            </ul>
-
-            <Button
-              onClick={addToCartHandler}
-              disabled={product?.stockCount === 0}
-              classes="rounded"
-            >
-              {product?.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
-            </Button>
-          </div>
+          <ProductScreenActionBox product={product} />
         </section>
       )}
       <section className="product_features" ref={featuresRef}>
