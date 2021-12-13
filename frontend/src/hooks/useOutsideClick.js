@@ -6,7 +6,6 @@ const useOutsideClick = (callback) => {
   useEffect(() => {
     let handler = (e) => {
       if (!nodeRef.current.contains(e.target)) {
-        console.log('yes');
         callback();
       }
     };

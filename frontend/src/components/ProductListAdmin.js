@@ -7,13 +7,15 @@ import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import './styles/OrderList.css';
 import Accordion from './Accordion';
-import SearchBox from './SearchBox';
-import DropdownSelect from './DropdownSelect';
-import { adminListPageSizeOptionsMap, adminProductListSortOptionsMap } from '../constants/inputMaps';
+import {
+  adminListPageSizeOptionsMap,
+  adminProductListSortOptionsMap
+} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import { deleteProduct, listProducts } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import Tooltip from './Tooltip';
+import HeaderControls from './HeaderControls';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();
@@ -36,7 +38,6 @@ const ProductListAdmin = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  
   const deleteProductHandler = (productId) => {
     window.confirm('Are your sure you want to delete this product?');
     dispatch(deleteProduct(productId));
@@ -46,7 +47,6 @@ const ProductListAdmin = () => {
     history.push(`/admin/product/create`);
   };
 
-
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
     pageSize: 'pageSize=10&',
@@ -54,47 +54,31 @@ const ProductListAdmin = () => {
     search: ''
   });
 
-useEffect(() => {
-  dispatch({ type: PRODUCT_CREATE_RESET });
-  if (userInfo?.role !== 'admin') {
-    history.push('/login');
-  }
-  if (successCreate) {
-    history.push(`/admin/product/${createdProduct.productId}/edit`);
-  } else {
-    const { page, pageSize, sort, search } = endpoint;
-    dispatch(listProducts(`${page}${pageSize}${sort}${search}`));
-  }
-}, [dispatch, history, userInfo, successDelete, successCreate, createdProduct, endpoint]);
-
+  useEffect(() => {
+    dispatch({ type: PRODUCT_CREATE_RESET });
+    if (userInfo?.role !== 'admin') {
+      history.push('/login');
+    }
+    if (successCreate) {
+      history.push(`/admin/product/${createdProduct.productId}/edit`);
+    } else {
+      const { page, pageSize, sort, search } = endpoint;
+      dispatch(listProducts(`${page}${pageSize}${sort}${search}`));
+    }
+  }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct, endpoint]);
 
   return (
     <div className="product_list_admin_container">
-      <div className="header">
-        <Button classes="icon" onClick={createProductHandler}>
-          <i className="fas fa-plus" /> Create Product
-        </Button>
-        <SearchBox
-          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-          resource="products"
-        />
-        <div className="dropdown_group_container">
-          <DropdownSelect
-            name="pageSize"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Page size"
-            optionsMap={adminListPageSizeOptionsMap}
-          />
-          <DropdownSelect
-            name="sort"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Sort by"
-            optionsMap={adminProductListSortOptionsMap}
-          />
-        </div>
-      </div>
+      <Button classes="icon" onClick={createProductHandler}>
+        <i className="fas fa-plus" /> Create Product
+      </Button>
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="products"
+        pageSizeOptionsMap={adminListPageSizeOptionsMap}
+        sortOptionsMap={adminProductListSortOptionsMap}
+      />
       {loadingDelete && <Loader />}
       {errorDelete && <Message type="error">{errorDelete}</Message>}
       {loadingCreate && <Loader />}

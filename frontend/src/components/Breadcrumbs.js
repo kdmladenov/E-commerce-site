@@ -9,7 +9,7 @@ const Breadcrumbs = () => {
   const paths = ['/', ...history.location.pathname.slice(1).split('/')];
 
   return (
-    paths.length && (
+    paths.length >= 2 && (
       <div className="breadcrumbs">
         <ul>
           {paths.map((path, index) => (
@@ -22,7 +22,7 @@ const Breadcrumbs = () => {
                   // 'Home'
                   <i className="fa fa-home"></i>
                 ) : (
-                  `${path[0].toUpperCase()}${path.slice(1)}`
+                  `${path?.slice(0, 1)?.toUpperCase()}${path?.slice(1)}`
                 )}
               </Link>
             </li>

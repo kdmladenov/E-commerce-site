@@ -3,7 +3,7 @@
   grid-template-columns: 320px 1fr;
   grid-template-rows: 50px 1fr;
   grid-template-areas:
-    'sidebar header'
+    'sidebar header_controls'
     'sidebar review_list';
 }
 
@@ -31,25 +31,6 @@
   height: fit-content;
 }
 
-.reviews_screen_container > .header {
-  grid-area: header;
-  border-bottom: 1px solid var(--gray);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--gray_background);
-}
-
-.reviews_screen_container .header .dropdown_group_container {
-  display: flex;
-  gap: 20px;
-}
-
-.reviews_screen_container .header .search_box input {
-  background: var(--white);
-  border: 1px solid var(--gray);
-}
 
 .reviews_screen_container .reviews_list .footer {
   height: 60px;

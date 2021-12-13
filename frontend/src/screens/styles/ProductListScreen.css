@@ -2,7 +2,10 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-template-rows: 1fr;
-  grid-template-areas: 'sidebar product_list';
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    'sidebar header_controls'
+    'sidebar product_list';
 }
 
 .product_list_container .sidebar {
@@ -20,14 +23,6 @@
   top: 0;
 }
 
-.product_list_container .product_list .header {
-  border-bottom: 1px solid var(--gray);
-  padding: 10px;
-  margin: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
 .product_list_container .product_list .footer {
   height: 60px;

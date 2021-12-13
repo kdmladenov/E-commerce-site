@@ -42,7 +42,7 @@
   --canary: #ffde00;
   --yellow_light: #fbe8aa;
   --sea-foam: #11d3cd;
-  --green_dark: rgb(1,113,133);
+  --green_dark: rgb(1, 113, 133);
   --spirulina: #009c94;
   --green: rgb(4, 214, 4);
   --green_lime: lime;
@@ -157,7 +157,7 @@ img {
   color: var(--black);
 }
 
-.flex{
+.flex {
   display: flex;
   justify-content: center;
   align-items: center;

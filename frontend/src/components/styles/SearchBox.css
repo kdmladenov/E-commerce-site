@@ -16,10 +16,15 @@
   width: 100%;
   outline: none;
   border: none;
-  padding: 0 20px;
-  font-size: 15px;
+  padding: 0 10px;
   border-radius: 13px;
   background: var(--gray_light);
+}
+
+.search_box_container .search_box input::placeholder {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bob);
 }
 
 .search_box_container .reset_btn {
@@ -36,4 +41,3 @@
   color: var(--gray_dark);
   cursor: pointer;
 }
-

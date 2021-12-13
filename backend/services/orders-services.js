@@ -164,7 +164,6 @@ const getALLOrdersByUser = (ordersData) => async (userId, role, search, sort, pa
 
 const getALLOrders = (ordersData) => async (search, sort, page, pageSize) => {
   const ordersWithoutItems = await ordersData.getAll(search, sort, page, pageSize);
-  // console.log(ordersWithoutItems);
   const ordersWithItems = await Promise.all(
     await ordersWithoutItems.map(async (order) => {
       const orderItems = await Promise.all(await ordersData.getAllOrderItemsByOrder(order.orderId));

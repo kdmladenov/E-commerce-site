@@ -11,16 +11,6 @@
   grid-area: sidebar;
 }
 
-.reviews .reviews-list .header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.reviews .reviews-list .header .dropdown_group_container {
-  display: flex;
-  gap: 20px;
-}
 
 .reviews .reviews-list .footer {
   display: flex;

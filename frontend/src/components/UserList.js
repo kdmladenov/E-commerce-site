@@ -10,8 +10,7 @@ import Message from './Message';
 import Profile from './Profile';
 import { adminListPageSizeOptionsMap, adminUserListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
-import SearchBox from './SearchBox';
-import DropdownSelect from './DropdownSelect';
+import HeaderControls from './HeaderControls';
 
 const UserList = ({ history }) => {
   const dispatch = useDispatch();
@@ -51,28 +50,13 @@ const UserList = ({ history }) => {
 
   return (
     <div className="user_list_container">
-      <div className="header">
-        <SearchBox
-          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-          resource="users"
-        />
-        <div className="dropdown_group_container">
-          <DropdownSelect
-            name="pageSize"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Page size"
-            optionsMap={adminListPageSizeOptionsMap}
-          />
-          <DropdownSelect
-            name="sort"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Sort by"
-            optionsMap={adminUserListSortOptionsMap}
-          />
-        </div>
-      </div>
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="users"
+        pageSizeOptionsMap={adminListPageSizeOptionsMap}
+        sortOptionsMap={adminUserListSortOptionsMap}
+      />
       {loading ? (
         <Loader />
       ) : error ? (

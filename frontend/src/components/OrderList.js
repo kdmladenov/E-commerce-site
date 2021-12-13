@@ -8,11 +8,10 @@ import './styles/OrderList.css';
 import { listOrders } from '../actions/orderActions';
 import Accordion from './Accordion';
 import { getDate } from '../constants/utility-functions';
-import SearchBox from './SearchBox';
-import DropdownSelect from './DropdownSelect';
 import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
 import Price from './Price';
+import HeaderControls from './HeaderControls';
 
 const OrderList = ({ history }) => {
   const dispatch = useDispatch();
@@ -43,28 +42,13 @@ const OrderList = ({ history }) => {
   return (
     <div className="order_list_container">
       {/* <h1>Orders</h1> */}
-      <div className="header">
-        <SearchBox
-          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-          resource="orders"
-        />
-        <div className="dropdown_group_container">
-          <DropdownSelect
-            name="pageSize"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Page size"
-            optionsMap={adminListPageSizeOptionsMap}
-          />
-          <DropdownSelect
-            name="sort"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Sort by"
-            optionsMap={adminOrderListSortOptionsMap}
-          />
-        </div>
-      </div>
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="orders"
+        pageSizeOptionsMap={adminListPageSizeOptionsMap}
+        sortOptionsMap={adminOrderListSortOptionsMap}
+      />
       {loading ? (
         <Loader />
       ) : error ? (

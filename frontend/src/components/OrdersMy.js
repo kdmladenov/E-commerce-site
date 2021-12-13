@@ -10,10 +10,9 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Button from './Button';
 import Price from './Price';
-import SearchBox from './SearchBox';
-import DropdownSelect from './DropdownSelect';
 import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
+import HeaderControls from './HeaderControls';
 
 const OrdersMy = () => {
   const dispatch = useDispatch();
@@ -44,28 +43,13 @@ const OrdersMy = () => {
 
   return (
     <div className="my_orders">
-      <div className="header">
-        <SearchBox
-          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-          resource="orders"
-        />
-        <div className="dropdown_group_container">
-          <DropdownSelect
-            name="pageSize"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Page size"
-            optionsMap={adminListPageSizeOptionsMap}
-          />
-          <DropdownSelect
-            name="sort"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Sort by"
-            optionsMap={adminOrderListSortOptionsMap}
-          />
-        </div>
-      </div>
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="orders"
+        pageSizeOptionsMap={adminListPageSizeOptionsMap}
+        sortOptionsMap={adminOrderListSortOptionsMap}
+      />
       {loading ? (
         <Loader />
       ) : error ? (

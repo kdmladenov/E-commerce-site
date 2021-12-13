@@ -6,14 +6,13 @@ import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
-import Breadcrumbs from '../components/Breadcrumbs';
 import {
   productListPageSizeOptionsMap,
   productListSidebarInput,
   productListSortOptionsMap
 } from '../constants/inputMaps';
 import './styles/ProductListScreen.css';
-import DropdownSelect from '../components/DropdownSelect';
+import HeaderControls from '../components/HeaderControls';
 
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -56,6 +55,14 @@ const ProductListScreen = ({ match }) => {
   return (
     <main className="product_list_container">
       <Sidebar endpoint={endpoint} setEndpoint={setEndpoint} inputMap={productListSidebarInput} />
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="products"
+        pageSizeOptionsMap={productListPageSizeOptionsMap}
+        sortOptionsMap={productListSortOptionsMap}
+        isGrayBackground={true}
+      />
       {loading ? (
         <Loader />
       ) : error ? (
@@ -64,27 +71,6 @@ const ProductListScreen = ({ match }) => {
         <h2>No items to display</h2>
       ) : (
         <div className="product_list">
-          <div className="header">
-            <div className="breadcrumbs_container">
-              <Breadcrumbs />
-            </div>
-            <div className="dropdown_group_container">
-              <DropdownSelect
-                name="pageSize"
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                query={endpoint}
-                labelStart="Page size"
-                optionsMap={productListPageSizeOptionsMap}
-              />
-              <DropdownSelect
-                name="sort"
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                query={endpoint}
-                labelStart="Sort by"
-                optionsMap={productListSortOptionsMap}
-              />
-            </div>
-          </div>
           {productsToShow}
           <div className="footer">
             {products?.length > 0 && (

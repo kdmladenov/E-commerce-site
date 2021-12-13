@@ -7,15 +7,10 @@ import { getUserDetails } from '../actions/userActions';
 import RatingWidget from './RatingWidget';
 import Tooltip from './Tooltip';
 import { useHistory } from 'react-router-dom';
-import SearchBox from './SearchBox';
-import DropdownSelect from './DropdownSelect';
-import {
-  ratingFilterOptionsMap,
-  reviewsSortOptionsMap
-} from '../constants/inputMaps';
+import { ratingFilterOptionsMap, reviewsSortOptionsMap } from '../constants/inputMaps';
 import { listReviews } from '../actions/reviewActions';
 import { listProductDetails } from '../actions/productActions';
-
+import HeaderControls from './HeaderControls';
 
 const Reviews = ({ currentUser, productId }) => {
   const dispatch = useDispatch();
@@ -30,7 +25,7 @@ const Reviews = ({ currentUser, productId }) => {
     rating: 'ratingMin=1&ratingMax=5&',
     search: ''
   });
-  console.log(endpoint, 'end');
+
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
@@ -86,28 +81,14 @@ const Reviews = ({ currentUser, productId }) => {
         )}
       </div>
       <div className="reviews-list">
-        <div className="header">
-          <SearchBox
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            resource="reviews"
-          />
-          <div className="dropdown_group_container">
-            <DropdownSelect
-              name="rating"
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              query={endpoint}
-              labelStart="Rating: "
-              optionsMap={ratingFilterOptionsMap}
-            />
-            <DropdownSelect
-              name="sort"
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              query={endpoint}
-              labelStart="Sort by"
-              optionsMap={reviewsSortOptionsMap}
-            />
-          </div>
-        </div>
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="reviews"
+          sortOptionsMap={reviewsSortOptionsMap}
+          ratingFilterOptionsMap={ratingFilterOptionsMap}
+          isBreadcrumbsVisible={false}
+        />
         {createMode && (
           <ReviewCard
             createMode={createMode}

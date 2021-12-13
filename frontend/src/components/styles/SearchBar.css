@@ -42,7 +42,7 @@
   padding: 0 60px 0 20px;
   font-size: 18px;
   border-radius: 25px;
-  background-color: var(--grey);
+  background-color: var(--gray_light);
 }
 
 /* Search and reset buttons */

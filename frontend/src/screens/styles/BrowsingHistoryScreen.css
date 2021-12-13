@@ -1,18 +1,21 @@
-.browsing_history_list_container {
+.browsing_history_screen_container {
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-template-rows: 1fr;
-  grid-template-areas: 'sidebar product_list';
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    'sidebar header_controls'
+    'sidebar history_list';
 }
 
-.browsing_history_list_container .sidebar {
+.browsing_history_screen_container .sidebar {
   grid-area: sidebar;
   background-color: var(--white);
   box-shadow: var(--box_shadow_angle);
 }
 
-.browsing_history_list_container .browsing_history_list {
-  grid-area: product_list;
+.browsing_history_screen_container .browsing_history_list {
+  grid-area: history_list;
   background-color: var(--gray_background);
   min-height: 100vh;
   height: fit-content;
@@ -20,23 +23,14 @@
   top: 0;
 }
 
-.browsing_history_list_container .browsing_history_list .header {
-  border-bottom: 1px solid var(--gray);
-  padding: 10px;
-  margin: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.browsing_history_list_container .browsing_history_list .footer {
+.browsing_history_screen_container .browsing_history_list .footer {
   height: 60px;
   width: 100%;
   padding: 10px;
   margin: 0 auto;
 }
 
-.browsing_history_list_container .browsing_history_list > ul {
+.browsing_history_screen_container .browsing_history_list > ul {
   grid-area: product_list;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -45,14 +39,14 @@
   padding: 20px;
 }
 
-.browsing_history_list_container .history_item {
+.browsing_history_screen_container .history_item {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.browsing_history_list_container .history_item > button {
+.browsing_history_screen_container .history_item > button {
   position: absolute;
   top: 5px;
   left: 5px;
@@ -61,19 +55,19 @@
 }
 
 @media (max-width: 1500px) {
-  .browsing_history_list_container .browsing_history_list {
+  .browsing_history_screen_container .browsing_history_list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1200px) {
-  .browsing_history_list_container .browsing_history_list {
+  .browsing_history_screen_container .browsing_history_list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 900px) {
-  .browsing_history_list_container .browsing_history_list {
+  .browsing_history_screen_container .browsing_history_list {
     grid-template-columns: 1;
   }
 }

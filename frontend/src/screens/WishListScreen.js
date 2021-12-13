@@ -4,7 +4,6 @@ import { listWishedItems } from '../actions/wishListActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Sidebar from '../components/Sidebar';
-import Breadcrumbs from '../components/Breadcrumbs';
 import {
   productListPageSizeOptionsMap,
   productListSidebarInput,
@@ -13,7 +12,7 @@ import {
 import './styles/WishListScreen.css';
 import WishListCard from '../components/WishListCard';
 import Pagination from '../components/Pagination';
-import DropdownSelect from '../components/DropdownSelect';
+import HeaderControls from '../components/HeaderControls';
 
 const WishListScreen = () => {
   const dispatch = useDispatch();
@@ -34,7 +33,6 @@ const WishListScreen = () => {
 
   const wishListCardsToShow = wishList?.map((wish) => <WishListCard wish={wish} />);
 
-
   useEffect(() => {
     const { page, pageSize, sort, search, filter } = endpoint;
 
@@ -42,8 +40,16 @@ const WishListScreen = () => {
   }, [dispatch, endpoint, successDelete]);
 
   return (
-    <main className="wish_list_container">
+    <main className="wish_list_screen_container">
       <Sidebar endpoint={endpoint} setEndpoint={setEndpoint} inputMap={productListSidebarInput} />
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="reviews"
+        pageSizeOptionsMap={productListPageSizeOptionsMap}
+        sortOptionsMap={productListSortOptionsMap}
+        isGrayBackground={true}
+      />
       {loading ? (
         <Loader />
       ) : error ? (
@@ -51,28 +57,7 @@ const WishListScreen = () => {
       ) : wishList.length === 0 ? (
         <h2>No items to display</h2>
       ) : (
-        <div className="wish_list">
-          <div className="header">
-            <div className="breadcrumbs_container">
-              <Breadcrumbs />
-            </div>
-            <div className="dropdown_group_container">
-              <DropdownSelect
-                name="pageSize"
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                query={endpoint}
-                labelStart="Page size"
-                optionsMap={productListPageSizeOptionsMap}
-              />
-              <DropdownSelect
-                name="sort"
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                query={endpoint}
-                labelStart="Sort by"
-                optionsMap={productListSortOptionsMap}
-              />
-            </div>
-          </div>
+        <div className="wish_list_screen">
           <ul>{wishListCardsToShow}</ul>
           <div className="footer">
             {wishList?.length > 0 && (

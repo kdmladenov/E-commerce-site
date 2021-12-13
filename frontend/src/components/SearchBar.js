@@ -20,8 +20,6 @@ const SearchBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const [previousSearches, setPreviousSearches] = useState([]);
-  console.log(Array.isArray(previousSearches), 'array');
-  console.log(previousSearches.length, 'length');
 
   const previousSearchesToRender =
     previousSearches.length &&
@@ -68,6 +66,7 @@ const SearchBar = () => {
         history.push(`/productlist`);
       }
     }
+    setShowDropdown(false);
   };
 
   const searchButtonHandler = (e) => {
@@ -88,6 +87,7 @@ const SearchBar = () => {
     } else {
       history.push(`/productlist`);
     }
+    setShowDropdown(false);
   };
 
   const inputClickHandler = () => {
@@ -98,7 +98,6 @@ const SearchBar = () => {
   };
 
   let nodeRef = useOutsideClick(() => setShowDropdown(false));
-  console.log(showDropdown, 'showDropdown');
 
   useEffect(() => {
     setPreviousSearches(

@@ -5,7 +5,7 @@ import './styles/AccountScreen.css';
 import History from '../components/History';
 import WishList from '../components/WishList';
 
-const AccountScreen = ({ match }) => {
+const AccountScreen = ({ match, history }) => {
   const section = match.params.section;
   const [activeTab, setActiveTab] = useState(section);
 
@@ -17,25 +17,25 @@ const AccountScreen = ({ match }) => {
         <div className="header card">
           <button
             className={`tab ${activeTab === 'profile' && 'active'}`}
-            onClick={() => setActiveTab('profile')}
+            onClick={() => history.push('/account/profile')}
           >
             Profile
           </button>
           <button
             className={`tab ${activeTab === 'orders' && 'active'}`}
-            onClick={() => setActiveTab('orders')}
+            onClick={() => history.push('/account/orders')}
           >
             Orders
           </button>
           <button
             className={`tab ${activeTab === 'history' && 'active'}`}
-            onClick={() => setActiveTab('history')}
+            onClick={() => history.push('/account/history')}
           >
             Browsing History
           </button>
           <button
             className={`tab ${activeTab === 'wishlist' && 'active'}`}
-            onClick={() => setActiveTab('wishlist')}
+            onClick={() => history.push('/account/wishlist')}
           >
             Wish List
           </button>

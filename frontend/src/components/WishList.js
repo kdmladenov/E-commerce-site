@@ -6,10 +6,9 @@ import Loader from './Loader';
 import Message from './Message';
 import './styles/WishList.css';
 import WishListCard from './WishListCard';
-import SearchBox from './SearchBox';
-import DropdownSelect from './DropdownSelect';
 import { productListPageSizeOptionsMap, productListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
+import HeaderControls from './HeaderControls';
 
 const WishList = () => {
   const history = useHistory();
@@ -38,28 +37,13 @@ const WishList = () => {
 
   return (
     <div className="wish_list">
-      <div className="header">
-        <SearchBox
-          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-          resource="orders"
-        />
-        <div className="dropdown_group_container">
-          <DropdownSelect
-            name="pageSize"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Page size"
-            optionsMap={productListPageSizeOptionsMap}
-          />
-          <DropdownSelect
-            name="sort"
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            query={endpoint}
-            labelStart="Sort by"
-            optionsMap={productListSortOptionsMap}
-          />
-        </div>
-      </div>
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="wish list"
+        pageSizeOptionsMap={productListPageSizeOptionsMap}
+        sortOptionsMap={productListSortOptionsMap}
+      />
       {loadingWishList ? (
         <Loader />
       ) : errorWishList ? (

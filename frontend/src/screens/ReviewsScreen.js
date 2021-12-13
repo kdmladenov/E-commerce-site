@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import './styles/ReviewsScreen.css';
-import Breadcrumbs from '../components/Breadcrumbs';
-import DropdownSelect from '../components/DropdownSelect';
 import { listReviews } from '../actions/reviewActions';
 import { useState } from 'react';
-import SearchBox from '../components/SearchBox';
 import {
   productListPageSizeOptionsMap,
   ratingFilterOptionsMap,
@@ -17,6 +14,7 @@ import Pagination from '../components/Pagination';
 import ReviewCard from '../components/ReviewCard';
 import RatingWidget from '../components/RatingWidget';
 import { listProductDetails } from '../actions/productActions';
+import HeaderControls from '../components/HeaderControls';
 
 const ReviewsScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -84,38 +82,15 @@ const ReviewsScreen = ({ match }) => {
             />
           )}
         </aside>
-        <div className="header">
-          <div className="breadcrumbs_container">
-            <Breadcrumbs />
-          </div>
-          <SearchBox
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            resource="reviews"
-          />
-          <div className="dropdown_group_container">
-            <DropdownSelect
-              name="rating"
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              query={endpoint}
-              labelStart="Rating: "
-              optionsMap={ratingFilterOptionsMap}
-            />
-            <DropdownSelect
-              name="pageSize"
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              query={endpoint}
-              labelStart="Page size"
-              optionsMap={productListPageSizeOptionsMap}
-            />
-            <DropdownSelect
-              name="sort"
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              query={endpoint}
-              labelStart="Sort by"
-              optionsMap={reviewsSortOptionsMap}
-            />
-          </div>
-        </div>
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="reviews"
+          pageSizeOptionsMap={productListPageSizeOptionsMap}
+          sortOptionsMap={reviewsSortOptionsMap}
+          ratingFilterOptionsMap={ratingFilterOptionsMap}
+          isGrayBackground={true}
+        />
         {loading ? (
           <Loader />
         ) : error ? (

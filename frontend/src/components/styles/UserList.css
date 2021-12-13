@@ -1,13 +1,3 @@
-.user_list_container .header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.user_list_container .dropdown_group_container {
-  display: flex;
-  gap: 20px;
-}
-
 .user_list_container .user_title {
   display: grid;
   grid-template-columns: 50px 250px 1fr;

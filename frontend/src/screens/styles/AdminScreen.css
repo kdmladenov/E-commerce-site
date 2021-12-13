@@ -34,7 +34,7 @@
 }
 
 .admin_container .tab:hover {
-  background-color: rgb(248, 231, 231);
+  background-color: #fafafa;
   border-radius: 5px;
 }
 
@@ -43,9 +43,9 @@
 }
 
 .admin_container .tab.active {
-  color: var(--red);
+  color: var(--cheetos);
   font-weight: bold;
-  border-bottom: 3px solid var(--red);
+  border-bottom: 3px solid var(--cheetos);
 }
 
 .admin_container .content {

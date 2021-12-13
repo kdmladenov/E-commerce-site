@@ -6,7 +6,6 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCard from '../components/ProductCard';
 import './styles/BrowsingHistoryScreen.css';
-import Breadcrumbs from '../components/Breadcrumbs';
 import {
   browsingHistorySidebarInput,
   browsingHistorySortOptionsMap,
@@ -15,7 +14,7 @@ import {
 import Pagination from '../components/Pagination';
 import Sidebar from '../components/Sidebar';
 import Tooltip from '../components/Tooltip';
-import DropdownSelect from '../components/DropdownSelect';
+import HeaderControls from '../components/HeaderControls';
 
 const BrowsingHistoryScreen = () => {
   const dispatch = useDispatch();
@@ -58,11 +57,19 @@ const BrowsingHistoryScreen = () => {
   );
 
   return (
-    <main className="browsing_history_list_container">
+    <main className="browsing_history_screen_container">
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
         inputMap={browsingHistorySidebarInput}
+      />
+      <HeaderControls
+        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+        query={endpoint}
+        resource="browsing history"
+        pageSizeOptionsMap={productListPageSizeOptionsMap}
+        sortOptionsMap={browsingHistorySortOptionsMap}
+        isGrayBackground={true}
       />
       {loading ? (
         <Loader />
@@ -72,27 +79,6 @@ const BrowsingHistoryScreen = () => {
         <h2>No items to display</h2>
       ) : (
         <div className="browsing_history_list">
-          <div className="header">
-            <div className="breadcrumbs_container">
-              <Breadcrumbs />
-            </div>
-            <div className="dropdown_group_container">
-              <DropdownSelect
-                name="pageSize"
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                query={endpoint}
-                labelStart="Page size"
-                optionsMap={productListPageSizeOptionsMap}
-              />
-              <DropdownSelect
-                name="sort"
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                query={endpoint}
-                labelStart="Sort by"
-                optionsMap={browsingHistorySortOptionsMap}
-              />
-            </div>
-          </div>
           {productsToShow}
           <div className="footer">
             {browsingHistory?.length > 0 && (
