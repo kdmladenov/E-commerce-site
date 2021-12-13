@@ -16,7 +16,8 @@ const getAll = async (productId) => {
     ql.thumbs_up as thumbsUp,
     ql.thumbs_down as thumbsDown,
     ql.userThumbsUpList,
-    ql.userThumbsDownList
+    ql.userThumbsDownList,
+    COUNT(*) OVER () AS totalDBItems
     FROM questions q
     LEFT JOIN users u USING (user_id)
     LEFT JOIN (select question_id,
