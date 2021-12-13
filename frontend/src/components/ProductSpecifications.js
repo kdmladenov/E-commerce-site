@@ -7,59 +7,26 @@ import Rating from './Rating';
 import './styles/ProductSpecifications.css';
 
 const ProductSpecifications = ({ product }) => {
-  const specificationListLeft = specificationsInOrder
-    ?.slice(0, specificationsInOrder.length / 2)
-    ?.map((spec, index) => (
-      <tr key={index}>
-        <td>{productSpecificationsEnum[spec]}</td>
-        <td key={product.productId}>
-          {spec === 'price' ? (
-            <div className="price">{<Price price={product[spec]} />}</div>
-          ) : spec === 'backlitKeyboard' ? (
-            product[spec] === 1 ? (
-              <i className="fa fa-check"></i>
-            ) : (
-              <i className="fa fa-times"></i>
-            )
-          ) : spec === 'voiceAssistant' ? (
-            product[spec] === 'No' ? (
-              <i className="fa fa-times"></i>
-            ) : (
-              <span>{`${product['voiceAssistant']}`}</span>
-            )
-          ) : spec === 'rating' ? (
-            product['reviewCount'] ? (
-              <div className="rating">
-                <Rating rating={product[spec]} />({product['reviewCount']})
-              </div>
-            ) : (
-              'Not rated yet'
-            )
-          ) : spec === 'weight' ? (
-            <span>{`${product[spec]?.toFixed(1)} pounds (${poundToKg(product[spec], 1)} kg)`}</span>
-          ) : spec === 'displayType' ? (
-            <span>{`${product['screenSize']?.toFixed(1)}-inch ${product['displayType']} with ${
-              product['screenResolution']
-            } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
-          ) : spec === 'storageCapacity' ? (
-            <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
-          ) : spec === 'systemMemory' ? (
-            <span>{`${product['systemMemory']} GB`}</span>
-          ) : spec === 'graphicsModel' ? (
-            `${product['graphicsModel']} (${product['graphicsType']})`
-          ) : (
-            product[spec]
-          )}
-        </td>
-      </tr>
-    ));
+  const {
+    productId,
+    screenSize,
+    displayType,
+    touchScreen,
+    screenResolution,
+    storageCapacity,
+    storageType,
+    systemMemory,
+    graphicsModel,
+    graphicsType,
+    voiceAssistant,
+    reviewCount
+  } = product;
 
-  const specificationListRight = specificationsInOrder
-    ?.slice(specificationsInOrder.length / 2)
-    ?.map((spec, index) => (
+  const specificationList = (specifications) =>
+    specifications.map((spec, index) => (
       <tr key={index}>
         <td>{productSpecificationsEnum[spec]}</td>
-        <td key={product.productId}>
+        <td key={productId}>
           {spec === 'price' ? (
             <div className="price">{<Price price={product[spec]} />}</div>
           ) : spec === 'backlitKeyboard' ? (
@@ -72,12 +39,12 @@ const ProductSpecifications = ({ product }) => {
             product[spec] === 'No' ? (
               <i className="fa fa-times"></i>
             ) : (
-              <span>{`${product['voiceAssistant']}`}</span>
+              <span>{`${voiceAssistant}`}</span>
             )
           ) : spec === 'rating' ? (
-            product['reviewCount'] ? (
+            reviewCount ? (
               <div className="rating">
-                <Rating rating={product[spec]} />({product['reviewCount']})
+                <Rating rating={product[spec]} />({reviewCount})
               </div>
             ) : (
               'Not rated yet'
@@ -85,15 +52,17 @@ const ProductSpecifications = ({ product }) => {
           ) : spec === 'weight' ? (
             <span>{`${product[spec]?.toFixed(1)} pounds (${poundToKg(product[spec], 1)} kg)`}</span>
           ) : spec === 'displayType' ? (
-            <span>{`${product['screenSize']?.toFixed(1)}-inch ${product['displayType']} with ${
-              product['screenResolution']
-            } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
+            <span>{`${screenSize?.toFixed(
+              1
+            )}-inch ${displayType} with ${screenResolution} resolution ${
+              touchScreen ? 'and touchscreen' : ''
+            }`}</span>
           ) : spec === 'storageCapacity' ? (
-            <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
+            <span>{`${storageCapacity} GB ${storageType}`}</span>
           ) : spec === 'systemMemory' ? (
-            <span>{`${product['systemMemory']} GB`}</span>
+            <span>{`${systemMemory} GB`}</span>
           ) : spec === 'graphicsModel' ? (
-            `${product['graphicsModel']} (${product['graphicsType']})`
+            `${graphicsModel} (${graphicsType})`
           ) : (
             product[spec]
           )}
@@ -104,10 +73,10 @@ const ProductSpecifications = ({ product }) => {
   return (
     <div className="specification_tables">
       <table className="specification_table_left">
-        <tbody>{specificationListLeft}</tbody>
+        <tbody>{specificationList(specificationsInOrder.slice(0, 9))}</tbody>
       </table>
       <table className="specification_table_right">
-        <tbody>{specificationListRight}</tbody>
+        <tbody>{specificationList(specificationsInOrder.slice(9))}</tbody>
       </table>
     </div>
   );

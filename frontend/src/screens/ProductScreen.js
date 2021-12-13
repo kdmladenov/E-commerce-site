@@ -23,6 +23,7 @@ import Popover from '../components/Popover';
 import { addToCart } from '../actions/cartActions';
 import ProductFeaturesMain from '../components/ProductFeaturesMain';
 import ProductFeatures from '../components/ProductFeatures';
+import ProductSpecificationsMain from '../components/ProductSpecificationsMain';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ match }) => {
@@ -73,37 +74,6 @@ const ProductScreen = ({ match }) => {
       <img src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`} alt="" />
     </li>
   ));
-
-  const specificationListInInfo = [
-    'modelNumber',
-    'releaseYear',
-    'displayType',
-    'processorModelNumber',
-    'storageCapacity',
-    'systemMemory'
-  ].map(
-    (spec, index) =>
-      product && (
-        <tr key={index}>
-          <td>{productSpecificationsEnum[spec]}</td>
-          <td key={product?.productId}>
-            {spec === 'displayType' ? (
-              <span>{`${product['screenSize']?.toFixed(1)}-inch ${product['displayType']} with ${
-                product['screenResolution']
-              } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
-            ) : spec === 'storageCapacity' ? (
-              <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
-            ) : spec === 'systemMemory' ? (
-              <span>{`${product['systemMemory']} GB`}</span>
-            ) : spec === 'graphicsModel' ? (
-              `${product['graphicsModel']} (${product['graphicsType']})`
-            ) : (
-              product[spec]
-            )}
-          </td>
-        </tr>
-      )
-  );
 
   useEffect(() => {
     dispatch(listProductDetails(productId));
@@ -179,19 +149,17 @@ const ProductScreen = ({ match }) => {
                 <Divider />
                 <div className="product_details_specifications">
                   <h3>Main specs:</h3>
-                  <p>
-                    <table>
-                      <tbody>{specificationListInInfo}</tbody>
-                    </table>
-                    <Button classes="text" onClick={() => scrollTo(specsRef)}>
-                      See full specifications
-                    </Button>
-                  </p>
+                  {product?.productId && (
+                    <ProductSpecificationsMain product={product} specsRef={specsRef} />
+                  )}
                 </div>
-
-                <ProductFeaturesMain featuresRef={featuresRef} productId={productId} />
                 <Divider />
-                <div className="product_details_description">
+                <div className="product_features_main">
+                  <h3>Main features:</h3>
+                  <ProductFeaturesMain featuresRef={featuresRef} productId={productId} />
+                </div>
+                <Divider />
+                <div className="product_description">
                   <h3>Description:</h3> <p>{product?.description}</p>
                 </div>
               </div>
