@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { listProducts } from '../actions/productActions';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
 import { poundToKg } from '../constants/utility-functions';
+import Loader from './Loader';
+import Message from './Message';
 import Price from './Price';
 import Rating from './Rating';
 import './styles/ComparisonTable.css';
 
-const ComparisonTable = ({ products, currentProductId, sortBy }) => {
+const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
+  const dispatch = useDispatch();
+
+  const productlist = useSelector((state) => state.productList);
+  const { loading, products, error } = productlist;
+
   const sortedProducts = [
     ...products.filter((product) => product.productId === currentProductId),
     ...products
@@ -78,7 +87,15 @@ const ComparisonTable = ({ products, currentProductId, sortBy }) => {
     </th>
   ));
 
-  return (
+  useEffect(() => {
+    dispatch(listProducts(`?searchBy=brand&search=${brand}`));
+  }, [dispatch, brand]);
+
+  return loading ? (
+    <Loader />
+  ) : error ? (
+    <Message type="error">{error}</Message>
+  ) : (
     <table className="comparison_table">
       <thead>
         <tr>

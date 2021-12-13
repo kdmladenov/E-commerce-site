@@ -44,13 +44,6 @@ const ProductScreen = ({ match }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
-  const productlist = useSelector((state) => state.productList);
-  const {
-    loading: loadingCompared,
-    products: productsCompared,
-    error: errorCompared
-  } = productlist;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo: currentUser } = userLogin;
 
@@ -258,20 +251,17 @@ const ProductScreen = ({ match }) => {
           <ProductSpecifications product={product} />
         )}
       </section>
+
       <section className="comparison_table_container" ref={comparisonRef}>
         <h2>{`Compare ${product?.brand} Laptops:`}</h2>
-        {loadingCompared ? (
-          <Loader />
-        ) : errorCompared ? (
-          <Message type="error">{errorCompared}</Message>
-        ) : (
-          <ComparisonTable products={productsCompared} currentProductId={+productId} />
-        )}
+        <ComparisonTable currentProductId={+productId} brand={product?.brand} />
       </section>
+
       <section className="reviews_container" ref={reviewsRef}>
         <h2>Reviews:</h2>
         <Reviews currentUser={currentUser} productId={productId} />
       </section>
+
       <section className="questions_and_answers_container" ref={questionsAndAnswersRef}>
         <h2>Questions & Answers:</h2>
         <QuestionsAndAnswers
@@ -280,6 +270,7 @@ const ProductScreen = ({ match }) => {
           setQuestionsCount={setQuestionsCount}
         />
       </section>
+
       <ScrollToTopButton />
     </main>
   );
