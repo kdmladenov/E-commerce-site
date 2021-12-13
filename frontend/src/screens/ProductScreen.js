@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { listProductDetails, listProductFeatures, listProducts } from '../actions/productActions';
+import { listProductDetails, listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { BASE_URL, MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
@@ -13,7 +13,6 @@ import Reviews from '../components/Reviews';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
-import Accordion from '../components/Accordion';
 import ProductSpecifications from '../components/ProductSpecifications';
 import Divider from '../components/Divider';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
@@ -22,8 +21,8 @@ import ScrollToTopButton from '../components/ScrollToTopButton';
 import RatingWidget from '../components/RatingWidget';
 import Popover from '../components/Popover';
 import { addToCart } from '../actions/cartActions';
-
-const productFeaturesInfoCount = 5;
+import ProductFeaturesMain from '../components/ProductFeaturesMain';
+import ProductFeatures from '../components/ProductFeatures';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ match }) => {
@@ -45,9 +44,6 @@ const ProductScreen = ({ match }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
-  const productFeaturesList = useSelector((state) => state.productFeaturesList);
-  const { productFeatures, loading: loadingFeatures, error: errorFeatures } = productFeaturesList;
-
   const productlist = useSelector((state) => state.productList);
   const {
     loading: loadingCompared,
@@ -62,7 +58,6 @@ const ProductScreen = ({ match }) => {
   const images = [
     product?.image,
     'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg'
- 
   ];
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
@@ -119,7 +114,6 @@ const ProductScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listProductDetails(productId));
-    dispatch(listProductFeatures(productId));
     dispatch(addBrowsingHistoryRecord(productId));
   }, [dispatch, match, productId]);
 
@@ -202,24 +196,7 @@ const ProductScreen = ({ match }) => {
                   </p>
                 </div>
 
-                {productFeatures?.length && (
-                  <>
-                    <Divider />
-                    <div className="product_details_features">
-                      <h3>Main features:</h3>
-                      <p>
-                        <ul>
-                          {productFeatures?.slice(0, productFeaturesInfoCount).map((feature) => (
-                            <li>{feature.featureTitle}</li>
-                          ))}
-                        </ul>
-                        <Button classes="text" onClick={() => scrollTo(featuresRef)}>
-                          See all features
-                        </Button>
-                      </p>
-                    </div>
-                  </>
-                )}
+                <ProductFeaturesMain featuresRef={featuresRef} productId={productId} />
                 <Divider />
                 <div className="product_details_description">
                   <h3>Description:</h3> <p>{product?.description}</p>
@@ -267,30 +244,10 @@ const ProductScreen = ({ match }) => {
           </div>
         </section>
       )}
-      {productFeatures?.length && (
-        <section className="product_features" ref={featuresRef}>
-          <h2>Product Features:</h2>
-          {loadingFeatures ? (
-            <Loader />
-          ) : errorFeatures ? (
-            <Message type="error">{errorFeatures}</Message>
-          ) : productFeatures?.length > 0 ? (
-            <Accordion>
-              {productFeatures?.map((feature) => (
-                <Accordion.Item>
-                  <Accordion.Header>
-                    <Accordion.Title>{feature.featureTitle}</Accordion.Title>
-                    <Accordion.ButtonGroup></Accordion.ButtonGroup>
-                  </Accordion.Header>
-                  <Accordion.Body>{feature.featureContent}</Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion>
-          ) : (
-            <Message type="success">Ask Question Box</Message>
-          )}
-        </section>
-      )}
+      <section className="product_features" ref={featuresRef}>
+        <h2>Product Features:</h2>
+        <ProductFeatures productId={productId} />
+      </section>
       <section className="product_specifications" ref={specsRef}>
         <h2>Product Specifications</h2>
         {loading ? (
