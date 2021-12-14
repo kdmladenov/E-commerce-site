@@ -1,0 +1,64 @@
+
+
+.questions_and_answers_screen .question,
+.questions_and_answers_screen .answers {
+  display: flex;
+}
+
+.questions_and_answers_screen > div > span {
+  width: 150px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.questions_and_answers_screen .question,
+.questions_and_answers_screen .answer {
+  position: relative;
+  border-bottom: 1px solid var(--gray);
+  margin-bottom: 5px;
+  padding: 0 70px 5px 0;
+}
+
+.questions_and_answers_screen .answer:last-of-type {
+  border-bottom: none;
+  padding: 0 70px 0 0;
+  margin-bottom: 0;
+}
+
+.questions_and_answers_screen .textarea,
+.questions_and_answers_screen input.textarea,
+.questions_and_answers_screen .answer_list {
+  flex: 1;
+}
+
+.questions_and_answers_screen .question .textarea,
+.questions_and_answers_screen .question input.textarea {
+  font-weight: bold;
+}
+
+.questions_and_answers_screen .question .edit_buttons,
+.questions_and_answers_screen .answer .edit_buttons {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.questions_and_answers_screen .question .button_group_edit,
+.questions_and_answers_screen .answer .button_group_edit {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.questions_and_answers_screen .created_info {
+  display: flex;
+  font-size: 14px;
+  color: var(--gray_dark);
+}
+.questions_and_answers_screen .created_info .avatar {
+  margin-right: 10px;
+}
+
+.questions_and_answers_screen .btn_group {
+  display: flex;
+  gap: 20px;
+}
