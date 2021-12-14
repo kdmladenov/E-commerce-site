@@ -82,29 +82,6 @@
   background-repeat: no-repeat;
 }
 
-.product_details_info > span,
-.product_details_info > div {
-  margin: 10px 0;
-}
-
-.product_details_title {
-  font-size: larger;
-  font-weight: bold;
-}
-
-.product_details_brand,
-.product_details_rating,
-.product_details_questions {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.product_details_brand > span,
-.product_details_rating > div {
-  margin-right: 5px;
-}
-
 .reviews_container {
   grid-area: product_reviews;
 }

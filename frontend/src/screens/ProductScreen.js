@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
 import { listProductDetails } from '../actions/productActions';
@@ -8,28 +7,37 @@ import Message from '../components/Message';
 import { BASE_URL } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
-import Button from '../components/Button';
 import Reviews from '../components/Reviews';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';
-import Divider from '../components/Divider';
-import { scrollTo } from '../constants/utility-functions';
 import ScrollToTopButton from '../components/ScrollToTopButton';
-import RatingWidget from '../components/RatingWidget';
-import Popover from '../components/Popover';
-import ProductFeaturesMain from '../components/ProductFeaturesMain';
 import ProductFeatures from '../components/ProductFeatures';
-import ProductSpecificationsMain from '../components/ProductSpecificationsMain';
 import ProductScreenActionBox from '../components/ProductScreenActionBox';
+import ProductScreenDetails from '../components/ProductScreenDetails';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ match }) => {
-  const productId = match.params.id;
+  const productId = match.params.productId;
   const dispatch = useDispatch();
 
   const [questionsCount, setQuestionsCount] = useState(0);
+
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading, error } = productDetails;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo: currentUser } = userLogin;
+  
+  //TO DO to be replaced with backend data
+  const images = [
+    product?.image,
+    'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg'
+  ];
+  const [selectedImage, setSelectedImage] = useState(images[0]);
+  const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
+  const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();
 
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);
@@ -40,21 +48,6 @@ const ProductScreen = ({ match }) => {
   const zoomedImageRef = useRef(null);
   const zoomedImageRect = useResize(zoomedImageRef);
   const [showZoomedImage, setShowZoomedImage] = useState(false);
-
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product, loading, error } = productDetails;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo: currentUser } = userLogin;
-
-  //TO DO to be replaced with backend data
-  const images = [
-    product?.image,
-    'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg'
-  ];
-  const [selectedImage, setSelectedImage] = useState(images[0]);
-  const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
-  const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();
 
   const imagesSideBarToRender = images.map((image, index) => (
     <li key={index} onMouseEnter={() => setSelectedImage(image)}>
@@ -103,52 +96,20 @@ const ProductScreen = ({ match }) => {
               boxShadow: showZoomedImage && '0 3px 10px rgba(0, 0, 0, 0.3)'
             }}
           >
-            {!showZoomedImage && (
-              <div className="product_details_info">
-                <div className="product_details_title">{product?.title}</div>
-                <div className="product_details_brand">
-                  <span>by</span>
-                  <Button classes="text">
-                    <strong onClick={() => scrollTo(comparisonRef)}>{product?.brand}</strong>
-                  </Button>
-                </div>
-                <div className="product_details_rating" onClick={() => scrollTo(reviewsRef)}>
-                  <Popover header={<Rating rating={product?.rating} color="orange"></Rating>}>
-                    {product && <RatingWidget product={product} />}
-                  </Popover>
-                  {product?.reviewCount > 0 ? (
-                    <Button classes="text" onClick={() => scrollTo(reviewsRef)}>
-                      {`from ${product?.reviewCount} customer reviews `}
-                    </Button>
-                  ) : (
-                    <span>no reviews yet</span>
-                  )}
-                </div>
-                {questionsCount && (
-                  <span className="product_details_questions">
-                    <Button classes="text" onClick={() => scrollTo(questionsAndAnswersRef)}>
-                      {` ${questionsCount} answered questions`}
-                    </Button>
-                  </span>
-                )}
-                <Divider />
-                <div className="product_details_specifications">
-                  <h3>Main specs:</h3>
-                  <ProductSpecificationsMain product={product} specsRef={specsRef} />
-                </div>
-                <Divider />
-                <div className="product_features_main">
-                  <h3>Main features:</h3>
-                  <ProductFeaturesMain featuresRef={featuresRef} productId={productId} />
-                </div>
-                <Divider />
-                <div className="product_description">
-                  <h3>Description:</h3> <p>{product?.description}</p>
-                </div>
-              </div>
-            )}
+            <ProductScreenDetails
+              showZoomedImage={showZoomedImage}
+              product={product}
+              questionsCount={questionsCount}
+              comparisonRef={comparisonRef}
+              reviewsRef={reviewsRef}
+              questionsAndAnswersRef={questionsAndAnswersRef}
+              specsRef={specsRef}
+              featuresRef={featuresRef}
+            />
           </div>
-          <ProductScreenActionBox product={product} />
+          <div className="product_screen_action_box card">
+            <ProductScreenActionBox product={product} />
+          </div>
         </section>
       )}
       <section className="product_features" ref={featuresRef}>

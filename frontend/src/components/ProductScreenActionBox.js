@@ -22,7 +22,7 @@ const ProductScreenActionBox = ({ product }) => {
   };
 
   return (
-    <div className="product_screen_action_box card">
+    <>
       <ul>
         <li>
           <h2>Price</h2>
@@ -55,7 +55,7 @@ const ProductScreenActionBox = ({ product }) => {
       <Button onClick={addToCartHandler} disabled={stockCount === 0} classes="rounded">
         {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
       </Button>
-    </div>
+    </>
   );
 };
 
