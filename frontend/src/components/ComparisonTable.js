@@ -17,7 +17,7 @@ const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
 
-  const sortedProducts = [
+  const sortedProducts = products && [
     ...products.filter((product) => product.productId === currentProductId),
     ...products
       .filter((product) => product.productId !== currentProductId)
@@ -74,12 +74,12 @@ const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
     </tr>
   ));
 
-  const headerImage = sortedProducts.map((product) => (
+  const headerImage = sortedProducts?.map((product) => (
     <th key={product.productId}>
       <img src={product.image} alt={product.modelNumber} className="product_image" />
     </th>
   ));
-  const headerInfo = sortedProducts.map((product) => (
+  const headerInfo = sortedProducts?.map((product) => (
     <th key={product.productId}>
       <Link to={`/products/${product.productId}`}>
         <th key={product.productId}>{product.title}</th>

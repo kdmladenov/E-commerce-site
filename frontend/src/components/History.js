@@ -33,7 +33,7 @@ const History = ({ horizontal }) => {
   const { success: successDelete } = browsingHistoryDelete;
 
   const historyRecordsPagesize = +endpoint.pageSize.replace('pageSize=', '').replace('&', '');
-  const historyRecordsCount = browsingHistory.length && browsingHistory[0].totalDBItems;
+  const historyRecordsCount = browsingHistory?.length && browsingHistory[0].totalDBItems;
 
   const deleteHistoryItemHandler = (id) => {
     dispatch(deleteBrowsingHistory(id));

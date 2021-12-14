@@ -759,6 +759,12 @@ export const adminListPageSizeOptionsMap = [
   { label: 20, value: 'pageSize=20&' }
 ];
 
+export const questionsListPageSizeOptionsMap = [
+  { label: 3, value: 'pageSize=3&' },
+  { label: 6, value: 'pageSize=6&' },
+  { label: 12, value: 'pageSize=12&' }
+];
+
 export const productListSortOptionsMap = [
   { label: 'Price: Low to High', value: 'sort=price asc&' },
   { label: 'Price: High to Low', value: 'sort=price desc&' },
@@ -781,7 +787,14 @@ export const reviewsSortOptionsMap = [
   { label: 'Newest first', value: 'sort=dateCreated desc&' },
   { label: 'Oldest first', value: 'sort=dateCreated asc&' },
   { label: 'Most liked', value: 'sort=thumbsUp desc&' },
-  { label: 'Most disliked', value: 'sort=thumbs_down desc&' }
+  { label: 'Most disliked', value: 'sort=thumbsDown desc&' }
+];
+
+export const questionsSortOptionsMap = [
+  { label: 'Newest first', value: 'sort=dateCreated desc&' },
+  { label: 'Oldest first', value: 'sort=dateCreated asc&' },
+  { label: 'Most liked', value: 'sort=thumbsUp desc&' },
+  { label: 'Most disliked', value: 'sort=thumbsDown desc&' }
 ];
 
 export const ratingFilterOptionsMap = [
@@ -808,7 +821,6 @@ export const adminOrderListSortOptionsMap = [
   { label: 'Total: Low to High', value: 'sort=total_price asc&' },
   { label: 'Total: High to Low', value: 'sort=total_price desc&' }
 ];
-
 
 export const adminProductListSortOptionsMap = [
   { label: 'Product Id: Low to High', value: 'sort=product_id asc&' },

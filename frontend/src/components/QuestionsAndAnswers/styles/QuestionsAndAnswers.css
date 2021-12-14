@@ -18,62 +18,65 @@
   grid-area: question_and_answer;
 }
 
-.question_and_answer .question,
-.question_and_answer .answers {
+.questions_and_answers .question,
+.questions_and_answers .answers {
   display: flex;
 }
 
-.question_and_answer > div > span {
+.questions_and_answers > div > span {
   width: 150px;
   font-size: 18px;
   font-weight: 700;
 }
 
-.question_and_answer .question,
-.question_and_answer .answer {
+.questions_and_answers .question,
+.questions_and_answers .answer {
   position: relative;
   border-bottom: 1px solid var(--gray);
   margin-bottom: 5px;
   padding: 0 70px 5px 0;
 }
 
-.question_and_answer .answer:last-of-type {
+.questions_and_answers .answer:last-of-type {
   border-bottom: none;
   padding: 0 70px 0 0;
   margin-bottom: 0;
 }
 
-.question_and_answer .textarea,
-.question_and_answer input.textarea,
-.question_and_answer .answer_list {
+.questions_and_answers .textarea,
+.questions_and_answers input.textarea,
+.questions_and_answers .answer_list {
   flex: 1;
 }
 
-.question_and_answer .question .textarea,
-.question_and_answer .question input.textarea {
+.questions_and_answers .question .textarea,
+.questions_and_answers .question input.textarea {
   font-weight: bold;
 }
 
-.question_and_answer .question .edit_buttons,
-.question_and_answer .answer .edit_buttons {
+.questions_and_answers .question .edit_buttons,
+.questions_and_answers .answer .edit_buttons {
   position: absolute;
   top: 0px;
   right: 0px;
 }
 
-.question_and_answer .question .button_group_edit,
-.question_and_answer .answer .button_group_edit {
+.questions_and_answers .question .button_group_edit,
+.questions_and_answers .answer .button_group_edit {
   display: flex;
   flex-direction: row-reverse;
 }
 
-.question_and_answer .created_info {
+.questions_and_answers .created_info {
   display: flex;
   font-size: 14px;
   color: var(--gray_dark);
 }
-.question_and_answer .created_info .avatar{
+.questions_and_answers .created_info .avatar {
   margin-right: 10px;
 }
 
-
+.questions_and_answers .footer {
+  display: flex;
+  gap: 20px;
+}

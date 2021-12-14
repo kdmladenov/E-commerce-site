@@ -54,21 +54,25 @@ export const askQuestion = (productId, question) => async (dispatch, getState) =
   }
 };
 
-export const listQuestionsAndAnswers = (productId) => async (dispatch) => {
-  try {
-    dispatch({ type: QUESTION_AND_ANSWERS_LIST_REQUEST });
+export const listQuestionsAndAnswers =
+  (productId, endpoint = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: QUESTION_AND_ANSWERS_LIST_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/questions/${productId}`);
+      const { data } = await axios.get(`${BASE_URL}/questions/${productId}?${endpoint}`);
 
-    dispatch({ type: QUESTION_AND_ANSWERS_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: QUESTION_AND_ANSWERS_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message
-    });
-  }
-};
+      dispatch({ type: QUESTION_AND_ANSWERS_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: QUESTION_AND_ANSWERS_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      });
+    }
+  };
 
 export const editQuestion = (questionId, update) => async (dispatch, getState) => {
   try {

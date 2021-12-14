@@ -37,6 +37,7 @@ const QuestionsAndAnswersCard = ({
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   const [createAnswerMode, setCreateAnswerMode] = useState(false);
   const [contentQuestion, setContentQuestion] = useState(!createMode ? questionContent : '');
+  const answerList = JSON.parse(answers);
 
   const dispatch = useDispatch();
 
@@ -124,26 +125,28 @@ const QuestionsAndAnswersCard = ({
         <div className="answers">
           <span>Answers:</span>
           <ul className="answer_list">
-            {answers?.length
-              ? (showAllAnswers ? answers : answers.slice(0, answerCountAtStart))?.map((answer) => {
-                  return (
-                    <AnswerCard
-                      key={answer.answerId}
-                      {...answer}
-                      currentUser={currentUser}
-                      createAnswerMode={false}
-                      setCreateAnswerMode={setCreateAnswerMode}
-                      fullName={answer.fullName}
-                      avatar={answer.avatar}
-                    />
-                  );
-                })
+            {answerList?.length
+              ? (showAllAnswers ? answerList : answerList.slice(0, answerCountAtStart))?.map(
+                  (answer) => {
+                    return (
+                      <AnswerCard
+                        key={answer.answerId}
+                        {...answer}
+                        currentUser={currentUser}
+                        createAnswerMode={false}
+                        setCreateAnswerMode={setCreateAnswerMode}
+                        fullName={answer.fullName}
+                        avatar={answer.avatar}
+                      />
+                    );
+                  }
+                )
               : 'There is no answer yet'}
-            {answers?.length > answerCountAtStart &&
+            {answerList?.length > answerCountAtStart &&
               (!showAllAnswers ? (
                 <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
                   <i class="fa fa-chevron-down"></i>{' '}
-                  {`See more answers (${answers?.length - answerCountAtStart})`}
+                  {`See more answers (${answerList?.length - answerCountAtStart})`}
                 </Button>
               ) : (
                 <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
