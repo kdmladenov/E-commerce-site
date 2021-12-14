@@ -1,7 +1,7 @@
 import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 
-const getAllQuestions = (questionsData, answersData, productsData) => async (productId) => {
+const getAllQuestions = (questionsData, productsData) => async (productId, search, sort, page, pageSize) => {
   const existingProduct = await productsData.getBy('product_id', productId);
 
   if (!existingProduct) {
@@ -11,14 +11,14 @@ const getAllQuestions = (questionsData, answersData, productsData) => async (pro
     };
   }
 
-  const questions = await questionsData.getAll(productId);
+  const questionsWithAnswers = await questionsData.getAll(productId, search, sort, page, pageSize);
 
-  const questionsWithAnswers = await Promise.all(
-    await questions.map(async (question) => {
-      const answers = await Promise.all(await answersData.getAll(question.questionId));
-      return { ...question, answers: [...answers] };
-    })
-  );
+  // const questionsWithAnswers = await Promise.all(
+  //   await questions.map(async (question) => {
+  //     const answers = await Promise.all(await answersData.getAll(question.questionId));
+  //     return { ...question, answers: [...answers] };
+  //   })
+  // );
 
   return {
     error: null,

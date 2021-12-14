@@ -25,7 +25,8 @@ questionsController
     authMiddleware,
     loggedUserGuard,
     validateBody('question', createQuestionSchema),
-    errorHandler(async (req, res) => {
+    // errorHandler(
+      async (req, res) => {
       const { productId } = req.params;
       const { questionContent } = req.body;
       const { userId } = req.user;
@@ -44,7 +45,7 @@ questionsController
         res.status(201).send(result);
       }
     })
-  )
+  // )
 
   // @desc GET All Product questions
   // @route GET/questions/:productId
@@ -54,12 +55,21 @@ questionsController
     // errorHandler(
     async (req, res) => {
       const { productId } = req.params;
+      const { search = '', sort = 'date_created desc' } = req.query;
+
+      let {
+        pageSize = paging.DEFAULT_QUESTIONS_PAGESIZE,
+        page = paging.DEFAULT_PAGE
+      } = req.query;
+
+      if (+pageSize > paging.MAX_QUESTIONS_PAGESIZE) pageSize = paging.MAX_QUESTIONS_PAGESIZE;
+      if (+pageSize < paging.MIN_QUESTIONS_PAGESIZE) pageSize = paging.MIN_QUESTIONS_PAGESIZE;
+      if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
       const { error, result } = await questionsServices.getAllQuestions(
         questionsData,
-        answersData,
         productsData
-      )(+productId);
+      )(+productId, search, sort, +page, +pageSize);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({

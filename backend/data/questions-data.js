@@ -1,13 +1,21 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAll = async (productId) => {
+const getAll = async (productId, search, sort, page, pageSize) => {
+  const sortArr = sort.split(' ');
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
+  const sortColumn = ['dateCreated', 'rating', 'thumbsUp', 'thumbsDown'].includes(sortArr[0])
+    ? sortArr[0]
+    : 'date_created';
+  const offset = (page - 1) * pageSize;
+
+  console.log(productId, search, sort, page, pageSize);
 
   const sql = `
-    SELECT
+  SELECT   
+    q.question_id as questionId,
     q.product_id as productId,
     q.user_id as userId,
-    q.question_id as questionId,
     q.question_content as questionContent,
     q.date_created as dateCreated,
     q.date_edited as dateEdited,
@@ -17,22 +25,41 @@ const getAll = async (productId) => {
     ql.thumbs_down as thumbsDown,
     ql.userThumbsUpList,
     ql.userThumbsDownList,
+    ans.answers,
     COUNT(*) OVER () AS totalDBItems
     FROM questions q
     LEFT JOIN users u USING (user_id)
     LEFT JOIN (select question_id,
-    count(if(reaction_id=1,1,null)) as thumbs_up,
-    count(if(reaction_id=2,1,null)) as thumbs_down,
-    GROUP_CONCAT(if(reaction_id=1,user_id,null)) as userThumbsUpList,
-    GROUP_CONCAT(if(reaction_id=2,user_id,null)) as userThumbsDownList
-    from questions_likes
-    WHERE is_deleted = 0
-    group by question_id) ql USING (question_id)
-    WHERE q.is_deleted = 0 AND q.product_id = ?
-    ORDER BY q.date_created desc
+          count(if(reaction_id=1,1,null)) as thumbs_up,
+          count(if(reaction_id=2,1,null)) as thumbs_down,
+          GROUP_CONCAT(if(reaction_id=1,user_id,null)) as userThumbsUpList,
+          GROUP_CONCAT(if(reaction_id=2,user_id,null)) as userThumbsDownList
+          from questions_likes
+          WHERE is_deleted = 0
+          group by question_id) ql USING (question_id)
+    LEFT JOIN (select a.question_id,
+          JSON_ARRAYAGG(json_object(
+          "answerId",a.answer_id, 
+          "questionId",a.question_id,
+          "userId",a.user_id,
+          "fullName",u.full_name,
+          "avatar",u.avatar,
+          "answerContent", a.answer_content, 
+          "dateCreated",a.date_created,
+          "dateEdited",a.date_edited
+          )) as answers
+          FROM answers a
+          LEFT JOIN users u USING (user_id)
+          WHERE a.is_deleted = 0 
+          group by question_id) ans USING (question_id)
+    WHERE q.is_deleted = 0 AND q.product_id = ?  ${ search ? `AND CONCAT_WS(',', q.question_content, u.full_name, ans.answers) Like '%${search}%'` : '' }
+    ORDER BY ${sortColumn} ${direction}
+    LIMIT ? OFFSET ?
     `;
-  return db.query(sql, [+productId]);
+  return db.query(sql, [+productId, +pageSize, +offset]);
 };
+
+
 
 const getBy = async (column, value, role) => {
   const sql = `
