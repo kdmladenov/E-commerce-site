@@ -25,10 +25,11 @@ export default {
     product_category: `Expected valid string from the product_category enum`,
     price: `Expected valid number with value in the range [${PRODUCT.MIN_PRICE_VALUE}-${PRODUCT.MAX_PRICE_VALUE}]`,
     stock_count: `Expected valid number count in the range [${PRODUCT.MIN_STOCK_COUNT}-${PRODUCT.MAX_STOCK_COUNT}]`,
+    discount: `Expected valid number count in the range [${PRODUCT.MIN_DISCOUNT_VALUE}-${PRODUCT.MAX_DISCOUNT_VALUE}]`,
     review_count: `Expected valid number count in the range [${PRODUCT.MIN_REVIEW_COUNT}-${PRODUCT.MAX_REVIEW_COUNT}]`,
     rating: `Expected valid rating with length in the range [${PRODUCT.MIN_RATING_VALUE}-${PRODUCT.MAX_REVIEW_COUNT}]`
   },
-    question: {
-    questionContent: `Expected valid name string with length in the range [${QUESTIONS.MIN_NAME_LENGTH}-${QUESTIONS.MAX_NAME_LENGTH}]`,
+  question: {
+    questionContent: `Expected valid name string with length in the range [${QUESTIONS.MIN_NAME_LENGTH}-${QUESTIONS.MAX_NAME_LENGTH}]`
   }
 };

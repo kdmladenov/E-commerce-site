@@ -44,6 +44,7 @@ const getAllProducts = async (search, filter, sort, pageSize, page) => {
       p.color_family as colorFamily,
       p.weight,
       p.dimensions,
+      p.discount,
       s.screen_size as screenSize,
       s.screen_resolution as screenResolution,
       s.display_type as displayType,
@@ -118,6 +119,7 @@ const getBy = async (column, value, role) => {
       p.color,
       p.weight,
       p.dimensions,
+      p.discount,
       s.screen_size as screenSize,
       s.screen_resolution as screenResolution,
       s.display_type as displayType,
@@ -177,9 +179,10 @@ const create = async (product) => {
       description,
       product_category,
       price,
-      stock_count
+      stock_count,
+      discount
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const result = await db.query(sql, [
     product.title,
@@ -188,7 +191,8 @@ const create = async (product) => {
     product.description || '',
     product.product_category,
     +product.price,
-    +product.stock_count
+    +product.stock_count,
+    +product.discount
   ]);
 
   return getBy('product_id', result.insertId);
@@ -204,7 +208,8 @@ const update = async (updatedProduct) => {
           description = ?,
           product_category = ?,
           price = ?,
-          stock_count = ?
+          stock_count = ?,
+          discount = ?
         WHERE product_id = ?
     `;
 
@@ -216,7 +221,8 @@ const update = async (updatedProduct) => {
     updatedProduct.productCategory,
     +updatedProduct.price,
     +updatedProduct.stock_count,
-    +updatedProduct.productId
+    +updatedProduct.productId,
+    +product.discount
   ]);
 
   return getBy('product_id', updatedProduct.productId);

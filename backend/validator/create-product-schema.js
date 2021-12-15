@@ -20,5 +20,9 @@ export default {
   stock_count: (value) =>
     typeof value === 'number' &&
     value >= PRODUCT.MIN_STOCK_COUNT &&
-    value <= PRODUCT.MAX_STOCK_COUNT
+    value <= PRODUCT.MAX_STOCK_COUNT,
+  discount: (value) =>
+    typeof value === 'number' &&
+    value >= PRODUCT.MIN_DISCOUNT_VALUE &&
+    value <= PRODUCT.MAX_DISCOUNT_VALUE
 };
