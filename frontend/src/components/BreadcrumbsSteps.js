@@ -1,19 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './styles/CheckoutBreadcrumbs.css';
+import './styles/BreadcrumbsSteps.css';
 
-const CheckoutBreadcrumbs = ({ currentStep = 'Cart', orderId }) => {
-  const steps = [
-    { label: 'Cart', path: '/cart' },
-    { label: 'Shipping', path: '/shipping' },
-    { label: 'Pay Info', path: '/payment' },
-    { label: 'Place Order', path: '/placeorder' },
-    { label: 'Pay Order', path: `/order/${orderId}`}
-  ];
-
+const BreadcrumbsSteps = ({ currentStep = 'Cart', steps }) => {
   // disable Link for next steps
-  const linkHandler = (e, index) => {
-    if (index > steps.indexOf(steps.find((step) => step.label === currentStep))) {
+  const linkHandler = (e, index, path) => {
+    if (index > steps.indexOf(steps.find((step) => step.label === currentStep)) && path.length) {
       e.preventDefault();
     }
   };
@@ -30,8 +22,15 @@ const CheckoutBreadcrumbs = ({ currentStep = 'Cart', orderId }) => {
               : 'current'
           }`}
         >
-          <Link to={step.path} onClick={(e) => linkHandler(e, index)}>
-            <div className="label">{step.label}</div>
+          <Link
+            to={step?.path.length && step.path}
+            onClick={(e) => linkHandler(e, index, step.path)}
+          >
+            <div className="label">
+              {index < steps.indexOf(steps.find((step) => step.label === currentStep))
+                ? step?.success || step?.label
+                : step?.label}
+            </div>
           </Link>
           <div className="progress">
             <div className="progress-bar"></div>
@@ -43,7 +42,7 @@ const CheckoutBreadcrumbs = ({ currentStep = 'Cart', orderId }) => {
   );
 };
 
-export default CheckoutBreadcrumbs;
+export default BreadcrumbsSteps;
 
 // {step1 ? <Link to="/login">Sign In</Link> : <Link disabled>Sign In</Link>}
 //       {step2 ? <Link to="/shipping">Shipping</Link> : <Link disabled>Shipping</Link>}

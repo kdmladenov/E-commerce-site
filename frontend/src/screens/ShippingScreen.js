@@ -1,7 +1,7 @@
 import React from 'react';
-import CheckoutBreadcrumbs from '../components/CheckoutBreadcrumbs';
+import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import FormComponent from '../components/FormComponent';
-import { profileAddressInitialInputState } from '../constants/inputMaps';
+import { checkoutBreadcrumbsSteps, profileAddressInitialInputState } from '../constants/inputMaps';
 import './styles/ShippingScreen.css';
 
 const ShippingScreen = () => {
@@ -9,7 +9,7 @@ const ShippingScreen = () => {
     <main className="shipping_screen">
       <div className="shipping_container">
         <div className="nav card">
-          <CheckoutBreadcrumbs currentStep="Shipping" />
+          <BreadcrumbsSteps currentStep="Shipping" steps={checkoutBreadcrumbsSteps} />
         </div>
         <section className={`address_container card `}>
           <h1>Shipping Address</h1>

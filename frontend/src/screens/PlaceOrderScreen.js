@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { removeFromCart, updateCartItemQty } from '../actions/cartActions';
 import { createOrder } from '../actions/orderActions';
 import Button from '../components/Button';
-import CheckoutBreadcrumbs from '../components/CheckoutBreadcrumbs';
+import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import Message from '../components/Message';
 import Price from '../components/Price';
 import Rating from '../components/Rating';
@@ -15,6 +15,7 @@ import {
   SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE,
   TAX_RATE
 } from '../constants/constants';
+import { checkoutBreadcrumbsSteps } from '../constants/inputMaps';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import './styles/PlaceOrderScreen.css';
 
@@ -73,7 +74,7 @@ const PlaceOrderScreen = ({ history }) => {
     <main className="place_order_screen">
       <div className="place_order_container">
         <div className="nav card">
-          <CheckoutBreadcrumbs currentStep="Place Order" />
+          <BreadcrumbsSteps currentStep="Place Order" steps={checkoutBreadcrumbsSteps} />
         </div>
         <section className={`body`}>
           <div className="order_header card">
