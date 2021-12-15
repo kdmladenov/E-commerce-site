@@ -27,6 +27,7 @@ import { useDispatch } from 'react-redux';
 import { addToPortalRefs } from './actions/portalActions';
 import ReviewsScreen from './screens/ReviewsScreen';
 import QuestionsAndAnswersScreen from './screens/QuestionsAndAnswersScreen';
+import BrandStoreScreen from './screens/BrandStoreScreen';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const App = () => {
       <Route path="/admin/user/:id/edit" component={UserEditScreenAdmin} />
       <Route path="/account/:section" component={AccountScreen} />
       <Route path="/search/:searchTerm" component={ProductListScreen} />
+      <Route path="/store/:brand" component={BrandStoreScreen} />
       <Route exact path="/" component={HomeScreen} />
       {/* <Footer /> */}
       <Toast ref={toastRef} />
