@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px auto;
 }
 
 .pagination ul {
@@ -49,7 +50,7 @@
 }
 
 .pagination .page_btn:not(.pagination .page_btn.current):hover {
-  background-color: var(--gray_light)
+  background-color: var(--gray_light);
 }
 
 .pagination .page_btn span:not(.pagination .page_btn.current span):hover {

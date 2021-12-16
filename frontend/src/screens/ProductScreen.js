@@ -4,7 +4,6 @@ import './styles/ProductScreen.css';
 import { listProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { BASE_URL } from '../constants/constants';
 import ProductImageGallery from '../components/ProductImageGallery';
 import { useResize } from '../hooks/useResize';
 import Reviews from '../components/Reviews';
@@ -16,6 +15,10 @@ import ScrollToTopButton from '../components/ScrollToTopButton';
 import ProductFeatures from '../components/ProductFeatures';
 import ProductScreenActionBox from '../components/ProductScreenActionBox';
 import ProductScreenDetails from '../components/ProductScreenDetails';
+import Carousel from '../components/Carousel';
+import History from '../components/History';
+import ProductScreenImageSidebar from '../components/ProductScreenImageSidebar';
+import Divider from '../components/Divider';
 
 // TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ match }) => {
@@ -29,7 +32,7 @@ const ProductScreen = ({ match }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo: currentUser } = userLogin;
-  
+
   //TO DO to be replaced with backend data
   const images = [
     product?.image,
@@ -49,12 +52,6 @@ const ProductScreen = ({ match }) => {
   const zoomedImageRect = useResize(zoomedImageRef);
   const [showZoomedImage, setShowZoomedImage] = useState(false);
 
-  const imagesSideBarToRender = images.map((image, index) => (
-    <li key={index} onMouseEnter={() => setSelectedImage(image)}>
-      <img src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`} alt="" />
-    </li>
-  ));
-
   useEffect(() => {
     dispatch(listProductDetails(productId));
     dispatch(addBrowsingHistoryRecord(productId));
@@ -73,7 +70,7 @@ const ProductScreen = ({ match }) => {
       ) : (
         <section className="product_details">
           <div className="product_image_sidebar">
-            <ul>{imagesSideBarToRender}</ul>
+            <ProductScreenImageSidebar images={images} setSelectedImage={setSelectedImage} />
           </div>
           <div className="product_details_image">
             <ProductImageGallery
@@ -113,11 +110,16 @@ const ProductScreen = ({ match }) => {
         </section>
       )}
       <section className="product_features" ref={featuresRef}>
-        <h2>Product Features:</h2>
+        <Divider>
+          <h2>Product Features</h2>
+        </Divider>
         <ProductFeatures productId={productId} />
       </section>
       <section className="product_specifications" ref={specsRef}>
-        <h2>Product Specifications</h2>
+        <Divider>
+          <h2>Product Specifications</h2>
+        </Divider>
+
         {loading ? (
           <Loader />
         ) : error ? (
@@ -128,24 +130,40 @@ const ProductScreen = ({ match }) => {
       </section>
 
       <section className="comparison_table_container" ref={comparisonRef}>
-        <h2>{`Compare ${product?.brand} Laptops:`}</h2>
+        <Divider>
+          <h2>{`Compare ${product?.brand} Laptops`}</h2>
+        </Divider>
+
         <ComparisonTable currentProductId={+productId} brand={product?.brand} />
       </section>
 
       <section className="reviews_container" ref={reviewsRef}>
-        <h2>Reviews:</h2>
+        <Divider>
+          <h2>Customer Reviews</h2>
+        </Divider>
         <Reviews currentUser={currentUser} productId={productId} />
       </section>
 
       <section className="questions_and_answers_container" ref={questionsAndAnswersRef}>
-        <h2>Questions & Answers:</h2>
+        <Divider>
+          <h2>Questions & Answers</h2>
+        </Divider>
         <QuestionsAndAnswers
           currentUser={currentUser}
           productId={productId}
           setQuestionsCount={setQuestionsCount}
         />
       </section>
-
+      <section>
+        <Divider>
+          <h2>Your Browsing History</h2>
+        </Divider>
+        <div className="product_carousel_history">
+          <Carousel isPageVisible={true}>
+            <History horizontal={true} />
+          </Carousel>
+        </div>
+      </section>
       <ScrollToTopButton />
     </main>
   );

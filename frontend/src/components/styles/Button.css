@@ -3,39 +3,36 @@
   min-width: 100px;
   border: none;
   margin: 0 20px;
+  padding: 5px 20px;
   text-decoration: none;
   /* text-transform: uppercase; */
   letter-spacing: 1px;
+  box-shadow: var(--box_shadow);
 }
 
 /* Colors : orange , blue, red, yellow(default), white */
 .button_container.orange {
   background: var(--orange);
   color: var(--black);
-  border: 1px solid var(--red);
 }
 .button_container.blue {
   background: var(--blue);
   color: var(--white);
-  border: 1px solid var(--blue_dark);
 }
 
 .button_container.red {
   background: var(--red);
   color: var(--white);
-  border: 1px solid rgb(170, 1, 1);
 }
 .button_container,
 .button_container.yellow {
   background: var(--yellow);
   color: var(--black);
-  border: 1px solid var(--orange);
 }
 
 .button_container.white {
   background: var(--white);
   color: var(--gray_dark);
-  border: 1px solid var(--gray);
 }
 
 /* Gradients */
@@ -57,8 +54,8 @@
 .button_container.small {
   min-width: 100px;
   width: fit-content;
-  padding: 0 10px;
-  height: 22px;
+  /* padding: 0 10px; */
+  height: 26px;
   border-radius: 4px;
   font-size: 14px;
 }
@@ -90,10 +87,16 @@
   border-radius: 18px;
 }
 
+.button_container.circle {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
 /* Effects */
 .button_container:hover {
   cursor: pointer;
-  box-shadow: var(--box_shadow);
+  filter: contrast(110%);
 }
 
 .button_container:active {

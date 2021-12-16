@@ -1,0 +1,15 @@
+.product_specifications_main table {
+  border-collapse: collapse;
+  white-space: wrap;
+}
+
+.product_specifications_main table tr td:first-child {
+  text-align: right;
+  padding-right: 10px;
+  min-width: 150px;
+  font-weight: 700;
+}
+
+.product_specifications_main table tr td:last-child {
+  text-align: left;
+}

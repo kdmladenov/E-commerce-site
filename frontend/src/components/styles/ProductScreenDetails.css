@@ -10,13 +10,16 @@
 
 .product_details_brand,
 .product_details_rating,
-.product_details_questions {
+.product_details_questions{
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: 15px
 }
 
-.product_details_brand > span,
-.product_details_rating > div {
-  margin-right: 5px;
+.product_color {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }

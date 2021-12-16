@@ -2,6 +2,7 @@ import React from 'react';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import { scrollTo } from '../constants/utility-functions';
 import Button from './Button';
+import './styles/ProductSpecificationsMain.css';
 
 const ProductSpecificationsMain = ({ product, specsRef }) => {
   const {

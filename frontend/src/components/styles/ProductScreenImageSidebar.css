@@ -1,0 +1,22 @@
+.product_image_sidebar ul::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.product_image_sidebar li {
+  width: 90px;
+  height: 70px;
+  padding: 5px;
+  object-fit: contain;
+  margin: 10px 0;
+  border: 1px solid var(--gray);
+  box-shadow: var(--box_shadow);
+}
+
+.product_image_sidebar li:hover {
+  border-color: var(--mimosa);
+  cursor: pointer;
+}

@@ -1,0 +1,27 @@
+.product_details_price table {
+  border-collapse: collapse;
+  white-space: wrap;
+}
+
+.product_details_price table tr td:first-child {
+  text-align: right;
+  padding-right: 10px;
+  min-width: 150px;
+  font-weight: 700;
+}
+
+.product_details_price table tr td:last-child {
+  text-align: left;
+}
+
+.product_details_price table tr:nth-child(2) td:last-child,
+.product_details_price table tr:last-child td:last-child {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+}
+
+.product_details_price table tr:last-child td:last-child {
+  color: var(--red_dark);
+}
