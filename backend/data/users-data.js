@@ -169,6 +169,16 @@ const remove = async (userId) => {
   return db.query(sql, [userId]);
 };
 
+const restore = async (userId) => {
+  const sql = `
+    UPDATE users SET
+      is_deleted = 0
+    WHERE user_id = ?
+  `;
+
+  return db.query(sql, [userId]);
+};
+
 const loginUser = async (email) => {
   const sql = `
     SELECT 
@@ -225,6 +235,7 @@ export default {
   create,
   updateData,
   remove,
+  restore,
   loginUser,
   logoutUser,
   getPasswordBy,

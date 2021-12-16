@@ -5,7 +5,7 @@ import errors from '../constants/service-errors.js';
 import usersServices from '../services/users-services.js';
 import createUserSchema from '../validator/create-user-schema.js';
 import updateUserSchema from '../validator/update-user-schema.js';
-import deleteUserSchema from '../validator/delete-user-schema.js';
+// import deleteUserSchema from '../validator/delete-user-schema.js';
 import updatePasswordSchema from '../validator/update-password-schema.js';
 import forgottenPasswordSchema from '../validator/forgotten-password-schema.js';
 import resetPasswordSchema from '../validator/reset-password-schema.js';
@@ -53,7 +53,7 @@ usersController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { role } = req.user;
       const { search = '', sort = 'sort=user_id asc' } = req.query;
       let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -62,7 +62,6 @@ usersController
       if (+pageSize < paging.MIN_USERS_PAGESIZE) pageSize = paging.MIN_USERS_PAGESIZE;
       if (page < paging.DEFAULT_PAGE) page = paging.DEFAULT_PAGE;
 
-      
       const result = await usersServices.getAllUsers(usersData)(
         search,
         sort,
@@ -72,7 +71,8 @@ usersController
       );
 
       res.status(200).send(result);
-    })
+    }
+  )
   // )
 
   // @desc Get user by ID
@@ -88,7 +88,11 @@ usersController
       const { userId } = req.params;
       const { role } = req.user;
       const isProfileOwner = +userId === req.user.userId;
-      const { error, result } = await usersServices.getUser(usersData)(userId, isProfileOwner, role);
+      const { error, result } = await usersServices.getUser(usersData)(
+        userId,
+        isProfileOwner,
+        role
+      );
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -119,7 +123,7 @@ usersController
       //   res.status(400).send({
       //     message: 'The request was invalid. Emails are required or do not match.'
       //   });
-      // } else 
+      // } else
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: `User ${id} is not found.`
@@ -141,13 +145,13 @@ usersController
     '/:userId',
     authMiddleware,
     loggedUserGuard,
-    validateBody('user', deleteUserSchema),
+    // validateBody('user', deleteUserSchema),
     errorHandler(async (req, res) => {
       const { role } = req.user;
       // case admin-delete every user, case: basic user - delete only itself
-      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+      const deletedUserId = role === rolesEnum.admin ? req.params.userId : req.user.userId;
 
-      const { error, result } = await usersServices.deleteUser(usersData)(+id);
+      const { error, result } = await usersServices.deleteUser(usersData)(+deletedUserId);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -159,9 +163,33 @@ usersController
     })
   )
 
-  // @desc Get user by ID
-  // @route GET /users/:userId
-  // @access Private - logged
+  // @desc Restore DELETED user
+  // @route PATCH /users/:id
+  // @access Private - Admin(restore any deleted user). User Owner cannot restore itself!
+  .patch(
+    '/:userId/restore',
+    authMiddleware,
+    loggedUserGuard,
+    // Admins only
+    roleMiddleware(rolesEnum.admin),
+    errorHandler(async (req, res) => {
+      const { userId } = req.params;
+
+      const { error, result } = await usersServices.restoreUser(usersData)(+userId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${userId} is not found.`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  )
+
+  // @desc Change password
+  // @route GET /users/:userId/change-password',
+  // @access Private - logged user
   .patch(
     '/:userId/change-password',
     authMiddleware,

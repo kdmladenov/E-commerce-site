@@ -22,22 +22,6 @@ const getUser = (usersData) => async (userId, isProfileOwner, role) => {
   };
 };
 
-// const getUserTimeline = usersData => async (userId) => {
-//   const userTimeline = await usersData.getTimeline(userId);
-
-//   if (userTimeline.length === 0) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null,
-//     };
-//   }
-
-//   return {
-//     error: null,
-//     result: userTimeline,
-//   };
-// };
-
 const getAllUsers = (usersData) => async (search, sort, page, pageSize, role) => {
   const result = await usersData.getAll(search, sort, page, pageSize, role);
 
@@ -175,6 +159,24 @@ const deleteUser = (usersData) => async (userId) => {
 
 const logout = (usersData) => async (token) => {
   await usersData.logoutUser(token);
+};
+
+// restore deleted user
+const restoreUser = (usersData) => async (deletedUserId) => {
+  const existingDeletedUser = await usersData.getBy('user_id', +deletedUserId, false, 'admin');
+  if (!existingDeletedUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+
+  await usersData.restore(deletedUserId);
+
+  return {
+    error: null,
+    result: existingDeletedUser
+  };
 };
 
 // forgotten password
@@ -324,6 +326,7 @@ export default {
   changePassword,
   update,
   deleteUser,
+  restoreUser,
   logout,
   forgottenPassword,
   resetPassword,

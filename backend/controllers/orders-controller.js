@@ -96,7 +96,7 @@ ordersController
     errorHandler(async (req, res) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
-      const { error, order } = await ordersServices.getOrderById(ordersData)(+orderId, role, userId);
+      const { error, order } = await ordersServices.getOrderById(ordersData)(+orderId, role, +userId);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
