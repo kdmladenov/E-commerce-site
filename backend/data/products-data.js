@@ -241,6 +241,7 @@ const remove = async (productToDelete) => {
 const getFeatures = async (productId) => {
   const sql = `
     SELECT 
+      features_id as featuresId,
       product_id as productId,
       feature_title as featureTitle,
       feature_content as featureContent

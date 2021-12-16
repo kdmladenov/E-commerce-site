@@ -209,14 +209,31 @@ const createOrderItem = async (title, qty, image, price, id, orderId) => {
 const getAllOrderItemsByOrder = async (orderId) => {
   const sql = `
   SELECT
-    order_item_id as orderItemId,
-    title, 
-    quantity as qty, 
-    image, 
-    price, 
-    product_id as id, 
-    order_id as orderId
-    FROM order_items
+    oi.order_item_id as orderItemId,
+    oi.title, 
+    oi.quantity as qty, 
+    oi.image, 
+    oi.price, 
+    oi.product_id as productId, 
+    oi.order_id as orderId,
+    p.brand,
+    p.stock_count as stockCount,
+    r.review_count as reviewCount,
+    r.rating
+    FROM order_items oi
+    LEFT JOIN (SELECT
+      product_id,
+      description,
+      brand,
+      stock_count
+      FROM products) as p using(product_id)
+    LEFT JOIN (SELECT 
+      count(product_id) as review_count, 
+      AVG(rating) as rating, 
+      product_id
+      FROM reviews
+      WHERE is_deleted = 0
+      GROUP BY product_id) as r using (product_id)
     WHERE order_id = ?
   `;
 
