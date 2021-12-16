@@ -20,6 +20,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_RESTORE_FAIL,
+  USER_RESTORE_REQUEST,
+  USER_RESTORE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
@@ -164,36 +167,40 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
-export const listUsers =  (endpoint = '') => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: USER_LIST_REQUEST
-    });
-    // access to the logged in user info
-    const {
-      userLogin: { userInfo }
-    } = getState();
+export const listUsers =
+  (endpoint = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: USER_LIST_REQUEST
+      });
+      // access to the logged in user info
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
-    };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
 
-    const { data } = await axios.get(`${BASE_URL}/users?${endpoint}`, config);
+      const { data } = await axios.get(`${BASE_URL}/users?${endpoint}`, config);
 
-    dispatch({
-      type: USER_LIST_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: USER_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message
-    });
-  }
-};
+      dispatch({
+        type: USER_LIST_SUCCESS,
+        payload: data
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      });
+    }
+  };
 
 export const deleteUser = (userId) => async (dispatch, getState) => {
   try {
@@ -219,6 +226,36 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const restoreUser = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_RESTORE_REQUEST
+    });
+    // access to the logged in user info
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.patch(`${BASE_URL}/users/${userId}/restore`, {}, config);
+
+    dispatch({
+      type: USER_RESTORE_SUCCESS
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_RESTORE_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });
