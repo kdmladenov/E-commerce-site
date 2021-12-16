@@ -23,7 +23,7 @@ const ProductFeatures = ({ productId }) => {
   ) : productFeatures?.length > 0 ? (
     <Accordion>
       {productFeatures?.map((feature) => (
-        <Accordion.Item>
+        <Accordion.Item key={feature.featuresId}>
           <Accordion.Header>
             <Accordion.Title>{feature.featureTitle}</Accordion.Title>
             <Accordion.ButtonGroup></Accordion.ButtonGroup>

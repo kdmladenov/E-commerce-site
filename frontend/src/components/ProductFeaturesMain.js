@@ -17,7 +17,7 @@ const ProductFeaturesMain = ({ featuresRef }) => {
     <Message type="error">{error}</Message>
   ) : (
     productFeatures?.length && (
-      <p>
+      <>
         <ul>
           {productFeatures?.slice(0, PRODUCT_FEATURES_MAIN_COUNT).map((feature) => (
             <li>{feature.featureTitle}</li>
@@ -26,7 +26,7 @@ const ProductFeaturesMain = ({ featuresRef }) => {
         <Button classes="text" onClick={() => scrollTo(featuresRef)}>
           See all features
         </Button>
-      </p>
+      </>
     )
   );
 };

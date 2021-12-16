@@ -45,7 +45,7 @@ const AccountScreen = ({ match, history }) => {
         >
           <Profile />
         </section>
-        <section className={`orders_container card content ${activeTab === 'orders' && 'active'}`}>
+        <section className={`orders_container content ${activeTab === 'orders' && 'active'}`}>
           <OrdersMy />
         </section>
         <section
