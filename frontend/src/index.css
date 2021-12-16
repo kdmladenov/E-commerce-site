@@ -157,12 +157,6 @@ img {
   color: var(--black);
 }
 
-.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .btn {
   height: 100%;
   width: 50%;
@@ -172,6 +166,15 @@ img {
   background: var(--primary-color);
   border: none;
   border-radius: 5px;
+}
+
+select {
+  padding: 0 5px;
+  border-radius: 5px;
+  background: rgb(239, 242, 242);
+  font-size: 13px;
+  font-weight: 400;
+  box-shadow: var(--box_shadow_2);
 }
 
 .btn-outline {
@@ -228,17 +231,15 @@ img {
 /* Text sizes */
 
 h1 {
-  font-size: 1.8rem;
-  padding: 1rem 0;
+  font-size: 25px;
 }
 
 h2 {
-  font-size: 1.4rem;
-  padding: 1rem 0;
+  font-size: 21px;
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .lead {

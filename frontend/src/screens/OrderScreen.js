@@ -13,10 +13,16 @@ import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET
 } from '../constants/orderConstants';
-import { numberDecimalFix } from '../constants/utility-functions';
 import Button from '../components/Button';
+import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
+import Rating from '../components/Rating';
+import Price from '../components/Price';
+import { orderBreadcrumbsSteps } from '../constants/inputMaps';
+import Divider from '../components/Divider';
+import { getDate } from '../constants/utility-functions';
+import { addToCart } from '../actions/cartActions';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false);
 
   const dispatch = useDispatch();
@@ -25,6 +31,9 @@ const OrderScreen = ({ match }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
@@ -42,6 +51,22 @@ const OrderScreen = ({ match }) => {
   const deliverHandler = () => {
     dispatch(deliverOrder(order));
   };
+
+  const portalRefs = useSelector((state) => state.portalRefs);
+  const {
+    portalRefsMap: { toast_cart: toastCartRef }
+  } = portalRefs;
+
+  const addToCartHandler = (productId, title, image, price) => {
+    dispatch(addToCart(productId, 1));
+    toastCartRef.current.createToast({ title, image, price, qty: 1 });
+  };
+
+  const currentStep = order?.isDelivered
+    ? 'Order Complete'
+    : order?.isPaid
+    ? 'Delivery'
+    : 'Pay Order';
 
   useEffect(() => {
     dispatch({ type: ORDER_CREATE_RESET });
@@ -83,119 +108,180 @@ const OrderScreen = ({ match }) => {
   ) : error ? (
     <Message type="error">{error}</Message>
   ) : (
-    <main className="order">
-      <h1>Order: {orderId}</h1>
-      <div className="flex">
-        <dir className="col-8">
-          <ul>
-            <li>
-              <h1>Shipping</h1>
-              <p>
-                <strong>Name:</strong> {order?.fullName}
-              </p>
-              <p>
-                <strong>Email:</strong> <a href={`mailto:${order?.email}`}>{order?.email}</a>
-              </p>
-
-              <p>
-                <strong>Address:</strong>
-                {order?.shippingAddress} {order?.shippingAddress2}, {order?.shippingCity},{' '}
-                {order?.shippingZip}, {order?.shippingState}, {order?.shippingCountry}
-              </p>
-              {order?.isDelivered ? (
-                <Message type="success">Delivered at {order?.deliveryDate.slice(0, 10)}</Message>
-              ) : (
-                <Message type="error">Not Delivered</Message>
-              )}
-            </li>
-            <li>
-              <h1>Payment Method</h1>
-              <p>
-                <strong>Method:</strong> {order?.paymentMethod}
-              </p>
-              {order?.isPaid ? (
-                <Message type="success">Paid at {order?.paymentDate.slice(0, 10)}</Message>
-              ) : (
-                <Message type="error">Not Paid</Message>
-              )}
-            </li>
-            <li>
-              <h1>Order Items</h1>
-              {order?.orderItemsCreated?.length === 0 ? (
-                <Message type="error">Order is empty</Message>
-              ) : (
-                <ul>
-                  {order?.orderItemsCreated?.map((item) => (
-                    <li key={item.id}>
-                      <div className="flex order-item">
-                        <div className="col-1 mx-4 p-auto">
-                          <img src={item.image} alt={item.title} />
-                        </div>
-                        <div className="col-7 p-auto text text-center">
-                          <Link to={`/products/${item.id}`}>{item.title}</Link>
-                        </div>
-                        <div className="col-4 p-auto text text-center">
-                          {item.qty} x ${numberDecimalFix(item.price)} = $
-                          {numberDecimalFix(item.qty * item.price)}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          </ul>
-        </dir>
-        <div className="col-4">
-          <div className="card">
-            <ul>
-              <li>
-                <h1>Order summary:</h1>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Items</div>
-                  <dir>$ {numberDecimalFix(order?.itemsPrice)}</dir>
-                </div>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Shipping</div>
-                  <dir>$ {numberDecimalFix(order?.shippingPrice)}</dir>
-                </div>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Tax</div>
-                  <dir>$ {numberDecimalFix(order?.taxPrice)}</dir>
-                </div>
-              </li>
-              <li>
-                <div className="flex item-card">
-                  <div>Total</div>
-                  <dir>$ {numberDecimalFix(order?.totalPrice)}</dir>
-                </div>
-              </li>
-            </ul>
-            {!order?.isPaid && (
-              <li>
+    <main className="order_screen">
+      <div className="order_container">
+        <div className="order_breadcrumbs card">
+          <BreadcrumbsSteps currentStep={currentStep} steps={orderBreadcrumbsSteps} />
+        </div>
+        <section className="order_details card">
+          <div className="order_header">
+            <h1>Order Details</h1>
+            <p className="subtitles flex">
+              <span>{`Ordered on ${getDate(order?.orderDate)}`}</span>
+              <Divider vertical />
+              <span>{`Order# ${orderId}`}</span>
+            </p>
+          </div>
+          <Divider margin>
+            <h2>Order Summary</h2>
+          </Divider>
+          <div className="order_summary">
+            <div className="shipping_address">
+              <h3>Shipping Address:</h3>
+              <ul>
+                <li>{`${user?.fullName}`}</li>
+                <address>
+                  {`${order?.shippingAddress} ${order?.shippingAddress2}`.toUpperCase()}
+                </address>
+                <address>
+                  {`${order?.shippingCity},${order?.shippingState} ${order?.shippingZip}`.toUpperCase()}
+                </address>
+                <address>{`${order?.shippingCountry}`.toUpperCase()}</address>
+                <li>{`Phone: ${user?.phone}`}</li>
+                <li>{`Email: ${user?.email}`}</li>
+              </ul>
+            </div>
+            <div className="payment_method">
+              <h3>Payment Method</h3>
+              <i class="fa fa-paypal"></i>
+              {order?.paymentMethod}
+            </div>
+            <div className="order_price">
+              <h3>Order total:</h3>
+              <table>
+                <tr>
+                  <td>{`Items (${order?.orderItemsCreated.reduce(
+                    (acc, item) => acc + item.qty,
+                    0
+                  )}):`}</td>
+                  <td>
+                    <Price price={order?.itemsPrice} size="small" color="black" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Shipping & handling:</td>
+                  <td>
+                    <Price price={order?.shippingPrice} size="small" color="black" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total before tax:</td>
+                  <td>
+                    <Price
+                      price={order?.itemsPrice + order?.shippingPrice}
+                      size="small"
+                      color="black"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Estimated tax:</td>
+                  <td>
+                    <Price price={order?.taxPrice} size="small" color="black" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Order total:</td>
+                  <td>
+                    <Price price={order?.totalPrice} />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <Divider margin>
+            <h2>Payment</h2>
+          </Divider>
+          <div className="payment">
+            {!order?.isPaid ? (
+              <div className="payment_btn flex">
                 {loadingPay && <Loader />}
                 {!sdkReady ? (
                   <Loader />
                 ) : (
                   <PayPalButton amount={order?.totalPrice} onSuccess={successPaymentHandler} />
                 )}
-              </li>
-            )}
-            {userInfo.role === 'admin' && order.isPaid && !order.isDelivered && (
-              <div className="deliver_btn">
-                <Button onClick={deliverHandler} classes="large">
-                  Mark as Delivered
-                </Button>
               </div>
+            ) : (
+              'Paid'
             )}
           </div>
-        </div>
+          {order.isPaid === true && (
+            <div>
+              <Divider>
+                <h2>Delivery</h2>
+              </Divider>
+              <div className="delivery">
+                {userInfo.role === 'admin' && !order.isDelivered ? (
+                  <Button onClick={deliverHandler} classes="large">
+                    Mark as Delivered
+                  </Button>
+                ) : (
+                  <span>'Delivered'</span>
+                )}
+              </div>
+            </div>
+          )}
+        </section>
+        <section className="order_items card">
+          <h1>Order Items</h1>
+          <ul>
+            {order?.orderItemsCreated?.map((item) => (
+              <li key={item.id}>
+                <div className="order_item">
+                  <Link className="image" to={`/products/${item.id}`}>
+                    <img src={item.image} alt={item?.title} />
+                  </Link>
+                  <div className="content">
+                    <Link className="title" to={`/products/${item.id}`}>
+                      {item.title}
+                    </Link>
+                    <div className="rating_review">
+                      <Rating rating={item.rating}></Rating>
+                      <span>{`(${item.reviewCount})`}</span>
+                    </div>
+                    <div className="brand flex">
+                      Sold by:
+                      <Link to={`/store/${item.brand}`}>
+                        <Button classes="text">{item.brand}</Button>
+                      </Link>
+                    </div>
+                    <Price price={item.price} />
+                  </div>
+                  <div className="button_group">
+                    <Button
+                      onClick={() =>
+                        addToCartHandler(item.productId, item.title, item.image, item.price)
+                      }
+                      classes={'rounded small'}
+                      disabled={item.stockCount === 0}
+                    >
+                      {item.stockCount === 0 ? (
+                        'Out of Stock'
+                      ) : (
+                        <span>
+                          <i className="fa fa-cart-plus"></i> Buy it again
+                        </span>
+                      )}
+                    </Button>
+                    <Button
+                      onClick={() => history.push(`/reviews/${item.productId}`)}
+                      classes={'rounded small white'}
+                    >
+                      Write a review
+                    </Button>
+                    <Button
+                      onClick={() => history.push(`/questions/${item.productId}`)}
+                      classes={'rounded small white'}
+                    >
+                      Ask or answer question
+                    </Button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </main>
   );
