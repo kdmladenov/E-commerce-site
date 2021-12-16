@@ -143,6 +143,26 @@ productsController
       }
     })
   )
+  // @desc UN-DELETE product
+  // @route UN-DELETE /products/:id
+  // @access Private - Admin only
+  .patch(
+    '/:productId/restore',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    errorHandler(async (req, res) => {
+      const { productId } = req.params;
+      const { error, product } = await productsServices.restoreProduct(productsData)(+productId);
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product with this id is not found!'
+        });
+      } else {
+        res.status(200).send(product);
+      }
+    })
+  )
   // @desc UPLOAD / UPDATE product's image - new product without id
   // @route POST /products/image
   // @access Private - Admin only

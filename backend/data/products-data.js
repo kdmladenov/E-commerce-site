@@ -4,7 +4,9 @@ import db from './pool.js';
 const getAllProducts = async (search, filter, sort, pageSize, page) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
-  const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0]) ? sortArr[0] : 'price';
+  const sortColumn = ['price', 'rating', 'dateCreated', 'productId'].includes(sortArr[0])
+    ? sortArr[0]
+    : 'price';
 
   const offset = page ? (page - 1) * pageSize : 0;
 
@@ -100,7 +102,7 @@ const getAllProducts = async (search, filter, sort, pageSize, page) => {
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const getBy = async (column, value, role) => {
+const getBy = async (column, value, role = 'basic') => {
   const sql = `
     SELECT 
       p.product_id as productId,
@@ -238,6 +240,16 @@ const remove = async (productToDelete) => {
   return db.query(sql, [productToDelete.productId]);
 };
 
+const restore = async (productToRestore) => {
+  const sql = `
+        UPDATE products 
+        SET is_deleted = false
+        WHERE product_id = ?
+    `;
+
+  return db.query(sql, [productToRestore.productId]);
+};
+
 const getFeatures = async (productId) => {
   const sql = `
     SELECT 
@@ -258,5 +270,6 @@ export default {
   create,
   update,
   remove,
+  restore,
   getFeatures
 };

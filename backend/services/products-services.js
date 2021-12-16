@@ -25,7 +25,7 @@ const getProductById = (productsData) => async (productId, role) => {
 const createProduct = (productsData) => async (data) => {
   const { title } = data;
 
-  const existingProduct = await productsData.getBy('title', title);
+  const existingProduct = await productsData.getBy('title', title, 'admin');
 
   if (existingProduct) {
     return {
@@ -40,7 +40,7 @@ const createProduct = (productsData) => async (data) => {
 };
 
 const updateProduct = (productsData) => async (productId, updatedData) => {
-  const existingProduct = await productsData.getBy('product_id', +productId);
+  const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
 
   if (!existingProduct) {
     return {
@@ -51,8 +51,8 @@ const updateProduct = (productsData) => async (productId, updatedData) => {
   // checks if the updated title exist in other product
   if (
     updatedData.title &&
-    (await productsData.getBy('title', updatedData.title)) &&
-    (await productsData.getBy('title', updatedData.title)).productId !== productId
+    (await productsData.getBy('title', updatedData.title, 'admin')) &&
+    (await productsData.getBy('title', updatedData.title, 'admin')).productId !== productId
   ) {
     return {
       error: errors.DUPLICATE_RECORD,
@@ -70,7 +70,7 @@ const updateProduct = (productsData) => async (productId, updatedData) => {
 };
 
 const deleteProduct = (productsData) => async (productId) => {
-  const productToDelete = await productsData.getBy('product_id', productId);
+  const productToDelete = await productsData.getBy('product_id', productId, 'admin');
 
   if (!productToDelete) {
     return {
@@ -84,6 +84,24 @@ const deleteProduct = (productsData) => async (productId) => {
   return {
     error: null,
     product: { ...productToDelete, isDeleted: 1 }
+  };
+};
+
+const restoreProduct = (productsData) => async (productId) => {
+  const productToRestore = await productsData.getBy('product_id', productId, 'admin');
+
+  if (!productToRestore) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  await productsData.restore(productToRestore);
+
+  return {
+    error: null,
+    product: { ...productToRestore, isDeleted: 0 }
   };
 };
 
@@ -111,5 +129,6 @@ export default {
   createProduct,
   updateProduct,
   deleteProduct,
+  restoreProduct,
   getProductFeaturesById
 };
