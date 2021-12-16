@@ -15,6 +15,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_RESTORE_FAIL,
+  PRODUCT_RESTORE_REQUEST,
+  PRODUCT_RESTORE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_RESET,
@@ -54,6 +57,19 @@ export const productDeleteReducer = (state = {}, action) => {
     case PRODUCT_DELETE_SUCCESS:
       return { loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productRestoreReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_RESTORE_REQUEST:
+      return { loading: true };
+    case PRODUCT_RESTORE_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_RESTORE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

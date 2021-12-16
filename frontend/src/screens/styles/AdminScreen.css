@@ -13,7 +13,6 @@
 .admin_container .header {
   margin: 5px 0;
   color: var(--gray_dark);
-  padding: 5px;
   outline: none;
   border-radius: 5px;
 }

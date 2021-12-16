@@ -14,6 +14,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_RESTORE_FAIL,
+  PRODUCT_RESTORE_REQUEST,
+  PRODUCT_RESTORE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS
@@ -82,6 +85,36 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
+export const restoreProduct = (productId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_RESTORE_REQUEST
+    });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.patch(`${BASE_URL}/products/${productId}/restore`,{}, config);
+
+    dispatch({
+      type: PRODUCT_RESTORE_SUCCESS
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_RESTORE_FAIL,
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message
     });

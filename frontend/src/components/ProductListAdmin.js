@@ -5,17 +5,18 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import './styles/OrderList.css';
+import './styles/ProductListAdmin.css';
 import Accordion from './Accordion';
 import {
   adminListPageSizeOptionsMap,
   adminProductListSortOptionsMap
 } from '../constants/inputMaps';
 import Pagination from './Pagination';
-import { deleteProduct, listProducts } from '../actions/productActions';
+import { deleteProduct, listProducts, restoreProduct } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import Tooltip from './Tooltip';
 import HeaderControls from './HeaderControls';
+import Price from './Price';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const ProductListAdmin = () => {
 
   const productDelete = useSelector((state) => state.productDelete);
   const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
+
+  const productRestore = useSelector((state) => state.productRestore);
+  const { loading: loadingRestore, error: errorRestore, success: successRestore } = productRestore;
 
   const productCreate = useSelector((state) => state.productCreate);
   const {
@@ -43,6 +47,11 @@ const ProductListAdmin = () => {
     dispatch(deleteProduct(productId));
   };
 
+  const restoreProductHandler = (productId) => {
+    window.confirm('Are your sure you want to restore this product?');
+    dispatch(restoreProduct(productId));
+  };
+
   const createProductHandler = () => {
     history.push(`/admin/product/create`);
   };
@@ -50,7 +59,7 @@ const ProductListAdmin = () => {
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
     pageSize: 'pageSize=10&',
-    sort: 'sort=product_id asc&',
+    sort: 'sort=productId asc&',
     search: ''
   });
 
@@ -65,13 +74,22 @@ const ProductListAdmin = () => {
       const { page, pageSize, sort, search } = endpoint;
       dispatch(listProducts(`${page}${pageSize}${sort}${search}`));
     }
-  }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct, endpoint]);
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successRestore,
+    successCreate,
+    createdProduct,
+    endpoint
+  ]);
 
   return (
-    <div className="product_list_admin_container">
-      <Button classes="icon" onClick={createProductHandler}>
+    <div className="product_list_admin">
+      {/* <Button classes="icon" onClick={createProductHandler}>
         <i className="fas fa-plus" /> Create Product
-      </Button>
+      </Button> */}
       <HeaderControls
         updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
         query={endpoint}
@@ -81,6 +99,8 @@ const ProductListAdmin = () => {
       />
       {loadingDelete && <Loader />}
       {errorDelete && <Message type="error">{errorDelete}</Message>}
+      {loadingRestore && <Loader />}
+      {errorRestore && <Message type="error">{errorRestore}</Message>}
       {loadingCreate && <Loader />}
       {errorCreate && <Message type="error">{errorCreate}</Message>}
       {loading ? (
@@ -88,29 +108,59 @@ const ProductListAdmin = () => {
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : products?.length > 0 ? (
-        <Accordion>
-          {products
-            ?.sort((a, b) => a.productId - b.productId)
-            .map((product) => (
+        <>
+          <div className="product_title_header">
+            <div>
+              <span>ID</span>
+            </div>
+            <div>
+              <span>Image</span>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+            <div>
+              <span>Price</span>
+            </div>
+            <div>
+              <span>Active</span>
+            </div>
+          </div>
+          <Accordion>
+            {products?.map((product) => (
               <Accordion.Item key={product.productId}>
                 <Accordion.Header>
-                  <Accordion.Title>product</Accordion.Title>
+                  <Accordion.Title>
+                    <div className="product_list_admin_card">
+                      <strong>{product.productId}</strong>
+                      <div className="image ">
+                        <img src={product.image} alt={product.title} />
+                      </div>
+                      <div className="title">{product.title}</div>
+                      <Price price={product.price} size="small" color="black" />
+                      <div>
+                        {!product.isDeleted ? (
+                          <i className="fa fa-check" style={{ color: 'green' }}></i>
+                        ) : (
+                          <i className="fa fa-times" style={{ color: 'red' }}></i>
+                        )}
+                      </div>
+                    </div>
+                  </Accordion.Title>
                   <Accordion.ButtonGroup>
                     <div className="button_group">
                       <Link to={`/admin/product/${product.productId}/edit`}>
-                        <Button classes="icon">
-                          <Tooltip text="Edit">
-                            <i className="fa fa-edit"></i>
-                          </Tooltip>
-                        </Button>
+                        <Button classes="white">Edit</Button>
                       </Link>
                       <Button
-                        classes="icon"
-                        onClick={() => deleteProductHandler(product.productId)}
+                        classes="white"
+                        onClick={() =>
+                          !product.isDeleted
+                            ? deleteProductHandler(product.productId)
+                            : restoreProductHandler(product.productId)
+                        }
                       >
-                        <Tooltip text="Delete">
-                          <i className="fas fa-trash"></i>
-                        </Tooltip>
+                        {!product.isDeleted ? 'Delete' : 'Restore'}
                       </Button>
                     </div>
                   </Accordion.ButtonGroup>
@@ -118,9 +168,10 @@ const ProductListAdmin = () => {
                 <Accordion.Body>ProductScreen</Accordion.Body>
               </Accordion.Item>
             ))}
-        </Accordion>
+          </Accordion>
+        </>
       ) : (
-        <h2>You have no orders</h2>
+        <h2>You have no product</h2>
       )}
       <div className="footer">
         {products?.length > 0 && (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import OrderList from '../components/OrderList';
+import OrderListAdmin from '../components/OrderListAdmin';
 import ProductListAdmin from '../components/ProductListAdmin';
-import UserList from '../components/UserList';
+import UserListAdmin from '../components/UserListAdmin';
 import './styles/AdminScreen.css';
 
 const AdminScreen = ({ match }) => {
@@ -33,20 +33,14 @@ const AdminScreen = ({ match }) => {
             Product List
           </button>
         </div>
-        <section
-          className={`userlist_container card content ${activeTab === 'userlist' && 'active'}`}
-        >
-          <UserList />
+        <section className={`userlist_container content ${activeTab === 'userlist' && 'active'}`}>
+          <UserListAdmin />
+        </section>
+        <section className={`orderlist_container content ${activeTab === 'orderlist' && 'active'}`}>
+          <OrderListAdmin />
         </section>
         <section
-          className={`orderlist_container card content ${activeTab === 'orderlist' && 'active'}`}
-        >
-          <OrderList />
-        </section>
-        <section
-          className={`productlist_container card content ${
-            activeTab === 'productlist' && 'active'
-          }`}
+          className={`productlist_container content ${activeTab === 'productlist' && 'active'}`}
         >
           <ProductListAdmin />
         </section>

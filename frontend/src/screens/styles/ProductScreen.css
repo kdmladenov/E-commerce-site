@@ -13,35 +13,30 @@
     'product_comparison_table'
     'product_reviews'
     'product_questions_and_answers'
-    'product_similar_carousel';
+    'product_carousel_history';
 }
 
 .product_screen_container section {
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--gray);
-}
-
-.product_screen_container section:last-child {
-  border-bottom: none;
 }
 
 /* Product Details */
-.product_details {
+.product_screen_container .product_details {
   grid-area: product_details;
   display: grid;
-  grid-template-columns: 90px 1fr 1fr 270px;
+  grid-template-columns: 90px 1fr 1fr 250px;
   grid-template-rows: minmax(80vh, 1fr);
   grid-template-areas: 'image_sidebar image info action-box';
-  grid-gap: 40px;
+  grid-gap: 20px;
   background: white;
-  padding: 30px;
+  padding: 30px 0;
 }
 
-.product_image_sidebar {
+.product_screen_container .product_image_sidebar {
   grid-area: image_sidebar;
 }
 
-.product_image_sidebar ul {
+.product_screen_container .product_image_sidebar ul {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -49,28 +44,6 @@
   overflow: auto;
   position: sticky;
   top: 0;
-}
-
-/* https://redstapler.co/css-hidden-scrollbar-while-scrollable-element/ */
-.product_image_sidebar ul::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.product_image_sidebar li {
-  width: 50px;
-  height: 40px;
-  object-fit: contain;
-  margin: 10px 0;
-  border: 1px solid rgb(196, 196, 196);
-}
-
-.product_image_sidebar li:hover {
-  border-color: orange;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .product_details_image {
@@ -97,4 +70,23 @@
 
 .product_features {
   grid-area: product_features;
+}
+
+.product_carousel_history {
+  grid-area: product_carousel_history;
+  max-width: 96vw;
+  margin: 0 auto;
+  position: absolute;
+  left: 2vw;
+}
+
+.reviews_container,
+.questions_and_answers_container,
+.comparison_table_container,
+.product_specifications,
+.product_features,
+.product_carousel_history {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }

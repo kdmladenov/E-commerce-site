@@ -115,14 +115,14 @@
   gap: 30px;
 }
 
-.place_order_screen .place_order_container .body .order_items .order_item .control_group select {
+/* .place_order_screen .place_order_container .body .order_items .order_item .control_group select {
   padding: 0 5px;
   border-radius: 5px;
   background: rgb(239, 242, 242);
   font-size: 13px;
   font-weight: 400;
   box-shadow: var(--box_shadow_2);
-}
+} */
 
 /* Sidebar */
 .place_order_screen .sidebar {
