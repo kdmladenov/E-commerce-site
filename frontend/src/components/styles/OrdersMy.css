@@ -1,44 +1,76 @@
-.my_orders .accordion .accordion_item:first-child{
+.my_orders .order_title_header {
+  display: grid;
+  grid-template-columns: 120px 120px 250px 200px 1fr;
+  padding: 10px 20px;
+  font-weight: 700;
+  color: rgb(88, 88, 88);
+  gap: 20px;
+  position: sticky;
+  top: 0px;
+  box-shadow: var(--box_shadow);
+  background: var(--white);
+  z-index: 100;
+}
+.my_orders .header_controls {
+  border-radius: 5px 5px 0 0;
+  box-shadow: var(--box_shadow);
+}
+
+.my_orders .accordion .accordion_item:first-child {
   border-radius: 0;
+}
+
+
+.my_orders .accordion .accordion_header .button_container {
+  height: 16px;
 }
 
 .my_orders .order_title {
   display: grid;
-  grid-template-columns: 120px 120px 1fr;
+  grid-template-columns: 120px 120px 250px 200px 1fr;
+  gap: 20px;
 }
 
 .my_orders .order_title > div {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
+.my_orders .order_title .price_container {
+  justify-content: flex-start;
+  color: rgb(88, 88, 88);
 }
 
-.my_orders .order_title > div span {
+.my_orders .order_title div,
+.my_orders .order_title_header > div span {
   text-align: left;
   width: 100%;
-  font-size: 12px;
-}
-
-.my_orders .order_title > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  font-size: 18px;
 }
 
 .my_orders .order_title > div > span,
 .my_orders .button_group span {
   text-align: left;
   width: 100%;
-  line-height: 12px;
-  font-size: 12px;
+  line-height: 15px;
+  font-size: 15px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   text-decoration: none;
+}
+
+.my_orders .order_title > div > span.completed {
+  color: var(--spirulina);
+}
+
+.my_orders .order_title > div > span.in_progress {
+  color: var(--dory);
+}
+
+.my_orders .order_title > div > span.not_started {
+  color: var(--red);
 }
 
 .my_orders .order_item {
