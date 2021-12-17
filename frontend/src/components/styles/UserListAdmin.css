@@ -1,0 +1,76 @@
+.user_list_admin .user_title_header {
+  display: grid;
+  grid-template-columns: 50px 250px 250px 1fr;
+  padding: 10px 20px;
+  font-weight: 700;
+  color: rgb(88, 88, 88);
+  gap: 15px;
+  position: sticky;
+  top: 0px;
+  box-shadow: var(--box_shadow);
+  background: var(--white);
+  z-index: 100;
+}
+
+.user_list_admin .header_controls {
+  border-radius: 5px 5px 0 0;
+  box-shadow: var(--box_shadow);
+}
+
+.user_list_admin .accordion_item:first-child {
+  border-radius: 0;
+}
+
+.user_list_admin .accordion .accordion_header .button_container {
+  height: 16px;
+}
+
+.user_list_admin .user_title strong {
+  text-align: left;
+  width: 100%;
+  /* font-size: 18px; */
+}
+
+.user_list_admin .user_title {
+  display: grid;
+  grid-template-columns: 50px 250px 250px 1fr;
+  gap: 15px;
+}
+
+.user_list_admin .user_title > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_list_admin .user_title > div span {
+  text-align: left;
+  width: 100%;
+  font-size: 17px;
+}
+
+.user_list_admin .user_title > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_list_admin .button_group {
+  width: fit-content;
+  display: flex;
+}
+
+.user_list_admin .user_title > div > span {
+  text-align: left;
+  width: 100%;
+  line-height: 16px;
+  font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}

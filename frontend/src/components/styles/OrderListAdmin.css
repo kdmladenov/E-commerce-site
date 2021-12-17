@@ -1,6 +1,6 @@
 .order_list_admin .order_title_header {
   display: grid;
-  grid-template-columns: 120px 120px 250px 200px 1fr;
+  grid-template-columns: 50px 120px 120px 250px 200px 1fr;
   padding: 10px 20px;
   font-weight: 700;
   color: rgb(88, 88, 88);
@@ -21,19 +21,15 @@
 }
 
 
-.order_list_admin .accordion .accordion_header .button_container {
-  height: 16px;
-}
-
 .order_list_admin .order_title {
   display: grid;
-  grid-template-columns: 120px 120px 250px 200px 1fr;
+  grid-template-columns: 50px 120px 120px 250px 200px 1fr;
   gap: 20px;
 }
 
 .order_list_admin .order_title > div {
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 .order_list_admin .order_title .price_container {
   justify-content: flex-start;
@@ -44,7 +40,7 @@
 .order_list_admin .order_title_header > div span {
   text-align: left;
   width: 100%;
-  font-size: 18px;
+  /* font-size: 18px; */
 }
 
 .order_list_admin .order_title > div > span,

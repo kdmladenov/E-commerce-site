@@ -47,13 +47,15 @@ const History = ({ horizontal }) => {
 
   return (
     <section className="browsing_history_list_container">
-      <HeaderControls
-        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-        query={endpoint}
-        resource="browsing history"
-        pageSizeOptionsMap={productListPageSizeOptionsMap}
-        sortOptionsMap={browsingHistorySortOptionsMap}
-      />
+      {!horizontal && (
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="browsing history"
+          pageSizeOptionsMap={productListPageSizeOptionsMap}
+          sortOptionsMap={browsingHistorySortOptionsMap}
+        />
+      )}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -71,10 +73,17 @@ const History = ({ horizontal }) => {
               <ProductCard product={historyRecord} horizontal={!horizontal} ribbonText="history" />
             </Timeline.Item>
           ))}
+          {horizontal && (
+            <div className={`full_history_btn ${horizontal ? 'horizontal' : ''}`}>
+              <Button classes="circle" onClick={() => history.push('/history')}>
+                View full history
+              </Button>
+            </div>
+          )}
         </Timeline>
       )}
-      {historyRecordsCount > historyRecordsPagesize && (
-        <div className="footer">
+      {historyRecordsCount > historyRecordsPagesize && !horizontal && (
+        <div className="full_history_btn">
           <Button classes="rounded" onClick={() => history.push('/history')}>
             View full history
           </Button>

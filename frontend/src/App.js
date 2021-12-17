@@ -48,9 +48,12 @@ const App = () => {
       <Route path="/placeorder" component={PlaceOrderScreen} />
       <Route path="/order/:id" component={OrderScreen} />
       <Route path="/admin/main/:section" component={AdminScreen} />
-      <Route path="/admin/orderlist" component={OrderListScreenAdmin} />
+      <Route path="/admin/user/:id/edit" component={UserEditScreenAdmin} />
       <Route path="/admin/product/create" component={ProductCreateScreenAdmin} />
       <Route path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
+      {/* <Route path="/admin/orderlist" component={OrderListScreenAdmin} /> */}
+      {/* <Route path="/admin/userlist" component={UserListScreenAdmin} /> */}
+      {/* <Route path="/admin/productlist" component={ProductListScreenAdmin} /> */}
       <Route path="/products/:productId" component={ProductScreen} />
       <Route path="/reviews/:productId" component={ReviewsScreen} />
       <Route path="/questions/:productId" component={QuestionsAndAnswersScreen} />
@@ -59,9 +62,6 @@ const App = () => {
       <Route path="/history" component={BrowsingHistoryScreen} />
       <Route path="/login" component={LoginScreen} />
       <Route path="/register" component={RegisterScreen} />
-      <Route path="/admin/userlist" component={UserListScreenAdmin} />
-      <Route path="/admin/productlist" component={ProductListScreenAdmin} />
-      <Route path="/admin/user/:id/edit" component={UserEditScreenAdmin} />
       <Route path="/account/:section" component={AccountScreen} />
       <Route path="/search/:searchTerm" component={ProductListScreen} />
       <Route path="/store/:brand" component={BrandStoreScreen} />

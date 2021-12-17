@@ -42,7 +42,7 @@ export const getTimeDuration = (start, end) => {
     : 'just now';
 };
 
-export const getDate = (date) => {
+export const getDate = (date, additionalDays = 0) => {
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'Jan',
@@ -60,12 +60,15 @@ export const getDate = (date) => {
   ];
 
   const startDate = new Date(date);
+  startDate.setDate(startDate.getDate() + additionalDays);
+
   const endDate = new Date();
 
   const dayDiff = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
 
-  return dayDiff >= 2
-    ? `${weekDays[startDate.getDay()]}, ${startDate.getDate()} ${months[startDate.getMonth()]}`
+
+  return dayDiff >= 2 || dayDiff <= 0
+    ? ` ${weekDays[startDate.getDay()]}, ${startDate.getDate()} ${months[startDate.getMonth()]}`
     : dayDiff >= 1
     ? `Yesterday`
     : `Today`;

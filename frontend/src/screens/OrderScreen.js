@@ -107,7 +107,7 @@ const OrderScreen = ({ match, history }) => {
     <Loader />
   ) : error ? (
     <Message type="error">{error}</Message>
-  ) : (
+  ) : userInfo?.userId === order?.userId || userInfo?.role === 'admin' ? (
     <main className="order_screen">
       <div className="order_container">
         <div className="order_breadcrumbs card">
@@ -212,7 +212,7 @@ const OrderScreen = ({ match, history }) => {
                 <h2>Delivery</h2>
               </Divider>
               <div className="delivery">
-                {userInfo.role === 'admin' && !order.isDelivered ? (
+                {userInfo?.role === 'admin' && !order.isDelivered ? (
                   <Button onClick={deliverHandler} classes="large">
                     Mark as Delivered
                   </Button>
@@ -248,35 +248,37 @@ const OrderScreen = ({ match, history }) => {
                     </div>
                     <Price price={item.price} />
                   </div>
-                  <div className="button_group">
-                    <Button
-                      onClick={() =>
-                        addToCartHandler(item.productId, item.title, item.image, item.price)
-                      }
-                      classes={'rounded small'}
-                      disabled={item.stockCount === 0}
-                    >
-                      {item.stockCount === 0 ? (
-                        'Out of Stock'
-                      ) : (
-                        <span>
-                          <i className="fa fa-cart-plus"></i> Buy it again
-                        </span>
-                      )}
-                    </Button>
-                    <Button
-                      onClick={() => history.push(`/reviews/${item.productId}`)}
-                      classes={'rounded small white'}
-                    >
-                      Write a review
-                    </Button>
-                    <Button
-                      onClick={() => history.push(`/questions/${item.productId}`)}
-                      classes={'rounded small white'}
-                    >
-                      Ask or answer question
-                    </Button>
-                  </div>
+                  {userInfo?.userId === order?.userId && (
+                    <div className="button_group">
+                      <Button
+                        onClick={() =>
+                          addToCartHandler(item.productId, item.title, item.image, item.price)
+                        }
+                        classes={'rounded small'}
+                        disabled={item.stockCount === 0}
+                      >
+                        {item.stockCount === 0 ? (
+                          'Out of Stock'
+                        ) : (
+                          <span>
+                            <i className="fa fa-cart-plus"></i> Buy it again
+                          </span>
+                        )}
+                      </Button>
+                      <Button
+                        onClick={() => history.push(`/reviews/${item.productId}`)}
+                        classes={'rounded small white'}
+                      >
+                        Write a review
+                      </Button>
+                      <Button
+                        onClick={() => history.push(`/questions/${item.productId}`)}
+                        classes={'rounded small white'}
+                      >
+                        Ask or answer question
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </li>
             ))}
@@ -284,6 +286,8 @@ const OrderScreen = ({ match, history }) => {
         </section>
       </div>
     </main>
+  ) : (
+    <span>No order to show</span>
   );
 };
 

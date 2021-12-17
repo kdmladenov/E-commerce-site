@@ -99,6 +99,10 @@
   filter: contrast(110%);
 }
 
+.button_container.white:hover {
+  filter: contrast(95%);
+}
+
 .button_container:active {
   transform: scale(0.95);
 }

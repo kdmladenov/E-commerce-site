@@ -17,6 +17,7 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import Tooltip from './Tooltip';
 import HeaderControls from './HeaderControls';
 import Price from './Price';
+import ProductDetails from './ProductDetails';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();
@@ -138,7 +139,7 @@ const ProductListAdmin = () => {
                       </div>
                       <div className="title">{product.title}</div>
                       <Price price={product.price} size="small" color="black" />
-                      <div>
+                      <div className={'actrive'}>
                         {!product.isDeleted ? (
                           <i className="fa fa-check" style={{ color: 'green' }}></i>
                         ) : (
@@ -149,6 +150,9 @@ const ProductListAdmin = () => {
                   </Accordion.Title>
                   <Accordion.ButtonGroup>
                     <div className="button_group">
+                      <Link to={`/products/${product.productId}`}>
+                        <Button classes="white">Details</Button>
+                      </Link>
                       <Link to={`/admin/product/${product.productId}/edit`}>
                         <Button classes="white">Edit</Button>
                       </Link>
@@ -165,7 +169,11 @@ const ProductListAdmin = () => {
                     </div>
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
-                <Accordion.Body>ProductScreen</Accordion.Body>
+                <Accordion.Body>
+                  <section className="product_details hidden_action_box">
+                    <ProductDetails product={product} productListAdmin={true} />
+                  </section>
+                </Accordion.Body>
               </Accordion.Item>
             ))}
           </Accordion>

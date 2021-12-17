@@ -1,5 +1,9 @@
-.browsing_history_list_container .footer {
+.browsing_history_list_container .full_history_btn {
   display: flex;
   justify-content: center;
   padding: 20px;
+}
+
+.browsing_history_list_container .full_history_btn.horizontal {
+  margin: auto 50px auto 20px;
 }

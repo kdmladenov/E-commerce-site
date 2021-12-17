@@ -6,6 +6,11 @@
   font-weight: bold;
 }
 
+.price_container.strike_through{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
 /* Superscript (default) */
 .price_container .currency_sign,
 .price_container .decimal_number {

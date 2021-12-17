@@ -20,41 +20,6 @@
   padding-bottom: 20px;
 }
 
-/* Product Details */
-.product_screen_container .product_details {
-  grid-area: product_details;
-  display: grid;
-  grid-template-columns: 90px 1fr 1fr 250px;
-  grid-template-rows: minmax(80vh, 1fr);
-  grid-template-areas: 'image_sidebar image info action-box';
-  grid-gap: 20px;
-  background: white;
-  padding: 30px 0;
-}
-
-.product_screen_container .product_image_sidebar {
-  grid-area: image_sidebar;
-}
-
-.product_screen_container .product_image_sidebar ul {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  overflow: auto;
-  position: sticky;
-  top: 0;
-}
-
-.product_details_image {
-  grid-area: image;
-}
-
-.product_details_info {
-  grid-area: info;
-  background-repeat: no-repeat;
-}
-
 .reviews_container {
   grid-area: product_reviews;
 }

@@ -22,9 +22,9 @@ const ProductFeatures = ({ productId }) => {
     <Message type="error">{error}</Message>
   ) : productFeatures?.length > 0 ? (
     <Accordion>
-      {productFeatures?.map((feature) => (
+      {productFeatures?.map((feature, index) => (
         <Accordion.Item key={feature.featuresId}>
-          <Accordion.Header>
+          <Accordion.Header singleopened="true" index={index}>
             <Accordion.Title>{feature.featureTitle}</Accordion.Title>
             <Accordion.ButtonGroup></Accordion.ButtonGroup>
           </Accordion.Header>

@@ -823,8 +823,25 @@ export const adminOrderListSortOptionsMap = [
 ];
 
 export const adminProductListSortOptionsMap = [
-  { label: 'Product Id: Low to High', value: 'sort=product_id asc&' },
-  { label: 'Product Id: High to Low', value: 'sort=product_id desc&' },
+  { label: 'Product Id: Low to High', value: 'sort=productId asc&' },
+  { label: 'Product Id: High to Low', value: 'sort=productId desc&' },
   { label: 'Price: Low to High', value: 'sort=price asc&' },
   { label: 'Price: High to Low', value: 'sort=price desc&' }
+];
+
+
+
+export const checkoutBreadcrumbsSteps = [
+  { label: 'Cart', path: '/cart' },
+  { label: 'Shipping', path: '/shipping' },
+  { label: 'Pay Info', path: '/payment' },
+  { label: 'Place Order', path: '/placeorder' },
+  { label: 'Pay Order', path: `` }
+];
+
+export const orderBreadcrumbsSteps = [
+  { label: 'Place Order', path: '', success: 'Order Placed' },
+  { label: 'Pay Order', path: '', success: 'Paid' },
+  { label: 'Delivery', path: '', success: 'Delivered' },
+  { label: 'Order Complete', path: '', success: 'Order Complete' }
 ];

@@ -10,7 +10,7 @@ import { productListPageSizeOptionsMap, productListSortOptionsMap } from '../con
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 
-const WishList = () => {
+const WishList = ({ isCarousel = false }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -36,14 +36,16 @@ const WishList = () => {
   }, [dispatch, successDeleteWish, endpoint]);
 
   return (
-    <div className="wish_list">
-      <HeaderControls
-        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-        query={endpoint}
-        resource="wish list"
-        pageSizeOptionsMap={productListPageSizeOptionsMap}
-        sortOptionsMap={productListSortOptionsMap}
-      />
+    <div className={`wish_list ${isCarousel ? 'horizontal': ''}`}>
+      {!isCarousel && (
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="wish list"
+          pageSizeOptionsMap={productListPageSizeOptionsMap}
+          sortOptionsMap={productListSortOptionsMap}
+        />
+      )}
       {loadingWishList ? (
         <Loader />
       ) : errorWishList ? (
@@ -53,16 +55,18 @@ const WishList = () => {
       ) : (
         <ul className="wish_list_items">{wishListCardsToShow}</ul>
       )}
-      <div className="footer">
-        {wishList?.length > 0 && (
-          <Pagination
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-            totalItems={wishList[0].totalDBItems}
-          />
-        )}
-      </div>
+      {!isCarousel && (
+        <div className="footer">
+          {wishList?.length > 0 && (
+            <Pagination
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+              pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+              totalItems={wishList[0].totalDBItems}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

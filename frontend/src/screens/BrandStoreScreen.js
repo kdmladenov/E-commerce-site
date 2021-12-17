@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import HeaderControls from '../components/HeaderControls';
@@ -7,10 +7,14 @@ import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
-import { productListPageSizeOptionsMap, productListSidebarInput, productListSortOptionsMap } from '../constants/inputMaps';
+import {
+  productListPageSizeOptionsMap,
+  productListSidebarInput,
+  productListSortOptionsMap
+} from '../constants/inputMaps';
 import './styles/BrandStoreScreen.css';
 
-const BrandStoreScreen = ({match}) => {
+const BrandStoreScreen = ({ match }) => {
   const dispatch = useDispatch();
   const brand = match?.params?.brand || '';
 
@@ -34,7 +38,7 @@ const BrandStoreScreen = ({match}) => {
   useEffect(() => {
     setEndpoint({
       ...endpoint,
-      search: `search=${brand}&`
+      filter: [...endpoint.filter, `filter=brand = '${brand}'`]
     });
   }, [brand]);
 
@@ -84,4 +88,4 @@ const BrandStoreScreen = ({match}) => {
   );
 };
 
-export default BrandStoreScreen
+export default BrandStoreScreen;

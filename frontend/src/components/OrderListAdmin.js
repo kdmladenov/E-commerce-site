@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from './Loader';
 import Message from './Message';
 import Button from './Button';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './styles/OrderListAdmin.css';
 import { listOrders } from '../actions/orderActions';
 import Accordion from './Accordion';
@@ -14,8 +14,9 @@ import Price from './Price';
 import HeaderControls from './HeaderControls';
 import { DAYS_FOR_DELIVERY } from '../constants/constants';
 
-const OrderListAdmin = ({ history }) => {
+const OrderListAdmin = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const orderList = useSelector((state) => state.orderList);
   const { loading, error, orders } = orderList;
@@ -26,7 +27,7 @@ const OrderListAdmin = ({ history }) => {
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
     pageSize: 'pageSize=10&',
-    sort: 'sort=order_id desc&',
+    sort: 'sort=order_id asc&',
     search: ''
   });
 
@@ -57,6 +58,9 @@ const OrderListAdmin = ({ history }) => {
         <>
           <div className="order_title_header">
             <div>
+              <span>ID</span>
+            </div>
+            <div>
               <span>Order date</span>
             </div>
             <div>
@@ -78,6 +82,9 @@ const OrderListAdmin = ({ history }) => {
                 <Accordion.Header>
                   <Accordion.Title>
                     <div className="order_title">
+                      <div>
+                        <strong>{order.orderId}</strong>
+                      </div>
                       <div>
                         <span>{getDate(order.orderDate)}</span>
                       </div>
@@ -117,12 +124,12 @@ const OrderListAdmin = ({ history }) => {
                   </Accordion.Title>
                   <Accordion.ButtonGroup>
                     <div className="button_group">
-                      <span>
-                        ORDER # <strong>{`${order.orderId}`}</strong>
-                      </span>
-                      <Link to={`/order/${order.orderId}`}>
-                        <Button classes="text">View order details</Button>
-                      </Link>
+                      <Button
+                        classes="white"
+                        onClick={() => history.push(`/order/${order.orderId}`)}
+                      >
+                        Details
+                      </Button>
                     </div>
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
