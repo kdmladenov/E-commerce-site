@@ -20,6 +20,11 @@
   color: var(--white);
 }
 
+.button_container.blue_light {
+  background: var(--blue_light);
+  color: var(--gray_dark);
+}
+
 .button_container.red {
   background: var(--red);
   color: var(--white);
@@ -108,12 +113,13 @@
 }
 
 .button_container:disabled {
-  background: var(--gray);
-  color: var(--gray_dark);
-  border: 1px solid var(--gray_dark);
+  background: var(--gray_background);
+  color: var(--bob);
+  /* border: 1px solid var(--gray_dark); */
   cursor: auto;
   transform: none;
   box-shadow: none;
+  pointer-events: none;
 }
 
 /* Icon Button  */
