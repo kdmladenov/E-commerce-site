@@ -4,12 +4,29 @@ import OrdersMy from '../components/OrdersMy';
 import './styles/AccountScreen.css';
 import History from '../components/History';
 import WishList from '../components/WishList';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserDetails } from '../actions/userActions';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const AccountScreen = ({ match, history }) => {
+  const dispatch = useDispatch();
+
   const section = match.params.section;
   const [activeTab, setActiveTab] = useState(section);
 
-  useEffect(() => setActiveTab(section), [section]);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading: loadingUser, error: errorUser, user } = userDetails;
+
+  useEffect(() => {
+    if (!user?.email) {
+      dispatch(getUserDetails(userInfo?.userId));
+    }
+    setActiveTab(section);
+  }, [dispatch, user, userInfo, section]);
 
   return (
     <main className="account_screen">
@@ -43,7 +60,13 @@ const AccountScreen = ({ match, history }) => {
         <section
           className={`profile_container card content ${activeTab === 'profile' && 'active'}`}
         >
-          <Profile />
+          {loadingUser ? (
+            <Loader />
+          ) : errorUser ? (
+            <Message type="error">{errorUser}</Message>
+          ) : (
+            <Profile user={user} />
+          )}
         </section>
         <section className={`orders_container content ${activeTab === 'orders' && 'active'}`}>
           <OrdersMy />

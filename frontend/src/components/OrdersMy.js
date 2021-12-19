@@ -59,6 +59,9 @@ const OrdersMy = () => {
         <>
           <div className="order_title_header">
             <div>
+              <span>ID</span>
+            </div>
+            <div>
               <span>Order date</span>
             </div>
             <div>
@@ -80,6 +83,9 @@ const OrdersMy = () => {
                 <Accordion.Header>
                   <Accordion.Title>
                     <div className="order_title">
+                      <div>
+                        <strong>{order.orderId}</strong>
+                      </div>
                       <div>
                         <span>{getDate(order.orderDate)}</span>
                       </div>
@@ -119,13 +125,21 @@ const OrdersMy = () => {
                   </Accordion.Title>
                   <Accordion.ButtonGroup>
                     <div className="button_group">
+                      <Button
+                        classes="white rounded"
+                        onClick={() => history.push(`/order/${order.orderId}`)}
+                      >
+                        Details
+                      </Button>
+                    </div>
+                    {/* <div className="button_group">
                       <span>
                         ORDER # <strong>{`${order.orderId}`}</strong>
                       </span>
                       <Link to={`/order/${order.orderId}`}>
                         <Button classes="text">View order details</Button>
                       </Link>
-                    </div>
+                    </div> */}
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
                 <Accordion.Body>

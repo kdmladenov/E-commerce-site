@@ -20,7 +20,6 @@
   border-radius: 0;
 }
 
-
 .order_list_admin .order_title {
   display: grid;
   grid-template-columns: 50px 120px 120px 250px 200px 1fr;

@@ -1,6 +1,6 @@
 .my_orders .order_title_header {
   display: grid;
-  grid-template-columns: 120px 120px 250px 200px 1fr;
+  grid-template-columns: 50px 120px 120px 250px 200px 1fr;
   padding: 10px 20px;
   font-weight: 700;
   color: rgb(88, 88, 88);
@@ -20,20 +20,15 @@
   border-radius: 0;
 }
 
-
-.my_orders .accordion .accordion_header .button_container {
-  height: 16px;
-}
-
 .my_orders .order_title {
   display: grid;
-  grid-template-columns: 120px 120px 250px 200px 1fr;
+  grid-template-columns: 50px 120px 120px 250px 200px 1fr;
   gap: 20px;
 }
 
 .my_orders .order_title > div {
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 .my_orders .order_title .price_container {
   justify-content: flex-start;

@@ -13,6 +13,8 @@ import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/w
 import Carousel from '../components/Carousel';
 import WishListCard from '../components/WishListCard';
 import { listBrowsingHistory } from '../actions/browsingHistoryActions';
+import WishList from '../components/WishList';
+import History from '../components/History';
 
 const RECENT_ITEMS_COUNT = 5;
 
@@ -25,23 +27,23 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const wishListItems = useSelector((state) => state.wishListItems);
-  const { wishList } = wishListItems;
+  // const wishListItems = useSelector((state) => state.wishListItems);
+  // const { wishList } = wishListItems;
 
-  const wishListAdd = useSelector((state) => state.wishListAdd);
-  const { success: successAddWish } = wishListAdd;
+  // const wishListAdd = useSelector((state) => state.wishListAdd);
+  // const { success: successAddWish } = wishListAdd;
 
-  const wishListDelete = useSelector((state) => state.wishListDelete);
-  const { success: successDeleteWish } = wishListDelete;
+  // const wishListDelete = useSelector((state) => state.wishListDelete);
+  // const { success: successDeleteWish } = wishListDelete;
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { browsingHistory } = browsingHistoryList;
 
-  const wishlistHandler = (id) => {
-    wishList.find((wish) => wish.productId === id)
-      ? dispatch(deleteWishFromList(wishList.find((wish) => wish.productId === id).wishListId))
-      : dispatch(addWishToList(id));
-  };
+  // const wishlistHandler = (id) => {
+  //   wishList.find((wish) => wish.productId === id)
+  //     ? dispatch(deleteWishFromList(wishList.find((wish) => wish.productId === id).wishListId))
+  //     : dispatch(addWishToList(id));
+  // };
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -51,15 +53,15 @@ const CartScreen = ({ match, location, history }) => {
     history.push(`/login?redirect=shipping`);
   };
 
-  const wishListCardsToShow = (
-    <ul>
-      {wishList?.map((wish) => (
-        <li key={wish.wishListId}>
-          <WishListCard wish={wish} />
-        </li>
-      ))}
-    </ul>
-  );
+  // const wishListCardsToShow = (
+  //   <ul>
+  //     {wishList?.map((wish) => (
+  //       <li key={wish.wishListId}>
+  //         <WishListCard wish={wish} />
+  //       </li>
+  //     ))}
+  //   </ul>
+  // );
 
   const portalRefs = useSelector((state) => state.portalRefs);
   const {
@@ -105,9 +107,11 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, cartItems, productId, qty]);
 
   useEffect(() => {
-    dispatch(listWishedItems());
+    // dispatch(listWishedItems());
     dispatch(listBrowsingHistory());
-  }, [dispatch, successAddWish, successDeleteWish]);
+  }, [dispatch,
+    //  successAddWish, successDeleteWish
+    ]);
 
   return (
     <main className="cart_container">
@@ -159,11 +163,11 @@ const CartScreen = ({ match, location, history }) => {
                       >
                         Delete
                       </Button>
-                      <Button classes="text" onClick={() => wishlistHandler(item.id)}>
+                      {/* <Button classes="text" onClick={() => wishlistHandler(item.id)}>
                         {wishList?.find((wish) => wish.productId === item.id)
                           ? 'Remove from Wish List'
                           : 'Add to Wish List'}
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </div>
@@ -201,7 +205,12 @@ const CartScreen = ({ match, location, history }) => {
           </div>
         </div>
       </aside>
-      <Carousel title={'Your Wish List'}>{wishListCardsToShow}</Carousel>
+      <Carousel title={'Your Wish List'}>
+        <WishList isCarousel={true} />
+      </Carousel>
+      {/* <Carousel title={'Your Browsing History'} isPageVisible={true}>
+          <History horizontal={true} />
+      </Carousel> */}
     </main>
   );
 };

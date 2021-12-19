@@ -1,24 +1,30 @@
 .accordion {
   width: 100%;
   height: auto;
-  background: rgb(234, 237, 237);
+  background: transparent;
 }
 
 .accordion_item {
   background: var(--white);
   margin-bottom: 0;
-  border-bottom: 1px solid var(--gray_dark);
+  box-shadow: var(--box_shadow);
+  /* border-bottom: 1px solid var(--gray); */
+
   /* transition: margin 0.5s; */
 }
 
 .accordion_item.show {
   margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: var(--box_shadow);
   /* transition: margin 0.5s; */
 }
-
-.accordion_item:first-child {
+ /* first item and the next sibling of open */
+.accordion_item:first-child,
+.accordion_item.show + .accordion_item{
   margin-top: 0;
   border-radius: 5px 5px 0 0;
+  box-shadow: var(--box_shadow);
 }
 
 .accordion_item:last-child {

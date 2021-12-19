@@ -125,7 +125,7 @@ const OrderListAdmin = () => {
                   <Accordion.ButtonGroup>
                     <div className="button_group">
                       <Button
-                        classes="white"
+                        classes="white rounded"
                         onClick={() => history.push(`/order/${order.orderId}`)}
                       >
                         Details
