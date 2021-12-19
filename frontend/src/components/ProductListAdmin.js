@@ -110,22 +110,25 @@ const ProductListAdmin = () => {
         <Message type="error">{error}</Message>
       ) : products?.length > 0 ? (
         <>
-          <div className="product_title_header">
-            <div>
-              <span>ID</span>
+          <div className="product_header">
+            <div className="product_title_header">
+              <div>
+                <span>ID</span>
+              </div>
+              <div>
+                <span>Image</span>
+              </div>
+              <div>
+                <span>Title</span>
+              </div>
+              <div>
+                <span>Price</span>
+              </div>
+              <div>
+                <span>Active</span>
+              </div>
             </div>
-            <div>
-              <span>Image</span>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-            <div>
-              <span>Price</span>
-            </div>
-            <div>
-              <span>Active</span>
-            </div>
+            <></>
           </div>
           <Accordion>
             {products?.map((product) => (
@@ -139,7 +142,7 @@ const ProductListAdmin = () => {
                       </div>
                       <div className="title">{product.title}</div>
                       <Price price={product.price} size="small" color="black" />
-                      <div className={'actrive'}>
+                      <div className="active">
                         {!product.isDeleted ? (
                           <i className="fa fa-check" style={{ color: 'green' }}></i>
                         ) : (
@@ -151,13 +154,13 @@ const ProductListAdmin = () => {
                   <Accordion.ButtonGroup>
                     <div className="button_group">
                       <Link to={`/products/${product.productId}`}>
-                        <Button classes="white">Details</Button>
+                        <Button classes="white rounded">Details</Button>
                       </Link>
                       <Link to={`/admin/product/${product.productId}/edit`}>
-                        <Button classes="white">Edit</Button>
+                        <Button classes="white rounded">Edit</Button>
                       </Link>
                       <Button
-                        classes="white"
+                        classes="white rounded"
                         onClick={() =>
                           !product.isDeleted
                             ? deleteProductHandler(product.productId)

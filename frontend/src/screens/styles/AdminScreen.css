@@ -1,5 +1,5 @@
 .admin_screen {
-  background-color: rgb(234, 237, 237);
+  background-color: var(--gray_background);
 }
 
 .admin_container {

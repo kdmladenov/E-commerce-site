@@ -11,6 +11,7 @@ import Profile from './Profile';
 import { adminListPageSizeOptionsMap, adminUserListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
+import Avatar from './Avatar';
 
 const UserListAdmin = ({ history }) => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const UserListAdmin = ({ history }) => {
               <span>ID</span>
             </div>
             <div>
-              <span>Full Name</span>
+              <span>Name</span>
             </div>
             <div>
               <span>Email</span>
@@ -94,8 +95,8 @@ const UserListAdmin = ({ history }) => {
                       <div>
                         <strong>{user.userId}</strong>
                       </div>
-                      <div>
-                        <span>{user.fullName}</span>
+                      <div className="avatar">
+                        <Avatar fullName={user.fullName} imageUrl={user.avatar} />
                       </div>
                       <div>
                         <span>{user.email}</span>
@@ -111,21 +112,21 @@ const UserListAdmin = ({ history }) => {
                   </Accordion.Title>
                   <Accordion.ButtonGroup className="button_group">
                     <Button
-                      classes="white"
+                      classes="white rounded"
                       className={`tab_button ${activeTab === 'profile' && 'active'}`}
                       onClick={() => setActiveTab('profile')}
                     >
                       Profile
                     </Button>
                     <Button
-                      classes="white"
+                      classes="white rounded"
                       className={`tab_button ${activeTab === 'orders' && 'active'}`}
                       onClick={() => setActiveTab('orders')}
                     >
                       Orders
                     </Button>
                     <Button
-                      classes="white"
+                      classes="white rounded"
                       disabled={user.userId === userInfo?.userId}
                       onClick={() =>
                         !user.isDeleted
@@ -138,15 +139,11 @@ const UserListAdmin = ({ history }) => {
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
                 <Accordion.Body>
-                  {activeTab === 'profile' ? (
-                    <Profile userId={user.userId} user={user} />
-                  ) : (
-                    <h2>Orders</h2>
-                  )}
+                  {activeTab === 'profile' && user && <Profile userId={user.userId} user={user} />}
                 </Accordion.Body>
               </Accordion.Item>
             ))}
-          </Accordion>{' '}
+          </Accordion>
         </>
       ) : (
         <h2>There are no users to show</h2>

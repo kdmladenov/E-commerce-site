@@ -1,16 +1,27 @@
-.product_list_admin .product_title_header {
+.product_list_admin .accordion .accordion_header,
+.product_list_admin .product_header {
   display: grid;
-  grid-template-columns: 20px 70px 1fr 70px 70px 320px;
-  padding: 10px 20px;
-  justify-content: center;
-  font-weight: 700;
-  color: rgb(88, 88, 88);
-  gap: 15px;
+  padding: 0 20px;
+  grid-template-columns: 2.5fr 1fr;
+  height: 50px;
+  grid-gap: 15px;
+}
+.product_list_admin .product_header {
   position: sticky;
   top: 0px;
   box-shadow: var(--box_shadow);
   background: var(--white);
   z-index: 100;
+}
+
+.product_list_admin .product_title_header {
+  display: grid;
+  grid-template-columns: 20px 70px 1fr 70px 50px;
+  padding: 10px 0;
+  justify-content: center;
+  font-weight: 700;
+  color: rgb(88, 88, 88);
+  gap: 15px;
 }
 .product_list_admin .header_controls {
   border-radius: 5px 5px 0 0;
@@ -21,24 +32,9 @@
   border-radius: 0;
 }
 
-.product_list_admin .accordion .accordion_header {
-  display: grid;
-  padding: 0 20px;
-  grid-template-columns: 1fr 320px;
-  height: 50px;
-  grid-gap: 15px;
-}
-
-.product_list_admin .accordion .accordion_header .active {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-}
-
 .product_list_admin .accordion .accordion_header .product_list_admin_card {
   display: grid;
-  grid-template-columns: 20px 70px 1fr 70px 70px;
+  grid-template-columns: 20px 70px 1fr 70px 50px;
   padding: 0;
   justify-content: flex-start;
   align-items: center;
@@ -56,9 +52,6 @@
   gap: 15px;
 }
 
-.product_list_admin .accordion .accordion_header .accordion_button_group {
-  max-width: 250px;
-}
 .product_list_admin .accordion .accordion_header .button_container {
   margin: 0;
 }
@@ -81,4 +74,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-decoration: none;
+}
+
+.product_list_admin .accordion .accordion_button_group {
+  max-width: 1000px;
 }

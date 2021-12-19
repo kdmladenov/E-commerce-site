@@ -67,7 +67,7 @@ const WishListCard = ({ wish }) => {
       <div className="add_to_cart_btn">
         <Button
           onClick={() => addToCartHandler(wish.productId, wish.title, wish.image, wish.price)}
-          classes={'white card'}
+          classes={'white rounded'}
         >
           Add To Cart
         </Button>

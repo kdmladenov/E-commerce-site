@@ -11,8 +11,8 @@ const Avatar = ({ classes, imageUrl, fullName }) => {
   const backgroundColors = ['peeps', 'watermelon', 'mimosa', 'kiwi', 'hendrix', 'thanos'];
 
   return (
-    <div className={`avatar card ${classes ? classes : ''}`}>
-      <div className="image card">
+    <div className={`avatar  ${classes ? classes : ''}`}>
+      <div className="image ">
         {imageUrl ? (
           <img src={imageUrl} alt={fullName || 'image'} />
         ) : fullName ? (

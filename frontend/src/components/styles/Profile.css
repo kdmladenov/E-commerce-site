@@ -1,15 +1,29 @@
 .profile {
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 550px;
-  grid-template-areas: 'sidebar form';
+  grid-template-rows: 70px minmax(450px, 1fr);
+  grid-template-areas:
+    'sidebar header'
+    'sidebar form';
+  gap: 20px;
+}
+
+/* Accordion only User List Admin */
+.user_list_admin .user_list .accordion_body .profile {
+  margin: 0 -30px;
 }
 
 .profile .sidebar {
   grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
   background: var(--white);
-  border-right: 2px solid var(--gray);
+  border-right: 2px solid var(--gray_light);
   padding: 10px;
+  height: 100%;
 }
 
 .profile .sidebar h2 {
@@ -17,29 +31,14 @@
 }
 
 /* Sidebar Tab Buttons */
-.profile .sidebar .tab_button {
-  background-color: var(--white);
-  color: var(--gray_dark);
-  text-align: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 10px 16px;
-  font-size: 17px;
-  width: 100%;
-  margin: 2px 0;
-}
-
-.profile .sidebar .tab_button:hover {
-  background-color: var(--gray_light);
-  border-radius: 5px;
-}
-
-.profile .sidebar .tab_button.active {
-  background-color: var(--blue_light);
-  color: var(--blue_middle);
-  /* font-weight: bold; */
-  border-radius: 5px;
+.profile .profile_header {
+  grid-area: header;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 40px 20px 40px;
+  gap: 20px;
 }
 
 /* Form  */
