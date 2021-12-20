@@ -148,20 +148,20 @@ const OrdersMy = () => {
                   ) : (
                     <ul>
                       {order?.orderItems?.map((item) => (
-                        <li key={item.id}>
+                        <li key={item.orderItemId}>
                           <div className="order_item">
                             <div className="image">
                               <img src={item.image} alt={item.title} />
                             </div>
                             <div className="title">
-                              <Link to={`/products/${item.id}`}>{item.title}</Link>
+                              <Link to={`/products/${item.orderItemId}`}>{item.title}</Link>
                             </div>
                             <div className="total">
                               <Price price={item.price} size="small" />
                               <span>{` x ${item.qty}`}</span>
                             </div>
                             <Button
-                              onClick={() => addToCartHandler(item.id)}
+                              onClick={() => addToCartHandler(item.orderItemId)}
                               classes="rounded small"
                               className="order_item_btn"
                               disabled={item.stockCount === 0}

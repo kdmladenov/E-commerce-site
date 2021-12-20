@@ -54,7 +54,7 @@ const validate = {
   isDeleted: (value) => !value || typeof value === 'boolean'
 };
 
-const validateInput = {
+const validateInputUser = {
   email: (value) => {
     if (!value) {
       return ' is required!';
@@ -195,4 +195,4 @@ const validateInput = {
   }
 };
 
-export default validateInput;
+export default validateInputUser;

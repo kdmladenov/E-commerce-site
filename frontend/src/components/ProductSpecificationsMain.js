@@ -51,14 +51,14 @@ const ProductSpecificationsMain = ({ product, specsRef }) => {
       )
   );
   return (
-    <p>
+    <div>
       <table>
         <tbody>{specificationList}</tbody>
       </table>
       <Button classes="text" onClick={() => specsRef && scrollTo(specsRef)}>
         See full specifications
       </Button>
-    </p>
+    </div>
   );
 };
 

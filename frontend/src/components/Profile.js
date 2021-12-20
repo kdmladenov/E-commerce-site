@@ -7,9 +7,15 @@ import Button from './Button';
 import FormComponent from './FormComponent';
 import Avatar from './Avatar';
 import './styles/Profile.css';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { useSelector } from 'react-redux';
+import validateInputUser from '../validations/userValidator';
 
 const Profile = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');
+
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success: successUpdateUser } = userUpdateProfile;
 
   return (
     <div className="profile">
@@ -35,10 +41,26 @@ const Profile = ({ user }) => {
       </div>
       <div className="profile_form">
         <div className={`form ${activeTab === 'overview' ? 'active' : ''}`}>
-          <FormComponent inputData={profileOverviewInitialInputState} currentUser={user} />
+          <FormComponent
+            inputData={profileOverviewInitialInputState}
+            updateAction={updateUserProfile}
+            getDetailsAction={getUserDetails}
+            resourceId={user?.userId}
+            successUpdate={successUpdateUser}
+            resource={user}
+            validateInput={validateInputUser}
+          />
         </div>
         <div className={`form ${activeTab === 'address' ? 'active' : ''}`}>
-          <FormComponent inputData={profileAddressInitialInputState} currentUser={user} />
+          <FormComponent
+            inputData={profileAddressInitialInputState}
+            updateAction={updateUserProfile}
+            getDetailsAction={getUserDetails}
+            resourceId={user?.userId}
+            successUpdate={successUpdateUser}
+            resource={user}
+            validateInput={validateInputUser}
+          />
         </div>
       </div>
     </div>

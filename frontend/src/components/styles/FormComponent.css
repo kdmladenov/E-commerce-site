@@ -60,7 +60,7 @@
   content: '';
   height: 100%;
   width: 100%;
-  background: var(--gray_dark);
+  background: var(--gray_light);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -70,7 +70,7 @@
   content: '';
   height: 100%;
   width: 100%;
-  background: var(--gray_dark);
+  background: var(--gray_light);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }

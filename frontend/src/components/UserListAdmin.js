@@ -139,7 +139,7 @@ const UserListAdmin = ({ history }) => {
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
                 <Accordion.Body>
-                  {activeTab === 'profile' && user && <Profile userId={user.userId} user={user} />}
+                  {activeTab === 'profile' && <Profile user={user} />}
                 </Accordion.Body>
               </Accordion.Item>
             ))}

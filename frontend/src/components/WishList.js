@@ -27,7 +27,9 @@ const WishList = ({ isCarousel = false }) => {
   const wishListDelete = useSelector((state) => state.wishListDelete);
   const { success: successDeleteWish } = wishListDelete;
 
-  const wishListCardsToShow = wishList?.map((wish) => <WishListCard wish={wish} />);
+  const wishListCardsToShow = wishList?.map((wish) => (
+    <WishListCard wish={wish} key={wish.wishListId} />
+  ));
 
   useEffect(() => {
     const { page, pageSize, sort, search } = endpoint;

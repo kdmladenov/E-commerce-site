@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './styles/FormComponent.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import Loader from './Loader';
-import Message from './Message';
-import validateInput from '../validations/userValidator';
 import Button from './Button';
 import { saveShippingAddress } from '../actions/cartActions';
 
-const FormComponent = ({ inputData, screen }) => {
+const FormComponent = ({
+  inputData,
+  screen,
+  resource,
+  resourceId,
+  updateAction,
+  getDetailsAction,
+  successUpdate,
+  validateInput
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [isFormValid, setIsFormValid] = useState(true);
-  const [isUserLoaded, setIsUserLoaded] = useState(false);
-  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const [isResourceLoaded, setIsResourceLoaded] = useState(false);
+  const [isResourceUpdated, setIsResourceUpdated] = useState(false);
 
   const [form, setForm] = useState(inputData);
 
@@ -27,15 +32,6 @@ const FormComponent = ({ inputData, screen }) => {
       };
     }, {})
   );
-
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success } = userUpdateProfile;
 
   const isInputValid = (input, validations) => {
     if (validations.required && input.length === 0) return false;
@@ -61,7 +57,7 @@ const FormComponent = ({ inputData, screen }) => {
 
   const handleCancelButton = () => {
     setForm(inputData);
-    setIsUserUpdated(true);
+    setIsResourceUpdated(true);
     setInputErrors(
       Object.keys(form).reduce((acc, key) => {
         return {
@@ -115,41 +111,45 @@ const FormComponent = ({ inputData, screen }) => {
     }, {});
 
     dispatch(
-      updateUserProfile({
-        id: userInfo.userId,
+      updateAction({
+        id: resourceId,
         ...data
       })
     );
 
     dispatch(saveShippingAddress({ ...data }));
 
-    setIsUserUpdated(true);
+    setIsResourceUpdated(true);
 
     screen === 'shipping' && history.push('/payment');
   };
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push('/login');
+    if (isResourceUpdated) {
+      dispatch(getDetailsAction(resourceId));
+      setIsResourceUpdated(false);
     } else {
-      if (!user?.email || isUserUpdated) {
-        dispatch(getUserDetails(userInfo.userId));
-        setIsUserUpdated(false);
-      } else {
-        const formCopy = { ...form };
-        Object.keys(formCopy).forEach((key) => (formCopy[key].value = user[key]));
-
-        setForm(formCopy);
-        setIsUserLoaded(true);
-      }
+      const updated = Object.keys(form).reduce((acc, key) => {
+        return {
+          ...acc,
+          [key]: { ...form[key], value: resource[key] }
+        };
+      }, {});
+      setForm(updated);
+      setIsResourceLoaded(true);
     }
-  }, [dispatch, history, userInfo, user, success, loading, isUserLoaded, isUserUpdated]);
+  }, [
+    dispatch,
+    history,
+    resource,
+    resourceId,
+    successUpdate,
+    getDetailsAction,
+    isResourceLoaded,
+    isResourceUpdated
+  ]);
 
-  return loading ? (
-    <Loader />
-  ) : error ? (
-    <Message>{error}</Message>
-  ) : (
+  return (
     <form onSubmit={handleSubmit} className="form_component">
       {formToRender}
 
