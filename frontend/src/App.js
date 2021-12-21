@@ -15,7 +15,7 @@ import OrderScreen from './screens/OrderScreen';
 import UserListScreenAdmin from './screens/UserListScreenAdmin';
 import UserEditScreenAdmin from './screens/UserEditScreenAdmin';
 import ProductListScreenAdmin from './screens/ProductListScreenAdmin';
-import ProductEditScreenAdmin from './screens/ProductEditScreenAdmin';
+// import ProductEditScreenAdmin from './screens/ProductEditScreenAdmin';
 import ProductCreateScreenAdmin from './screens/ProductCreateScreenAdmin';
 import OrderListScreenAdmin from './screens/OrderListScreenAdmin';
 import ProductListScreen from './screens/ProductListScreen';
@@ -28,6 +28,7 @@ import { addToPortalRefs } from './actions/portalActions';
 import ReviewsScreen from './screens/ReviewsScreen';
 import QuestionsAndAnswersScreen from './screens/QuestionsAndAnswersScreen';
 import BrandStoreScreen from './screens/BrandStoreScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const App = () => {
       <Route path="/admin/main/:section" component={AdminScreen} />
       <Route path="/admin/user/:id/edit" component={UserEditScreenAdmin} />
       <Route path="/admin/product/create" component={ProductCreateScreenAdmin} />
-      <Route path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
+      <Route path="/admin/product/:productId/edit" component={ProductEditScreen} />
       {/* <Route path="/admin/orderlist" component={OrderListScreenAdmin} /> */}
       {/* <Route path="/admin/userlist" component={UserListScreenAdmin} /> */}
       {/* <Route path="/admin/productlist" component={ProductListScreenAdmin} /> */}

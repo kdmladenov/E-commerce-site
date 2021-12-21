@@ -27,7 +27,7 @@ const ProductScreenActionBox = ({ product }) => {
   } = portalRefs;
 
   const addToCartHandler = () => {
-    dispatch(addToCart(productId, qty));
+    dispatch(addToCart(productId, +qty));
     toastCartRef.current.createToast({ title, image, price, qty });
   };
 
