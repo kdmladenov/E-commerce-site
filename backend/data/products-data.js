@@ -119,6 +119,7 @@ const getBy = async (column, value, role = 'basic') => {
       p.release_year as releaseYear,
       p.date_created as dateCreated,
       p.color,
+      p.color_family as colorFamily,
       p.weight,
       p.dimensions,
       p.discount,
