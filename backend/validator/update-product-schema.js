@@ -12,6 +12,10 @@ export default {
     (typeof value === 'string' &&
       value.length >= PRODUCT.MIN_BRAND_LENGTH &&
       value.length <= PRODUCT.MAX_BRAND_LENGTH),
+  description: (value) =>
+    typeof value === 'string' &&
+    value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
+    value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
   image: (value) => !value || typeof value === 'string',
   product_category: (value) =>
     !value || (typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value)),

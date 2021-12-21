@@ -1,5 +1,7 @@
 import express from 'express';
 import productsData from '../data/products-data.js';
+import featuresData from '../data/features-data.js';
+import specificationsData from '../data/specifications-data.js';
 import validateBody from '../middleware/validate-body.js';
 import validateFile from '../middleware/validate-file.js';
 import errors from '../constants/service-errors.js';
@@ -13,6 +15,8 @@ import errorHandler from '../middleware/errorHandler.js';
 import { paging } from '../constants/constants.js';
 import updateProductSchema from '../validator/update-product-schema.js';
 import uploadImage from '../middleware/upload-image.js';
+import createFeatureSchema from '../validator/create-feature-schema.js';
+import updateFeatureSchema from '../validator/update-feature-schema.js';
 
 const productsController = express.Router();
 
@@ -179,7 +183,7 @@ productsController
       res.status(201).send(path.replace(/\\/g, '/'));
     })
   )
-  // @desc GET Products Features by ID
+  // @desc GET All Products Features by productId
   // @route GET /products/:productId/features
   // @access Public
   .get(
@@ -188,7 +192,8 @@ productsController
       const { productId } = req.params;
 
       const { error, productFeatures } = await productsServices.getProductFeaturesById(
-        productsData
+        productsData,
+        featuresData
       )(productId);
 
       if (error === errors.RECORD_NOT_FOUND) {
@@ -197,6 +202,161 @@ productsController
         });
       } else {
         res.status(200).send(productFeatures);
+      }
+    })
+  )
+  // @desc CREATE Product Feature by productId
+  // @route POST /products/:productId/features
+  // @access Private - Admin only
+  .post(
+    '/:productId/features',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    validateBody('feature', createFeatureSchema),
+    errorHandler(async (req, res) => {
+      const { productId } = req.params;
+      const data = req.body;
+
+      const { error, productFeature } = await productsServices.createProductFeature(
+        productsData,
+        featuresData
+      )(+productId, data);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product with this number is not found!'
+        });
+      } else {
+        res.status(201).send(productFeature);
+      }
+    })
+  )
+  // @desc EDIT Product Feature by featureId
+  // @route PUT /products/:featureId/features
+  // @access Private - Admin only
+  .put(
+    '/:featureId/features',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    validateBody('feature', updateFeatureSchema),
+    errorHandler(async (req, res) => {
+      const { featureId } = req.params;
+      const data = req.body;
+
+      const { error, updatedProductFeature } = await productsServices.updateProductFeature(
+        featuresData
+      )(+featureId, data);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product feature with this number is not found!'
+        });
+      } else {
+        res.status(200).send(updatedProductFeature);
+      }
+    })
+  )
+  // @desc DELETE Product Feature by featureId
+  // @route DELETE /products/:featureId/features
+  // @access Private - Admin only
+  .delete(
+    '/:featureId/features',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    errorHandler(async (req, res) => {
+      const { featureId } = req.params;
+
+      const { error, productFeature } = await productsServices.deleteProductFeature(featuresData)(
+        +featureId
+      );
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product feature with this number is not found!'
+        });
+      } else {
+        res.status(200).send(productFeature);
+      }
+    })
+  )
+  // @desc CREATE Product Specifications by productId
+  // @route POST /products/:productId/specifications
+  // @access Private - Admin only
+  .post(
+    '/:productId/specifications',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    // TO DO: createSpecificationsSchema
+    // validateBody('specification', createSpecificationsSchema),
+    errorHandler(async (req, res) => {
+      const { productId } = req.params;
+      const data = req.body;
+
+      const { error, productSpecification } = await productsServices.createProductSpecification(
+        productsData,
+        specificationsData
+      )(+productId, data);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product with this number is not found!'
+        });
+      } else {
+        res.status(201).send(productSpecification);
+      }
+    })
+  )
+  // @desc EDIT Product Specifications by specificationId
+  // @route PUT /products/:specificationId/specifications
+  // @access Private - Admin only
+  .put(
+    '/:specificationId/features',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    // TO DO: updateSpecificationsSchema
+    // validateBody('specification', updateSpecificationsSchema),
+    errorHandler(async (req, res) => {
+      const { specificationId } = req.params;
+      const data = req.body;
+
+      const { error, productSpecification } = await productsServices.updateProductSpecification(
+        specificationsData
+      )(+specificationId, data);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product specification with this number is not found!'
+        });
+      } else {
+        res.status(200).send(productSpecification);
+      }
+    })
+  )
+  // @desc DELETE Product Specifications by specificationId
+  // @route DELETE /products/:specificationId/specifications
+  // @access Private - Admin only
+  .delete(
+    '/:specificationId/features',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    errorHandler(async (req, res) => {
+      const { specificationId } = req.params;
+
+      const { error, deletedProductSpecification } =
+        await productsServices.deleteProductSpecification(specificationsData)(+specificationId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product specification with this number is not found!'
+        });
+      } else {
+        res.status(200).send(deletedProductSpecification);
       }
     })
   );

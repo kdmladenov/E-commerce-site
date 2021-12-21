@@ -105,7 +105,7 @@ const restoreProduct = (productsData) => async (productId) => {
   };
 };
 
-const getProductFeaturesById = (productsData) => async (productId) => {
+const getProductFeaturesById = (productsData, featuresData) => async (productId) => {
   const product = await productsData.getBy('product_id', productId);
 
   if (!product) {
@@ -115,7 +115,7 @@ const getProductFeaturesById = (productsData) => async (productId) => {
     };
   }
 
-  const productFeatures = await productsData.getFeatures(productId);
+  const productFeatures = await featuresData.getFeatures(productId);
 
   return {
     error: null,
@@ -123,6 +123,131 @@ const getProductFeaturesById = (productsData) => async (productId) => {
   };
 };
 
+const createProductFeature = (productsData, featuresData) => async (productId, data) => {
+  const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
+
+  if (existingProduct) {
+    return {
+      error: errors.DUPLICATE_RECORD,
+      product: null
+    };
+  }
+
+  return {
+    error: null,
+    product: await featuresData.create(+productId, data)
+  };
+};
+
+const updateProductFeature = (featuresData) => async (featureId, updatedData) => {
+  const existingFeature = await featuresData.getBy('feature_id', +featureId, 'admin');
+
+  if (!existingFeature) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  const updated = { ...existingFeature, ...updatedData };
+  const updatedProductFeature = await featuresData.update(updated);
+
+  return {
+    error: null,
+    updatedProductFeature
+  };
+};
+
+const deleteProductFeature = (featuresData) => async (featureId) => {
+  const featureToDelete = await featuresData.getBy('feature_id', featureId, 'admin');
+
+  if (!featureToDelete) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  await featuresData.remove(featureToDelete);
+
+  return {
+    error: null,
+    product: { ...featureToDelete, isDeleted: 1 }
+  };
+};
+
+const createProductSpecification =
+  (productsData, specificationsData) => async (productId, updatedData) => {
+    const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
+
+    if (existingProduct) {
+      return {
+        error: errors.DUPLICATE_RECORD,
+        product: null
+      };
+    }
+
+    const existingSpecification = await specificationsData.getBy('product_id', +productId, 'admin');
+
+    if (existingSpecification) {
+      const updated = { ...existingSpecification, ...updatedData };
+      const productSpecification = await specificationsData.update(+productId, updated);
+
+      return {
+        error: null,
+        productSpecification
+      };
+    }
+    return {
+      error: null,
+      product: await specificationsData.create(data)
+    };
+  };
+
+const updateProductSpecification = (specificationsData) => async (specificationId, updatedData) => {
+  const existingSpecification = await specificationsData.getBy(
+    'specification_id',
+    +specificationId,
+    'admin'
+  );
+
+  if (!existingSpecification) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  const updated = { ...existingSpecification, ...updatedData };
+  const productSpecification = await specificationsData.update(updated);
+
+  return {
+    error: null,
+    productSpecification
+  };
+};
+
+const deleteProductSpecification = (specificationsData) => async (specificationId) => {
+  const specificationToDelete = await specificationsData.getBy(
+    'specification_id',
+    +specificationId,
+    'admin'
+  );
+
+  if (!specificationToDelete) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  await specificationsData.remove(specificationToDelete);
+
+  return {
+    error: null,
+    deletedProductSpecification: { ...specificationToDelete, isDeleted: 1 }
+  };
+};
 export default {
   getAllProducts,
   getProductById,
@@ -130,5 +255,11 @@ export default {
   updateProduct,
   deleteProduct,
   restoreProduct,
-  getProductFeaturesById
+  getProductFeaturesById,
+  createProductFeature,
+  updateProductFeature,
+  deleteProductFeature,
+  createProductSpecification,
+  updateProductSpecification,
+  deleteProductSpecification
 };
