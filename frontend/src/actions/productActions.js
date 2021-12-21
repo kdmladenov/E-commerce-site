@@ -192,21 +192,3 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
     });
   }
 };
-
-export const listProductFeatures = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_FEATURES_LIST_REQUEST });
-
-    const { data } = await axios.get(`${BASE_URL}/products/${id}/features`);
-
-    dispatch({
-      type: PRODUCT_FEATURES_LIST_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_FEATURES_LIST_FAIL,
-      payload: error?.response?.data?.message ? error.response.data.message : error.message
-    });
-  }
-};

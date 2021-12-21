@@ -9,9 +9,6 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_FEATURES_LIST_FAIL,
-  PRODUCT_FEATURES_LIST_REQUEST,
-  PRODUCT_FEATURES_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -101,19 +98,6 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_UPDATE_RESET:
       return { product: {} };
-    default:
-      return state;
-  }
-};
-
-export const productFeaturesListReducer = (state = { productFeatures: [] }, action) => {
-  switch (action.type) {
-    case PRODUCT_FEATURES_LIST_REQUEST:
-      return { loading: true, productFeatures: [] };
-    case PRODUCT_FEATURES_LIST_SUCCESS:
-      return { loading: false, productFeatures: action.payload };
-    case PRODUCT_FEATURES_LIST_FAIL:
-      return { loading: false, error: action.payload };
     default:
       return state;
   }

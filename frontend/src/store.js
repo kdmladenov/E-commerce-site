@@ -5,7 +5,6 @@ import {
   productCreateReducer,
   productDeleteReducer,
   productDetailsReducer,
-  productFeaturesListReducer,
   productListReducer,
   productRestoreReducer,
   productUpdateReducer
@@ -57,6 +56,17 @@ import {
   questionVoteReducer
 } from './reducers/questionsAndAnswersReducers';
 import { portalRefsReducer } from './reducers/portalReducers';
+import {
+  productFeaturesCreateReducer,
+  productFeaturesDeleteReducer,
+  productFeaturesListReducer,
+  productFeaturesUpdateReducer
+} from './reducers/productFeaturesReducer';
+import {
+  productSpecificationCreateReducer,
+  productSpecificationDeleteReducer,
+  productSpecificationUpdateReducer
+} from './reducers/productSpecificationsReducer';
 
 const reducer = combineReducers({
   portalRefs: portalRefsReducer,
@@ -64,10 +74,16 @@ const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
-  productRestore:productRestoreReducer,
+  productRestore: productRestoreReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
   productFeaturesList: productFeaturesListReducer,
+  productFeaturesCreate: productFeaturesCreateReducer,
+  productFeaturesUpdate: productFeaturesUpdateReducer,
+  productFeaturesDelete: productFeaturesDeleteReducer,
+  productSpecificationCreate: productSpecificationCreateReducer,
+  productSpecificationUpdate: productSpecificationUpdateReducer,
+  productSpecificationDelete: productSpecificationDeleteReducer,
   reviewCreate: reviewCreateReducer,
   reviewDelete: reviewDeleteReducer,
   reviewList: reviewListReducer,
