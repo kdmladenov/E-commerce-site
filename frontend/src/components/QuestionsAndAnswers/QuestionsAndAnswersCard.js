@@ -12,6 +12,7 @@ import EditButtons from '../EditButtons';
 import AnswerCard from './AnswerCard';
 import Votes from '../Votes';
 import Button from '../Button';
+import Divider from '../Divider'
 
 const answerCountAtStart = 1;
 
@@ -88,7 +89,7 @@ const QuestionsAndAnswersCard = ({
       </div>
       <div className="question_and_answer">
         <div className="question">
-          <span>Question:</span>
+          {/* <span>Question:</span> */}
           {editMode || createMode ? (
             <input
               type="text"
@@ -122,8 +123,11 @@ const QuestionsAndAnswersCard = ({
             handleSaveButton={handleSaveButton}
           />
         </div>
+        <Divider>
+          <h5>Answers</h5>
+        </Divider>
         <div className="answers">
-          <span>Answers:</span>
+          {/* <span>Answers:</span> */}
           <ul className="answer_list">
             {answerList?.length
               ? (showAllAnswers ? answerList : answerList.slice(0, answerCountAtStart))?.map(

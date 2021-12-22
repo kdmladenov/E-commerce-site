@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../actions/userActions';
 import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import HeaderControls from '../components/HeaderControls';
-import {  questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../constants/inputMaps';
+import { questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../constants/inputMaps';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
@@ -69,64 +69,65 @@ const QuestionsAndAnswersScreen = ({ match }) => {
     dispatch(listQuestionsAndAnswers(productId, `${page}${pageSize}${sort}${search}`));
   }, [dispatch, productId, endpoint]);
 
-
   return (
     <div className="questions_and_answers_screen">
-      <HeaderControls
-        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-        query={endpoint}
-        resource="questions and answers"
-        pageSizeOptionsMap={questionsListPageSizeOptionsMap}
-        sortOptionsMap={questionsSortOptionsMap}
-        isBreadcrumbsVisible={false}
-      />
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
-      ) : questions?.length > 0 ? (
-        <div className="questions-list">
-          Search field TO DO Create Question and Answer To Test
-          {!hasUserAskedQuestion && !createMode && (
-            <Button onClick={handleOpenCreateForm}>
-              <i className="fa fa-plus"></i> Ask Question
-            </Button>
-          )}
-          {createMode && (
-            <QuestionsAndAnswersCard
-              createMode={createMode}
-              setCreateMode={setCreateMode}
-              currentUser={currentUser}
-              productId={productId}
-              fullName={user.fullName}
-              userId={user.userId}
-              avatar={user.avatar}
-            />
-          )}
-          {questions.map((question) => (
-            <QuestionsAndAnswersCard
-              key={question.questionId}
-              {...question}
-              currentUser={currentUser}
-              createMode={false}
-              setCreateMode={setCreateMode}
-              fullName={question.fullName}
-              avatar={question.avatar}
-            />
-          ))}
-        </div>
-      ) : (
-        <Message type="success">Ask Question Box</Message>
-      )}
-      <div className="footer">
-        {questions?.length > 0 && (
-          <Pagination
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-            totalItems={questions[0].totalDBItems}
-          />
+      <div className="questions_and_answers_container">
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="questions and answers"
+          pageSizeOptionsMap={questionsListPageSizeOptionsMap}
+          sortOptionsMap={questionsSortOptionsMap}
+          isBreadcrumbsVisible={false}
+        />
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message type="error">{error}</Message>
+        ) : questions?.length > 0 ? (
+          <div className="questions_list">
+            Search field TO DO Create Question and Answer To Test
+            {!hasUserAskedQuestion && !createMode && (
+              <Button onClick={handleOpenCreateForm}>
+                <i className="fa fa-plus"></i> Ask Question
+              </Button>
+            )}
+            {createMode && (
+              <QuestionsAndAnswersCard
+                createMode={createMode}
+                setCreateMode={setCreateMode}
+                currentUser={currentUser}
+                productId={productId}
+                fullName={user.fullName}
+                userId={user.userId}
+                avatar={user.avatar}
+              />
+            )}
+            {questions.map((question) => (
+              <QuestionsAndAnswersCard
+                key={question.questionId}
+                {...question}
+                currentUser={currentUser}
+                createMode={false}
+                setCreateMode={setCreateMode}
+                fullName={question.fullName}
+                avatar={question.avatar}
+              />
+            ))}
+          </div>
+        ) : (
+          <Message type="success">Ask Question Box</Message>
         )}
+        <div className="footer">
+          {questions?.length > 0 && (
+            <Pagination
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+              pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+              totalItems={questions[0].totalDBItems}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

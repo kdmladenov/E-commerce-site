@@ -21,6 +21,7 @@
 .questions_and_answers .question,
 .questions_and_answers .answers {
   display: flex;
+  gap: 20px;
 }
 
 .questions_and_answers > div > span {
@@ -32,8 +33,8 @@
 .questions_and_answers .question,
 .questions_and_answers .answer {
   position: relative;
-  border-bottom: 1px solid var(--gray);
-  margin-bottom: 5px;
+  /* border-bottom: 1px solid var(--gray); */
+  /* margin-bottom: 5px; */
   padding: 0 70px 5px 0;
 }
 
@@ -69,7 +70,10 @@
 
 .questions_and_answers .created_info {
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
   font-size: 14px;
+  gap: 4px;
   color: var(--gray_dark);
 }
 .questions_and_answers .created_info .avatar {
