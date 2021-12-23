@@ -16,19 +16,19 @@ const ProductEditScreen = ({ match }) => {
             className={`tab ${activeTab === 'details' && 'active'}`}
             onClick={() => setActiveTab('details')}
           >
-            Product Details
+            Edit Product Details
           </button>
           <button
             className={`tab ${activeTab === 'specifications' && 'active'}`}
             onClick={() => setActiveTab('specifications')}
           >
-            Product Specifications
+            Edit Product Specifications
           </button>
           <button
             className={`tab ${activeTab === 'features' && 'active'}`}
             onClick={() => setActiveTab('features')}
           >
-            Product Features
+            Edit Product Features
           </button>
         </div>
         <section
@@ -96,7 +96,6 @@ export default ProductEditScreen;
 //   useEffect(() => {
 //     if (successUpdateProduct) {
 //       dispatch({ type: PRODUCT_UPDATE_RESET });
-//       history.push('/admin/productlist');
 //     }
 //   }, [history, dispatch, successUpdateProduct]);
 

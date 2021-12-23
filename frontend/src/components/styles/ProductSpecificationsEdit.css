@@ -1,0 +1,11 @@
+.product_specifications_edit {
+}
+
+/* Form  */
+.product_specifications_edit .product_specifications_edit_form {
+  padding: 20px 40px;
+}
+
+.product_specifications_edit .product_specifications_edit_form .form_component label {
+  position: block;
+}

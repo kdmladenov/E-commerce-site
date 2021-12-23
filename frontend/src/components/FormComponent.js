@@ -50,7 +50,7 @@ const FormComponent = ({
     updatedForm[name].touched = true;
     updatedForm[name].valid = isInputValid(value, updatedForm[name].validations);
 
-    setInputErrors({ ...inputErrors, [name]: validateInput[name](value) });
+    validateInput && setInputErrors({ ...inputErrors, [name]: validateInput[name](value) });
     setForm(updatedForm);
     setIsFormValid(Object.values(updatedForm).every((elem) => elem.valid));
   };
@@ -76,7 +76,18 @@ const FormComponent = ({
       };
     })
     .map(({ id, config }) => {
-      return (
+      return config.formElement === 'select' ? (
+        <select key={id} name={id} value={config.value} onChange={handleInputChange}>
+          <option value="" selected>{`${config.label}: ${config.value}`}</option>
+          {config.options
+            .filter((item) => item?.value.toString() !== config.value.toString())
+            .map((item) => (
+              <option key={item?.label} value={item?.value}>
+                {item?.label}
+              </option>
+            ))}
+        </select>
+      ) : (
         <div
           className={`wrapper ${config.value ? 'filled' : ''} ${inputErrors[id] ? 'error' : ''} ${
             config.touched ? 'touched' : ''
@@ -117,7 +128,7 @@ const FormComponent = ({
       })
     );
 
-    dispatch(saveShippingAddress({ ...data }));
+    screen === 'shipping' && dispatch(saveShippingAddress({ ...data }));
 
     setIsResourceUpdated(true);
 
