@@ -13,9 +13,10 @@ export default {
       value.length >= PRODUCT.MIN_BRAND_LENGTH &&
       value.length <= PRODUCT.MAX_BRAND_LENGTH),
   description: (value) =>
-    typeof value === 'string' &&
-    value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
-    value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
+      value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH),
   image: (value) => !value || typeof value === 'string',
   product_category: (value) =>
     !value || (typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value)),
@@ -30,7 +31,8 @@ export default {
       value >= PRODUCT.MIN_STOCK_COUNT &&
       value <= PRODUCT.MAX_STOCK_COUNT),
   discount: (value) =>
-    typeof value === 'number' &&
-    value >= PRODUCT.MIN_DISCOUNT_VALUE &&
-    value <= PRODUCT.MAX_DISCOUNT_VALUE
+    !value ||
+    (typeof value === 'number' &&
+      value >= PRODUCT.MIN_DISCOUNT_VALUE &&
+      value <= PRODUCT.MAX_DISCOUNT_VALUE)
 };

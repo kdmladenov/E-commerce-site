@@ -314,7 +314,7 @@ productsController
   // @route PUT /products/:specificationId/specifications
   // @access Private - Admin only
   .put(
-    '/:specificationId/features',
+    '/:specificationId/specifications',
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
@@ -341,7 +341,7 @@ productsController
   // @route DELETE /products/:specificationId/specifications
   // @access Private - Admin only
   .delete(
-    '/:specificationId/features',
+    '/:specificationId/specifications',
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),

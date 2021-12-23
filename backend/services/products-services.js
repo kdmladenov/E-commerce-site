@@ -219,7 +219,7 @@ const updateProductSpecification = (specificationsData) => async (specificationI
   }
 
   const updated = { ...existingSpecification, ...updatedData };
-  const productSpecification = await specificationsData.update(updated);
+  const productSpecification = await specificationsData.update(specificationId, updated);
 
   return {
     error: null,

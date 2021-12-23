@@ -9,8 +9,6 @@ const getAll = async (productId, search, sort, page, pageSize) => {
     : 'date_created';
   const offset = (page - 1) * pageSize;
 
-  console.log(productId, search, sort, page, pageSize);
-
   const sql = `
   SELECT   
     q.question_id as questionId,
@@ -52,14 +50,16 @@ const getAll = async (productId, search, sort, page, pageSize) => {
           LEFT JOIN users u USING (user_id)
           WHERE a.is_deleted = 0 
           group by question_id) ans USING (question_id)
-    WHERE q.is_deleted = 0 AND q.product_id = ?  ${ search ? `AND CONCAT_WS(',', q.question_content, u.full_name, ans.answers) Like '%${search}%'` : '' }
+    WHERE q.is_deleted = 0 AND q.product_id = ?  ${
+      search
+        ? `AND CONCAT_WS(',', q.question_content, u.full_name, ans.answers) Like '%${search}%'`
+        : ''
+    }
     ORDER BY ${sortColumn} ${direction}
     LIMIT ? OFFSET ?
     `;
   return db.query(sql, [+productId, +pageSize, +offset]);
 };
-
-
 
 const getBy = async (column, value, role) => {
   const sql = `

@@ -1,5 +1,5 @@
+import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
-
 
 const getBy = async (column, value, role = 'basic') => {
   const sql = `
@@ -74,14 +74,13 @@ const create = async (productId, data) => {
     data.backlitKeyboard
   ]);
 
-  return getBy('specification_id', result.insertId);
+  return getBy('specification_id', result.insertId, 'admin');
 };
 
-const update = async (updatedSpecification) => {
+const update = async (specificationId, updatedSpecification) => {
   const sql = `
         UPDATE specifications
         SET
-          product_id = ?,
           screen_size = ?,
           screen_resolution = ?,
           display_type = ?,
@@ -103,7 +102,6 @@ const update = async (updatedSpecification) => {
     `;
 
   const _ = await db.query(sql, [
-    +updatedSpecification.productId,
     updatedSpecification.screenSize,
     updatedSpecification.screenResolution,
     updatedSpecification.displayType,
@@ -113,7 +111,7 @@ const update = async (updatedSpecification) => {
     updatedSpecification.processorModelNumber,
     updatedSpecification.storageType,
     updatedSpecification.storageCapacity,
-    updatedSpecification.systemMemory,
+    +updatedSpecification.systemMemory,
     updatedSpecification.graphicsType,
     updatedSpecification.graphicsBrand,
     updatedSpecification.graphicsModel,
@@ -121,10 +119,10 @@ const update = async (updatedSpecification) => {
     updatedSpecification.voiceAssistant,
     updatedSpecification.batteryType,
     updatedSpecification.backlitKeyboard,
-    +updatedSpecification.specificationId
+    +specificationId
   ]);
 
-  return getBy('specification_id', updatedSpecification.specificationId);
+  return getBy('specification_id', +specificationId, 'admin');
 };
 
 const remove = async (specificationData) => {

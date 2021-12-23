@@ -47,6 +47,7 @@ const getAllProducts = async (search, filter, sort, pageSize, page) => {
       p.weight,
       p.dimensions,
       p.discount,
+      s.specification_id as specificationId,
       s.screen_size as screenSize,
       s.screen_resolution as screenResolution,
       s.display_type as displayType,
@@ -123,6 +124,7 @@ const getBy = async (column, value, role = 'basic') => {
       p.weight,
       p.dimensions,
       p.discount,
+      s.specification_id as specificationId,
       s.screen_size as screenSize,
       s.screen_resolution as screenResolution,
       s.display_type as displayType,
@@ -152,10 +154,7 @@ const getBy = async (column, value, role = 'basic') => {
             FROM reviews
             WHERE is_deleted = 0
             GROUP BY product_id) as r using (product_id)
-    LEFT JOIN (SELECT product_id, screen_size, screen_resolution, display_type, touch_screen, processor_brand, 
-            processor_model, processor_model_number, storage_type, storage_capacity, system_memory, 
-            graphics_type, graphics_brand, graphics_model, operating_system, voice_assistant, 
-            battery_type, backlit_keyboard
+    LEFT JOIN (SELECT *
             FROM specifications) as s using (product_id)
     LEFT JOIN (select product_id,
             count(if(rating=1,1,null)) as starOne,
@@ -202,6 +201,7 @@ const create = async (product) => {
 };
 
 const update = async (updatedProduct) => {
+
   const sql = `
         UPDATE products
         SET
@@ -223,9 +223,9 @@ const update = async (updatedProduct) => {
     updatedProduct.description,
     updatedProduct.productCategory,
     +updatedProduct.price,
-    +updatedProduct.stock_count,
+    +updatedProduct.stockCount,
+    +updatedProduct.discount,
     +updatedProduct.productId,
-    +product.discount
   ]);
 
   return getBy('product_id', updatedProduct.productId);
