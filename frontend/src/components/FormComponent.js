@@ -77,10 +77,10 @@ const FormComponent = ({
     })
     .map(({ id, config }) => {
       return config.formElement === 'select' ? (
-        <select key={id} name={id} value={config.value} onChange={handleInputChange}>
-          <option value="" selected>{`${config.label}: ${config.value}`}</option>
+        <select key={id} name={id} value={config?.value} onChange={handleInputChange}>
+          <option value="" selected>{`${config?.label}: ${config?.value}`}</option>
           {config.options
-            .filter((item) => item?.value.toString() !== config.value.toString())
+            .filter((item) => item?.value?.toString() !== config?.value?.toString())
             .map((item) => (
               <option key={item?.label} value={item?.value}>
                 {item?.label}
