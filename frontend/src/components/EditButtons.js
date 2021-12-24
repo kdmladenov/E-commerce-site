@@ -34,7 +34,7 @@ const EditButtons = ({
           </Button>
           <Button classes="icon" onClick={handleSaveButton}>
             <Tooltip direction="top" text="Save">
-              <i class="fa fa-save"></i>
+              <i className="fa fa-save"></i>
             </Tooltip>
           </Button>
         </div>

@@ -15,16 +15,16 @@
 }
 
 .pagination .page_btn.edge.left {
-  border-radius: 5px 0 0 5px;
+  border-radius: var(--border_radius_left);
 }
 
 .pagination .page_btn.edge.right {
-  border-radius: 0 5px 5px 0;
+  border-radius: var(--border_radius_right);
 }
 
 /* In case pagination is visible with a single page */
 .pagination .page_btn.edge.right.left {
-  border-radius: 5px;
+  border-radius: var(--border_radius);
 }
 
 .pagination > ul button,

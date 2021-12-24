@@ -67,8 +67,11 @@
   --pebble: #c7cdd2;
   --dirty-seagull: #e0e4e9;
   --white: #fff;
-  --border_radius_5: 5px;
-  --border_radius_10: 10px;
+  --border_radius: 10px;
+  --border_radius_top: 10px 10px 0 0;
+  --border_radius_bottom: 0 0 10px 10px;
+  --border_radius_left: 10px 0 0 10px;
+  --border_radius_right: 0 10px 10px 0;
   --box_shadow: 0 0 1px rgb(0 0 0 / 20%), 0 4px 8px rgb(0 0 0 / 10%);
   --box_shadow_2: 0 0.0625rem 0.125rem 0.0625rem rgb(0 0 0 / 15%);
   --box_shadow_3: 0 3px 10px rgba(0, 0, 0, 0.2);
@@ -129,7 +132,7 @@ img {
 .card {
   position: relative;
   background-color: var(--white);
-  border-radius: var(--border_radius_10);
+  border-radius: var(--border_radius);
   /* border: 1px solid var(--gray); */
   box-shadow: var(--box_shadow);
   color: var(--black);

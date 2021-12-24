@@ -95,7 +95,7 @@ const PlaceOrderScreen = ({ history }) => {
             </div>
             <div className="payment_method">
               <h3>Payment Method</h3>
-              <i class="fa fa-paypal"></i>
+              <i className="fa fa-paypal"></i>
               {paymentMethod}
             </div>
           </div>

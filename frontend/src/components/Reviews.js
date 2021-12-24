@@ -134,7 +134,7 @@ const Reviews = ({ currentUser, productId }) => {
                   })
                 }
               >
-                <i class="fa fa-chevron-down"></i> See more reviews (10)
+                <i className="fa fa-chevron-down"></i> See more reviews (10)
               </Button>
             ) : (
               <Button
@@ -146,7 +146,7 @@ const Reviews = ({ currentUser, productId }) => {
                   })
                 }
               >
-                <i class="fa fa-chevron-up"></i> Collapse reviews
+                <i className="fa fa-chevron-up"></i> Collapse reviews
               </Button>
             ))}
           <Button classes="text" onClick={() => history.push(`/reviews/${productId}`)}>

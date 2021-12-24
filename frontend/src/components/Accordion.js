@@ -66,11 +66,11 @@ Accordion.ButtonGroup = function AccordionButtonGroup({ children, ...restProps }
         children
       ) : !toggleShow ? (
         <Tooltip direction="top" text="Open">
-          <i class="fa fa-chevron-down"></i>
+          <i className="fa fa-chevron-down"></i>
         </Tooltip>
       ) : (
         <Tooltip direction="top" text="Close">
-          <i class="fa fa-chevron-up"></i>
+          <i className="fa fa-chevron-up"></i>
         </Tooltip>
       )}
     </div>

@@ -128,7 +128,7 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
                     })
                   }
                 >
-                  <i class="fa fa-chevron-down"></i> See more questions (5)
+                  <i className="fa fa-chevron-down"></i> See more questions (5)
                 </Button>
               ) : (
                 <Button
@@ -140,7 +140,7 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
                     })
                   }
                 >
-                  <i class="fa fa-chevron-up"></i> Collapse questions
+                  <i className="fa fa-chevron-up"></i> Collapse questions
                 </Button>
               ))}
             <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>

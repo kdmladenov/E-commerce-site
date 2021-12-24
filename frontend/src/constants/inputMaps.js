@@ -196,7 +196,7 @@ export const productDetailsInitialInputState = {
     label: 'Product Category',
     type: 'select',
     options: [
-      <option selected value="Electronics">
+      <option value="Electronics">
         {'Electronics'}
       </option>
     ],
