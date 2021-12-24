@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProductDetailsEdit from '../components/ProductDetailsEdit';
+import ProductFeaturesEdit from '../components/ProductFeaturesEdit';
 import ProductSpecificationsEdit from '../components/ProductSpecificationsEdit';
 import './styles/ProductEditScreen.css';
 
@@ -50,8 +51,7 @@ const ProductEditScreen = ({ match }) => {
             activeTab === 'features' && 'active'
           }`}
         >
-          Features
-          {/* <ProductListAdmin /> */}
+          <ProductFeaturesEdit productId={productId} />
         </section>
       </div>
     </main>
@@ -59,7 +59,6 @@ const ProductEditScreen = ({ match }) => {
 };
 
 export default ProductEditScreen;
-
 
 // import React, { useEffect, useState } from 'react';
 // import Button from '../components/Button';
