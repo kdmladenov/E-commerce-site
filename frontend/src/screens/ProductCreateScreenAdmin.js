@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import './styles/ProductEditScreenAdmin.css';
+// import './styles/ProductEditScreenAdmin.css';
 import { createProduct } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import productCategoriesEnum from '../constants/product-categories.enum';
@@ -34,7 +34,6 @@ const ProductCreateScreenAdmin = ({ match, history }) => {
   useEffect(() => {
     if (success) {
       dispatch({ type: PRODUCT_CREATE_RESET });
-      history.push('/admin/productlist');
     }
   }, [history, dispatch, success]);
 
