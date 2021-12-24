@@ -90,7 +90,7 @@ export const updateProductFeature = (updatedProductFeature) => async (dispatch, 
     };
 
     await axios.put(
-      `${BASE_URL}/products/${updatedProductFeature.featureId}/features`,
+      `${BASE_URL}/products/${updatedProductFeature.id}/features`,
       updatedProductFeature,
       config
     );

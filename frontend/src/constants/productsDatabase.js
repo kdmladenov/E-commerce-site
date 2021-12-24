@@ -9,7 +9,7 @@ export const productsDatabase = [
       'ASUS CX22NA Chromebook: Stay productive and entertained with this ASUS 11.6-inch Chromebook notebook. The 4GB memory ensure fast startups, while the Intel Celeron processor and 32GB eMMC Flash Memory offer smooth performance. This ASUS 11.6-inch Chromebook notebook has an LED-backlit HD display that provides an engaging viewing experience and is easily visible in dark environments.\n',
     brand: 'ASUS',
     productCategory: 'Electornics',
-    weight: 219,
+    price: 219,
     stockCount: 89,
     isDeleted: 0,
     modelNumber: 'CX22NA-211.BB01',

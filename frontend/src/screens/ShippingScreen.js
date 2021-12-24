@@ -13,7 +13,10 @@ const ShippingScreen = () => {
         </div>
         <section className={`address_container card `}>
           <h1>Shipping Address</h1>
-          <FormComponent inputData={profileAddressInitialInputState} screen="shipping" />
+          <FormComponent
+            inputData={profileAddressInitialInputState}
+            screen="shipping"
+          />
         </section>
       </div>
     </main>

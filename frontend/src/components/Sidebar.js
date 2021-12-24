@@ -1,11 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router';
 import Accordion from './Accordion';
-import Button from './Button';
 import './styles/Sidebar.css';
 
 const Sidebar = ({ endpoint, setEndpoint, inputMap }) => {
-  const history = useHistory()
   const filterHandler = (e) => {
     if (e.target.checked) {
       setEndpoint({
@@ -25,7 +22,7 @@ const Sidebar = ({ endpoint, setEndpoint, inputMap }) => {
   // }
 
   return (
-    <div className="sidebar">
+    <div className="product_sidebar">
       {/* <Button classes='text' onClick={clearAllFiltersHandler}>clear all</Button> */}
       {Object.keys(inputMap).map((inputGroup) => (
         <Accordion>
@@ -36,13 +33,14 @@ const Sidebar = ({ endpoint, setEndpoint, inputMap }) => {
             </Accordion.Header>
             <Accordion.Body>
               {inputMap[inputGroup].map((inputItem) => (
-                <div>
+                <div className="product_sidebar_checkbox_item">
                   <input
+                    id={inputItem.label}
                     type={inputItem.type}
                     value={inputItem.value}
                     onChange={(e) => filterHandler(e)}
-                  ></input>
-                  <label>{inputItem.label}</label>
+                  />
+                  <label htmlFor={inputItem.label}>{inputItem.label}</label>
                 </div>
               ))}
             </Accordion.Body>

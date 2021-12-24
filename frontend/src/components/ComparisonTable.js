@@ -64,7 +64,7 @@ const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
           ) : spec === 'graphicsModel' ? (
             <p>
               {`${product['graphicsModel']}`}
-              <p>{`(${product['graphicsType']})`}</p>
+              <span>{`(${product['graphicsType']})`}</span>
             </p>
           ) : (
             product[spec]

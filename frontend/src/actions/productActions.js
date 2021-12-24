@@ -8,9 +8,6 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_FEATURES_LIST_FAIL,
-  PRODUCT_FEATURES_LIST_REQUEST,
-  PRODUCT_FEATURES_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -43,11 +40,11 @@ export const listProducts =
     }
   };
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listProductDetails = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${BASE_URL}/products/${id}`);
+    const { data } = await axios.get(`${BASE_URL}/products/${productId}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -170,20 +167,20 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.put(
-      `${BASE_URL}/products/${updatedProduct.productId}`,
-      updatedProduct,
-      config
-    );
+    // const { data } = await axios.put(
+    //   `${BASE_URL}/products/${updatedProduct.id}`,
+    //   updatedProduct,
+    //   config
+    // );
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS
     });
-    // update the state everywhere
-    dispatch({
-      type: PRODUCT_DETAILS_SUCCESS,
-      payload: data
-    });
+    // // update the state everywhere
+    // dispatch({
+    //   type: PRODUCT_DETAILS_SUCCESS,
+    //   payload: data
+    // });
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,

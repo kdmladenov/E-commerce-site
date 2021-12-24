@@ -24,7 +24,7 @@ const ProductFeatures = ({ productId }) => {
     <Accordion>
       {productFeatures?.map((feature, index) => (
         <Accordion.Item key={feature.featuresId}>
-          <Accordion.Header singleopened="true" index={index}>
+          <Accordion.Header index={index}>
             <Accordion.Title>{feature.featureTitle}</Accordion.Title>
             <Accordion.ButtonGroup></Accordion.ButtonGroup>
           </Accordion.Header>
@@ -33,7 +33,7 @@ const ProductFeatures = ({ productId }) => {
       ))}
     </Accordion>
   ) : (
-    <Message type="success">Ask Question Box</Message>
+    <Message type="success">No features</Message>
   );
 };
 

@@ -1,0 +1,38 @@
+.product_sidebar .accordion_header {
+  padding: 0px 20px;
+}
+
+.product_sidebar .accordion_title {
+  color: var(--gray_dark);
+}
+
+.product_sidebar .product_sidebar_checkbox_item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.product_sidebar label {
+  padding: 0px 10px;
+  flex: 1;
+  margin: 2px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: var(--gray_dark);
+  cursor: pointer;
+}
+
+.product_sidebar input:checked + label {
+  background-color: var(--blue_light);
+  box-shadow: var(--box_shadow);
+  color: var(--black);
+}
+
+.product_sidebar input {
+  visibility: hidden;
+}
+
+.product_sidebar .product_sidebar_checkbox_item label[for*="(0)"] {
+  pointer-events: none;
+  color: var(--gray)
+}

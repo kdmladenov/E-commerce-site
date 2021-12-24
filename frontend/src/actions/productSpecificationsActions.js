@@ -69,9 +69,8 @@ export const updateProductSpecification =
           Authorization: `Bearer ${userInfo.token}`
         }
       };
-
       await axios.put(
-        `${BASE_URL}/products/${updatedProductSpecification.specificationId}/specifications`,
+        `${BASE_URL}/products/${updatedProductSpecification.id}/specifications`,
         updatedProductSpecification,
         config
       );
@@ -80,15 +79,15 @@ export const updateProductSpecification =
         type: PRODUCT_SPECIFICATION_UPDATE_SUCCESS
       });
 
-      // update the state everywhere
-      const { data } = await axios.get(
-        `${BASE_URL}/products/${updatedProductSpecification.productId}`
-      );
+      // // update the state everywhere
+      // const { data } = await axios.get(
+      //   `${BASE_URL}/products/${updatedProductSpecification.productId}`
+      // );
 
-      dispatch({
-        type: PRODUCT_DETAILS_SUCCESS,
-        payload: data
-      });
+      // dispatch({
+      //   type: PRODUCT_DETAILS_SUCCESS,
+      //   payload: data
+      // });
     } catch (error) {
       dispatch({
         type: PRODUCT_SPECIFICATION_UPDATE_FAIL,

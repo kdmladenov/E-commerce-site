@@ -20,7 +20,7 @@ const ProductFeaturesMain = ({ featuresRef }) => {
       <>
         <ul>
           {productFeatures?.slice(0, PRODUCT_FEATURES_MAIN_COUNT).map((feature) => (
-            <li>{feature.featureTitle}</li>
+            <li key={feature.featureId}>{feature.featureTitle}</li>
           ))}
         </ul>
         <Button classes="text" onClick={() => scrollTo(featuresRef)}>

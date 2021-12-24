@@ -56,7 +56,7 @@ const AnswerCard = ({
     <li className="answer">
       {editMode || createAnswerMode ? (
         <input
-          type="text"
+          type="textarea"
           className="textarea card"
           value={contentAnswer}
           onChange={(e) => setContentAnswer(e.target.value)}
@@ -71,7 +71,8 @@ const AnswerCard = ({
         </div>
       )}
       <div className="created_info">
-        {<Avatar type="small name_only" avatar={avatar} fullName={fullName} />} on{' '}
+        {/* {<Avatar type="small name_only" imageUrl={avatar} fullName={fullName} />} */}
+        <span>{fullName}</span>on{' '}
         {!dateEdited
           ? `${dateCreated.slice(0, 10)}`
           : `${getTimeDuration(dateEdited, new Date())}(edited)`}

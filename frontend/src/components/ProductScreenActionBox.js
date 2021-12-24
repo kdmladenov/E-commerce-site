@@ -66,7 +66,7 @@ const ProductScreenActionBox = ({ product }) => {
       <li>
         {stockCount > 0 && (
           <select value={qty} onChange={(e) => setQty(e.target.value)}>
-            <option value="" disabled selected hidden>
+            <option value="" disabled hidden>
               {`Qty: ${qty}`}
             </option>
             {[...Array(stockCount).keys()]
