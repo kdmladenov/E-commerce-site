@@ -35,6 +35,8 @@ const FormComponent = ({
 
   const isInputValid = (input, validations) => {
     if (validations.required && input.length === 0) return false;
+    if (validations.minValue && +input <= validations.minValue) return false;
+    if (validations.maxValue && +input >= validations.maxValue) return false;
     if (validations.minLength && input.length < validations.minLength) return false;
     if (validations.maxLength && input.length > validations.maxLength) return false;
     if (validations.format && !validations.format.test(input)) return false;
@@ -78,7 +80,17 @@ const FormComponent = ({
     .map(({ id, config }) => {
       return config.formElement === 'select' ? (
         <select key={id} name={id} value={config?.value} onChange={handleInputChange}>
-          <option value="" >{`${config?.label}: ${config?.value}`}</option>
+          <option value="">{`${config?.label}: ${
+            config?.label === 'Screen size' && config?.value
+              ? `${config?.value} inches`
+              : (config?.label === 'System memory' || config?.label === 'Storage capacity') &&
+                config?.value
+              ? `${config?.value} GB`
+              : (config?.label === 'Touch screen' || config?.label === 'Backlit keyboard') &&
+                config?.value
+              ? `${Boolean(config?.value)}`
+              : config?.value || ''
+          }`}</option>
           {config.options
             .filter((item) => item?.value?.toString() !== config?.value?.toString())
             .map((item) => (
@@ -89,9 +101,9 @@ const FormComponent = ({
         </select>
       ) : (
         <div
-          className={`wrapper ${config.value ? 'filled' : ''} ${inputErrors[id] ? 'error' : ''} ${
-            config.touched ? 'touched' : ''
-          }`}
+          className={`wrapper ${config.value !== '' ? 'filled' : ''} ${
+            inputErrors[id] ? 'error' : ''
+          } ${config.touched ? 'touched' : ''}`}
           key={id}
         >
           <label htmlFor={id}>{config.label}</label>

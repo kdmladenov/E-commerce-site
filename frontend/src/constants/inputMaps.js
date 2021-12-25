@@ -253,16 +253,16 @@ export const productDetailsInitialInputState = {
     valid: true,
     touched: false
   },
-  isDeleted: {
-    label: 'Product deleted',
-    type: 'checkbox',
-    value: 'unchecked',
-    validations: {
-      required: true
-    },
-    valid: true,
-    touched: false
-  },
+  // isDeleted: {
+  //   label: 'Product deleted',
+  //   type: 'checkbox',
+  //   value: 'unchecked',
+  //   validations: {
+  //     required: true
+  //   },
+  //   valid: true,
+  //   touched: false
+  // },
   modelNumber: {
     label: 'Model Number',
     type: 'text',
@@ -290,9 +290,9 @@ export const productDetailsInitialInputState = {
     touched: false
   },
   releaseYear: {
-    label: 'Product price',
+    label: 'Release year',
     type: 'number',
-    placeholder: 'Enter price ...',
+    placeholder: 'Enter year ...',
     min: PRODUCT.MIN_RELEASE_YEAR,
     max: PRODUCT.MAX_RELEASE_YEAR,
     value: '',
@@ -360,19 +360,6 @@ export const productDetailsInitialInputState = {
   }
 };
 
-//      <select value={qty} onChange={(e) => setQty(e.target.value)}>
-//        <option value="" disabled hidden>
-//          {`Qty: ${qty}`}
-//        </option>
-//        {[...Array(stockCount).keys()]
-//          .slice(0, Math.min(stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
-//          .map((index) => (
-//            <option key={index + 1} value={index + 1}>
-//              {qty === index + 1 ? `Qty: ${index + 1}` : index + 1}
-//            </option>
-//          ))}
-//      </select>
-
 export const productSpecificationsInitialInputState = {
   screenSize: {
     formElement: 'select',
@@ -427,23 +414,6 @@ export const productSpecificationsInitialInputState = {
     valid: true,
     touched: false
   },
-  touchScreen: {
-    formElement: 'select',
-    label: 'Touch screen',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.touchScreen)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue === 1 ? 'true' : 'false'}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Touch screen ...',
-    value: '',
-    validations: {
-      required: true
-    },
-    valid: true,
-    touched: false
-  },
   processorBrand: {
     formElement: 'select',
     label: 'Processor brand',
@@ -480,7 +450,7 @@ export const productSpecificationsInitialInputState = {
   },
   processorModelNumber: {
     formElement: 'select',
-    label: 'Processor model number',
+    label: 'Processor number',
     options: Array.from(
       new Set(Object.values(productsDatabase).map((item) => item.processorModelNumber))
     )
@@ -550,6 +520,25 @@ export const productSpecificationsInitialInputState = {
     valid: true,
     touched: false
   },
+  operatingSystem: {
+    formElement: 'select',
+    label: 'Operating system',
+    options: Array.from(
+      new Set(Object.values(productsDatabase).map((item) => item.operatingSystem))
+    )
+      .sort()
+      .map((itemValue) => ({
+        label: `${itemValue}`,
+        value: `${itemValue}`
+      })),
+    placeholder: 'Operating system ...',
+    value: '',
+    validations: {
+      required: true
+    },
+    valid: true,
+    touched: false
+  },
   graphicsType: {
     formElement: 'select',
     label: 'Graphics type',
@@ -601,25 +590,6 @@ export const productSpecificationsInitialInputState = {
     valid: true,
     touched: false
   },
-  operatingSystem: {
-    formElement: 'select',
-    label: 'Operating system',
-    options: Array.from(
-      new Set(Object.values(productsDatabase).map((item) => item.operatingSystem))
-    )
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Operating system ...',
-    value: '',
-    validations: {
-      required: true
-    },
-    valid: true,
-    touched: false
-  },
   voiceAssistant: {
     formElement: 'select',
     label: 'Voice Assistant',
@@ -647,6 +617,23 @@ export const productSpecificationsInitialInputState = {
         value: `${itemValue}`
       })),
     placeholder: 'Battery type ...',
+    value: '',
+    validations: {
+      required: true
+    },
+    valid: true,
+    touched: false
+  },
+  touchScreen: {
+    formElement: 'select',
+    label: 'Touch screen',
+    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.touchScreen)))
+      .sort()
+      .map((itemValue) => ({
+        label: `${itemValue === 1 ? 'true' : 'false'}`,
+        value: `${itemValue}`
+      })),
+    placeholder: 'Touch screen ...',
     value: '',
     validations: {
       required: true

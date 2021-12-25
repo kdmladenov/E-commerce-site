@@ -15,29 +15,31 @@ export default {
     value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
     value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
   image: (value) => typeof value === 'string',
-  product_category: (value) =>
+  productCategory: (value) =>
     typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value),
   price: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_PRICE_VALUE &&
     value <= PRODUCT.MAX_PRICE_VALUE,
-  stock_count: (value) =>
-    typeof value === 'number' &&
+  stockCount: (value) =>
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_STOCK_COUNT &&
     value <= PRODUCT.MAX_STOCK_COUNT,
   discount: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_DISCOUNT_VALUE &&
     value <= PRODUCT.MAX_DISCOUNT_VALUE,
   isDeleted: (value) => typeof value === 'boolean',
   modelNumber: (value) =>
     typeof value === 'string' &&
-    value >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
-    value <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
+    value.length >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
+    value.length <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
   sku: (value) =>
-    typeof value === 'string' && value >= PRODUCT.MIN_SKU_LENGTH && value <= PRODUCT.MAX_SKU_LENGTH,
+    typeof value === 'string' &&
+    value.length >= PRODUCT.MIN_SKU_LENGTH &&
+    value.length <= PRODUCT.MAX_SKU_LENGTH,
   releaseYear: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_RELEASE_YEAR &&
     value <= PRODUCT.MAX_RELEASE_YEAR,
   color: (value) =>
@@ -48,5 +50,7 @@ export default {
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_FAMILY_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_FAMILY_LENGTH,
-  dimensions: (value) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value)
+  dimensions: (value) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value),
+  weight: (value) =>
+    typeof +value === 'number' && value >= PRODUCT.MIN_WEIGHT && value <= PRODUCT.MAX_WEIGHT
 };

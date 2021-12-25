@@ -167,20 +167,20 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
       }
     };
 
-    // const { data } = await axios.put(
-    //   `${BASE_URL}/products/${updatedProduct.id}`,
-    //   updatedProduct,
-    //   config
-    // );
+    const { data } = await axios.put(
+      `${BASE_URL}/products/${updatedProduct.id}`,
+      updatedProduct,
+      config
+    );
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS
     });
     // // update the state everywhere
-    // dispatch({
-    //   type: PRODUCT_DETAILS_SUCCESS,
-    //   payload: data
-    // });
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: data
+    });
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,

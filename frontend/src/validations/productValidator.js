@@ -18,26 +18,28 @@ const validate = {
   productCategory: (value) =>
     typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value),
   price: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_PRICE_VALUE &&
     value <= PRODUCT.MAX_PRICE_VALUE,
   stockCount: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_STOCK_COUNT &&
     value <= PRODUCT.MAX_STOCK_COUNT,
   discount: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_DISCOUNT_VALUE &&
     value <= PRODUCT.MAX_DISCOUNT_VALUE,
   isDeleted: (value) => typeof value === 'boolean',
   modelNumber: (value) =>
     typeof value === 'string' &&
-    value >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
-    value <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
+    value.length >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
+    value.length <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
   sku: (value) =>
-    typeof value === 'string' && value >= PRODUCT.MIN_SKU_LENGTH && value <= PRODUCT.MAX_SKU_LENGTH,
+    typeof value === 'string' &&
+    value.length >= PRODUCT.MIN_SKU_LENGTH &&
+    value.length <= PRODUCT.MAX_SKU_LENGTH,
   releaseYear: (value) =>
-    typeof value === 'number' &&
+    typeof +value === 'number' &&
     value >= PRODUCT.MIN_RELEASE_YEAR &&
     value <= PRODUCT.MAX_RELEASE_YEAR,
   color: (value) =>
@@ -48,9 +50,9 @@ const validate = {
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_FAMILY_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_FAMILY_LENGTH,
-  dimensions: (value) =>
-    typeof value === 'string' &&
-    PRODUCT.DIMENSIONS_REGEX.test(value)
+  dimensions: (value) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value),
+  weight: (value) =>
+    typeof +value === 'number' && value >= PRODUCT.MIN_WEIGHT && value <= PRODUCT.MAX_WEIGHT
 };
 
 const validateInputProduct = {
@@ -186,6 +188,15 @@ const validateInputProduct = {
     }
     if (!validate.dimensions(value, match)) {
       return ' must be in the format H x W x D inches';
+    }
+    return '';
+  },
+  weight: (value) => {
+    if (!value) {
+      return ' is required!';
+    }
+    if (!validate.weight(value)) {
+      return ` must be between ${PRODUCT.MIN_WEIGHT} and ${PRODUCT.MAX_WEIGHT} pounds`;
     }
     return '';
   }

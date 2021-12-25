@@ -82,10 +82,11 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
-    errorHandler(async (req, res) => {
+    // errorHandler(
+      async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
-
+console.log(data, 'data');
       const { error, result } = await productsServices.updateProduct(productsData)(
         +productId,
         data
@@ -103,7 +104,7 @@ productsController
         res.status(200).send(result);
       }
     })
-  )
+  // )
 
   // @desc CREATE Products by ID
   // @route POST /products/:productId

@@ -182,26 +182,39 @@ const create = async (product) => {
       product_category,
       price,
       stock_count,
-      discount
+      discount,
+      color,
+      color_family,
+      dimensions,
+      model_Number,
+      release_year,
+      sku,
+      weight
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const result = await db.query(sql, [
     product.title,
     product.brand,
     product.image || null,
-    product.description || '',
-    product.product_category,
+    product.description,
+    product.productCategory,
     +product.price,
-    +product.stock_count,
-    +product.discount
+    +product.stockCount,
+    +product.discount,
+    product.color,
+    product.colorFamily,
+    product.dimensions,
+    product.modelNumber,
+    +product.releaseYear,
+    product.sku,
+    +product.weight
   ]);
 
   return getBy('product_id', result.insertId);
 };
 
 const update = async (updatedProduct) => {
-
   const sql = `
         UPDATE products
         SET
@@ -212,20 +225,34 @@ const update = async (updatedProduct) => {
           product_category = ?,
           price = ?,
           stock_count = ?,
-          discount = ?
+          discount = ?,
+          color = ?,
+          color_family = ?,
+          dimensions = ?,
+          model_number = ?,
+          release_year = ?,
+          sku = ?,
+          weight = ?
         WHERE product_id = ?
     `;
 
   const _ = await db.query(sql, [
-    updatedProduct.title,
-    updatedProduct.brand,
-    updatedProduct.image,
-    updatedProduct.description,
-    updatedProduct.productCategory,
-    +updatedProduct.price,
-    +updatedProduct.stockCount,
-    +updatedProduct.discount,
-    +updatedProduct.productId,
+    updatedProduct.title || null,
+    updatedProduct.brand || null,
+    updatedProduct.image || null,
+    updatedProduct.description || null,
+    updatedProduct.productCategory || null,
+    +updatedProduct.price || 0,
+    +updatedProduct.stockCount || 0,
+    +updatedProduct.discount || 0,
+    updatedProduct.color || null,
+    updatedProduct.colorFamily || null,
+    updatedProduct.dimensions || null,
+    updatedProduct.modelNumber || null,
+    +updatedProduct.releaseYear || 2020,
+    updatedProduct.sku || null,
+    +updatedProduct.weight || 0,
+    +updatedProduct.productId
   ]);
 
   return getBy('product_id', updatedProduct.productId);

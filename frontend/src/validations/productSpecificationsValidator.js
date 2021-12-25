@@ -32,8 +32,8 @@ const validate = {
   isDeleted: (value) => typeof value === 'boolean',
   modelNumber: (value) =>
     typeof value === 'string' &&
-    value >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
-    value <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
+    value.length >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
+    value.length <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
   sku: (value) =>
     typeof value === 'string' && value >= PRODUCT.MIN_SKU_LENGTH && value <= PRODUCT.MAX_SKU_LENGTH,
   releaseYear: (value) =>
@@ -48,9 +48,7 @@ const validate = {
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_FAMILY_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_FAMILY_LENGTH,
-  dimensions: (value) =>
-    typeof value === 'string' &&
-    PRODUCT.DIMENSIONS_REGEX.test(value)
+  dimensions: (value) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value)
 };
 
 const validateInputProduct = {
