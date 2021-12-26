@@ -1,11 +1,11 @@
-.product_list_admin .accordion .accordion_header,
-.product_list_admin .product_header {
+.product_list_admin .accordion .accordion_header {
   display: grid;
   padding: 0 20px;
   grid-template-columns: 2.5fr 1fr;
   height: 50px;
   grid-gap: 15px;
 }
+
 .product_list_admin .product_header {
   position: sticky;
   top: 0px;
@@ -16,6 +16,15 @@
 
 .product_list_admin .product_title_header {
   display: grid;
+  width: 100%;
+  padding: 0 20px;
+  grid-template-columns: 2.5fr 1fr;
+  height: 50px;
+  grid-gap: 15px;
+}
+
+.product_list_admin .product_title_header .titles {
+  display: grid;
   grid-template-columns: 20px 70px 1fr 70px 50px;
   padding: 10px 0;
   justify-content: center;
@@ -23,6 +32,13 @@
   color: rgb(88, 88, 88);
   gap: 15px;
 }
+
+.product_list_admin .product_title_header .buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .product_list_admin .header_controls {
   border-radius: 5px 5px 0 0;
   box-shadow: var(--box_shadow);

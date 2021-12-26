@@ -123,7 +123,6 @@ export const createProduct = (productData) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_CREATE_REQUEST
     });
-
     const {
       userLogin: { userInfo }
     } = getState();

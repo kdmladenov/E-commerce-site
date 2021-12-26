@@ -12,8 +12,8 @@
 
 /* Colors : orange , blue, red, yellow(default), white */
 .button_container.orange {
-  background: var(--orange);
-  color: var(--black);
+  background: var(--cheetos);
+  color: var(--white);
 }
 .button_container.blue {
   background: var(--blue);
@@ -38,6 +38,11 @@
 .button_container.white {
   background: var(--white);
   color: var(--gray_dark);
+}
+
+.button_container.green {
+  background: var(--mulah);
+  color: var(--white);
 }
 
 /* Gradients */

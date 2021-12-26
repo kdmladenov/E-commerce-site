@@ -14,7 +14,6 @@ import {
 import Pagination from './Pagination';
 import { deleteProduct, listProducts, restoreProduct } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
-import Tooltip from './Tooltip';
 import HeaderControls from './HeaderControls';
 import Price from './Price';
 import ProductDetails from './ProductDetails';
@@ -54,6 +53,7 @@ const ProductListAdmin = () => {
   };
 
   const createProductHandler = () => {
+    dispatch({ type: PRODUCT_CREATE_RESET });
     history.push(`/admin/product/create`);
   };
 
@@ -88,9 +88,6 @@ const ProductListAdmin = () => {
 
   return (
     <div className="product_list_admin">
-      {/* <Button classes="icon" onClick={createProductHandler}>
-        <i className="fas fa-plus" /> Create Product
-      </Button> */}
       <HeaderControls
         updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
         query={endpoint}
@@ -112,23 +109,29 @@ const ProductListAdmin = () => {
         <>
           <div className="product_header">
             <div className="product_title_header">
-              <div>
-                <span>ID</span>
+              <div className="titles">
+                <div>
+                  <span>ID</span>
+                </div>
+                <div>
+                  <span>Image</span>
+                </div>
+                <div>
+                  <span>Title</span>
+                </div>
+                <div>
+                  <span>Price</span>
+                </div>
+                <div>
+                  <span>Active</span>
+                </div>
               </div>
-              <div>
-                <span>Image</span>
-              </div>
-              <div>
-                <span>Title</span>
-              </div>
-              <div>
-                <span>Price</span>
-              </div>
-              <div>
-                <span>Active</span>
+              <div className="buttons">
+                <Button classes="rounded" onClick={createProductHandler}>
+                  <i className="fas fa-plus" /> Create Product
+                </Button>
               </div>
             </div>
-            <></>
           </div>
           <Accordion>
             {products?.map((product) => (

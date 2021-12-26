@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import './styles/ProductDetailsEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
+import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { listProductDetails, updateProduct } from '../actions/productActions';
+import { createProduct, listProductDetails, updateProduct } from '../actions/productActions';
 import FormComponent from '../components/FormComponent';
 import { productDetailsInitialInputState } from '../constants/inputMaps';
 import validateInputProduct from '../validations/productValidator';
@@ -14,30 +14,47 @@ const ProductDetailsEdit = ({ productId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  const productUpdate = useSelector((state) => state.productUpdate);
+  const productCreate = useSelector((state) => state.productCreate);
   const {
-    loading: loadingUpdateProduct,
-    error: errorUpdateProduct,
-    success: successUpdateProduct
-  } = productUpdate;
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct
+  } = productCreate;
+
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
 
   useEffect(() => {
-    if (successUpdateProduct) {
+    if (userInfo?.role !== 'admin') {
+      history.push('/login');
+    }
+    if (successCreate) {
+      dispatch({ type: PRODUCT_CREATE_RESET });
+      dispatch(listProductDetails(createdProduct.productId));
+      history.push(`/admin/product/${createdProduct.productId}/edit`);
+    }
+    if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
     }
-  }, [history, dispatch, successUpdateProduct]);
+  }, [history, dispatch, successUpdate, createdProduct, successCreate, userInfo, productId]);
 
   useEffect(() => {
-    dispatch(listProductDetails(productId));
-  }, []);
+    productId && dispatch(listProductDetails(productId));
+  }, [dispatch, productId]);
 
   return (
     <div className="product_details_edit">
-      {loadingUpdateProduct && <Loader />}
-      {errorUpdateProduct && <Message type="success">{errorUpdateProduct}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message type="error">{errorCreate}</Message>}
+      {loadingUpdate && <Loader />}
+      {errorUpdate && <Message type="error">{errorUpdate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -53,11 +70,13 @@ const ProductDetailsEdit = ({ productId }) => {
           <FormComponent
             inputData={productDetailsInitialInputState}
             updateAction={updateProduct}
+            createAction={createProduct}
             getDetailsAction={listProductDetails}
             resourceId={productId}
-            successUpdate={successUpdateProduct}
+            successUpdate={successUpdate}
             resource={product}
             validateInput={validateInputProduct}
+            mode={productId ? '' : 'create'}
           />
         </div>
       )}

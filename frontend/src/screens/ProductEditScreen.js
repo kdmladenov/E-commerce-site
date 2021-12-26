@@ -17,19 +17,21 @@ const ProductEditScreen = ({ match }) => {
             className={`tab ${activeTab === 'details' && 'active'}`}
             onClick={() => setActiveTab('details')}
           >
-            Edit Product Details
+            {productId ? `Edit Product` : `Create Product`}
           </button>
           <button
             className={`tab ${activeTab === 'specifications' && 'active'}`}
             onClick={() => setActiveTab('specifications')}
+            disabled={!productId}
           >
-            Edit Product Specifications
+            {productId ? `Edit Product Specifications` : `Add Product Specifications`}
           </button>
           <button
             className={`tab ${activeTab === 'features' && 'active'}`}
             onClick={() => setActiveTab('features')}
+            disabled={!productId}
           >
-            Edit Product Features
+            Add/Edit Product Features
           </button>
         </div>
         <section
@@ -39,20 +41,24 @@ const ProductEditScreen = ({ match }) => {
         >
           <ProductDetailsEdit productId={productId} />
         </section>
-        <section
-          className={`product_specifications_edit_container content ${
-            activeTab === 'specifications' && 'active'
-          }`}
-        >
-          <ProductSpecificationsEdit productId={productId} />
-        </section>
-        <section
-          className={`product_features_edit_container content ${
-            activeTab === 'features' && 'active'
-          }`}
-        >
-          <ProductFeaturesEdit productId={productId} />
-        </section>
+        {productId && (
+          <section
+            className={`product_specifications_edit_container content ${
+              activeTab === 'specifications' && 'active'
+            }`}
+          >
+            <ProductSpecificationsEdit  />
+          </section>
+        )}
+        {productId && (
+          <section
+            className={`product_features_edit_container content ${
+              activeTab === 'features' && 'active'
+            }`}
+          >
+            <ProductFeaturesEdit productId={productId} />
+          </section>
+        )}
       </div>
     </main>
   );
