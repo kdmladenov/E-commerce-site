@@ -14,7 +14,7 @@ export default {
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
     value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
-  image: (value) => typeof value === 'string',
+  image: (value) => !value || typeof value === 'string',
   productCategory: (value) =>
     typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value),
   price: (value) =>
@@ -29,7 +29,7 @@ export default {
     typeof +value === 'number' &&
     value >= PRODUCT.MIN_DISCOUNT_VALUE &&
     value <= PRODUCT.MAX_DISCOUNT_VALUE,
-  isDeleted: (value) => typeof value === 'boolean',
+  isDeleted: (value) => !value || typeof value === 'boolean',
   modelNumber: (value) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&

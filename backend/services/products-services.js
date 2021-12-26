@@ -23,16 +23,16 @@ const getProductById = (productsData) => async (productId, role) => {
 };
 
 const createProduct = (productsData) => async (data) => {
-  const { title } = data;
+  // const { title } = data;
 
-  const existingProduct = await productsData.getBy('title', title, 'admin');
+  // const existingProduct = await productsData.getBy('title', title, 'admin');
 
-  if (existingProduct) {
-    return {
-      error: errors.DUPLICATE_RECORD,
-      product: null
-    };
-  }
+  // if (existingProduct) {
+  //   return {
+  //     error: errors.DUPLICATE_RECORD,
+  //     product: null
+  //   };
+  // }
   return {
     error: null,
     product: await productsData.create(data)
@@ -48,17 +48,17 @@ const updateProduct = (productsData) => async (productId, updatedData) => {
       product: null
     };
   }
-  // checks if the updated title exist in other product
-  if (
-    updatedData.title &&
-    (await productsData.getBy('title', updatedData.title, 'admin')) &&
-    (await productsData.getBy('title', updatedData.title, 'admin')).productId !== productId
-  ) {
-    return {
-      error: errors.DUPLICATE_RECORD,
-      product: null
-    };
-  }
+  // // checks if the updated title exist in other product
+  // if (
+  //   updatedData.title &&
+  //   (await productsData.getBy('title', updatedData.title, 'admin')) &&
+  //   (await productsData.getBy('title', updatedData.title, 'admin')).productId !== productId
+  // ) {
+  //   return {
+  //     error: errors.DUPLICATE_RECORD,
+  //     product: null
+  //   };
+  // }
 
   const updated = { ...existingProduct, ...updatedData };
   const result = await productsData.update(updated);
@@ -180,9 +180,9 @@ const createProductSpecification =
   (productsData, specificationsData) => async (productId, updatedData) => {
     const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
 
-    if (existingProduct) {
+    if (!existingProduct) {
       return {
-        error: errors.DUPLICATE_RECORD,
+        error: errors.RECORD_NOT_FOUND,
         product: null
       };
     }
@@ -200,7 +200,7 @@ const createProductSpecification =
     }
     return {
       error: null,
-      product: await specificationsData.create(data)
+      productSpecification: await specificationsData.create(productId, updatedData)
     };
   };
 

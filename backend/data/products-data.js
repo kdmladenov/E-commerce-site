@@ -186,7 +186,7 @@ const create = async (product) => {
       color,
       color_family,
       dimensions,
-      model_Number,
+      model_number,
       release_year,
       sku,
       weight
@@ -196,7 +196,7 @@ const create = async (product) => {
   const result = await db.query(sql, [
     product.title,
     product.brand,
-    product.image || null,
+    product.image || 'storage/images/defaultImage.png',
     product.description,
     product.productCategory,
     +product.price,

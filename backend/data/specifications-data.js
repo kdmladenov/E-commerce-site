@@ -30,6 +30,7 @@ const getBy = async (column, value, role = 'basic') => {
 };
 
 const create = async (productId, data) => {
+  
   const sql = `
     INSERT INTO specifications (
       product_id,

@@ -83,10 +83,9 @@ productsController
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
-console.log(data, 'data');
       const { error, result } = await productsServices.updateProduct(productsData)(
         +productId,
         data
@@ -96,14 +95,15 @@ console.log(data, 'data');
         res.status(404).send({
           message: 'The product is not found.'
         });
-      } else if (error === errors.DUPLICATE_RECORD) {
-        res.status(409).send({
-          message: 'Another product with this title already exist.'
-        });
+        // } else if (error === errors.DUPLICATE_RECORD) {
+        //   res.status(409).send({
+        //     message: 'Another product with this title already exist.'
+        //   });
       } else {
         res.status(200).send(result);
       }
-    })
+    }
+  )
   // )
 
   // @desc CREATE Products by ID
@@ -119,13 +119,14 @@ console.log(data, 'data');
       const data = req.body;
       const { error, product } = await productsServices.createProduct(productsData)(data);
 
-      if (error === errors.DUPLICATE_RECORD) {
-        res.status(409).send({
-          message: 'A product with same title already exists.'
-        });
-      } else {
-        res.status(201).send(product);
-      }
+      // Duplicate record removed, but could be implemented again
+      // if (error === errors.DUPLICATE_RECORD) {
+      //   res.status(409).send({
+      //     message: 'A product with same title already exists.'
+      //   });
+      // } else {
+      res.status(201).send(product);
+      // }
     })
   )
   // @desc DELETE product
@@ -293,7 +294,8 @@ console.log(data, 'data');
     roleMiddleware(rolesEnum.admin),
     // TO DO: createSpecificationsSchema
     // validateBody('specification', createSpecificationsSchema),
-    errorHandler(async (req, res) => {
+    // errorHandler(
+    async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -309,8 +311,9 @@ console.log(data, 'data');
       } else {
         res.status(201).send(productSpecification);
       }
-    })
+    }
   )
+  // )
   // @desc EDIT Product Specifications by specificationId
   // @route PUT /products/:specificationId/specifications
   // @access Private - Admin only
