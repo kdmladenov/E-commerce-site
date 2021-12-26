@@ -14,7 +14,7 @@ import {
 } from '../constants/productConstants';
 
 export const createProductSpecification =
-  (productId, productSpecificationData) => async (dispatch, getState) => {
+  (productSpecificationData) => async (dispatch, getState) => {
     try {
       dispatch({
         type: PRODUCT_SPECIFICATION_CREATE_REQUEST
@@ -30,9 +30,8 @@ export const createProductSpecification =
           Authorization: `Bearer ${userInfo.token}`
         }
       };
-
       const { data } = await axios.post(
-        `${BASE_URL}/products/${productId}/specifications`,
+        `${BASE_URL}/products/${productSpecificationData.id}/specifications`,
         productSpecificationData,
         config
       );
@@ -128,3 +127,5 @@ export const deleteProductSpecification = (specificationId) => async (dispatch, 
     });
   }
 };
+
+

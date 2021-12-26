@@ -10,10 +10,13 @@ const FormComponent = ({
   screen,
   resource,
   resourceId,
+  subResourceId,
   updateAction,
+  createAction,
   getDetailsAction,
   successUpdate,
-  validateInput
+  validateInput,
+  mode
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -54,7 +57,11 @@ const FormComponent = ({
 
     validateInput && setInputErrors({ ...inputErrors, [name]: validateInput[name](value) });
     setForm(updatedForm);
-    setIsFormValid(Object.values(updatedForm).every((elem) => elem.valid));
+    setIsFormValid(
+      Object.values(updatedForm).every((elem) =>
+        mode === 'create' && elem.validations.required ? elem.touched && elem.valid : elem.valid
+      )
+    );
   };
 
   const handleCancelButton = () => {
@@ -88,7 +95,7 @@ const FormComponent = ({
               ? `${config?.value} GB`
               : (config?.label === 'Touch screen' || config?.label === 'Backlit keyboard') &&
                 config?.value
-              ? `${Boolean(config?.value)}`
+              ? `${Boolean(+config?.value)}`
               : config?.value || ''
           }`}</option>
           {config.options
@@ -123,7 +130,7 @@ const FormComponent = ({
       );
     });
 
-  const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = Object.keys(form).reduce((acc, key) => {
@@ -134,10 +141,15 @@ const FormComponent = ({
     }, {});
 
     dispatch(
-      updateAction({
-        id: resourceId,
-        ...data
-      })
+      mode === 'create'
+        ? createAction({
+            id: resourceId || subResourceId,
+            ...data
+          })
+        : updateAction({
+            id: subResourceId || resourceId,
+            ...data
+          })
     );
 
     screen === 'shipping' && dispatch(saveShippingAddress({ ...data }));
@@ -152,13 +164,13 @@ const FormComponent = ({
       dispatch(getDetailsAction(resourceId));
       setIsResourceUpdated(false);
     } else {
-      const updated = Object.keys(form).reduce((acc, key) => {
+      const updatedFormData = Object.keys(form).reduce((acc, key) => {
         return {
           ...acc,
-          [key]: { ...form[key], value: resource[key] }
+          [key]: { ...form[key], value: mode === 'create' ? '' : resource[key] }
         };
       }, {});
-      setForm(updated);
+      setForm(updatedFormData);
       setIsResourceLoaded(true);
     }
   }, [
@@ -175,15 +187,14 @@ const FormComponent = ({
   return (
     <form onSubmit={handleSubmit} className="form_component">
       {formToRender}
-
       <div className="button_group">
         {Object.values(form).some((input) => input.touched || screen === 'shipping') && (
-          <Button classes="yellow rounded" type="submit" disabled={!isFormValid}>
+          <Button classes="rounded green" type="submit" disabled={!isFormValid}>
             {screen !== 'shipping' ? 'Save Changes' : 'Proceed to Payment'}
           </Button>
         )}
         {Object.values(form).some((input) => input.touched) && (
-          <Button classes="yellow rounded" type="Button" onClick={handleCancelButton}>
+          <Button classes="rounded orange" type="Button" onClick={handleCancelButton}>
             Cancel Changes
           </Button>
         )}

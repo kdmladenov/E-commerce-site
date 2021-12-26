@@ -3,18 +3,21 @@
 
 /* Form  */
 .product_specifications_edit .product_specifications_edit_form {
-  padding: 50px 100px;
+  padding: 30px 100px;
 }
 
 .product_specifications_edit .product_specifications_edit_form .form_component {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-auto-rows: 30px;
-  gap: 40px;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
 }
 
 .product_specifications_edit .product_specifications_edit_form .form_component select {
   width: fit-content;
+  margin: 0 auto 0 auto;
   border-radius: var(--border_radius);
   background: var(--white);
   font-size: 16px;
