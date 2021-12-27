@@ -1,4 +1,5 @@
 import errors from '../constants/service-errors.js';
+import { uploads } from '../constants/constants.js';
 
 const getAllProducts = (productsData) => async (search, filter, sort, pageSize, page) => {
   const result = await productsData.getAllProducts(search, filter, sort, pageSize, page);
@@ -248,6 +249,111 @@ const deleteProductSpecification = (specificationsData) => async (specificationI
     deletedProductSpecification: { ...specificationToDelete, isDeleted: 1 }
   };
 };
+
+const getProductById = (productsData) => async (productId, role) => {
+  const product = await productsData.getBy('product_id', productId, role);
+
+  if (!product) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      product: null
+    };
+  }
+
+  return {
+    error: null,
+    product
+  };
+};
+
+const getAllProductImages = (productsImagesData, productsData) => async (productId) => {
+  const existingProduct = await productsData.getBy('product_id', +productId, role);
+
+  if (!existingProduct) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+
+  return {
+    error: null,
+    result: await productsImagesData.getAllProductImages(+productId)
+  };
+};
+
+const addProductImage = (productsImagesData, productsData) => async (productId, imageUrl) => {
+  const existingProduct = await productsData.getBy('product_id', productId, 'basic');
+
+  if (!existingProduct) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
+
+  const existingImagesList = await productsImagesData.getAllProductImages(+productId);
+
+  const isMainImage = existingImagesList.length === 0 ? 1 : 0;
+
+  return {
+    error: null,
+    result: await productsImagesData.addAProductImage(+productId, imageUrl, +isMainImage)
+  };
+};
+
+const deleteProductImage = (productsImagesData) => async (productImageId) => {
+  const productImageToDelete = await productsImagesData.getProductImageBy(
+    'product_image_id',
+    +productImageId,
+    'basic'
+  );
+
+  if (!productImageToDelete) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      deletedImage: null
+    };
+  }
+
+  await productsImagesData.remove(+productImageId);
+
+  return {
+    error: null,
+    deletedImage: { ...productImageToDelete, isDeleted: 1 }
+  };
+};
+
+const setProductImageAsMain = (productsImagesData) => async (productImageId) => {
+  const newMainProductImage = await productsImagesData.getProductImageBy(
+    'product_image_id',
+    +productImageId,
+    'basic'
+  );
+
+  if (!newMainProductImage) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      newMainImage: null
+    };
+  }
+
+  const allProductImages = await productsImagesData.getAllProductImages(
+    'product_id',
+    +newMainProductImage.productId,
+    'basic'
+  );
+
+  const oldMainProduct = allProductImages.filter((image) => image.isMain);
+
+  await productsImagesData.update({ ...oldMainProduct, isMain: false });
+
+  return {
+    error: null,
+    newMainImage: await productsImagesData.update({ ...newMainProductImage, isMain: true })
+  };
+};
+
 export default {
   getAllProducts,
   getProductById,
@@ -261,5 +367,9 @@ export default {
   deleteProductFeature,
   createProductSpecification,
   updateProductSpecification,
-  deleteProductSpecification
+  deleteProductSpecification,
+  addProductImage,
+  getAllProductImages,
+  deleteProductImage,
+  setProductImageAsMain
 };

@@ -94,7 +94,8 @@ export const feature = {
 export const uploads = {
   VALID_FILE_FORMATS: ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'webp'],
   MAX_FILE_SIZE: 102400, //   divide by 1000 for KB
-  MIN_FILE_SIZE: 0
+  MIN_FILE_SIZE: 0,
+  DEFAULT_IMAGE_URL: 'storage/images/defaultImage.png'
 };
 
 export const forgotPassword = {

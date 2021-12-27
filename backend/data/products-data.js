@@ -278,18 +278,33 @@ const restore = async (productToRestore) => {
   return db.query(sql, [productToRestore.productId]);
 };
 
-const getFeatures = async (productId) => {
-  const sql = `
-    SELECT 
-      features_id as featuresId,
-      product_id as productId,
-      feature_title as featureTitle,
-      feature_content as featureContent
-    FROM features 
-    WHERE product_id = ? AND is_deleted = 0
-  `;
 
-  return db.query(sql, [productId]);
+const addAProductImage = async (productId, imageUrl, isMain = 0) => {
+  const sql = `
+    INSERT INTO product_images (
+      product_id,
+      image,
+      is_main
+    )
+    VALUES (?, ?, ?)
+  `;
+  const result = await db.query(sql, [+productId, imageUrl, +isMain]);
+
+  return { productId, productImageId: result.insertId, image: imageUrl, isMain };
+};
+
+const getAllProductImages = async (productId) => {
+  const sql = `
+      SELECT 
+        product_image_id as productImageId,
+        product_id as productId,
+        image,
+        is_main as isMain
+      FROM product_images 
+      WHERE product_id = ?
+      `;
+
+  return db.query(sql, [+productId]);
 };
 
 export default {
@@ -299,5 +314,6 @@ export default {
   update,
   remove,
   restore,
-  getFeatures
+  addAProductImage,
+  getAllProductImages
 };

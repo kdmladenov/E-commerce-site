@@ -1,5 +1,6 @@
 import express from 'express';
 import productsData from '../data/products-data.js';
+import productsImagesData from '../data/product-images-data.js';
 import featuresData from '../data/features-data.js';
 import specificationsData from '../data/specifications-data.js';
 import validateBody from '../middleware/validate-body.js';
@@ -185,6 +186,121 @@ productsController
       res.status(201).send(path.replace(/\\/g, '/'));
     })
   )
+  // @desc ADD product's image
+  // @route POST /products/images/upload
+  // @access Private - Admin only
+  .post(
+    '/images/upload',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    uploadImage.single('image'),
+    validateFile('uploads', uploadFileSchema),
+    errorHandler(async (req, res) => {
+      const { path } = req.file;
+
+      res.status(201).send(path.replace(/\\/g, '/'));
+    })
+  )
+  // @desc ADD product's image
+  // @route POST /products/:productId/image
+  // @access Private - Admin only
+  .post(
+    '/:productId/images',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    // validateBody('productImage', addProductImageSchema),
+    // errorHandler(
+    async (req, res) => {
+      const { productId } = req.params;
+      const { imageUrl } = req.body;
+      const { error, result } = await productsServices.addProductImage(
+        productsImagesData,
+        productsData
+      )(+productId, imageUrl);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The product is not found.'
+        });
+      } else {
+        res.status(201).send(result);
+      }
+    }
+  )
+  // @desc GET ALL product's images
+  // @route GET /products/:productId/image
+  // @access Public
+  .get(
+    '/:productId/images',
+    // errorHandler(
+    async (req, res) => {
+      const { productId } = req.params;
+
+      const { error, result } = await productsServices.getAllProductImages(
+        productsImagesData,
+        productsData
+      )(+productId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The product is not found.'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    }
+  )
+  // @desc DELETE product image
+  // @route DELETE /products/:productImageId/images
+  // @access Private - Admin only
+  .delete(
+    '/:productImageId/images',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    errorHandler(async (req, res) => {
+      const { productImageId } = req.params;
+      const { error, deletedImage } = await productsServices.deleteProductImage(productsImagesData)(
+        +productImageId
+      );
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'A product image with this id is not found!'
+        });
+      } else {
+        res.status(200).send(deletedImage);
+      }
+    })
+  )
+  // )
+  // @desc SET Product image as main
+  // @route PUT /products/:productImageId/images/main
+  // @access Private - Admin only
+  .put(
+    '/:productImageId/images/main',
+    authMiddleware,
+    loggedUserGuard,
+    roleMiddleware(rolesEnum.admin),
+    // errorHandler(
+    async (req, res) => {
+      const { productImageId } = req.params;
+
+      const { error, newMainImage } = await productsServices.setProductImageAsMain(
+        productsImagesData
+      )(+productImageId);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: 'The product image is not found.'
+        });
+      } else {
+        res.status(200).send(newMainImage);
+      }
+    }
+  )
+  // )
   // @desc GET All Products Features by productId
   // @route GET /products/:productId/features
   // @access Public
