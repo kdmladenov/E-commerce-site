@@ -66,7 +66,6 @@ export const getDate = (date, additionalDays = 0) => {
 
   const dayDiff = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
 
-
   return dayDiff >= 2 || dayDiff <= 0
     ? ` ${weekDays[startDate.getDay()]}, ${startDate.getDate()} ${months[startDate.getMonth()]}`
     : dayDiff >= 1
@@ -95,9 +94,9 @@ export const areReviewsFiltered = (reviews) => {
 };
 
 // Scroll to a specified element
-export const scrollTo = (ref) => {
+export const scrollTo = (ref, margin = 0) => {
   window.scrollTo({
-    top: ref.current.offsetTop,
+    top: ref.current.offsetTop - margin,
     behavior: 'smooth'
   });
 };

@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { listProductDetails } from '../actions/productActions';
+import { listProductDetails, listProductImages } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ProductImageGallery from '../components/ProductImageGallery';
-import { useResize } from '../hooks/useResize';
 import Reviews from '../components/Reviews';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
@@ -13,12 +11,9 @@ import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import ProductFeatures from '../components/ProductFeatures';
-import ProductScreenActionBox from '../components/ProductScreenActionBox';
 import Carousel from '../components/Carousel';
 import History from '../components/History';
-import ProductScreenImageSidebar from '../components/ProductScreenImageSidebar';
 import Divider from '../components/Divider';
-import ProductDetailsInfo from '../components/ProductDetailsInfo';
 import ProductDetails from '../components/ProductDetails';
 
 // TO DO to fix aspect ratio of the zoomed image
@@ -42,6 +37,7 @@ const ProductScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listProductDetails(productId));
+    dispatch(listProductImages(productId));
     dispatch(addBrowsingHistoryRecord(productId));
   }, [dispatch, match, productId]);
 
@@ -64,6 +60,7 @@ const ProductScreen = ({ match }) => {
           />
         </section>
       )}
+
       <section className="product_features" ref={featuresRef}>
         <Divider>
           <h2>Product Features</h2>
@@ -74,7 +71,6 @@ const ProductScreen = ({ match }) => {
         <Divider>
           <h2>Product Specifications</h2>
         </Divider>
-
         {loading ? (
           <Loader />
         ) : error ? (

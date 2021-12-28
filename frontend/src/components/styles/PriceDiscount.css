@@ -17,7 +17,7 @@
 .product_details_price table tr:nth-child(2) td:last-child,
 .product_details_price table tr:last-child td:last-child {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
 }

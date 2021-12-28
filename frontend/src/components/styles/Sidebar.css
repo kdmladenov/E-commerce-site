@@ -1,3 +1,7 @@
+.product_sidebar {
+  background-color: var(--gray_background);
+}
+
 .product_sidebar .accordion_header {
   padding: 0px 20px;
 }
@@ -32,7 +36,7 @@
   visibility: hidden;
 }
 
-.product_sidebar .product_sidebar_checkbox_item label[for*="(0)"] {
+.product_sidebar .product_sidebar_checkbox_item label[for*='(0)'] {
   pointer-events: none;
-  color: var(--gray)
+  color: var(--gray);
 }

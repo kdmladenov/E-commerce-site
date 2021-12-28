@@ -10,7 +10,7 @@ import {
 } from '../constants/productConstants';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { listProductDetails, listProducts } from '../actions/productActions';
+import { listProductDetails } from '../actions/productActions';
 import FormComponent from '../components/FormComponent';
 import { productSpecificationsInitialInputState } from '../constants/inputMaps';
 import {
@@ -18,7 +18,7 @@ import {
   updateProductSpecification
 } from '../actions/productSpecificationsActions';
 
-const ProductSpecificationsEdit = ({ productId }) => {
+const ProductSpecificationsEdit = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();

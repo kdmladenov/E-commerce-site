@@ -6,9 +6,7 @@ import './styles/ProductImageGallery.css';
 const ZOOM_RATIO = 0.3;
 
 const ProductImageGallery = ({
-  // images,
   selectedImage,
-  // setSelectedImage,
   zoomedImageRect,
   setZoomBackgroundSize,
   setZoomBackgroundPosition,

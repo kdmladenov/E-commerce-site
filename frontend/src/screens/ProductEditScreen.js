@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductDetailsEdit from '../components/ProductDetailsEdit';
 import ProductFeaturesEdit from '../components/ProductFeaturesEdit';
+import ProductImagesEdit from '../components/ProductImagesEdit';
 import ProductSpecificationsEdit from '../components/ProductSpecificationsEdit';
 import './styles/ProductEditScreen.css';
 
@@ -18,6 +19,12 @@ const ProductEditScreen = ({ match }) => {
             onClick={() => setActiveTab('details')}
           >
             {productId ? `Edit Product` : `Create Product`}
+          </button>
+          <button
+            className={`tab ${activeTab === 'images' && 'active'}`}
+            onClick={() => setActiveTab('images')}
+          >
+            Add Product Images
           </button>
           <button
             className={`tab ${activeTab === 'specifications' && 'active'}`}
@@ -43,11 +50,20 @@ const ProductEditScreen = ({ match }) => {
         </section>
         {productId && (
           <section
+            className={`product_images_edit_container content ${
+              activeTab === 'images' && 'active'
+            }`}
+          >
+            <ProductImagesEdit />
+          </section>
+        )}
+        {productId && (
+          <section
             className={`product_specifications_edit_container content ${
               activeTab === 'specifications' && 'active'
             }`}
           >
-            <ProductSpecificationsEdit  />
+            <ProductSpecificationsEdit />
           </section>
         )}
         {productId && (

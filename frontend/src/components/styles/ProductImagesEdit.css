@@ -1,0 +1,118 @@
+.product_images_edit_list_form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product_images_edit_list_form .input_group {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  gap: 10px;
+}
+
+.product_images_edit_list_form .input_group .button_container {
+  width: 160px;
+}
+
+/* URL input */
+.product_images_edit_list_form .input_group .image_url {
+  display: flex;
+  gap: 10px;
+}
+
+.product_images_edit_list_form .input_group .image_url input {
+  width: 60%;
+}
+
+.product_images_edit_list_form .input_group .image_url button {
+  margin-left: 0;
+}
+
+/* Upload input button */
+.product_images_edit_list_form .input_group .file_upload {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.product_images_edit_list_form .input_group .file_upload .button_wrap {
+  position: relative;
+}
+
+.product_images_edit_list_form .input_group .file_upload input[type='file'] {
+  position: absolute;
+  display: none;
+}
+
+.product_images_edit_list_form .input_group .file_upload label {
+  width: 160px;
+  padding: auto;
+  cursor: pointer;
+}
+.product_images_edit_list_form .input_group .file_upload .button_container {
+  margin: 0;
+  padding: 0;
+}
+
+/* Image List */
+.product_images_edit_list_form .images_list {
+  padding: 20px 35px;
+}
+
+.product_images_edit ul {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.product_images_edit li {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  padding: 10px;
+  object-fit: contain;
+  margin: 20px 0;
+  border: 1px solid var(--gray);
+  box-shadow: var(--box_shadow);
+  border-radius: 10px;
+}
+
+.product_images_edit li:hover {
+  border-color: var(--mimosa);
+  cursor: pointer;
+}
+
+.product_images_edit li .button_container {
+  position: absolute;
+  padding: 0;
+  top: 5px;
+  font-size: 15px;
+}
+
+.product_images_edit li .button_container.times {
+  right: 5px;
+}
+
+.product_images_edit li .button_container.star {
+  left: 5px;
+}
+
+.product_images_edit li i {
+  display: none;
+}
+
+.product_images_edit li .button_container.star {
+  color: var(--yellow);
+}
+.product_images_edit li .button_container.times {
+  color: var(--cheetos);
+}
+
+.product_images_edit li i.fas.fa-star,
+.product_images_edit li:hover i {
+  display: block;
+}

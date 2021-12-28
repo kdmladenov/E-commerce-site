@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useResize } from '../hooks/useResize';
+import Loader from './Loader';
+import Message from './Message';
 import ProductDetailsInfo from './ProductDetailsInfo';
 import ProductImageGallery from './ProductImageGallery';
 import ProductScreenActionBox from './ProductScreenActionBox';
@@ -31,6 +33,9 @@ const ProductDetails = ({
   const zoomedImageRect = useResize(zoomedImageRef);
   const [showZoomedImage, setShowZoomedImage] = useState(false);
 
+  const productImagesList = useSelector((state) => state.productImagesList);
+  const { productImages, loading: loadingImages, error: errorImages } = productImagesList;
+
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [dispatch, product]);
@@ -38,18 +43,22 @@ const ProductDetails = ({
   return (
     <>
       <div className="product_image_sidebar">
-        <ProductScreenImageSidebar images={images} setSelectedImage={setSelectedImage} />
+        <ProductScreenImageSidebar images={productImages} setSelectedImage={setSelectedImage} />
       </div>
       <div className="product_details_image">
-        <ProductImageGallery
-          images={images}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          zoomedImageRect={zoomedImageRect}
-          setZoomBackgroundSize={setZoomBackgroundSize}
-          setZoomBackgroundPosition={setZoomBackgroundPosition}
-          setShowZoomedImage={setShowZoomedImage}
-        />
+        {loadingImages ? (
+          <Loader />
+        ) : errorImages ? (
+          <Message type="error">{errorImages}</Message>
+        ) : (
+          <ProductImageGallery
+            selectedImage={selectedImage}
+            zoomedImageRect={zoomedImageRect}
+            setZoomBackgroundSize={setZoomBackgroundSize}
+            setZoomBackgroundPosition={setZoomBackgroundPosition}
+            setShowZoomedImage={setShowZoomedImage}
+          />
+        )}
       </div>
       <div
         className="product_details_info"
