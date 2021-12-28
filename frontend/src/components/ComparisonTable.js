@@ -41,12 +41,12 @@ const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
             product[spec] === 'No' ? (
               <i className="fa fa-times"></i>
             ) : (
-              <span>{`${product['voiceAssistant']}`}</span>
+              <span>{`${product?.voiceAssistant}`}</span>
             )
           ) : spec === 'rating' ? (
-            product['reviewCount'] ? (
+            product?.reviewCount ? (
               <div className="rating">
-                <Rating rating={product[spec]} />({product['reviewCount']})
+                <Rating rating={product[spec]} />({product?.reviewCount})
               </div>
             ) : (
               'Not rated yet'
@@ -54,17 +54,17 @@ const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
           ) : spec === 'weight' ? (
             <span>{`${product[spec].toFixed(1)} pounds (${poundToKg(product[spec], 1)} kg)`}</span>
           ) : spec === 'displayType' ? (
-            <span>{`${product['screenSize'].toFixed(1)}-inch ${product['displayType']} with ${
-              product['screenResolution']
-            } resolution ${product['touchScreen'] ? 'and touchscreen' : ''}`}</span>
+            <span>{`${product?.screenSize?.toFixed(1)}-inch ${product?.displayType} with ${
+              product?.screenResolution
+            } resolution ${product?.touchScreen ? 'and touchscreen' : ''}`}</span>
           ) : spec === 'storageCapacity' ? (
-            <span>{`${product['storageCapacity']} GB ${product['storageType']}`}</span>
+            <span>{`${product?.storageCapacity} GB ${product?.storageType}`}</span>
           ) : spec === 'systemMemory' ? (
-            <span>{`${product['systemMemory']} GB`}</span>
+            <span>{`${product?.systemMemory} GB`}</span>
           ) : spec === 'graphicsModel' ? (
             <p>
-              {`${product['graphicsModel']}`}
-              <span>{`(${product['graphicsType']})`}</span>
+              {`${product?.graphicsModel}`}
+              <span>{`(${product?.graphicsType})`}</span>
             </p>
           ) : (
             product[spec]

@@ -9,6 +9,18 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_IMAGES_LIST_FAIL,
+  PRODUCT_IMAGES_LIST_REQUEST,
+  PRODUCT_IMAGES_LIST_SUCCESS,
+  PRODUCT_IMAGE_DELETE_FAIL,
+  PRODUCT_IMAGE_DELETE_REQUEST,
+  PRODUCT_IMAGE_DELETE_SUCCESS,
+  PRODUCT_IMAGE_SET_MAIN_FAIL,
+  PRODUCT_IMAGE_SET_MAIN_REQUEST,
+  PRODUCT_IMAGE_SET_MAIN_SUCCESS,
+  PRODUCT_IMAGE_UPLOAD_FAIL,
+  PRODUCT_IMAGE_UPLOAD_REQUEST,
+  PRODUCT_IMAGE_UPLOAD_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -98,6 +110,59 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_UPDATE_RESET:
       return { product: {} };
+    default:
+      return state;
+  }
+};
+
+export const productImageUploadReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_IMAGE_UPLOAD_REQUEST:
+      return { loading: true };
+    case PRODUCT_IMAGE_UPLOAD_SUCCESS:
+      return { loading: false, success: true, product: action.payload };
+    case PRODUCT_IMAGE_UPLOAD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productImagesListReducer = (state = { productImages: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_IMAGES_LIST_REQUEST:
+      return { loading: true, productImages: [] };
+    case PRODUCT_IMAGES_LIST_SUCCESS:
+      return { loading: false, productImages: action.payload };
+    case PRODUCT_IMAGES_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productImageDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_IMAGE_DELETE_REQUEST:
+      return { loading: true };
+    case PRODUCT_IMAGE_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_IMAGE_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+export const productImageSetMainReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_IMAGE_SET_MAIN_REQUEST:
+      return { loading: true };
+    case PRODUCT_IMAGE_SET_MAIN_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_IMAGE_SET_MAIN_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
