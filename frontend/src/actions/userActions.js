@@ -262,38 +262,38 @@ export const restoreUser = (userId) => async (dispatch, getState) => {
   }
 };
 
-export const updateUser = (user) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: USER_UPDATE_REQUEST
-    });
-    // access to the logged in user info
-    const {
-      userLogin: { userInfo }
-    } = getState();
+// export const updateUser = (user) => async (dispatch, getState) => {
+//   try {
+//     dispatch({
+//       type: USER_UPDATE_REQUEST
+//     });
+//     // access to the logged in user info
+//     const {
+//       userLogin: { userInfo }
+//     } = getState();
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`
-      }
-    };
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${userInfo.token}`
+//       }
+//     };
 
-    const { data } = await axios.put(`${BASE_URL}/users/${user.userId}`, user, config);
+//     const { data } = await axios.put(`${BASE_URL}/users/${user.userId}`, user, config);
 
-    dispatch({
-      type: USER_UPDATE_SUCCESS
-    });
-    // update the state everywhere
-    dispatch({
-      type: USER_DETAILS_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: USER_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message
-    });
-  }
-};
+//     dispatch({
+//       type: USER_UPDATE_SUCCESS
+//     });
+//     // update the state everywhere
+//     dispatch({
+//       type: USER_DETAILS_SUCCESS,
+//       payload: data
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: USER_UPDATE_FAIL,
+//       payload:
+//         error.response && error.response.data.message ? error.response.data.message : error.message
+//     });
+//   }
+// };
