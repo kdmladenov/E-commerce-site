@@ -264,26 +264,6 @@ usersController
       }
     })
   )
-  // .get(
-  //   '/:userId/timeline',
-  //   authMiddleware,
-  //   loggedUserGuard,
-  //   // errorHandler(
-  //     async (req, res) => {
-  //     const { role } = req.user;
-  //     const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-  //     const { error, result } = await usersService.getUserTimeline(usersData)(+id);
-
-  //     if (error === errors.RECORD_NOT_FOUND) {
-  //       res.status(404).send({
-  //         message: `User ${id} is not found.`
-  //       });
-  //     } else {
-  //       res.status(200).send(result);
-  //     }
-  //   })
-  // // )
-  // ;
 
   // upload avatar
   .put(

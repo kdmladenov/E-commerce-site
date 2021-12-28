@@ -31,7 +31,7 @@ const getAllProducts = async (search, filter, sort, pageSize, page) => {
   SELECT 
       p.product_id as productId,
       p.title,
-      p.image,
+      i.image,
       p.description,
       p.brand,
       p.product_category as productCategory,
@@ -73,13 +73,15 @@ const getAllProducts = async (search, filter, sort, pageSize, page) => {
       rt.starFour,
       rt.starFive,
       COUNT(*) OVER () AS totalDBItems
-      FROM products p
-      LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
-      FROM reviews
-      WHERE is_deleted = 0
-      GROUP BY product_id) as r using (product_id)
-      LEFT JOIN (SELECT *
-            FROM specifications) as s using (product_id)
+    FROM products p
+    LEFT JOIN (SELECT count(product_id) as review_count, AVG(rating) as rating, product_id
+    FROM reviews
+    WHERE is_deleted = 0
+    GROUP BY product_id) as r using (product_id)
+    LEFT JOIN (SELECT *
+          FROM specifications) as s using (product_id)
+    LEFT JOIN(SELECT *  FROM product_images
+          WHERE is_main = 1 AND is_deleted = 0) as i using (product_id)
     LEFT JOIN (select product_id,
         count(if(rating=1,1,null)) as starOne,
         count(if(rating=2,1,null)) as starTwo,
@@ -108,7 +110,7 @@ const getBy = async (column, value, role = 'basic') => {
     SELECT 
       p.product_id as productId,
       p.title,
-      p.image,
+      i.image,
       p.description,
       p.brand,
       p.product_category as productCategory,
@@ -156,6 +158,8 @@ const getBy = async (column, value, role = 'basic') => {
             GROUP BY product_id) as r using (product_id)
     LEFT JOIN (SELECT *
             FROM specifications) as s using (product_id)
+    LEFT JOIN(SELECT *  FROM product_images
+          WHERE is_main = 1 AND is_deleted = 0) as i using (product_id)
     LEFT JOIN (select product_id,
             count(if(rating=1,1,null)) as starOne,
             count(if(rating=2,1,null)) as starTwo,
@@ -165,7 +169,7 @@ const getBy = async (column, value, role = 'basic') => {
             from reviews
             WHERE is_deleted = 0
             group by product_id) rt USING (product_id)
-    WHERE ${column} = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''};
+    WHERE ${column} = ? ${role === rolesEnum.basic ? ' AND p.is_deleted = 0' : ''};
   `;
 
   const result = await db.query(sql, [value]);
@@ -220,7 +224,6 @@ const update = async (updatedProduct) => {
         SET
           title = ?,
           brand = ?,
-          image = ?,
           description = ?,
           product_category = ?,
           price = ?,
@@ -239,7 +242,6 @@ const update = async (updatedProduct) => {
   const _ = await db.query(sql, [
     updatedProduct.title || null,
     updatedProduct.brand || null,
-    updatedProduct.image || null,
     updatedProduct.description || null,
     updatedProduct.productCategory || null,
     +updatedProduct.price || 0,

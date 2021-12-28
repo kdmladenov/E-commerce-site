@@ -1,4 +1,5 @@
 import db from './pool.js';
+import rolesEnum from '../constants/roles.enum.js';
 
 const getProductImageBy = async (column, value, role = 'basic') => {
   const sql = `
@@ -6,7 +7,8 @@ const getProductImageBy = async (column, value, role = 'basic') => {
         product_image_id as productImageId,
         product_id as productId,
         image,
-        is_main as isMain
+        is_main as isMain,
+        is_deleted as isDeleted
       FROM product_images 
       WHERE ${column} = ? ${role === rolesEnum.basic ? ' AND is_deleted = 0' : ''};
   `;
@@ -30,14 +32,16 @@ const addAProductImage = async (productId, imageUrl, isMain = 0) => {
 };
 
 const getAllProductImages = async (productId) => {
+  console.log(productId, 'productId');
   const sql = `
       SELECT 
         product_image_id as productImageId,
         product_id as productId,
         image,
-        is_main as isMain
+        is_main as isMain,
+        is_deleted as isDeleted
       FROM product_images 
-      WHERE product_id = ?
+      WHERE product_id = ? AND is_deleted = 0
       `;
 
   return db.query(sql, [+productId]);
@@ -54,6 +58,7 @@ const remove = async (productImageId) => {
 };
 
 const update = async (updatedProductImage) => {
+  console.log(updatedProductImage, 'updatedProductImage');
   const sql = `
         UPDATE product_images
         SET
@@ -66,7 +71,7 @@ const update = async (updatedProductImage) => {
   const _ = await db.query(sql, [
     +updatedProductImage.productId || null,
     updatedProductImage.image || null,
-    updatedProductImage.isMain || null,
+    updatedProductImage.isMain || 0,
     +updatedProductImage.productImageId || null
   ]);
 

@@ -170,23 +170,7 @@ productsController
       }
     })
   )
-  // @desc UPLOAD / UPDATE product's image - new product without id
-  // @route POST /products/image
-  // @access Private - Admin only
-  .post(
-    '/image',
-    authMiddleware,
-    loggedUserGuard,
-    roleMiddleware(rolesEnum.admin),
-    uploadImage.single('image'),
-    validateFile('uploads', uploadFileSchema),
-    errorHandler(async (req, res) => {
-      const { path } = req.file;
-
-      res.status(201).send(path.replace(/\\/g, '/'));
-    })
-  )
-  // @desc ADD product's image
+  // @desc UPLOAD product's image
   // @route POST /products/images/upload
   // @access Private - Admin only
   .post(

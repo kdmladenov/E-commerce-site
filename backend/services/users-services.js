@@ -319,7 +319,6 @@ const deleteUserAvatar = (usersData) => async (userId) => {
 
 export default {
   getUser,
-  // getUserTimeline,
   getAllUsers,
   createUser,
   login,

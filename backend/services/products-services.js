@@ -250,24 +250,8 @@ const deleteProductSpecification = (specificationsData) => async (specificationI
   };
 };
 
-const getProductById = (productsData) => async (productId, role) => {
-  const product = await productsData.getBy('product_id', productId, role);
-
-  if (!product) {
-    return {
-      error: errors.RECORD_NOT_FOUND,
-      product: null
-    };
-  }
-
-  return {
-    error: null,
-    product
-  };
-};
-
 const getAllProductImages = (productsImagesData, productsData) => async (productId) => {
-  const existingProduct = await productsData.getBy('product_id', +productId, role);
+  const existingProduct = await productsData.getBy('product_id', +productId, 'basic');
 
   if (!existingProduct) {
     return {
@@ -327,8 +311,7 @@ const deleteProductImage = (productsImagesData) => async (productImageId) => {
 const setProductImageAsMain = (productsImagesData) => async (productImageId) => {
   const newMainProductImage = await productsImagesData.getProductImageBy(
     'product_image_id',
-    +productImageId,
-    'basic'
+    +productImageId
   );
 
   if (!newMainProductImage) {
@@ -337,20 +320,20 @@ const setProductImageAsMain = (productsImagesData) => async (productImageId) => 
       newMainImage: null
     };
   }
-
+  console.log(newMainProductImage, 'newMainProductImage');
   const allProductImages = await productsImagesData.getAllProductImages(
-    'product_id',
-    +newMainProductImage.productId,
-    'basic'
+    +newMainProductImage.productId
   );
 
-  const oldMainProduct = allProductImages.filter((image) => image.isMain);
+  const oldMainProduct = allProductImages.filter((image) => image.isMain)[0];
 
-  await productsImagesData.update({ ...oldMainProduct, isMain: false });
+  console.log(oldMainProduct, 'oldMainProduct');
+
+  await productsImagesData.update({ ...oldMainProduct, isMain: 0 });
 
   return {
     error: null,
-    newMainImage: await productsImagesData.update({ ...newMainProductImage, isMain: true })
+    newMainImage: await productsImagesData.update({ ...newMainProductImage, isMain: 1 })
   };
 };
 
