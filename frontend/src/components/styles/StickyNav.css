@@ -1,0 +1,9 @@
+.sticky_nav .sticky_vav_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  height: 40px;
+  background-color: var(--gray_background);
+  z-index: 100;
+}
