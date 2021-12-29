@@ -5,11 +5,11 @@ import {
 } from '../constants/inputMaps';
 import Button from './Button';
 import FormComponent from './FormComponent';
-import Avatar from './Avatar';
 import './styles/Profile.css';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { useSelector } from 'react-redux';
 import validateInputUser from '../validations/userValidator';
+import ProfileSidebar from './ProfileSidebar';
 
 const Profile = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -19,12 +19,7 @@ const Profile = ({ user }) => {
 
   return (
     <div className="profile">
-      <div className="sidebar">
-        <h2>Profile</h2>
-        <div className="avatar_container">
-          <Avatar classes="large" imageUrl={user?.avatar} fullName={user?.fullName} />
-        </div>
-      </div>
+      <ProfileSidebar user={user} />
       <div className="profile_header">
         <Button
           classes={`rounded large ${activeTab === 'overview' ? 'blue_light' : 'white'}`}

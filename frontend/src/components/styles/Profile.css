@@ -13,23 +13,6 @@
   margin: 0 -30px;
 }
 
-.profile .sidebar {
-  grid-area: sidebar;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
-  background: var(--white);
-  border-right: 2px solid var(--gray_light);
-  padding: 10px;
-  height: 100%;
-}
-
-.profile .sidebar h2 {
-  padding-left: 10px;
-}
-
 /* Sidebar Tab Buttons */
 .profile .profile_header {
   grid-area: header;

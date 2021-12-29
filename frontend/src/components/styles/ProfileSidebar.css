@@ -1,0 +1,67 @@
+.profile_sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  background: var(--white);
+  border-right: 2px solid var(--gray_light);
+  padding: 10px;
+  height: 100%;
+}
+
+.profile_sidebar h2 {
+  padding-left: 10px;
+}
+
+.profile_sidebar .avatar_container {
+  position: relative;
+}
+
+.profile_sidebar .avatar_container button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: 10%;
+  padding: 0;
+  right: 5%;
+  font-size: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--bob);
+  background: var(--gray_light);
+  color: var(--gray_dark);
+}
+
+/* Avatar change inputs */
+.profile_sidebar .input_group .image_url,
+.profile_sidebar .input_group .file_upload,
+.profile_sidebar .input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_sidebar .input_group .button_container {
+  width: 160px;
+}
+
+/* URL input */
+.profile_sidebar .input_group .image_url input {
+  width: 100%;
+}
+
+.profile_sidebar .input_group .file_upload input[type='file'] {
+  display: none;
+}
+
+.profile_sidebar .input_group .file_upload label {
+  cursor: pointer;
+}
+.profile_sidebar .input_group .file_upload .button_container {
+  margin: 0;
+  padding: 0;
+}
