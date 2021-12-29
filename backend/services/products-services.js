@@ -282,7 +282,7 @@ const addProductImage = (productsImagesData, productsData) => async (productId, 
 
   return {
     error: null,
-    result: await productsImagesData.addAProductImage(+productId, imageUrl, +isMainImage)
+    result: await productsImagesData.addProductImage(+productId, imageUrl, +isMainImage)
   };
 };
 

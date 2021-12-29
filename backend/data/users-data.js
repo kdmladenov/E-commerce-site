@@ -114,6 +114,7 @@ const updateData = async (user) => {
     UPDATE users SET
       full_name = ?,
       email = ?,
+      avatar = ?,
       phone = ?,
       address = ?,
       address2 = ?,
@@ -128,6 +129,7 @@ const updateData = async (user) => {
   return db.query(sql, [
     user.fullName,
     user.email,
+    user.avatar,
     user.phone,
     user.address,
     user.address2,
@@ -203,16 +205,6 @@ const logoutUser = async (token) => {
     VALUES( ? )
   `;
   return db.query(sql, [token]);
-};
-
-const avatarChange = (userId, path) => {
-  const sql = `
-    UPDATE users SET
-      avatar = ?
-    WHERE user_id = ?
-  `;
-
-  return db.query(sql, [path, userId]);
 };
 
 const getAvatar = async (userId) => {

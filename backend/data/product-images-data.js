@@ -17,7 +17,7 @@ const getProductImageBy = async (column, value, role = 'basic') => {
   return result[0];
 };
 
-const addAProductImage = async (productId, imageUrl, isMain = 0) => {
+const addProductImage = async (productId, imageUrl, isMain = 0) => {
   const sql = `
     INSERT INTO product_images (
       product_id,
@@ -58,7 +58,6 @@ const remove = async (productImageId) => {
 };
 
 const update = async (updatedProductImage) => {
-  console.log(updatedProductImage, 'updatedProductImage');
   const sql = `
         UPDATE product_images
         SET
@@ -80,7 +79,7 @@ const update = async (updatedProductImage) => {
 
 export default {
   getProductImageBy,
-  addAProductImage,
+  addProductImage,
   getAllProductImages,
   remove,
   update
