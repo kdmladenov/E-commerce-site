@@ -35,6 +35,9 @@ const UserListAdmin = ({ history }) => {
   const userRestore = useSelector((state) => state.userRestore);
   const { success: restoreSuccess } = userRestore;
 
+  const userAvatarUpdate = useSelector((state) => state.userAvatarUpdate);
+  const { success: successUpdateAvatar } = userAvatarUpdate;
+
   useEffect(() => {
     // only admins to have access to the url
     if (userInfo?.role === 'admin') {
@@ -44,7 +47,7 @@ const UserListAdmin = ({ history }) => {
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo, deleteSuccess, restoreSuccess, endpoint]);
+  }, [dispatch, history, userInfo, deleteSuccess, restoreSuccess, successUpdateAvatar, endpoint]);
 
   // // TO DO implement restore user
   const deleteUserHandler = (userId) => {

@@ -18,19 +18,19 @@ const AdminScreen = ({ match }) => {
             className={`tab ${activeTab === 'userlist' && 'active'}`}
             onClick={() => setActiveTab('userlist')}
           >
-            User List
-          </button>
-          <button
-            className={`tab ${activeTab === 'orderlist' && 'active'}`}
-            onClick={() => setActiveTab('orderlist')}
-          >
-            Order List
+            Users
           </button>
           <button
             className={`tab ${activeTab === 'productlist' && 'active'}`}
             onClick={() => setActiveTab('productlist')}
           >
-            Product List
+            Products
+          </button>
+          <button
+            className={`tab ${activeTab === 'orderlist' && 'active'}`}
+            onClick={() => setActiveTab('orderlist')}
+          >
+            Orders
           </button>
         </div>
         <section className={`userlist_container content ${activeTab === 'userlist' && 'active'}`}>

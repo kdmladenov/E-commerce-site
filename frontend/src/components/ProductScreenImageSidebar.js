@@ -3,9 +3,10 @@ import './styles/ProductScreenImageSidebar.css';
 import { BASE_URL } from '../constants/constants';
 
 const ProductScreenImageSidebar = ({ images, setSelectedImage }) => {
+  // .filter(image => !image.isMain)
   return (
     <ul>
-      {images?.filter(image => !image.isMain).map((image, index) => (
+      {images?.map((image, index) => (
         <li key={index} onMouseEnter={() => setSelectedImage(image?.image)}>
           <img
             src={image?.image.startsWith('http') ? image?.image : `${BASE_URL}/${image?.image}`}

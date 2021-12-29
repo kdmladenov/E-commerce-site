@@ -85,7 +85,9 @@ const ProductImagesEdit = () => {
         <div className="product_images_edit_list_form">
           <div className="input_group card">
             <div className="image_url">
-              <Button onClick={addProductImageUrlHandler}>Add Image URL</Button>
+              <Button onClick={addProductImageUrlHandler} disabled={!image}>
+                Add Image URL
+              </Button>
               <input
                 type="text"
                 placeholder="Enter image url"

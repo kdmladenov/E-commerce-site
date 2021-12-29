@@ -30,27 +30,15 @@
 }
 
 /* Upload input button */
-.product_images_edit_list_form .input_group .file_upload {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.product_images_edit_list_form .input_group .file_upload .button_wrap {
-  position: relative;
-}
 
 .product_images_edit_list_form .input_group .file_upload input[type='file'] {
-  position: absolute;
   display: none;
 }
 
 .product_images_edit_list_form .input_group .file_upload label {
-  width: 160px;
-  padding: auto;
   cursor: pointer;
 }
+
 .product_images_edit_list_form .input_group .file_upload .button_container {
   margin: 0;
   padding: 0;

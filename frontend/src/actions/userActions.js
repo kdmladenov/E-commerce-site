@@ -23,6 +23,9 @@ import {
   USER_RESTORE_FAIL,
   USER_RESTORE_REQUEST,
   USER_RESTORE_SUCCESS,
+  USER_UPDATE_AVATAR_FAIL,
+  USER_UPDATE_AVATAR_REQUEST,
+  USER_UPDATE_AVATAR_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
@@ -297,3 +300,65 @@ export const restoreUser = (userId) => async (dispatch, getState) => {
 //     });
 //   }
 // };
+
+export const updateUserAvatarReducer =
+  (userId, mode, event, imageAddress) => async (dispatch, getState) => {
+    // mode: 'file_upload' or 'add_image_url'
+    let imageUrl = imageAddress || '';
+
+    try {
+      dispatch({
+        type: USER_UPDATE_AVATAR_REQUEST
+      });
+
+      const {
+        userLogin: { userInfo }
+      } = getState();
+
+      if (mode === 'file_upload') {
+        // Case file upload
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append('avatar', file);
+
+        const config = {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${userInfo.token}`
+          }
+        };
+        console.log('upload before');
+        const uploadedImageURL = await axios.post(
+          `${BASE_URL}/users/images/upload`,
+          formData,
+          config
+        );
+
+        imageUrl = uploadedImageURL.data;
+        console.log(imageUrl, 'imageUrl');
+      }
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+      console.log('before url');
+      const { data } = await axios.post(`${BASE_URL}/users/${userId}/images`, { imageUrl }, config);
+
+      dispatch({
+        type: USER_UPDATE_AVATAR_SUCCESS,
+        payload: data
+      });
+
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_AVATAR_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      });
+    }
+  };

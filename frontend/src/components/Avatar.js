@@ -1,4 +1,5 @@
 import React from 'react';
+import { BASE_URL } from '../constants/constants';
 import { randomNumber } from '../constants/utility-functions';
 import './styles/Avatar.css';
 
@@ -14,7 +15,10 @@ const Avatar = ({ classes, imageUrl, fullName }) => {
     <div className={`avatar  ${classes ? classes : ''}`}>
       <div className="image ">
         {imageUrl ? (
-          <img src={imageUrl} alt={fullName || 'image'} />
+          <img
+            src={imageUrl?.startsWith('http') ? imageUrl : `${BASE_URL}/${imageUrl}`}
+            alt={fullName || 'image'}
+          />
         ) : fullName ? (
           <div
             className="initials"
@@ -28,7 +32,9 @@ const Avatar = ({ classes, imageUrl, fullName }) => {
           <i className="fa fa-user"></i>
         )}
       </div>
-      {fullName && !classes?.includes('large') && <div className="name">{classes?.includes('header') ? firstName : fullName}</div>}
+      {fullName && !classes?.includes('large') && (
+        <div className="name">{classes?.includes('header') ? firstName : fullName}</div>
+      )}
     </div>
   );
 };

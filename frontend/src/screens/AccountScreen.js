@@ -21,12 +21,15 @@ const AccountScreen = ({ match, history }) => {
   const userDetails = useSelector((state) => state.userDetails);
   const { loading: loadingUser, error: errorUser, user } = userDetails;
 
+  const userAvatarUpdate = useSelector((state) => state.userAvatarUpdate);
+  const { success: successUpdateAvatar } = userAvatarUpdate;
+
   useEffect(() => {
     if (!user?.email) {
       dispatch(getUserDetails(userInfo?.userId));
     }
     setActiveTab(section);
-  }, [dispatch, user, userInfo, section]);
+  }, [dispatch, user, userInfo, successUpdateAvatar, section]);
 
   return (
     <main className="account_screen">

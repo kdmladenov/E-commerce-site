@@ -21,6 +21,9 @@ import {
   USER_RESTORE_FAIL,
   USER_RESTORE_REQUEST,
   USER_RESTORE_SUCCESS,
+  USER_UPDATE_AVATAR_FAIL,
+  USER_UPDATE_AVATAR_REQUEST,
+  USER_UPDATE_AVATAR_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
@@ -144,3 +147,16 @@ export const userRestoreReducer = (state = {}, action) => {
 //       return state;
 //   }
 // };
+
+export const userAvatarUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_AVATAR_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_AVATAR_SUCCESS:
+      return { loading: false, avatar: action.payload, success: true };
+    case USER_UPDATE_AVATAR_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
