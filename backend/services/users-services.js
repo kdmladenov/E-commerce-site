@@ -280,7 +280,7 @@ const resetPassword = (usersData) => async (password, reenteredPassword, userId,
   };
 };
 
-const addUserImage = (usersData) => async (userId, imageUrl) => {
+const addUserAvatar = (usersData) => async (userId, imageUrl) => {
   const existingUser = await usersData.getBy('user_id', userId, 'admin');
 
   if (!existingUser) {
@@ -299,22 +299,24 @@ const addUserImage = (usersData) => async (userId, imageUrl) => {
   };
 };
 
-// const deleteUserAvatar = (usersData) => async (userId) => {
-//   const userAvatar = await usersData.getAvatar(userId);
+const deleteUserAvatar = (usersData) => async (userId) => {
+  const existingUser = await usersData.getBy('user_id', userId, 'admin');
 
-//   if (!userAvatar) {
-//     return {
-//       error: errors.RECORD_NOT_FOUND,
-//       result: null
-//     };
-//   }
+  if (!existingUser) {
+    return {
+      error: errors.RECORD_NOT_FOUND,
+      result: null
+    };
+  }
 
-//   await usersData.avatarChange(+userId, userConstants.DEFAULT_AVATAR);
-//   return {
-//     error: null,
-//     result: { message: `Avatar successfully deleted.` }
-//   };
-// };
+  const updatedUser = { ...existingUser, avatar: userConstants.DEFAULT_AVATAR };
+  await usersData.updateData(updatedUser);
+
+  return {
+    error: null,
+    result: updatedUser.avatar
+  };
+};
 
 export default {
   getUser,
@@ -328,6 +330,6 @@ export default {
   logout,
   forgottenPassword,
   resetPassword,
-  addUserImage,
+  addUserAvatar,
   deleteUserAvatar
 };

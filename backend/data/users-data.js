@@ -207,19 +207,6 @@ const logoutUser = async (token) => {
   return db.query(sql, [token]);
 };
 
-const getAvatar = async (userId) => {
-  const sql = `
-    SELECT 
-      avatar, 
-      email, 
-      full_name as fullName
-    FROM users
-    WHERE user_id = ${userId}
-  `;
-
-  const result = await db.query(sql, []);
-  return result[0];
-};
 
 export default {
   getBy,
@@ -231,7 +218,5 @@ export default {
   loginUser,
   logoutUser,
   getPasswordBy,
-  updatePassword,
-  avatarChange,
-  getAvatar
+  updatePassword
 };

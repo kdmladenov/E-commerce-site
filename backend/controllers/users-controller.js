@@ -268,7 +268,7 @@ usersController
   // @route POST /users/images/upload
   // @access Private - Admin only
   .post(
-    '/images/upload',
+    '/avatars/upload',
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
@@ -284,7 +284,7 @@ usersController
   // @route POST /users/:userId/image
   // @access Private - Admin or User Owner(change user avatar irrelevant of the userId entered)
   .post(
-    '/:userId/images',
+    '/:userId/avatars',
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
@@ -296,10 +296,7 @@ usersController
 
       const userId = role === rolesEnum.admin ? req.params.userId : req.user.userId;
 
-      const { error, result } = await usersServices.addUserImage(usersData)(
-        +userId,
-        imageUrl
-      );
+      const { error, result } = await usersServices.addUserAvatar(usersData)(+userId, imageUrl);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -309,28 +306,30 @@ usersController
         res.status(201).send(result);
       }
     }
+  )
+  // @desc DELETE user's avatar
+  // @route DELETE /users/:userId/avatar
+  // @access Private - Admin or User Owner(change user avatar irrelevant of the userId entered)
+  .delete(
+    '/:userId/avatars',
+    authMiddleware,
+    loggedUserGuard,
+    // errorHandler(
+    async (req, res) => {
+      const { role } = req.user;
+      const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
+
+      const { error, result } = await usersServices.deleteUserAvatar(usersData)(+id);
+
+      if (error === errors.RECORD_NOT_FOUND) {
+        res.status(404).send({
+          message: `User ${id} is not found.`
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    }
   );
-
-
-//   // delete avatar
-//   .delete(
-//     '/:userId/avatar',
-//     authMiddleware,
-//     loggedUserGuard,
-//     // errorHandler(
-//     async (req, res) => {
-//       const { role } = req.user;
-//       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
-//       const { error, result } = await usersServices.deleteUserAvatar(usersData)(+id);
-//       if (error === errors.RECORD_NOT_FOUND) {
-//         res.status(404).send({
-//           message: `User ${id} is not found.`
-//         });
-//       } else {
-//         res.status(200).send(result);
-//       }
-//     }
-//   );
-// // )
+// )
 
 export default usersController;
