@@ -1,4 +1,7 @@
 import {
+  USER_DELETE_AVATAR_FAIL,
+  USER_DELETE_AVATAR_REQUEST,
+  USER_DELETE_AVATAR_SUCCESS,
   USER_DELETE_FAIL,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
@@ -155,6 +158,20 @@ export const userAvatarUpdateReducer = (state = {}, action) => {
     case USER_UPDATE_AVATAR_SUCCESS:
       return { loading: false, avatar: action.payload, success: true };
     case USER_UPDATE_AVATAR_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+export const userAvatarDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_DELETE_AVATAR_REQUEST:
+      return { loading: true };
+    case USER_DELETE_AVATAR_SUCCESS:
+      return { loading: false, success: true };
+    case USER_DELETE_AVATAR_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

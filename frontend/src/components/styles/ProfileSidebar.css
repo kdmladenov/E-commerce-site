@@ -33,6 +33,14 @@
   color: var(--gray_dark);
 }
 
+.profile_sidebar .avatar_container button.button_container.delete {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: 25%;
+  right: -5%;
+}
+
 /* Avatar change inputs */
 .profile_sidebar .input_group .image_url,
 .profile_sidebar .input_group .file_upload,
@@ -64,4 +72,8 @@
 .profile_sidebar .input_group .file_upload .button_container {
   margin: 0;
   padding: 0;
+}
+
+.profile_sidebar .divider{
+  z-index: 1;
 }

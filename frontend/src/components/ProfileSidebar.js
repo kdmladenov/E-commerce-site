@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUserAvatarReducer } from '../actions/userActions';
+import { deleteUserAvatar, updateUserAvatarReducer } from '../actions/userActions';
 import Avatar from './Avatar';
 import Button from './Button';
 import Divider from './Divider';
@@ -36,6 +36,9 @@ const ProfileSidebar = ({ user }) => {
         <Avatar classes="large" imageUrl={user?.avatar} fullName={user?.fullName} />
         <Button classes="icon" onClick={() => setShowImageUrlForm(!showImageUrlForm)}>
           <i className="fa fa-camera" />
+        </Button>
+        <Button classes="icon delete" onClick={() => dispatch(deleteUserAvatar(user?.userId))}>
+          <i className="fas fa-trash" />
         </Button>
       </div>
       {showImageUrlForm && (

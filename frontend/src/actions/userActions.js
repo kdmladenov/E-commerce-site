@@ -2,6 +2,9 @@ import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
 import { ORDER_MY_LIST_RESET } from '../constants/orderConstants';
 import {
+  USER_DELETE_AVATAR_FAIL,
+  USER_DELETE_AVATAR_REQUEST,
+  USER_DELETE_AVATAR_SUCCESS,
   USER_DELETE_FAIL,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
@@ -327,15 +330,14 @@ export const updateUserAvatarReducer =
             Authorization: `Bearer ${userInfo.token}`
           }
         };
-        console.log('upload before');
+
         const uploadedImageURL = await axios.post(
-          `${BASE_URL}/users/images/upload`,
+          `${BASE_URL}/users/avatars/upload`,
           formData,
           config
         );
 
         imageUrl = uploadedImageURL.data;
-        console.log(imageUrl, 'imageUrl');
       }
 
       const config = {
@@ -344,8 +346,12 @@ export const updateUserAvatarReducer =
           Authorization: `Bearer ${userInfo.token}`
         }
       };
-      console.log('before url');
-      const { data } = await axios.post(`${BASE_URL}/users/${userId}/images`, { imageUrl }, config);
+
+      const { data } = await axios.post(
+        `${BASE_URL}/users/${userId}/avatars`,
+        { imageUrl },
+        config
+      );
 
       dispatch({
         type: USER_UPDATE_AVATAR_SUCCESS,
@@ -355,6 +361,39 @@ export const updateUserAvatarReducer =
     } catch (error) {
       dispatch({
         type: USER_UPDATE_AVATAR_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      });
+    }
+  };
+
+
+  export const deleteUserAvatar = (userId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: USER_DELETE_AVATAR_REQUEST
+      });
+
+      const {
+        userLogin: { userInfo }
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+
+      await axios.delete(`${BASE_URL}/users/${userId}/avatars`, config);
+
+      dispatch({
+        type: USER_DELETE_AVATAR_SUCCESS
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_DELETE_AVATAR_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
