@@ -90,6 +90,10 @@
   height: 22px;
   border-radius: 11px;
   gap: 5px;
+  font-size: 13px;
+}
+.avatar.small .name{
+  font-size: 16px;
 }
 
 .avatar.image_only.small {

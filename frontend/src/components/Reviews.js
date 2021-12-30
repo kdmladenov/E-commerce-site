@@ -5,12 +5,13 @@ import './styles/Reviews.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../actions/userActions';
 import RatingWidget from './RatingWidget';
-import Tooltip from './Tooltip';
 import { useHistory } from 'react-router-dom';
 import { ratingFilterOptionsMap, reviewsSortOptionsMap } from '../constants/inputMaps';
 import { listReviews } from '../actions/reviewActions';
 import { listProductDetails } from '../actions/productActions';
 import HeaderControls from './HeaderControls';
+import Loader from './Loader';
+import Message from './Message';
 
 const Reviews = ({ currentUser, productId }) => {
   const dispatch = useDispatch();
@@ -32,14 +33,14 @@ const Reviews = ({ currentUser, productId }) => {
   const reviewList = useSelector((state) => state.reviewList);
   const { reviews, loading, error } = reviewList;
 
-  // const reviewCreate = useSelector((state) => state.reviewCreate);
-  // const { success: successCreate, error: errorCreate } = reviewCreate;
+  const reviewCreate = useSelector((state) => state.reviewCreate);
+  const { success: successCreate  } = reviewCreate;
 
-  // const reviewDelete = useSelector((state) => state.reviewDelete);
-  // const { success: successDelete, error: errorDelete } = reviewDelete;
+  const reviewDelete = useSelector((state) => state.reviewDelete);
+  const { success: successDelete} = reviewDelete;
 
-  // const reviewEdit = useSelector((state) => state.reviewEdit);g
-  // const { success: successEdit, error: errorEdit } = reviewEdit;
+  const reviewEdit = useSelector((state) => state.reviewEdit);
+  const { success: successEdit } = reviewEdit;
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading: loadingProduct, error: errorProduct } = productDetails;
@@ -65,14 +66,20 @@ const Reviews = ({ currentUser, productId }) => {
     dispatch,
     currentUser?.userId,
     productId,
-    endpoint
-    // successCreateReview, successDeleteReview, successEditReview
+    endpoint,
+    successCreate,
+    successEdit,
+    successDelete
   ]);
 
   return (
     <div className="reviews">
       <div className="reviews_sidebar">
-        {product && (
+        {loadingProduct ? (
+          <Loader />
+        ) : errorProduct ? (
+          <Message type="error">{errorProduct}</Message>
+        ) : (
           <RatingWidget
             product={product}
             updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
@@ -89,25 +96,26 @@ const Reviews = ({ currentUser, productId }) => {
           ratingFilterOptionsMap={ratingFilterOptionsMap}
           isBreadcrumbsVisible={false}
         />
-        {createMode && (
-          <ReviewCard
-            createMode={createMode}
-            setCreateMode={setCreateMode}
-            currentUser={currentUser}
-            productId={productId}
-            fullName={user.fullName}
-            userId={user.userId}
-            avatar={user.avatar}
-          />
-        )}
         <ul>
-          {!hasUserLeftReview && !createMode && (
-            <li>
-              <Button onClick={handleOpenCreateForm}>
-                <Tooltip text="Write Review">To replace with input field. No create mode</Tooltip>
+          <li>
+            {!hasUserLeftReview && !createMode && (
+              <Button classes="white rounded" onClick={handleOpenCreateForm}>
+                Leave a review
               </Button>
-            </li>
-          )}
+            )}
+            {createMode && (
+              <ReviewCard
+                createMode={createMode}
+                setCreateMode={setCreateMode}
+                currentUser={currentUser}
+                productId={productId}
+                fullName={user.fullName}
+                userId={user.userId}
+                avatar={user.avatar}
+              />
+            )}
+          </li>
+
           {reviews?.length > 0 &&
             reviews?.map((review) => {
               return (

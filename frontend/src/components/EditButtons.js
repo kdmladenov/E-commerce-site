@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from './Button';
 import Tooltip from './Tooltip';
+import './styles/EditButtons.css';
 
 const EditButtons = ({
   createMode,
@@ -9,7 +10,8 @@ const EditButtons = ({
   handleEditButton,
   handleCloseButton,
   handleDeleteButton,
-  handleSaveButton
+  handleSaveButton,
+  disabledSaveButton
 }) => {
   return (
     <div className="edit_buttons">
@@ -27,12 +29,14 @@ const EditButtons = ({
               <i className="fa fa-times"></i>
             </Tooltip>
           </Button>
-          <Button classes="icon">
-            <Tooltip direction="top" text="Delete">
-              <i className="fas fa-trash" onClick={handleDeleteButton}></i>
-            </Tooltip>
-          </Button>
-          <Button classes="icon" onClick={handleSaveButton}>
+          {!createMode && (
+            <Button classes="icon">
+              <Tooltip direction="top" text="Delete">
+                <i className="fas fa-trash" onClick={handleDeleteButton}></i>
+              </Tooltip>
+            </Button>
+          )}
+          <Button classes="icon" onClick={handleSaveButton} disabled={disabledSaveButton}>
             <Tooltip direction="top" text="Save">
               <i className="fa fa-save"></i>
             </Tooltip>

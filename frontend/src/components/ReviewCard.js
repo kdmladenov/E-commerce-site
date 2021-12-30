@@ -9,8 +9,10 @@ import EditButtons from './EditButtons';
 import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
 
+const TITLE_MIN_LENGTH = 2;
+const CONTENT_MIN_LENGTH = 5;
+
 const ReviewCard = ({
-  user,
   currentUser,
   createMode,
   setCreateMode,
@@ -64,59 +66,69 @@ const ReviewCard = ({
     }
   };
 
+  const isFormValid =
+    rating > 0 && content.length >= CONTENT_MIN_LENGTH && title.length >= TITLE_MIN_LENGTH; 
+
+  
+
   return (
     <div className="review_card card">
       <div className="user_info">
-        <Avatar imageUrl={avatar} fullName={fullName}  />
+        <Avatar classes='small' imageUrl={avatar} fullName={fullName} />
       </div>
       <div className="rating_title">
         <div className="rating">
           <Rating rating={rating || 0} editMode={editMode || createMode} setRating={setRating} />
         </div>
+        <div className="title card">
+          {editMode || createMode ? (
+            <input
+              type="text"
+              placeholder="Your review title..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          ) : (
+            title
+          )}
+        </div>
+      </div>
+      <div className="review_content card">
         {editMode || createMode ? (
           <input
-            type="text"
-            className="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            type="textarea"
+            value={content}
+            placeholder="Your review content..."
+            onChange={(e) => setContent(e.target.value)}
           />
+        ) : content?.length > 300 ? (
+          <ShowMoreButton breakpoint={300} text={content} />
         ) : (
-          <div className="title">{title}</div>
+          content
         )}
       </div>
-      {editMode || createMode ? (
-        <input
-          type="text"
-          className="textarea card"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      ) : (
-        <div className="textarea card">
-          {content?.length > 300 ? <ShowMoreButton breakpoint={300} text={content} /> : content}
-        </div>
-      )}
-      <div className="footer">
-        <Votes
-          showButtons={!createMode}
-          voteAction={voteReview}
-          itemId={reviewId}
-          reactionNameUp="THUMBS_UP"
-          reactionNameDown="THUMBS_DOWN"
-          votesUpCount={thumbsUp}
-          votesDownCount={thumbsDown}
-          userVotesUpList={userThumbsUpList}
-          userVotesDownList={userThumbsDownList}
-          currentUserId={currentUser?.userId}
-        />
-        {!createMode && (
+      {!createMode && (
+        <div className="footer">
+          <Votes
+            showButtons={!createMode}
+            voteAction={voteReview}
+            itemId={reviewId}
+            reactionNameUp="THUMBS_UP"
+            reactionNameDown="THUMBS_DOWN"
+            votesUpCount={thumbsUp}
+            votesDownCount={thumbsDown}
+            userVotesUpList={userThumbsUpList}
+            userVotesDownList={userThumbsDownList}
+            currentUserId={currentUser?.userId}
+          />
+
           <div className="dates">
             {!dateEdited
               ? `${getTimeDuration(dateCreated, new Date())}`
               : `edited ${getTimeDuration(dateEdited, new Date())}`}
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <EditButtons
         createMode={createMode}
         editMode={editMode}
@@ -125,6 +137,7 @@ const ReviewCard = ({
         handleCloseButton={handleCloseButton}
         handleDeleteButton={handleDeleteButton}
         handleSaveButton={handleSaveButton}
+        disabledSaveButton={!isFormValid}
       />
     </div>
   );

@@ -6,7 +6,7 @@ const STAR_COUNT = 5;
 
 const Rating = ({ rating, setRating, text, color, editMode }) => {
   return (
-    <div className="rating">
+    <div className="star_rating">
       {Array.from({ length: STAR_COUNT }).map((_, index) => (
         <span key={index}>
           <i
