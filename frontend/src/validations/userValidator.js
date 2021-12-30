@@ -7,20 +7,12 @@ const validate = {
     value.length >= USER.MIN_EMAIL_LENGTH &&
     value.length <= USER.MAX_EMAIL_LENGTH &&
     USER.EMAIL_REGEX.test(value),
-  // reenteredEmail: (value) =>
-  //   !value ||
-  //   (typeof value === 'string' &&
-  //     value.length >= USER.MIN_EMAIL_LENGTH &&
-  //     value.length <= USER.MAX_EMAIL_LENGTH &&
-  //     USER.EMAIL_REGEX.test(value)),
+  reenteredEmail: (value, match) => value === match,
   password: (value) =>
     typeof value === 'string' &&
     value.length <= USER.MAX_PASSWORD_LENGTH &&
     USER.PASSWORD_REGEX.test(value),
-  reenteredPassword: (value) => (value) =>
-    typeof value === 'string' &&
-    value.length <= USER.MAX_PASSWORD_LENGTH &&
-    USER.PASSWORD_REGEX.test(value),
+  reenteredPassword: (value, match) => value === match,
   fullName: (value) =>
     typeof value === 'string' &&
     value.length >= USER.MIN_FULL_NAME_LENGTH &&
@@ -79,18 +71,10 @@ const validateInputUser = {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.password.length(value)) {
-      return ` must be between ${USER.MIN_PASSWORD_LENGTH} and ${USER.MAX_PASSWORD_LENGTH} characters`;
+    if (!validate.password(value)) {
+      return ` must include ${USER.MIN_PASSWORD_LENGTH} - ${USER.MAX_PASSWORD_LENGTH} letters, numbers and at least 1 uppercase`;
     }
-    if (!validate.password.lowerCase(value)) {
-      return ' must include a lowercase letter';
-    }
-    if (!validate.password.upperCase(value)) {
-      return ' must include an uppercase letter';
-    }
-    if (!validate.password.digit(value)) {
-      return ' must include a digit';
-    }
+
     return '';
   },
 
@@ -104,38 +88,12 @@ const validateInputUser = {
     return '';
   },
 
-  currentPassword: (value) => {
-    if (!value) {
-      return ' is required!';
-    }
-    if (!validate.password.length(value)) {
-      return `must be between ${USER.MIN_PASSWORD_LENGTH} and ${USER.MAX_PASSWORD_LENGTH} characters`;
-    }
-    if (!validate.password.lowerCase(value)) {
-      return ' must include a lowercase letter';
-    }
-    if (!validate.password.upperCase(value)) {
-      return ' must include an uppercase letter';
-    }
-    if (!validate.password.digit(value)) {
-      return ' must include a digit';
-    }
-    return '';
-  },
-
   fullName: (value) => {
     if (!validate.fullName(value)) {
       return ` must be between ${USER.MIN_FULL_NAME_LENGTH} and ${USER.MAX_FULL_NAME_LENGTH} characters`;
     }
     return '';
   },
-
-  // lastName: (value) => {
-  //   if (!validate.lastName(value)) {
-  //     return ` must be between ${USER.MIN_LAST_NAME_LENGTH} and ${USER.MAX_LAST_NAME_LENGTH} characters`;
-  //   }
-  //   return '';
-  // },
 
   phone: (value) => {
     if (!validate.phone(value)) {

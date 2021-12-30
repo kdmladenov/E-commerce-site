@@ -47,7 +47,7 @@ const FormComponent = ({
     return true;
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e, match) => {
     const { name, value } = e.target;
 
     const updatedForm = { ...form };
@@ -55,7 +55,7 @@ const FormComponent = ({
     updatedForm[name].touched = true;
     updatedForm[name].valid = isInputValid(value, updatedForm[name].validations);
 
-    validateInput && setInputErrors({ ...inputErrors, [name]: validateInput[name](value) });
+    validateInput && setInputErrors({ ...inputErrors, [name]: validateInput[name](value, match) });
     setForm(updatedForm);
     setIsFormValid(
       Object.values(updatedForm).every((elem) =>
@@ -124,13 +124,22 @@ const FormComponent = ({
             name={id}
             placeholder={config.value}
             value={config.value}
-            onChange={handleInputChange}
+            onChange={(e) =>
+              handleInputChange(
+                e,
+                id === 'reenteredEmail'
+                  ? form.email.value
+                  : id === 'reenteredPassword'
+                  ? form.password.value
+                  : ''
+              )
+            }
           />
         </div>
       );
     });
 
-    const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = Object.keys(form).reduce((acc, key) => {
@@ -160,18 +169,20 @@ const FormComponent = ({
   };
 
   useEffect(() => {
-    if (isResourceUpdated) {
-      dispatch(getDetailsAction(resourceId));
-      setIsResourceUpdated(false);
-    } else {
-      const updatedFormData = Object.keys(form).reduce((acc, key) => {
-        return {
-          ...acc,
-          [key]: { ...form[key], value: mode === 'create' ? '' : resource[key] }
-        };
-      }, {});
-      setForm(updatedFormData);
-      setIsResourceLoaded(true);
+    if (getDetailsAction) {
+      if (isResourceUpdated) {
+        dispatch(getDetailsAction(resourceId));
+        setIsResourceUpdated(false);
+      } else {
+        const updatedFormData = Object.keys(form).reduce((acc, key) => {
+          return {
+            ...acc,
+            [key]: { ...form[key], value: mode === 'create' ? '' : resource[key] }
+          };
+        }, {});
+        setForm(updatedFormData);
+        setIsResourceLoaded(true);
+      }
     }
   }, [
     dispatch,
@@ -189,8 +200,16 @@ const FormComponent = ({
       {formToRender}
       <div className="button_group">
         {Object.values(form).some((input) => input.touched || screen === 'shipping') && (
-          <Button classes="rounded green" type="submit" disabled={!isFormValid}>
-            {screen !== 'shipping' ? 'Save Changes' : 'Proceed to Payment'}
+          <Button
+            classes="rounded green"
+            type="submit"
+            disabled={!(isFormValid && Object.values(inputErrors).every((error) => error === ''))}
+          >
+            {screen === 'register'
+              ? 'Register'
+              : screen !== 'shipping'
+              ? 'Save Changes'
+              : 'Proceed to Payment'}
           </Button>
         )}
         {Object.values(form).some((input) => input.touched) && (
