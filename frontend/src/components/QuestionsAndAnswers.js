@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../Button';
+import Button from './Button';
 import './styles/QuestionsAndAnswers.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../../actions/userActions';
+import { getUserDetails } from '../actions/userActions';
 import QuestionsAndAnswersCard from './QuestionsAndAnswersCard';
-import Message from '../Message';
-import { listQuestionsAndAnswers } from '../../actions/questionsAndAnswersActions';
-import Loader from '../Loader';
-import HeaderControls from '../HeaderControls';
-import { questionsSortOptionsMap } from '../../constants/inputMaps';
+import Message from './Message';
+import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
+import Loader from './Loader';
+import HeaderControls from './HeaderControls';
+import { questionsSortOptionsMap } from '../constants/inputMaps';
 import { useHistory } from 'react-router-dom';
 
 const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {

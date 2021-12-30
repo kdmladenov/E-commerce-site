@@ -27,6 +27,9 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   // const wishListItems = useSelector((state) => state.wishListItems);
   // const { wishList } = wishListItems;
 
@@ -109,9 +112,10 @@ const CartScreen = ({ match, location, history }) => {
   useEffect(() => {
     // dispatch(listWishedItems());
     dispatch(listBrowsingHistory());
-  }, [dispatch,
+  }, [
+    dispatch
     //  successAddWish, successDeleteWish
-    ]);
+  ]);
 
   return (
     <main className="cart_container">
@@ -196,18 +200,22 @@ const CartScreen = ({ match, location, history }) => {
               {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
             </Button>
           </div>
-          <div className="recent_items card">
-            <h3>Your recently viewed items</h3>
-            {recentItemsToShow}
-            <Button classes="text" onClick={() => history.push('/history')}>
-              Your Full Browsing History
-            </Button>
-          </div>
+          {userInfo.length > 0 && (
+            <div className="recent_items card">
+              <h3>Your recently viewed items</h3>
+              {recentItemsToShow}
+              <Button classes="text" onClick={() => history.push('/history')}>
+                Your Full Browsing History
+              </Button>
+            </div>
+          )}
         </div>
       </aside>
-      <Carousel title={'Your Wish List'}>
-        <WishList isCarousel={true} />
-      </Carousel>
+      {userInfo.length > 0 && (
+        <Carousel title={'Your Wish List'}>
+          <WishList isCarousel={true} />
+        </Carousel>
+      )}
       {/* <Carousel title={'Your Browsing History'} isPageVisible={true}>
           <History horizontal={true} />
       </Carousel> */}

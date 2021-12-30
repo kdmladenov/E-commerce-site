@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Reviews from '../components/Reviews';
 import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
-import QuestionsAndAnswers from '../components/QuestionsAndAnswers/QuestionsAndAnswers';
+import QuestionsAndAnswers from '../components/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';
 import ScrollToTopButton from '../components/ScrollToTopButton';

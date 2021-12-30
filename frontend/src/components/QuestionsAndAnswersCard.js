@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ShowMoreButton from '../ShowMoreButton';
+import ShowMoreButton from './ShowMoreButton';
 import './styles/QuestionsAndAnswers.css';
 import { useDispatch } from 'react-redux';
 import {
@@ -7,12 +7,12 @@ import {
   deleteQuestion,
   editQuestion,
   voteQuestion
-} from '../../actions/questionsAndAnswersActions';
-import EditButtons from '../EditButtons';
+} from '../actions/questionsAndAnswersActions';
+import EditButtons from './EditButtons';
 import AnswerCard from './AnswerCard';
-import Votes from '../Votes';
-import Button from '../Button';
-import Divider from '../Divider'
+import Votes from './Votes';
+import Button from './Button';
+import Divider from './Divider'
 
 const answerCountAtStart = 1;
 

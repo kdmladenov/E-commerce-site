@@ -8,7 +8,7 @@ import { questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../con
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Button from '../components/Button';
-import QuestionsAndAnswersCard from '../components/QuestionsAndAnswers/QuestionsAndAnswersCard';
+import QuestionsAndAnswersCard from '../components/QuestionsAndAnswersCard';
 import Pagination from '../components/Pagination';
 
 const QuestionsAndAnswersScreen = ({ match }) => {

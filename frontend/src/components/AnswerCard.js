@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createAnswer, deleteAnswer, editAnswer } from '../../actions/questionsAndAnswersActions';
-import { getTimeDuration } from '../../constants/utility-functions';
-import Avatar from '../Avatar';
-import EditButtons from '../EditButtons';
-import ShowMoreButton from '../ShowMoreButton';
+import { createAnswer, deleteAnswer, editAnswer } from '../actions/questionsAndAnswersActions';
+import { getTimeDuration } from '../constants/utility-functions';
+import Avatar from './Avatar';
+import EditButtons from './EditButtons';
+import ShowMoreButton from './ShowMoreButton';
 import './styles/QuestionsAndAnswers.css';
 
 const AnswerCard = ({
