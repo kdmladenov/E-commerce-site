@@ -34,10 +34,10 @@ const Reviews = ({ currentUser, productId }) => {
   const { reviews, loading, error } = reviewList;
 
   const reviewCreate = useSelector((state) => state.reviewCreate);
-  const { success: successCreate  } = reviewCreate;
+  const { success: successCreate } = reviewCreate;
 
   const reviewDelete = useSelector((state) => state.reviewDelete);
-  const { success: successDelete} = reviewDelete;
+  const { success: successDelete } = reviewDelete;
 
   const reviewEdit = useSelector((state) => state.reviewEdit);
   const { success: successEdit } = reviewEdit;
@@ -48,13 +48,9 @@ const Reviews = ({ currentUser, productId }) => {
   const hasUserLeftReview =
     reviews?.length && reviews?.some((review) => review.userId === currentUser?.userId);
 
-  const handleOpenCreateForm = () => {
-    setCreateMode(true);
-  };
-
-  useEffect(() => {
-    dispatch(listReviews(productId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(listReviews(productId));
+  // }, []);
 
   useEffect(() => {
     const { page, pageSize, sort, search, rating } = endpoint;
@@ -99,7 +95,7 @@ const Reviews = ({ currentUser, productId }) => {
         <ul>
           <li>
             {!hasUserLeftReview && !createMode && (
-              <Button classes="white rounded" onClick={handleOpenCreateForm}>
+              <Button classes="white rounded" onClick={() => setCreateMode(true)}>
                 Leave a review
               </Button>
             )}

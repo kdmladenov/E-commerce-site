@@ -105,7 +105,7 @@ const ProductImagesEdit = () => {
             </div>
           </div>
           <div className="images_list card">
-            <Divider>Product Images</Divider>
+            <h2>Product Images</h2>
             {productImages?.length > 0 && (
               <ul>
                 {productImages.map((image, index) => (

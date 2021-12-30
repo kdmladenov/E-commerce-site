@@ -23,6 +23,7 @@ const ProductEditScreen = ({ match }) => {
           <button
             className={`tab ${activeTab === 'images' && 'active'}`}
             onClick={() => setActiveTab('images')}
+            disabled={!productId}
           >
             Add Product Images
           </button>

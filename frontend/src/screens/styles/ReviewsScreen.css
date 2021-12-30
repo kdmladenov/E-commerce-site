@@ -1,9 +1,10 @@
 .reviews_screen_container {
+  background-color: var(--gray_background);
   display: grid;
   grid-template-columns: 320px 1fr;
-  grid-template-rows: 50px 1fr;
   grid-template-areas:
     'sidebar header_controls'
+    'sidebar create_form'
     'sidebar review_list';
 }
 
@@ -11,8 +12,11 @@
   grid-area: sidebar;
   height: 100%;
   padding: 10px;
-  box-shadow: var(--box_shadow_angle);
   background-color: var(--gray_background);
+}
+.reviews_screen_container .sidebar .sidebar_wrapper{
+  position: sticky;
+  top: 10px;
 }
 
 .reviews_screen_container .sidebar .rating_widget {
@@ -20,8 +24,23 @@
   border-radius: 5px;
   box-shadow: var(--box_shadow);
   color: var(--black);
-  position: sticky;
-  top: 10px;
+}
+
+.reviews_screen_container .sidebar button {
+  margin: 20px auto;
+}
+
+.reviews_screen_container .header_controls {
+  height: 60px;
+  grid-area: header_controls;
+  margin-bottom: 20px;
+}
+
+.reviews_screen_container .create_form {
+  grid-area: create_form;
+  height: fit-content;
+  padding: 0 20px;
+  background-color: var(--gray_background);
 }
 
 .reviews_screen_container .reviews_list {
@@ -31,8 +50,7 @@
   height: fit-content;
 }
 
-
-.reviews_screen_container .reviews_list .footer {
+.reviews_screen_container .reviews_list > .footer {
   height: 60px;
   width: 100%;
   padding: 10px;

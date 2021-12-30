@@ -8,9 +8,7 @@ import Votes from './Votes';
 import EditButtons from './EditButtons';
 import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
-
-const TITLE_MIN_LENGTH = 2;
-const CONTENT_MIN_LENGTH = 5;
+import { REVIEW_CONTENT_MIN_LENGTH, REVIEW_TITLE_MIN_LENGTH } from '../constants/constants';
 
 const ReviewCard = ({
   currentUser,
@@ -53,7 +51,7 @@ const ReviewCard = ({
   const handleDeleteButton = () => {
     dispatch(deleteReview(reviewId));
     setEditMode(false);
-    setCreateMode(false);
+    createMode && setCreateMode(false);
   };
 
   const handleSaveButton = () => {
@@ -67,14 +65,14 @@ const ReviewCard = ({
   };
 
   const isFormValid =
-    rating > 0 && content.length >= CONTENT_MIN_LENGTH && title.length >= TITLE_MIN_LENGTH; 
-
-  
+    rating > 0 &&
+    content.length >= REVIEW_CONTENT_MIN_LENGTH &&
+    title.length >= REVIEW_TITLE_MIN_LENGTH;
 
   return (
     <div className="review_card card">
       <div className="user_info">
-        <Avatar classes='small' imageUrl={avatar} fullName={fullName} />
+        <Avatar classes="small" imageUrl={avatar} fullName={fullName} />
       </div>
       <div className="rating_title">
         <div className="rating">
