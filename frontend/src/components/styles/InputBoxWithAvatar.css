@@ -1,0 +1,46 @@
+.input_with_avatar {
+  width: 100%;
+  position: relative;
+  display: grid;
+  padding: 10px 0 0 20px;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: 20px 20px;
+  grid-template-areas:
+    'avatar input'
+    'avatar message';
+  align-items: flex-start;
+  column-gap: 10px;
+  row-gap: 5px;
+}
+
+.input_with_avatar .avatar {
+  grid-area: avatar;
+  align-items: flex-start;
+}
+
+.input_with_avatar input {
+  grid-area: input;
+  height: 36px;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 20px;
+  border-radius: 18px;
+  background: var(--gray_light);
+}
+.input_with_avatar .edit_buttons {
+  top: 5px;
+  right: 0px;
+}
+
+.input_with_avatar p {
+  grid-area: message;
+  opacity: 0%;
+  color: var(--red);
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.input_with_avatar p.show {
+  opacity: 100%;
+}
