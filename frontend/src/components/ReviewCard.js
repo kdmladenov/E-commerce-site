@@ -12,7 +12,7 @@ import { REVIEW, PRODUCT } from '../constants/constants';
 
 const ReviewCard = ({
   currentUser,
-  createMode,
+  createMode = false,
   setCreateMode,
   productId,
   userId: authorId,

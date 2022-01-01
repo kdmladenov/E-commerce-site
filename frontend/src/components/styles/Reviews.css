@@ -3,7 +3,7 @@
   grid-template-columns: 300px 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: ' sidebar review_list';
-  gap: 80px;
+  gap: 20px;
   margin-bottom: 20px;
 }
 
@@ -11,14 +11,35 @@
   grid-area: sidebar;
 }
 
-.reviews .reviews-list .footer {
+.reviews .reviews_sidebar .rating_widget {
+  background-color: var(--white);
+  color: var(--black);
+}
+
+.reviews .create_form {
+  height: fit-content;
+  padding: 0;
+}
+
+.reviews .reviews_list > .footer {
   display: flex;
   justify-content: flex-start;
   gap: 20px;
 }
-.reviews .rating_widget {
+
+.reviews .reviews_list > .footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.reviews .reviews_sidebar .sidebar_wrapper {
   position: sticky;
-  top: 0;
+  top: 10px;
+}
+
+.reviews .reviews_sidebar .sidebar_wrapper button{
+  margin: 20px auto;
 }
 
 .reviews-list {
