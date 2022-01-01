@@ -1,8 +1,8 @@
-.questions_and_answers_screen {
+.questions_and_answers_screen .questions_and_answers_screen {
   background-color: var(--gray_background);
 }
 
-.questions_and_answers_container {
+.questions_and_answers_screen .questions_and_answers_container {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;

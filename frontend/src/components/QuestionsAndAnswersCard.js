@@ -3,7 +3,7 @@ import ShowMoreButton from './ShowMoreButton';
 import './styles/QuestionsAndAnswers.css';
 import { useDispatch } from 'react-redux';
 import {
-  askQuestion,
+  createAnswer,
   deleteQuestion,
   editQuestion,
   voteQuestion
@@ -12,14 +12,14 @@ import EditButtons from './EditButtons';
 import AnswerCard from './AnswerCard';
 import Votes from './Votes';
 import Button from './Button';
-import Divider from './Divider'
+import Divider from './Divider';
+import InputBoxWithAvatar from './InputBoxWithAvatar';
+import { ANSWER } from '../constants/constants';
 
 const answerCountAtStart = 1;
 
 const QuestionsAndAnswersCard = ({
   currentUser,
-  createMode,
-  setCreateMode,
   productId,
   userId: authorId,
   questionId,
@@ -35,37 +35,29 @@ const QuestionsAndAnswersCard = ({
   userThumbsDownList
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const [showAllAnswers, setShowAllAnswers] = useState(false);
-  const [createAnswerMode, setCreateAnswerMode] = useState(false);
-  const [contentQuestion, setContentQuestion] = useState(!createMode ? questionContent : '');
+  const [contentQuestion, setContentQuestion] = useState(questionContent);
   const answerList = JSON.parse(answers);
+  const [showAllAnswers, setShowAllAnswers] = useState(false);
 
   const dispatch = useDispatch();
 
-  const handleEditButton = () => {
+  const handleQuestionEditButton = () => {
     setEditMode(true);
   };
 
-  const handleCloseButton = () => {
+  const handleQuestionCloseButton = () => {
     setEditMode(false);
-    setCreateMode(false);
     setContentQuestion(questionContent);
   };
 
-  const handleDeleteButton = () => {
+  const handleQuestionDeleteButton = () => {
     dispatch(deleteQuestion(questionId));
     setEditMode(false);
-    setCreateMode(false);
   };
 
-  const handleSaveButton = () => {
-    if (createMode) {
-      dispatch(askQuestion(productId, { contentQuestion }));
-      setCreateMode(false);
-    } else if (editMode) {
-      dispatch(editQuestion(questionId, { contentQuestion }));
-      setEditMode(false);
-    }
+  const handleQuestionSaveButton = () => {
+    dispatch(editQuestion(questionId, { contentQuestion }));
+    setEditMode(false);
   };
 
   return (
@@ -89,75 +81,76 @@ const QuestionsAndAnswersCard = ({
       </div>
       <div className="question_and_answer">
         <div className="question">
-          {/* <span>Question:</span> */}
-          {editMode || createMode ? (
-            <input
-              type="text"
-              className="textarea card"
-              value={contentQuestion}
-              onChange={(e) => setContentQuestion(e.target.value)}
-            />
-          ) : (
-            <div className="textarea">
-              {contentQuestion?.length > 300 ? (
-                <ShowMoreButton breakpoint={300} text={contentQuestion} />
-              ) : (
-                contentQuestion
-              )}
-              {/* <div className="created_info">
-                {`By ${currentUser?.userId === authorId ? 'you' : fullName} on ${dateCreated.slice(
-                  0,
-                  10
-                )} ${dateEdited ? `(edited ${getTimeDuration(dateEdited, new Date())}) ` : ''}`}
-              </div> */}
-            </div>
-          )}
-
+          <div className="textarea ">
+            {editMode ? (
+              <input
+                type="text"
+                value={contentQuestion}
+                onChange={(e) => setContentQuestion(e.target.value)}
+              />
+            ) : contentQuestion?.length > 300 ? (
+              <ShowMoreButton breakpoint={300} text={contentQuestion} />
+            ) : (
+              contentQuestion
+            )}
+          </div>
           <EditButtons
-            createMode={createMode}
             editMode={editMode}
             isCurrentUserId={currentUser?.userId === authorId}
-            handleEditButton={handleEditButton}
-            handleCloseButton={handleCloseButton}
-            handleDeleteButton={handleDeleteButton}
-            handleSaveButton={handleSaveButton}
+            handleEditButton={handleQuestionEditButton}
+            handleCloseButton={handleQuestionCloseButton}
+            handleDeleteButton={handleQuestionDeleteButton}
+            handleSaveButton={handleQuestionSaveButton}
           />
         </div>
         <Divider>
           <h5>Answers</h5>
         </Divider>
         <div className="answers">
-          {/* <span>Answers:</span> */}
-          <ul className="answer_list">
-            {answerList?.length
-              ? (showAllAnswers ? answerList : answerList.slice(0, answerCountAtStart))?.map(
-                  (answer) => {
-                    return (
-                      <AnswerCard
-                        key={answer.answerId}
-                        {...answer}
-                        currentUser={currentUser}
-                        createAnswerMode={false}
-                        setCreateAnswerMode={setCreateAnswerMode}
-                        fullName={answer.fullName}
-                        avatar={answer.avatar}
-                      />
-                    );
-                  }
+          {answerList?.length && (
+            <ul className="answer_list">
+              {(showAllAnswers ? answerList : answerList?.slice(0, answerCountAtStart))?.map(
+                (answer) => (
+                  <AnswerCard
+                    key={answer.answerId}
+                    {...answer}
+                    currentUser={currentUser}
+                    createAnswerMode={false}
+                    fullName={answer.fullName}
+                    avatar={answer.avatar}
+                  />
                 )
-              : 'There is no answer yet'}
-            {answerList?.length > answerCountAtStart &&
-              (!showAllAnswers ? (
-                <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
-                  <i className="fa fa-chevron-down"></i>{' '}
-                  {`See more answers (${answerList?.length - answerCountAtStart})`}
-                </Button>
-              ) : (
-                <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
-                  <i className="fa fa-chevron-up"></i> {`Collapse answers`}
-                </Button>
-              ))}
-          </ul>
+              )}
+            </ul>
+          )}
+          <div className="answers_footer">
+            {answerList?.length > answerCountAtStart && (
+              <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
+                {!showAllAnswers ? (
+                  <>
+                    <i className="fa fa-chevron-down" />
+                    {`See more answers (${answerList?.length - answerCountAtStart})`}
+                  </>
+                ) : (
+                  <>
+                    <i className="fa fa-chevron-up" /> {`Collapse answers`}
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
+            <InputBoxWithAvatar
+              resourceId={questionId}
+              currentUserDetails={currentUser}
+              createAction={createAnswer}
+              validationMin={ANSWER.MIN_CONTENT_LENGTH}
+              validationMax={ANSWER.MAX_CONTENT_LENGTH}
+              placeholder="Your answer ..."
+              errorMessage={`The answer should be ${ANSWER.MIN_CONTENT_LENGTH} - ${ANSWER.MAX_CONTENT_LENGTH} characters long`}
+              closedButtonText={
+                answerList?.length ? `Write another answer` : `Write the first answer`
+              }
+            />
         </div>
       </div>
     </div>

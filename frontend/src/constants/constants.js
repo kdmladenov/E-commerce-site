@@ -10,8 +10,6 @@ export const FREE_SHIPPING_THRESHOLD = 500;
 export const SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE = 0.1;
 export const TAX_RATE = 0.2;
 
-export const REVIEW_TITLE_MIN_LENGTH = 2;
-export const REVIEW_CONTENT_MIN_LENGTH = 5;
 
 export const STORE_NAME = 'MyShop'
 
@@ -95,4 +93,23 @@ export const PRODUCT = {
 export const SPECIFICATIONS = {
   MIN_SCREEN_SIZE: 1,
   MAX_SCREEN_SIZE: 50
+};
+
+export const REVIEW = {
+  MIN_CONTENT_LENGTH: 2,
+  MAX_CONTENT_LENGTH: 10000,
+  MIN_TITLE_LENGTH: 2,
+  MAX_TITLE_LENGTH: 255,
+  DEFAULT_RATING_MIN: 0,
+  DEFAULT_RATING_MAX: 5
+};
+
+export const QUESTION = {
+  MIN_CONTENT_LENGTH: 2,
+  MAX_CONTENT_LENGTH: 255
+};
+
+export const ANSWER = {
+  MIN_CONTENT_LENGTH: 2,
+  MAX_CONTENT_LENGTH: 1000
 };

@@ -4,9 +4,9 @@ import Tooltip from './Tooltip';
 import './styles/EditButtons.css';
 
 const EditButtons = ({
-  createMode,
-  editMode,
-  isCurrentUserId,
+  createMode = false,
+  editMode = false,
+  isCurrentUserId = false,
   handleEditButton,
   handleCloseButton,
   handleDeleteButton,
@@ -24,11 +24,13 @@ const EditButtons = ({
       )}
       {(createMode || (editMode && isCurrentUserId)) && (
         <div className="button_group_edit">
-          <Button classes="icon" onClick={handleCloseButton}>
-            <Tooltip direction="top" text="Cancel">
-              <i className="fa fa-times"></i>
-            </Tooltip>
-          </Button>
+          {handleCloseButton && (
+            <Button classes="icon" onClick={handleCloseButton}>
+              <Tooltip direction="top" text="Cancel">
+                <i className="fa fa-times"></i>
+              </Tooltip>
+            </Button>
+          )}
           {!createMode && (
             <Button classes="icon">
               <Tooltip direction="top" text="Delete">

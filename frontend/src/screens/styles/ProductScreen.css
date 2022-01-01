@@ -29,6 +29,11 @@
   border-bottom: 0px solid transparent !important;
 }
 
+.questions_and_answers_container .questions_and_answers {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 .comparison_table_container {
   grid-area: product_comparison_table;
 }

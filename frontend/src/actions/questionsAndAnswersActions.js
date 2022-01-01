@@ -27,7 +27,7 @@ import {
   QUESTION_VOTE_SUCCESS
 } from '../constants/questionsAndAnswersConstants';
 
-export const askQuestion = (productId, question) => async (dispatch, getState) => {
+export const askQuestion = (productId, contentQuestion) => async (dispatch, getState) => {
   try {
     dispatch({ type: QUESTION_ASK_REQUEST });
 
@@ -42,7 +42,11 @@ export const askQuestion = (productId, question) => async (dispatch, getState) =
       }
     };
 
-    const { data } = await axios.post(`${BASE_URL}/questions/${productId}`, question, config);
+    const { data } = await axios.post(
+      `${BASE_URL}/questions/${productId}`,
+      { contentQuestion },
+      config
+    );
 
     dispatch({ type: QUESTION_ASK_SUCCESS, payload: data });
   } catch (error) {
@@ -142,7 +146,11 @@ export const createAnswer = (questionId, answer) => async (dispatch, getState) =
       }
     };
 
-    const { data } = await axios.post(`${BASE_URL}/answers/${questionId}`, answer, config);
+    const { data } = await axios.post(
+      `${BASE_URL}/answers/${questionId}`,
+      { contentAnswer: answer },
+      config
+    );
 
     dispatch({ type: ANSWER_CREATE_SUCCESS, payload: data });
   } catch (error) {

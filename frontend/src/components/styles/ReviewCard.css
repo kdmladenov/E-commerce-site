@@ -29,7 +29,6 @@
 .review_card .title,
 .review_card .review_content {
   padding: 0 10px;
-  border: 1px solid var(--gray);
 }
 
 .review_card input {

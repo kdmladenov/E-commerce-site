@@ -320,14 +320,11 @@ const setProductImageAsMain = (productsImagesData) => async (productImageId) => 
       newMainImage: null
     };
   }
-  console.log(newMainProductImage, 'newMainProductImage');
   const allProductImages = await productsImagesData.getAllProductImages(
     +newMainProductImage.productId
   );
 
   const oldMainProduct = allProductImages.filter((image) => image.isMain)[0];
-
-  console.log(oldMainProduct, 'oldMainProduct');
 
   await productsImagesData.update({ ...oldMainProduct, isMain: 0 });
 

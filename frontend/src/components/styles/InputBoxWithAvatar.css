@@ -2,15 +2,22 @@
   width: 100%;
   position: relative;
   display: grid;
-  padding: 10px 0 0 20px;
+  padding: 0 0 0 20px;
+  margin-top: 10px;
   grid-template-columns: 50px 1fr;
   grid-template-rows: 20px 20px;
   grid-template-areas:
     'avatar input'
     'avatar message';
   align-items: flex-start;
-  column-gap: 10px;
-  row-gap: 5px;
+  gap: 5px;
+}
+
+.input_with_avatar.button {
+  width: 100%;
+  position: relative;
+  display: block;
+  padding: 0;
 }
 
 .input_with_avatar .avatar {
@@ -41,6 +48,22 @@
   padding: 0 10px;
 }
 
-.input_with_avatar p.show {
+.input_with_avatar p.show_message {
   opacity: 100%;
+}
+
+.input_with_avatar .button_container.icon {
+  visibility: hidden;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: var(--gray_dark);
+}
+
+.input_with_avatar:hover .button_container.icon {
+  visibility: visible;
+}
+
+.questions_and_answers .answers .input_with_avatar {
+  padding: 0;
 }

@@ -8,7 +8,7 @@ import Votes from './Votes';
 import EditButtons from './EditButtons';
 import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
-import { REVIEW_CONTENT_MIN_LENGTH, REVIEW_TITLE_MIN_LENGTH } from '../constants/constants';
+import { REVIEW, PRODUCT } from '../constants/constants';
 
 const ReviewCard = ({
   currentUser,
@@ -65,9 +65,12 @@ const ReviewCard = ({
   };
 
   const isFormValid =
-    rating > 0 &&
-    content.length >= REVIEW_CONTENT_MIN_LENGTH &&
-    title.length >= REVIEW_TITLE_MIN_LENGTH;
+    rating > PRODUCT.MIN_RATING_VALUE &&
+    rating <= PRODUCT.MIN_RATING_VALUE &&
+    content.length >= REVIEW.MIN_CONTENT_LENGTH &&
+    content.length <= REVIEW.MAX_CONTENT_LENGTH &&
+    title.length >= REVIEW.MIN_TITLE_LENGTH &&
+    title.length <= REVIEW.MAX_TITLE_LENGTH;
 
   return (
     <div className="review_card card">

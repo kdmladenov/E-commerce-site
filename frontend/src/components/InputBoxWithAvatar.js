@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Avatar from './Avatar';
 import { useDispatch } from 'react-redux';
 import './styles/InputBoxWithAvatar.css';
+import Button from './Button';
 
 const InputBoxWithAvatar = ({
   resourceId,
@@ -10,11 +11,13 @@ const InputBoxWithAvatar = ({
   validationMin,
   validationMax,
   placeholder,
-  errorMessage
+  errorMessage,
+  closedButtonText
 }) => {
   const dispatch = useDispatch();
 
   const [content, setContent] = useState('');
+  const [showForm, setShowForm] = useState(!closedButtonText);
 
   const isValid = content.length >= validationMin && content.length < validationMax;
 
@@ -34,20 +37,27 @@ const InputBoxWithAvatar = ({
   };
 
   return (
-    <div className="input_with_avatar">
-      <Avatar
-        classes="image_only "
-        imageUrl={currentUserDetails?.avatar}
-        fullName={currentUserDetails?.fullName}
-      />
-      <input
-        type="textarea"
-        value={content}
-        placeholder={placeholder}
-        onChange={inputHandler}
-        onKeyUp={keyPressHandler}
-      />
-      <p className={content.length > 0 && !isValid && 'show'}>{errorMessage}</p>
+    <div className={`input_with_avatar ${!showForm ? 'button' : ''}`}>
+      {showForm && (
+        <Avatar
+          classes="image_only"
+          imageUrl={currentUserDetails?.avatar}
+          fullName={currentUserDetails?.fullName}
+        />
+      )}
+      {showForm && (
+        <input
+          type="textarea"
+          value={content}
+          placeholder={placeholder}
+          onChange={inputHandler}
+          onKeyUp={keyPressHandler}
+        />
+      )}
+      {showForm && <p className={content.length > 0 && !isValid && 'show_message'}>{errorMessage}</p>}
+      <Button classes={`${showForm ? 'icon' : 'text'}`} onClick={() => setShowForm(!showForm)}>
+        {showForm ? <i className="fa fa-times" /> : closedButtonText}
+      </Button>
     </div>
   );
 };

@@ -44,7 +44,7 @@ const ProductFeaturesEdit = ({ productId }) => {
       ) : productFeatures?.length > 0 ? (
         <Accordion>
           {productFeatures?.map((feature, index) => (
-            <Accordion.Item key={feature.featuresId}>
+            <Accordion.Item key={feature.featureId}>
               <Accordion.Header index={index}>
                 <Accordion.Title>{feature.featureTitle}</Accordion.Title>
                 <Accordion.ButtonGroup></Accordion.ButtonGroup>

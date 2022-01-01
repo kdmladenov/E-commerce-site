@@ -50,8 +50,6 @@ const ProductImagesEdit = () => {
   const productImagesList = useSelector((state) => state.productImagesList);
   const { loading, error, productImages } = productImagesList;
 
-  console.log(productImages);
-
   const productImageUpload = useSelector((state) => state.productImageUpload);
   const { loading: loadingUpload, error: errorUpload, success: successUpload } = productImageUpload;
 

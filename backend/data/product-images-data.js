@@ -32,7 +32,7 @@ const addProductImage = async (productId, imageUrl, isMain = 0) => {
 };
 
 const getAllProductImages = async (productId) => {
-  console.log(productId, 'productId');
+
   const sql = `
       SELECT 
         product_image_id as productImageId,

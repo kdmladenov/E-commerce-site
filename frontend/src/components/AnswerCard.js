@@ -9,8 +9,6 @@ import './styles/QuestionsAndAnswers.css';
 
 const AnswerCard = ({
   currentUser,
-  createAnswerMode,
-  setCreateAnswerMode,
   productId,
   userId: authorId,
   questionId,
@@ -22,69 +20,57 @@ const AnswerCard = ({
   avatar
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const [contentAnswer, setContentAnswer] = useState(!createAnswerMode ? answerContent : '');
+  const [contentAnswer, setContentAnswer] = useState(answerContent);
 
   const dispatch = useDispatch();
 
-  const handleEditButton = () => {
+  const handleAnswerEditButton = () => {
     setEditMode(true);
   };
 
-  const handleCloseButton = () => {
+  const handleAnswerCloseButton = () => {
     setEditMode(false);
-    setCreateAnswerMode(false);
     setContentAnswer(contentAnswer);
   };
 
-  const handleDeleteButton = () => {
+  const handleAnswerDeleteButton = () => {
     dispatch(deleteAnswer(answerId));
     setEditMode(false);
-    setCreateAnswerMode(false);
   };
 
-  const handleSaveButton = () => {
-    if (createAnswerMode) {
-      dispatch(createAnswer(questionId, { contentAnswer }));
-      setCreateAnswerMode(false);
-    } else if (editMode) {
-      dispatch(editAnswer(answerId, { contentAnswer }));
-      setEditMode(false);
-    }
+  const handleAnswerSaveButton = () => {
+    dispatch(editAnswer(answerId, { contentAnswer }));
+    setEditMode(false);
   };
 
   return (
     <li className="answer">
-      {editMode || createAnswerMode ? (
-        <input
-          type="textarea"
-          className="textarea card"
-          value={contentAnswer}
-          onChange={(e) => setContentAnswer(e.target.value)}
-        />
-      ) : (
-        <div className="textarea">
-          {contentAnswer?.length > 300 ? (
-            <ShowMoreButton breakpoint={300} text={contentAnswer} />
-          ) : (
-            contentAnswer
-          )}
-        </div>
-      )}
+      <div className="textarea">
+        {editMode ? (
+          <input
+            type="textarea"
+            value={contentAnswer}
+            onChange={(e) => setContentAnswer(e.target.value)}
+          />
+        ) : contentAnswer?.length > 300 ? (
+          <ShowMoreButton breakpoint={300} text={contentAnswer} />
+        ) : (
+          contentAnswer
+        )}
+      </div>
       <div className="created_info">
-        {/* {<Avatar type="small name_only" imageUrl={avatar} fullName={fullName} />} */}
         <span>{fullName}</span>on{' '}
         {!dateEdited
           ? `${dateCreated.slice(0, 10)}`
           : `${getTimeDuration(dateEdited, new Date())}(edited)`}
       </div>
       <EditButtons
-        createMode={createAnswerMode}
         editMode={editMode}
         isCurrentUserId={currentUser?.userId === authorId}
-        handleEditButton={handleEditButton}
-        handleCloseButton={handleCloseButton}
-        handleDeleteButton={handleDeleteButton}
-        handleSaveButton={handleSaveButton}
+        handleEditButton={handleAnswerEditButton}
+        handleCloseButton={handleAnswerCloseButton}
+        handleDeleteButton={handleAnswerDeleteButton}
+        handleSaveButton={handleAnswerSaveButton}
       />
     </li>
   );

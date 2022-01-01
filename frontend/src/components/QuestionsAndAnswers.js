@@ -5,16 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../actions/userActions';
 import QuestionsAndAnswersCard from './QuestionsAndAnswersCard';
 import Message from './Message';
-import { listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
+import { askQuestion, listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import Loader from './Loader';
 import HeaderControls from './HeaderControls';
 import { questionsSortOptionsMap } from '../constants/inputMaps';
 import { useHistory } from 'react-router-dom';
+import InputBoxWithAvatar from './InputBoxWithAvatar';
+import { QUESTION } from '../constants/constants';
 
 const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [createMode, setCreateMode] = useState(false);
 
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
@@ -25,51 +26,46 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
   });
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
+  const { user: currentUserDetails } = userDetails;
 
   const questionsAndAnswersList = useSelector((state) => state.questionsAndAnswersList);
-
   const { questions, loading, error } = questionsAndAnswersList;
-  const hasUserAskedQuestion = questions?.some(
-    (question) => question.userId === currentUser?.userId
-  );
-  // const questionAsk = useSelector((state) => state.questionAsk);
-  // const { success: successQuestionAsk, error: errorQuestionAsk } = questionAsk;
 
-  // const questionEdit = useSelector((state) => state.questionEdit);
-  // const { success: successQuestionEdit, error: errorQuestionEdit } = questionEdit;
+  const questionAsk = useSelector((state) => state.questionAsk);
+  const { success: successAskQuestion } = questionAsk;
 
-  // const questionDelete = useSelector((state) => state.questionDelete);
-  // const { success: successQuestionDelete, error: errorQuestionDelete } = questionDelete;
+  const questionDelete = useSelector((state) => state.questionDelete);
+  const { success: successQuestionDelete } = questionDelete;
 
-  // const answerAsk = useSelector((state) => state.answerAsk);
-  // const { success: successAnswerCreate, error: errorAnswerCreate} = answerAsk;
+  const answerCreate = useSelector((state) => state.answerCreate);
+  const { success: successAnswerCreate } = answerCreate;
 
-  // const answerEdit = useSelector((state) => state.answerEdit);
-  // const { success: successAnswerEdit, error: errorAnswerEdit } = answerEdit;
-
-  // const answerDelete = useSelector((state) => state.answerDelete);
-  // const { success: successAnswerDelete, error: errorAnswerDelete } = answerDelete;
-
-  const handleOpenCreateForm = () => {
-    setCreateMode(true);
-  };
+  const answerDelete = useSelector((state) => state.answerDelete);
+  const { success: successAnswerDelete } = answerDelete;
 
   useEffect(() => {
     dispatch(getUserDetails(currentUser?.userId));
   }, [dispatch, currentUser?.userId]);
 
   useEffect(() => {
-    if (questions?.length) {
+    if (questions?.length > 0) {
       setQuestionsCount(questions[0]?.totalDBItems);
     }
-  }, [setQuestionsCount, questions]);
+  }, [setQuestionsCount, questions, successAskQuestion, successQuestionDelete]);
 
   useEffect(() => {
     const { page, pageSize, sort, search, rating } = endpoint;
 
     dispatch(listQuestionsAndAnswers(productId, `${page}${pageSize}${sort}${rating}${search}`));
-  }, [dispatch, productId, endpoint]);
+  }, [
+    dispatch,
+    productId,
+    endpoint,
+    successAskQuestion,
+    successAnswerCreate,
+    successQuestionDelete,
+    successAnswerDelete
+  ]);
 
   return (
     <div className="questions_and_answers">
@@ -84,73 +80,63 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
-      ) : questions?.length > 0 ? (
-        <div className="questions-list">
-          Search field TO DO Create Question and Answer To Test
-          {!hasUserAskedQuestion && !createMode && (
-            <Button onClick={handleOpenCreateForm}>
-              <i className="fa fa-plus"></i> Ask Question
-            </Button>
-          )}
-          {createMode && (
-            <QuestionsAndAnswersCard
-              createMode={createMode}
-              setCreateMode={setCreateMode}
-              currentUser={currentUser}
-              productId={productId}
-              fullName={user.fullName}
-              userId={user.userId}
-              avatar={user.avatar}
-            />
-          )}
-          {questions?.map((question) => {
-            return (
-              <QuestionsAndAnswersCard
-                key={question.questionId}
-                {...question}
-                currentUser={currentUser}
-                createMode={false}
-                setCreateMode={setCreateMode}
-                fullName={question.fullName}
-                avatar={question.avatar}
-              />
-            );
-          })}
-          <div className="footer">
-            {questions?.length > 0 &&
-              (endpoint.pageSize === 'pageSize=3&' ? (
-                <Button
-                  classes="text"
-                  onClick={() =>
-                    setEndpoint({
-                      ...endpoint,
-                      pageSize: 'pageSize=8&'
-                    })
-                  }
-                >
-                  <i className="fa fa-chevron-down"></i> See more questions (5)
-                </Button>
-              ) : (
-                <Button
-                  classes="text"
-                  onClick={() =>
-                    setEndpoint({
-                      ...endpoint,
-                      pageSize: 'pageSize=3&'
-                    })
-                  }
-                >
-                  <i className="fa fa-chevron-up"></i> Collapse questions
-                </Button>
-              ))}
-            <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
-              See all questions
-            </Button>
-          </div>
-        </div>
       ) : (
-        <Message type="success">Ask Question Box</Message>
+        questions?.length > 0 && (
+          <div className="questions_list">
+            {questions?.map((question) => {
+              return (
+                <QuestionsAndAnswersCard
+                  key={question.questionId}
+                  {...question}
+                  currentUser={currentUserDetails}
+                  fullName={question.fullName}
+                  avatar={question.avatar}
+                />
+              );
+            })}
+            <div className="footer">
+              {questions?.length > 0 &&
+                (endpoint.pageSize === 'pageSize=3&' ? (
+                  <Button
+                    classes="text"
+                    onClick={() =>
+                      setEndpoint({
+                        ...endpoint,
+                        pageSize: 'pageSize=8&'
+                      })
+                    }
+                  >
+                    <i className="fa fa-chevron-down"></i> See more questions
+                  </Button>
+                ) : (
+                  <Button
+                    classes="text"
+                    onClick={() =>
+                      setEndpoint({
+                        ...endpoint,
+                        pageSize: 'pageSize=3&'
+                      })
+                    }
+                  >
+                    <i className="fa fa-chevron-up"></i> Collapse questions
+                  </Button>
+                ))}
+              <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
+                See all questions
+              </Button>
+            </div>
+          </div>
+        )
       )}
+      <InputBoxWithAvatar
+        resourceId={productId}
+        currentUserDetails={currentUserDetails}
+        createAction={askQuestion}
+        validationMin={QUESTION.MIN_CONTENT_LENGTH}
+        validationMax={QUESTION.MAX_CONTENT_LENGTH}
+        placeholder="Ask yor question ..."
+        errorMessage={`The question should be ${QUESTION.MIN_CONTENT_LENGTH} - ${QUESTION.MAX_CONTENT_LENGTH} characters long`}
+      />
     </div>
   );
 };
