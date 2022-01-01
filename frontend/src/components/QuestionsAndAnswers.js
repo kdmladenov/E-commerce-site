@@ -8,22 +8,32 @@ import Message from './Message';
 import { askQuestion, listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import Loader from './Loader';
 import HeaderControls from './HeaderControls';
-import { questionsSortOptionsMap } from '../constants/inputMaps';
+import { questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../constants/inputMaps';
 import { useHistory } from 'react-router-dom';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import { QUESTION } from '../constants/constants';
+import Pagination from './Pagination';
 
-const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
+const QuestionsAndAnswers = ({
+  match,
+  productId: productIdProp,
+  setQuestionsCount,
+  isBreadcrumbsVisible,
+  isScreen
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const productId = productIdProp || match.params.productId;
+
   const [endpoint, setEndpoint] = useState({
     page: 'page=1&',
-    pageSize: 'pageSize=3&',
+    pageSize: `pageSize=${isScreen ? 6 : 3}&`,
     sort: 'sort=dateCreated desc&',
-    rating: 'ratingMin=1&ratingMax=5&',
     search: ''
   });
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user: currentUserDetails } = userDetails;
@@ -44,19 +54,19 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
   const { success: successAnswerDelete } = answerDelete;
 
   useEffect(() => {
-    dispatch(getUserDetails(currentUser?.userId));
-  }, [dispatch, currentUser?.userId]);
+    dispatch(getUserDetails(userInfo?.userId));
+  }, [dispatch, userInfo?.userId]);
 
   useEffect(() => {
-    if (questions?.length > 0) {
+    if (questions?.length > 0 && setQuestionsCount) {
       setQuestionsCount(questions[0]?.totalDBItems);
     }
   }, [setQuestionsCount, questions, successAskQuestion, successQuestionDelete]);
 
   useEffect(() => {
-    const { page, pageSize, sort, search, rating } = endpoint;
+    const { page, pageSize, sort, search } = endpoint;
 
-    dispatch(listQuestionsAndAnswers(productId, `${page}${pageSize}${sort}${rating}${search}`));
+    dispatch(listQuestionsAndAnswers(productId, `${page}${pageSize}${sort}${search}`));
   }, [
     dispatch,
     productId,
@@ -74,7 +84,17 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
         query={endpoint}
         resource="questions and answers"
         sortOptionsMap={questionsSortOptionsMap}
-        isBreadcrumbsVisible={false}
+        pageSizeOptionsMap={isScreen && questionsListPageSizeOptionsMap}
+        isBreadcrumbsVisible={isBreadcrumbsVisible}
+      />
+      <InputBoxWithAvatar
+        resourceId={productId}
+        currentUserDetails={currentUserDetails}
+        createAction={askQuestion}
+        validationMin={QUESTION.MIN_CONTENT_LENGTH}
+        validationMax={QUESTION.MAX_CONTENT_LENGTH}
+        placeholder="Ask yor question ..."
+        errorMessage={`The question should be ${QUESTION.MIN_CONTENT_LENGTH} - ${QUESTION.MAX_CONTENT_LENGTH} characters long`}
       />
       {loading ? (
         <Loader />
@@ -95,7 +115,8 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
               );
             })}
             <div className="footer">
-              {questions?.length > 0 &&
+              {!isScreen &&
+                questions?.length > 0 &&
                 (endpoint.pageSize === 'pageSize=3&' ? (
                   <Button
                     classes="text"
@@ -121,22 +142,23 @@ const QuestionsAndAnswers = ({ currentUser, productId, setQuestionsCount }) => {
                     <i className="fa fa-chevron-up"></i> Collapse questions
                   </Button>
                 ))}
-              <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
-                See all questions
-              </Button>
+              {!isScreen && (
+                <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
+                  See all questions
+                </Button>
+              )}
+              {isScreen && questions?.length > 0 && (
+                <Pagination
+                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                  currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+                  pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                  totalItems={questions[0].totalDBItems}
+                />
+              )}
             </div>
           </div>
         )
       )}
-      <InputBoxWithAvatar
-        resourceId={productId}
-        currentUserDetails={currentUserDetails}
-        createAction={askQuestion}
-        validationMin={QUESTION.MIN_CONTENT_LENGTH}
-        validationMax={QUESTION.MAX_CONTENT_LENGTH}
-        placeholder="Ask yor question ..."
-        errorMessage={`The question should be ${QUESTION.MIN_CONTENT_LENGTH} - ${QUESTION.MAX_CONTENT_LENGTH} characters long`}
-      />
     </div>
   );
 };
