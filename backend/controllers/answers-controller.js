@@ -15,8 +15,8 @@ import { paging } from '../constants/constants.js';
 const answersController = express.Router();
 
 answersController
-  // @desc CREATE answer of question
-  // @route POST/answers/:questionId
+  // @desc EDIT answer of question
+  // @route PUT/answers/:questionId
   // @access Private - logged users
   .post(
     '/:questionId',
@@ -25,11 +25,11 @@ answersController
     validateBody('answer', createAnswerSchema),
     errorHandler(async (req, res) => {
       const { questionId } = req.params;
-      const { answerContent } = req.body;
+      const { contentAnswer } = req.body;
       const { userId } = req.user;
 
       const { error, result } = await answersServices.createAnswer(questionsData, answersData)(
-        answerContent,
+        contentAnswer,
         +userId,
         +questionId
       );
@@ -67,27 +67,7 @@ answersController
     })
   )
 
-  // // @desc GET Single question answer by ID
-  // // @route GET/answers/:answerIdc
-  // // @access Public
-  // .get(
-  //   '/:answerId',
-  //   errorHandler(async (req, res) => {
-  //     const { answerId } = req.params;
-
-  //     const { error, result } = await answersService.getAnswerById(answersData)(+answerId);
-
-  //     if (error === errors.RECORD_NOT_FOUND) {
-  //       res.status(404).send({
-  //         message: 'The answer is not found.'
-  //       });
-  //     } else {
-  //       res.status(200).send(result);
-  //     }
-  //   })
-  // )
-
-  // @desc EDIT question answer
+  // @desc EDIT answer
   // @route PUT/:answerId
   // @access Private - logged users who have created the answer or Admin
   .put(
@@ -96,12 +76,12 @@ answersController
     loggedUserGuard,
     validateBody('answer', updateAnswerSchema),
     errorHandler(async (req, res) => {
-      const { answerContent } = req.body;
+      const { contentAnswer } = req.body;
       const { answerId } = req.params;
       const { userId, role } = req.user;
 
       const { error, result } = await answersServices.updateAnswer(answersData)(
-        answerContent,
+        contentAnswer,
         +answerId,
         +userId,
         role

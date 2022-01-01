@@ -31,6 +31,6 @@ export default {
     // rating: `Expected valid rating with length in the range [${PRODUCT.MIN_RATING_VALUE}-${PRODUCT.MAX_REVIEW_COUNT}]`
   },
   question: {
-    questionContent: `Expected valid name string with length in the range [${QUESTIONS.MIN_NAME_LENGTH}-${QUESTIONS.MAX_NAME_LENGTH}]`
+    questionContent: `Expected valid name string with length in the range [${QUESTIONS.MIN_CONTENT_LENGTH}-${QUESTIONS.MAX_CONTENT_LENGTH}]`
   }
 };

@@ -3,7 +3,7 @@ import db from './pool.js';
 const getFeatures = async (productId) => {
   const sql = `
     SELECT 
-      features_id as featuresId,
+      feature_id as featureId,
       product_id as productId,
       feature_title as featureTitle,
       feature_content as featureContent
@@ -17,7 +17,7 @@ const getFeatures = async (productId) => {
 const getBy = async (column, value, role = 'basic') => {
   const sql = `
     SELECT 
-      features_id as featuresId,
+      feature_id as featureId,
       product_id as productId,
       feature_title as featureTitle,
       feature_content as featureContent

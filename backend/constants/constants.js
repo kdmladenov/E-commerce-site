@@ -115,10 +115,11 @@ export const order = {
 
 export const review = {
   MIN_CONTENT_LENGTH: 2,
+  MAX_CONTENT_LENGTH: 10000,
   MIN_TITLE_LENGTH: 2,
   MAX_TITLE_LENGTH: 255,
   DEFAULT_RATING_MIN: 0,
-  DEFAULT_RATING_MAX: 5,
+  DEFAULT_RATING_MAX: 5
 };
 
 export const questions = {

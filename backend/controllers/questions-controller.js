@@ -28,11 +28,11 @@ questionsController
     // errorHandler(
       async (req, res) => {
       const { productId } = req.params;
-      const { questionContent } = req.body;
+      const { contentQuestion } = req.body;
       const { userId } = req.user;
 
       const { error, result } = await questionsServices.createQuestion(productsData, questionsData)(
-        questionContent,
+        contentQuestion,
         +userId,
         +productId
       );
@@ -82,26 +82,6 @@ questionsController
   )
   // )
 
-  // // @desc GET Single Product question by ID
-  // // @route GET/questions/:questionId
-  // // @access Public
-  // .get(
-  //   '/:questionId',
-  //   errorHandler(async (req, res) => {
-  //     const { questionId } = req.params;
-
-  //     const { error, result } = await questionsService.getQuestionById(questionsData)(+questionId);
-
-  //     if (error === errors.RECORD_NOT_FOUND) {
-  //       res.status(404).send({
-  //         message: 'The question is not found.'
-  //       });
-  //     } else {
-  //       res.status(200).send(result);
-  //     }
-  //   })
-  // )
-
   // @desc EDIT Product question
   // @route PUT/:questionId
   // @access Private - logged users who have created the question or Admin
@@ -111,12 +91,12 @@ questionsController
     loggedUserGuard,
     validateBody('question', updateQuestionSchema),
     errorHandler(async (req, res) => {
-      const { questionContent } = req.body;
+      const { contentQuestion } = req.body;
       const { questionId } = req.params;
       const { userId, role } = req.user;
 
       const { error, result } = await questionsServices.updateQuestion(questionsData)(
-        questionContent,
+        contentQuestion,
         +questionId,
         +userId,
         role
