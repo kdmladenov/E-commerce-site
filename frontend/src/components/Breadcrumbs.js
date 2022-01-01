@@ -1,29 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import './styles/Breadcrumbs.css';
 
-const Breadcrumbs = () => {
-  const history = useHistory();
-
-  const paths = ['/', ...history.location.pathname.slice(1).split('/')];
-
+const Breadcrumbs = ({ paths }) => {
   return (
-    paths.length >= 2 && (
+    paths.length >= 1 && (
       <div className="breadcrumbs">
         <ul>
-          {paths.map((path, index) => (
-            <li key={path}>
+          <li>
+            <Link to={`/`}>
+              <i className="fa fa-home"></i>
+            </Link>
+          </li>
+          {paths.map((item, index) => (
+            <li key={item}>
               <Link
                 onClick={(e) => index === paths.length - 1 && e.preventDefault()}
-                to={`/${paths.slice(1, index + 1).join('/')}`}
+                to={`${item.path}`}
               >
-                {path === '/' ? (
-                  // 'Home'
-                  <i className="fa fa-home"></i>
-                ) : (
-                  `${path?.slice(0, 1)?.toUpperCase()}${path?.slice(1)}`
-                )}
+                <span>{`${item.label}`}</span>
               </Link>
             </li>
           ))}

@@ -49,6 +49,10 @@ const WishListScreen = () => {
         pageSizeOptionsMap={productListPageSizeOptionsMap}
         sortOptionsMap={productListSortOptionsMap}
         isGrayBackground={true}
+        breadcrumbsPaths={[
+          { label: 'Profile', path: `/account/profile` },
+          { label: 'Wish List', path: '' }
+        ]}
       />
       {loading ? (
         <Loader />

@@ -1,11 +1,11 @@
-.checkout_breadcrumbs .step {
+.breadcrumbs_steps .step {
   width: 100px;
   position: relative;
   margin: 10px 0;
   padding: 0;
 }
 
-.checkout_breadcrumbs .step .label {
+.breadcrumbs_steps .step .label {
   margin-bottom: 16px;
   color: var(--gray);
   font-size: 17px;
@@ -14,30 +14,30 @@
 }
 
 
-.checkout_breadcrumbs .step a {
+.breadcrumbs_steps .step a {
   pointer-events: none;
 }
 
-.checkout_breadcrumbs .step.current a,
-.checkout_breadcrumbs .step.complete a {
+.breadcrumbs_steps .step.current a,
+.breadcrumbs_steps .step.complete a {
   pointer-events: all;
 }
 
 
-.checkout_breadcrumbs .step.current .label,
-.checkout_breadcrumbs .step.complete .label {
+.breadcrumbs_steps .step.current .label,
+.breadcrumbs_steps .step.complete .label {
   color: var(--gray_dark);
   font-weight: 700;
 }
 
-.checkout_breadcrumbs .step.current:hover .label,
-.checkout_breadcrumbs .step.complete:hover .label {
+.breadcrumbs_steps .step.current:hover .label,
+.breadcrumbs_steps .step.complete:hover .label {
   color: var(--black);
   transform: scale(1.02);
 }
 
 /* Inner Dot */
-.checkout_breadcrumbs .step .dot {
+.breadcrumbs_steps .step .dot {
   position: absolute;
   right: 50%;
   left: 50%;
@@ -49,7 +49,7 @@
   background: var(--gray_light);
 }
 /* Outer Dot */
-.checkout_breadcrumbs .step .dot:after {
+.breadcrumbs_steps .step .dot:after {
   content: ' ';
   border-radius: 50px;
   position: absolute;
@@ -60,13 +60,13 @@
   background: var(--gray);
 }
 
-.checkout_breadcrumbs .step.current:hover .dot:after,
-.checkout_breadcrumbs .step.complete:hover .dot:after {
+.breadcrumbs_steps .step.current:hover .dot:after,
+.breadcrumbs_steps .step.complete:hover .dot:after {
   background: var(--cheetos);
 }
 
 /* Progress bar */
-.checkout_breadcrumbs .step .progress {
+.breadcrumbs_steps .step .progress {
   position: absolute;
   width: 100%;
   height: 11px;
@@ -74,53 +74,53 @@
   background: var(--gray_light);
 }
 
-.checkout_breadcrumbs .step .progress .progress-bar {
+.breadcrumbs_steps .step .progress .progress-bar {
   width: 0px;
   background: var(--yellow_light);
 }
 
-.checkout_breadcrumbs .step:first-child > .progress {
+.breadcrumbs_steps .step:first-child > .progress {
   left: 50%;
   width: 50%;
 }
 
-.checkout_breadcrumbs .step:last-child > .progress {
+.breadcrumbs_steps .step:last-child > .progress {
   width: 50%;
 }
 
 /* Completed */
-.checkout_breadcrumbs .step.complete .dot {
+.breadcrumbs_steps .step.complete .dot {
   background: var(--yellow_light);
 }
 
-.checkout_breadcrumbs .step.complete .dot:after {
+.breadcrumbs_steps .step.complete .dot:after {
   background: var(--mimosa);
 }
 
-.checkout_breadcrumbs .step.complete .progress > .progress-bar {
+.breadcrumbs_steps .step.complete .progress > .progress-bar {
   width: 100%;
   height: 11px;
 }
 
 /* Current Dot */
-.checkout_breadcrumbs .step.current .dot {
+.breadcrumbs_steps .step.current .dot {
   background: var(--yellow_light);
 }
 
-.checkout_breadcrumbs .step.current .dot:after {
+.breadcrumbs_steps .step.current .dot:after {
   background: var(--mimosa);
 }
 
 /* Current Line */
-.checkout_breadcrumbs .step.current .progress > .progress-bar {
+.breadcrumbs_steps .step.current .progress > .progress-bar {
   width: 50%;
   height: 11px;
 }
 
-.checkout_breadcrumbs .step.current:first-child > .progress > .progress-bar {
+.breadcrumbs_steps .step.current:first-child > .progress > .progress-bar {
   width: 0%;
 }
 
-.checkout_breadcrumbs .step.current:last-child > .progress > .progress-bar {
+.breadcrumbs_steps .step.current:last-child > .progress > .progress-bar {
   width: 100%;
 }

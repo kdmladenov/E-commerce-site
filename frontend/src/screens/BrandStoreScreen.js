@@ -62,6 +62,7 @@ const BrandStoreScreen = ({ match }) => {
         pageSizeOptionsMap={productListPageSizeOptionsMap}
         sortOptionsMap={productListSortOptionsMap}
         isGrayBackground={true}
+        breadcrumbsPaths={[{ label: `${brand} store`, path: '' }]}
       />
       {loading ? (
         <Loader />

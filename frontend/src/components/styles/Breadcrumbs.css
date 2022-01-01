@@ -27,6 +27,17 @@
   position: relative;
 }
 
+.breadcrumbs ul li a span{
+  text-align: left;
+  max-width: 200px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+  word-break: break-all;
+}
+
 .breadcrumbs li a:after {
   content: '';
   border-top: 15px solid transparent;

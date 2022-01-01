@@ -11,7 +11,7 @@ const BreadcrumbsSteps = ({ currentStep = 'Cart', steps }) => {
   };
 
   return (
-    <ul className="checkout_breadcrumbs flex">
+    <ul className="breadcrumbs_steps flex">
       {steps.map((step, index) => (
         <li
           className={`step ${

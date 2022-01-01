@@ -38,7 +38,7 @@ const WishList = ({ isCarousel = false }) => {
   }, [dispatch, successDeleteWish, endpoint]);
 
   return (
-    <div className={`wish_list ${isCarousel ? 'horizontal': ''}`}>
+    <div className={`wish_list ${isCarousel ? 'horizontal' : ''}`}>
       {!isCarousel && (
         <HeaderControls
           updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}

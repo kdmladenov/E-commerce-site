@@ -99,8 +99,14 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
           sortOptionsMap={reviewsSortOptionsMap}
           pageSizeOptionsMap={isScreen && productListPageSizeOptionsMap}
           ratingFilterOptionsMap={ratingFilterOptionsMap}
-          isBreadcrumbsVisible={isScreen}
           isGrayBackground={isScreen}
+          breadcrumbsPaths={
+            isScreen &&
+            product && [
+              { label: product?.title, path: `/products/${productId}` },
+              { label: 'Reviews', path: '' }
+            ]
+          }
         />
         <div className="create_form">
           {createMode && (

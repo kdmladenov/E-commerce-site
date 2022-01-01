@@ -6,7 +6,7 @@ const QuestionsAndAnswersScreen = ({ match }) => {
   return (
     <div className="questions_and_answers_screen">
       <div className="questions_and_answers_container">
-        <QuestionsAndAnswers match={match} isBreadcrumbsVisible={true} isScreen={true} />
+        <QuestionsAndAnswers match={match} isScreen={true} />
       </div>
     </div>
   );

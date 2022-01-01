@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ProductDetailsEdit from '../components/ProductDetailsEdit';
 import ProductFeaturesEdit from '../components/ProductFeaturesEdit';
 import ProductImagesEdit from '../components/ProductImagesEdit';

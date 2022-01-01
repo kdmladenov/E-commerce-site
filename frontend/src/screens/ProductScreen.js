@@ -103,7 +103,6 @@ const ProductScreen = ({ match }) => {
           currentUser={currentUser}
           productId={productId}
           setQuestionsCount={setQuestionsCount}
-          isBreadcrumbsVisible={false}
           isScreen={false}
         />
       </section>

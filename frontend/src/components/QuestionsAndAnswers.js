@@ -13,14 +13,9 @@ import { useHistory } from 'react-router-dom';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import { QUESTION } from '../constants/constants';
 import Pagination from './Pagination';
+import { listProductDetails } from '../actions/productActions';
 
-const QuestionsAndAnswers = ({
-  match,
-  productId: productIdProp,
-  setQuestionsCount,
-  isBreadcrumbsVisible,
-  isScreen
-}) => {
+const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCount, isScreen }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,6 +32,11 @@ const QuestionsAndAnswers = ({
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user: currentUserDetails } = userDetails;
+
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+
+  console.log(product, 'product');
 
   const questionsAndAnswersList = useSelector((state) => state.questionsAndAnswersList);
   const { questions, loading, error } = questionsAndAnswersList;
@@ -55,7 +55,8 @@ const QuestionsAndAnswers = ({
 
   useEffect(() => {
     dispatch(getUserDetails(userInfo?.userId));
-  }, [dispatch, userInfo?.userId]);
+    dispatch(listProductDetails(productId));
+  }, [dispatch, userInfo?.userId, productId]);
 
   useEffect(() => {
     if (questions?.length > 0 && setQuestionsCount) {
@@ -85,7 +86,13 @@ const QuestionsAndAnswers = ({
         resource="questions and answers"
         sortOptionsMap={questionsSortOptionsMap}
         pageSizeOptionsMap={isScreen && questionsListPageSizeOptionsMap}
-        isBreadcrumbsVisible={isBreadcrumbsVisible}
+        breadcrumbsPaths={
+          isScreen &&
+          product && [
+            { label: product?.title, path: `/products/${productId}` },
+            { label: 'Q&A', path: '' }
+          ]
+        }
       />
       <InputBoxWithAvatar
         resourceId={productId}

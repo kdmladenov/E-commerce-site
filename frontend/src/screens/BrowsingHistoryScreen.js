@@ -70,6 +70,10 @@ const BrowsingHistoryScreen = () => {
         pageSizeOptionsMap={productListPageSizeOptionsMap}
         sortOptionsMap={browsingHistorySortOptionsMap}
         isGrayBackground={true}
+        breadcrumbsPaths={[
+          { label: 'Profile', path: `/account/profile` },
+          { label: 'Browsing History', path: '' }
+        ]}
       />
       {loading ? (
         <Loader />

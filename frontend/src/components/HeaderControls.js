@@ -12,13 +12,13 @@ const HeaderControls = ({
   sortOptionsMap,
   ratingFilterOptionsMap,
   isGrayBackground,
-  isBreadcrumbsVisible = true
+  breadcrumbsPaths
 }) => {
   return (
     <nav className={`header_controls ${isGrayBackground ? 'gray' : ''}`}>
-      {isBreadcrumbsVisible && (
+      {breadcrumbsPaths?.length && (
         <div className="breadcrumbs_container">
-          <Breadcrumbs />
+          <Breadcrumbs paths={breadcrumbsPaths} />
         </div>
       )}
       <SearchBox updateQuery={updateQuery} resource={resource} />

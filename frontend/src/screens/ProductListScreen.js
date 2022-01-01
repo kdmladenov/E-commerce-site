@@ -62,6 +62,9 @@ const ProductListScreen = ({ match }) => {
         pageSizeOptionsMap={productListPageSizeOptionsMap}
         sortOptionsMap={productListSortOptionsMap}
         isGrayBackground={true}
+        breadcrumbsPaths={[
+          { label: 'Product List', path: '' }
+        ]}
       />
       {loading ? (
         <Loader />
