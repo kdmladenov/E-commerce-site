@@ -1,0 +1,12 @@
+.product_feature_card .accordion_button_group {
+  width: 120px;
+}
+
+.product_feature_card .accordion_button_group .edit_buttons {
+  top: -10px;
+  right: 0px;
+}
+
+.product_feature_card input {
+  width: 100%;
+}
