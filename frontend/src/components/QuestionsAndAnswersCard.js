@@ -96,7 +96,7 @@ const QuestionsAndAnswersCard = ({
           </div>
           <EditButtons
             editMode={editMode}
-            isCurrentUserId={currentUser?.userId === authorId}
+            isUserAuthorized={currentUser?.userId === authorId}
             handleEditButton={handleQuestionEditButton}
             handleCloseButton={handleQuestionCloseButton}
             handleDeleteButton={handleQuestionDeleteButton}
@@ -139,18 +139,18 @@ const QuestionsAndAnswersCard = ({
               </Button>
             )}
           </div>
-            <InputBoxWithAvatar
-              resourceId={questionId}
-              currentUserDetails={currentUser}
-              createAction={createAnswer}
-              validationMin={ANSWER.MIN_CONTENT_LENGTH}
-              validationMax={ANSWER.MAX_CONTENT_LENGTH}
-              placeholder="Your answer ..."
-              errorMessage={`The answer should be ${ANSWER.MIN_CONTENT_LENGTH} - ${ANSWER.MAX_CONTENT_LENGTH} characters long`}
-              closedButtonText={
-                answerList?.length ? `Write another answer` : `Write the first answer`
-              }
-            />
+          <InputBoxWithAvatar
+            resourceId={questionId}
+            currentUserDetails={currentUser}
+            createAction={createAnswer}
+            validationMin={ANSWER.MIN_CONTENT_LENGTH}
+            validationMax={ANSWER.MAX_CONTENT_LENGTH}
+            placeholder="Your answer ..."
+            errorMessage={`The answer should be ${ANSWER.MIN_CONTENT_LENGTH} - ${ANSWER.MAX_CONTENT_LENGTH} characters long`}
+            closedButtonText={
+              answerList?.length ? `Write another answer` : `Write the first answer`
+            }
+          />
         </div>
       </div>
     </div>

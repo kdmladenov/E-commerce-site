@@ -3,15 +3,14 @@ export const BASE_URL = 'http://localhost:5555';
 export const MAX_PRODUCT_QTY_FOR_PURCHASE = 10;
 export const PRODUCT_FEATURES_MAIN_COUNT = 5;
 
-export const DAYS_FOR_DELIVERY = 5
+export const DAYS_FOR_DELIVERY = 5;
 export const DAYS_FOR_RETURNS_AFTER_DELIVERY = 30;
 
 export const FREE_SHIPPING_THRESHOLD = 500;
 export const SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE = 0.1;
 export const TAX_RATE = 0.2;
 
-
-export const STORE_NAME = 'MyShop'
+export const STORE_NAME = 'MyShop';
 
 export const USER = {
   MIN_FULL_NAME_LENGTH: 2,
@@ -112,4 +111,11 @@ export const QUESTION = {
 export const ANSWER = {
   MIN_CONTENT_LENGTH: 2,
   MAX_CONTENT_LENGTH: 1000
+};
+
+export const FEATURE = {
+  MIN_FEATURE_TITLE_LENGTH: 2,
+  MAX_FEATURE_TITLE_LENGTH: 2000,
+  MIN_FEATURE_CONTENT_LENGTH: 2,
+  MAX_FEATURE_CONTENT_LENGTH: 2000
 };

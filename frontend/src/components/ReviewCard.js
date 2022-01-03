@@ -42,7 +42,7 @@ const ReviewCard = ({
 
   const handleCloseButton = () => {
     setEditMode(false);
-    setCreateMode(false);
+    setCreateMode && setCreateMode(false);
     setRating(ratingInState);
     setContent(contentInState);
     setTitle(titleInState);
@@ -133,7 +133,7 @@ const ReviewCard = ({
       <EditButtons
         createMode={createMode}
         editMode={editMode}
-        isCurrentUserId={currentUser?.userId === authorId}
+        isUserAuthorized={currentUser?.userId === authorId}
         handleEditButton={handleEditButton}
         handleCloseButton={handleCloseButton}
         handleDeleteButton={handleDeleteButton}

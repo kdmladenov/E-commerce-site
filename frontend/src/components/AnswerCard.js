@@ -66,7 +66,7 @@ const AnswerCard = ({
       </div>
       <EditButtons
         editMode={editMode}
-        isCurrentUserId={currentUser?.userId === authorId}
+        isUserAuthorized={currentUser?.userId === authorId}
         handleEditButton={handleAnswerEditButton}
         handleCloseButton={handleAnswerCloseButton}
         handleDeleteButton={handleAnswerDeleteButton}

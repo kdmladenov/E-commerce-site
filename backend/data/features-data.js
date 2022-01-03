@@ -1,4 +1,5 @@
 import db from './pool.js';
+import rolesEnum from '../constants/roles.enum.js';
 
 const getFeatures = async (productId) => {
   const sql = `

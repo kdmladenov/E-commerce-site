@@ -19,9 +19,9 @@
   box-shadow: var(--box_shadow);
   /* transition: margin 0.5s; */
 }
- /* first item and the next sibling of open */
+/* first item and the next sibling of open */
 .accordion_item:first-child,
-.accordion_item.show + .accordion_item{
+.accordion_item.show + .accordion_item {
   margin-top: 0;
   border-radius: 5px 5px 0 0;
   box-shadow: var(--box_shadow);
@@ -51,6 +51,7 @@
 }
 
 .accordion_title {
+  flex: 1;
   height: 100%;
   font-size: 20px;
   font-weight: 600;
@@ -58,6 +59,7 @@
 }
 
 .accordion_button_group {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

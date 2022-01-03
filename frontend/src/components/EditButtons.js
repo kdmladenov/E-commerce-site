@@ -6,7 +6,7 @@ import './styles/EditButtons.css';
 const EditButtons = ({
   createMode = false,
   editMode = false,
-  isCurrentUserId = false,
+  isUserAuthorized = false,
   handleEditButton,
   handleCloseButton,
   handleDeleteButton,
@@ -15,14 +15,14 @@ const EditButtons = ({
 }) => {
   return (
     <div className="edit_buttons">
-      {!createMode && !editMode && isCurrentUserId && (
+      {!createMode && !editMode && isUserAuthorized && (
         <Button classes="icon" onClick={handleEditButton}>
           <Tooltip direction="top" text="Edit">
             <i className="fa fa-edit"></i>
           </Tooltip>
         </Button>
       )}
-      {(createMode || (editMode && isCurrentUserId)) && (
+      {(createMode || (editMode && isUserAuthorized)) && (
         <div className="button_group_edit">
           {handleCloseButton && (
             <Button classes="icon" onClick={handleCloseButton}>

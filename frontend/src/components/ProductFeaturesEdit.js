@@ -1,58 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/ProductFeaturesEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { PRODUCT_FEATURE_UPDATE_RESET } from '../constants/productConstants';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listProductFeatures } from '../actions/productFeaturesActions';
-import Accordion from './Accordion';
+import Button from './Button';
+import ProductFeatureEditCard from './ProductFeatureEditCard';
 
 const ProductFeaturesEdit = ({ productId }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const [createMode, setCreateMode] = useState(false);
 
   const productFeaturesList = useSelector((state) => state.productFeaturesList);
   const { productFeatures, loading, error } = productFeaturesList;
 
-  const productFeaturesUpdate = useSelector((state) => state.productFeaturesUpdate);
-  const {
-    loading: loadingUpdateProductFeatures,
-    error: errorUpdateProductFeatures,
-    success: successUpdateProductFeatures
-  } = productFeaturesUpdate;
+  const productFeaturesCreate = useSelector((state) => state.productFeaturesCreate);
+  const { success: successCreate } = productFeaturesCreate;
 
-  useEffect(() => {
-    if (successUpdateProductFeatures) {
-      dispatch({ type: PRODUCT_FEATURE_UPDATE_RESET });
-    }
-  }, [history, dispatch, successUpdateProductFeatures]);
+  const productFeaturesDelete = useSelector((state) => state.productFeaturesDelete);
+  const { success: successDelete } = productFeaturesDelete;
 
   useEffect(() => {
     dispatch(listProductFeatures(productId));
-  }, [dispatch, productId]);
+  }, [dispatch, productId, successCreate, successDelete]);
 
   // TO DO - merge ProductFeatures and ProductFeaturesEdit
   return (
     <div className="product_features_edit">
-      {loadingUpdateProductFeatures && <Loader />}
-      {errorUpdateProductFeatures && <Message type="success">{errorUpdateProductFeatures}</Message>}
+      {loading && <Loader />}
+      {error && <Message type="success">{error}</Message>}
+      {createMode ? (
+        <ProductFeatureEditCard
+          createMode={createMode}
+          setCreateMode={setCreateMode}
+          productId={productId}
+        />
+      ) : (
+        <Button classes="white rounded" onClick={() => setCreateMode(true)}>
+          Add new feature
+        </Button>
+      )}
       {loading ? (
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : productFeatures?.length > 0 ? (
-        <Accordion>
-          {productFeatures?.map((feature, index) => (
-            <Accordion.Item key={feature.featureId}>
-              <Accordion.Header index={index}>
-                <Accordion.Title>{feature.featureTitle}</Accordion.Title>
-                <Accordion.ButtonGroup></Accordion.ButtonGroup>
-              </Accordion.Header>
-              <Accordion.Body>{feature.featureContent}</Accordion.Body>
-            </Accordion.Item>
-          ))}
-        </Accordion>
+        productFeatures
+          ?.sort((a, b) => b.featureId - a.featureId)
+          .map((feature) => <ProductFeatureEditCard {...feature} />)
       ) : (
         <Message type="success">No features</Message>
       )}

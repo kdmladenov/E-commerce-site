@@ -127,9 +127,9 @@ const getProductFeaturesById = (productsData, featuresData) => async (productId)
 const createProductFeature = (productsData, featuresData) => async (productId, data) => {
   const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
 
-  if (existingProduct) {
+  if (!existingProduct) {
     return {
-      error: errors.DUPLICATE_RECORD,
+      error: errors.RECORD_NOT_FOUND,
       product: null
     };
   }

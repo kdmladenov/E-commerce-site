@@ -1,0 +1,30 @@
+.feature_edit_content,
+.feature_edit_title {
+  box-shadow: var(--box_shadow);
+  padding: 5px 10px;
+}
+
+.feature_edit_title {
+  display: flex;
+}
+.feature_edit_title input,
+.feature_edit_title {
+  font-weight: 700;
+}
+
+.feature_edit_title input,
+.feature_edit_title span {
+  flex: 1;
+}
+
+.feature_edit_content input,
+.feature_edit_content span {
+  width: 100%;
+  height: fit-content;
+  overflow-wrap: break-word;
+}
+
+.feature_edit_card .edit_buttons {
+  top: 5px;
+  right: 0px;
+}

@@ -72,50 +72,49 @@ export const createProductFeature =
     }
   };
 
-export const updateProductFeature = (updatedProductFeature) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: PRODUCT_FEATURE_UPDATE_REQUEST
-    });
+export const updateProductFeature =
+  (featureId, updatedProductFeature) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PRODUCT_FEATURE_UPDATE_REQUEST
+      });
 
-    const {
-      userLogin: { userInfo }
-    } = getState();
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`
-      }
-    };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
 
-    await axios.put(
-      `${BASE_URL}/products/${updatedProductFeature.id}/features`,
-      updatedProductFeature,
-      config
-    );
+      await axios.put(`${BASE_URL}/products/${featureId}/features`, updatedProductFeature, config);
 
-    dispatch({
-      type: PRODUCT_FEATURE_UPDATE_SUCCESS
-    });
+      dispatch({
+        type: PRODUCT_FEATURE_UPDATE_SUCCESS
+      });
 
-    // update the state everywhere
-    const { data } = await axios.get(
-      `${BASE_URL}/products/${updatedProductFeature.productId}/features`
-    );
+      // update the state everywhere
+      const { data } = await axios.get(
+        `${BASE_URL}/products/${updatedProductFeature.productId}/features`
+      );
 
-    dispatch({
-      type: PRODUCT_FEATURES_LIST_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_FEATURE_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message
-    });
-  }
-};
+      dispatch({
+        type: PRODUCT_FEATURES_LIST_SUCCESS,
+        payload: data
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_FEATURE_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      });
+    }
+  };
 
 export const deleteProductFeature = (featureId) => async (dispatch, getState) => {
   try {

@@ -95,7 +95,7 @@ const ProductImagesEdit = () => {
               />
             </div>
             or
-            <div class="file_upload">
+            <div className="file_upload">
               <Button>
                 <label htmlFor="upload">Choose file</label>
                 <input id="upload" type="file" onChange={uploadImage} />
