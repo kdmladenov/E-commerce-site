@@ -1,7 +1,7 @@
 import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
 
-const getAllProducts = async (search, filter, sort, pageSize, page) => {
+const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['price', 'rating', 'dateCreated', 'productId'].includes(sortArr[0])
@@ -91,7 +91,9 @@ const getAllProducts = async (search, filter, sort, pageSize, page) => {
         from reviews
         WHERE is_deleted = 0
         group by product_id) rt USING (product_id)
-        ${(filter || search) && 'WHERE'} ${
+        ${
+          role === rolesEnum.basic ? `WHERE p.is_deleted = 0 ${filter || search ? 'AND' : ''}` : ''
+        } ${
     search
       ? `CONCAT_WS(',', p.title, p.description, p.brand, p.product_category, p.model_number, p.sku, p.release_year, p.color, p.color_family, s.display_type, s.processor_brand,
       s.processor_model, s.processor_model_number, s.storage_type, s.graphics_type, s.graphics_brand, s.graphics_model, s.operating_system, s.voice_assistant, 
@@ -279,7 +281,6 @@ const restore = async (productToRestore) => {
 
   return db.query(sql, [productToRestore.productId]);
 };
-
 
 const addAProductImage = async (productId, imageUrl, isMain = 0) => {
   const sql = `

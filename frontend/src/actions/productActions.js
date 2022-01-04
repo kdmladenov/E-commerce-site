@@ -33,9 +33,9 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
 
-export const listProducts =
-  (endpoint = '') =>
+export const listProducts = (endpoint = '') => 
   async (dispatch) => {
+    console.log(endpoint, 'endpoint');
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 

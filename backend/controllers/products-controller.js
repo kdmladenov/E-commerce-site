@@ -29,7 +29,7 @@ productsController
     '/',
     // errorHandler(
     async (req, res) => {
-      const { search = '', filter = '', sort = 'sort=price asc' } = req.query;
+      const { search = '', filter = '', sort = 'sort=price asc', role = 'basic' } = req.query;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -43,7 +43,7 @@ productsController
         sort,
         +pageSize,
         +page,
-        'admin' // TO BE FIXED
+        role
       );
 
       res.status(200).send(product);

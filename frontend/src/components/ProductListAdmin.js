@@ -61,7 +61,8 @@ const ProductListAdmin = () => {
     page: 'page=1&',
     pageSize: 'pageSize=10&',
     sort: 'sort=productId asc&',
-    search: ''
+    search: '',
+    role: 'role=admin'
   });
 
   useEffect(() => {
@@ -72,8 +73,8 @@ const ProductListAdmin = () => {
     if (successCreate) {
       history.push(`/admin/product/${createdProduct.productId}/edit`);
     } else {
-      const { page, pageSize, sort, search } = endpoint;
-      dispatch(listProducts(`${page}${pageSize}${sort}${search}`));
+      const { page, pageSize, sort, search, role } = endpoint;
+      dispatch(listProducts(`${page}${pageSize}${sort}${search}${role}`));
     }
   }, [
     dispatch,

@@ -89,7 +89,7 @@ const Header = () => {
         <DropDown
           button={
             <div className={`header_menu_btn ${userInfo?.token ? 'user' : 'login_menu'}`}>
-              <Avatar imageUrl={user?.avatar} fullName={user?.fullName} />
+              <Avatar classes='image_only' imageUrl={user?.avatar} fullName={user?.fullName} />
             </div>
           }
           tooltipText={`${userInfo?.token ? 'User Menu' : 'Login'}`}
