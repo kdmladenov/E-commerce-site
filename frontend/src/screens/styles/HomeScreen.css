@@ -15,6 +15,7 @@
     'product_tile_group_1'
     'carousel_1'
     'carousel_2'
+    'carousel_3'
     'product_tile_group_2';
 }
 
@@ -28,26 +29,28 @@
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 
-.product_tile_group_1 {
-  grid-area: product_tile_group_1;
-  grid-template-areas:
-    'tiles_row_1'
-    'tiles_row_2';
-  grid-template-rows: repeat(2, 400px);
-  gap: 20px;
-}
-.product_tile_group_2 {
-  grid-area: product_tile_group_2;
-  grid-template-areas: 'tile_11 tile_12 tile_13 tile_14 tile_15';
-  grid-template-rows: 400px;
-}
-
 .product_tile_group_1,
 .product_tile_group_2 {
   z-index: 2;
   display: grid;
   align-items: center;
   grid-auto-columns: repeat(5, 1fr);
+}
+
+.product_tile_group_1 {
+  grid-area: product_tile_group_1;
+  grid-template-areas:
+    'tiles_row_1'
+    'tiles_row_2'
+    'tiles_row_3';
+  grid-template-rows: repeat(3, 400px);
+  gap: 20px;
+}
+
+.product_tile_group_2 {
+  grid-area: product_tile_group_2;
+  grid-template-areas: 'tile_11 tile_12 tile_13 tile_14 tile_15';
+  grid-template-rows: 400px;
 }
 
 .product_tile_group_1_row_1 {
@@ -64,6 +67,49 @@
   grid-template-areas: 'tile_6 tile_7 tile_8 tile_9 tile_10';
 }
 
+.product_tile_group_1_row_3 {
+  grid-area: tiles_row_3;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 970px 1fr;
+  grid-template-rows: 400px;
+  grid-template-areas: 'tile_11 carousel_os tile_12';
+}
+
+.product_tile_group_1_row_3 .carousel_os {
+  grid-area: carousel_os;
+}
+
+.product_tile_group_1_row_3 .carousel_os li {
+  padding: 0;
+  width: 200px;
+  min-width: 200px;
+}
+
+.product_tile_group_1_row_3 .carousel_os li a {
+  width: 200px;
+  display: grid;
+  grid-template-areas:
+    'image'
+    'content';
+  grid-template-rows: 140px 1fr;
+}
+
+.product_tile_group_1_row_3 .carousel_os li img {
+  width: 200px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.product_tile_group_1_row_3 .carousel_os li .content {
+  width: 200px;
+  height: 150px;
+}
+
+.product_tile_group_1_row_3 .carousel_os li .rating {
+  display: flex;
+}
+
 .tile_1 {
   grid-area: tile_1;
 }
@@ -78,7 +124,50 @@
 }
 .tile_5 {
   grid-area: tile_5;
+  max-width: 310px;
 }
+.tile_5 .carousel_header {
+  justify-content: center;
+  font-size: 21px;
+}
+
+.home .tile_5 li {
+  padding: 0;
+  width: 300px;
+  min-width: 300px;
+}
+
+.home .tile_5 li a {
+  width: 200px;
+  display: grid;
+  grid-template-areas:
+    'image'
+    'content';
+  grid-template-rows: 140px 1fr;
+}
+
+.home .tile_5 li img {
+  width: 200px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.home .tile_5 li .title {
+  width: 100%;
+  height: 18px;
+  line-height: 18px;
+  font-size: 18px;
+  color: var(--black);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+  word-break: break-all;
+  padding: 0 5px;
+}
+
+
 .tile_6 {
   grid-area: tile_6;
 }
@@ -100,7 +189,7 @@
 .tile_12 {
   grid-area: tile_12;
 }
-.tile_13 {
+/* .tile_13 {
   grid-area: tile_13;
 }
 .tile_14 {
@@ -108,23 +197,69 @@
 }
 .tile_15 {
   grid-area: tile_15;
-}
+} */
 
 div[class^='tile_'] {
   height: 405px;
 }
 
 /* Carousels */
-.carousel_1 {
+.home .carousel_1 {
   grid-area: carousel_1;
 }
 
-.carousel_2 {
+.home .carousel_1 li {
+  width: 170px;
+  height: 170px;
+  min-width: 170px;
+  min-height: 170px;
+  padding: 0px;
+}
+
+.home .carousel_2 {
   grid-area: carousel_2;
+}
+.home .carousel_2 .rating {
+  display: flex;
+  gap: 10px;
+}
+
+.home .carousel_3 {
+  grid-area: carousel_3;
+}
+
+.home .carousel_3 li {
+  padding: 0;
+  width: 200px;
+  min-width: 200px;
+}
+
+.home .carousel_3 li a {
+  width: 200px;
+  display: grid;
+  grid-template-areas:
+    'image'
+    'content';
+  grid-template-rows: 140px 1fr;
+}
+
+.home .carousel_3 li img {
+  width: 200px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.home .carousel_3 li .content {
+  width: 200px;
+  height: 200px;
+}
+
+.home .carousel_3 li .rating {
+  display: flex;
 }
 
 /* Media queries */
-@media (min-width: 1201px) and (max-width: 1500px) {
+/* @media (min-width: 1201px) and (max-width: 1500px) {
   .product_tile_group_1 {
     grid-auto-columns: repeat(4, 1fr);
     grid-template-areas:
@@ -214,4 +349,4 @@ div[class^='tile_'] {
   .tile_15 {
     display: none;
   }
-}
+} */

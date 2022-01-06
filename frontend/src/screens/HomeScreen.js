@@ -2,17 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import './styles/HomeScreen.css';
-import { categoriesTiles, images } from '../constants/for-developing/sliderImages';
-import ProductTileRecommendedFour from '../components/ProductTiles/ProductTileRecommendedFour';
-import ProductTileRecent from '../components/ProductTiles/ProductTileRecent';
-import ProductTileDeal from '../components/ProductTiles/ProductTileDeal';
-import ProductTileRecentFour from '../components/ProductTiles/ProductTileRecentFour';
-import ProductTileRecommended from '../components/ProductTiles/ProductTileRecommended';
+import { images } from '../constants/for-developing/sliderImages';
 import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider/Slider';
 import { Link } from 'react-router-dom';
 import History from '../components/History';
+import ProductTile from '../components/ProductTiles/ProductTile';
+import { listWishedItems } from '../actions/wishListActions';
+import Rating from '../components/Rating';
+import Price from '../components/Price';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -24,24 +23,16 @@ const HomeScreen = () => {
   const { userInfo } = userLogin;
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const {  browsingHistory } = browsingHistoryList;
+  const { browsingHistory } = browsingHistoryList;
+
+  const wishListItems = useSelector((state) => state.wishListItems);
+  const { wishList } = wishListItems;
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(listProducts('pageSize=30'));
     dispatch(listBrowsingHistory());
+    dispatch(listWishedItems());
   }, [dispatch]);
-
-  const slidesRowToRender = (
-    <ul>
-      {products?.map((item, index) => (
-        <li key={index}>
-          <Link to={`/products/${item.productId}`}>
-            <img src={item.image} alt={item.title} />
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
 
   return (
     <main className="home">
@@ -55,106 +46,226 @@ const HomeScreen = () => {
           />
         </div>
         <div className="product_tile_group_1">
-          {userInfo?.token && products ? (
-            <div className="product_tile_group_1_row_1">
-              <div className="tile_1">
-                <ProductTileRecommendedFour
-                  title={categoriesTiles['recommended'].title}
-                  content={categoriesTiles['recommended'].content}
-                />
-              </div>
-              <div className="tile_2">
-                {<ProductTileRecent product={browsingHistory && browsingHistory[0]} />}
-              </div>
-              <div className="tile_3">{<ProductTileDeal product={products[5]} />}</div>
-              <div className="tile_4">
-                {browsingHistory?.length >= 4 ? (
-                  <ProductTileRecentFour products={products.slice(0, 4)} />
-                ) : (
-                  <ProductTileRecent product={browsingHistory && browsingHistory[2]} />
+          <div className="product_tile_group_1_row_1">
+            <div className="tile_1">
+              <ProductTile
+                products={['Apple', 'HP', 'Lenovo', 'Dell'].map((brand) =>
+                  products.find((product) => product.brand === brand)
                 )}
-              </div>
-              <div className="tile_5">
-                {<ProductTileRecommended content={categoriesTiles['recommended'].content[0]} />}
-              </div>
+                itemSubtitleLine1="brand"
+                header="Shop by brand"
+              />
             </div>
-          ) : (
-            <div className="product_tile_group_1_row_1">
-              <div className="tile_1">
-                <ProductTileRecommendedFour
-                  title={categoriesTiles['Kitchen & Dining'].title}
-                  content={categoriesTiles['Kitchen & Dining'].content}
-                />
-              </div>
-              <div className="tile_2">
-                <ProductTileRecommendedFour
-                  title={categoriesTiles['Fashion'].title}
-                  content={categoriesTiles['Fashion'].content}
-                />
-              </div>
-              <div className="tile_3">
-                <ProductTileRecommendedFour
-                  title={categoriesTiles['Outdoors'].title}
-                  content={categoriesTiles['Outdoors'].content}
-                />
-              </div>
-              <div className="tile_4">
-                <ProductTileRecommendedFour
-                  title={categoriesTiles['Toys & Games'].title}
-                  content={categoriesTiles['Toys & Games'].content}
-                />
-              </div>
-              <div className="tile_5">
-                <ProductTileRecommendedFour
-                  title={categoriesTiles['Electronics'].title}
-                  content={categoriesTiles['Electronics'].content}
-                />
-              </div>
+            <div className="tile_2">
+              <ProductTile
+                products={products.sort((a, b) => b.discount - a.discount).slice(0, 1)}
+                itemSubtitleLine1="Today only: up to 30% off"
+                itemSubtitleLine2="price"
+                header="Deal of the day"
+              />
             </div>
-          )}
+            <div className="tile_3">
+              {userInfo?.token && products ? (
+                <ProductTile
+                  products={browsingHistory.slice(0, 4)}
+                  itemSubtitleLine1="title"
+                  itemSubtitleLine2="price"
+                  header="Last visited"
+                  footer="View browsing history"
+                  footerLink="/history"
+                />
+              ) : (
+                <ProductTile
+                  products={products.filter((product) => product.price >= 900).slice(0, 4)}
+                  itemSubtitleLine1="title"
+                  header="Price $900 and up"
+                  footer="View all Intel laptops"
+                  footerLink="/search/Intel"
+                />
+              )}
+            </div>
+            <div className="tile_4">
+              {userInfo?.token && products ? (
+                <ProductTile
+                  products={wishList.slice(0, 4)}
+                  itemSubtitleLine1="title"
+                  itemSubtitleLine2="price"
+                  header="Your wish list"
+                  footer="View wish list"
+                  footerLink="/wishlist"
+                />
+              ) : (
+                <ProductTile
+                  products={products
+                    .filter((product) => product.operatingSystem === 'Chrome OS')
+                    .slice(0, 4)}
+                  itemSubtitleLine1="title"
+                  header="Chrome OS laptops"
+                />
+              )}
+            </div>
+            <div className="tile_5">
+              {/* <ProductTile
+                products={products.sort((a, b) => a.price - b.price).slice(0, 4)}
+                itemSubtitleLine2="price"
+                header="Most affordable"
+                footer="View all products"
+                footerLink="/productlist"
+              /> */}
+              <Carousel title="Most affordable">
+                <ul>
+                  {products
+                    .sort((a, b) => a.price - b.price)
+                    .map((product) => (
+                      <li key={product.productId}>
+                        <Link to={`/products/${product.productId}`}>
+                          <img src={product.image} alt={product.title} />
+                          <div className="content">
+                            <div className="title">{product.title}</div>
+                            <Price price={product?.price} size="small" />
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </Carousel>
+            </div>
+          </div>
           <div className="product_tile_group_1_row_2">
             <div className="tile_6">
-              <ProductTileRecommendedFour
-                title={categoriesTiles['Kitchen & Dining'].title}
-                content={categoriesTiles['Kitchen & Dining'].content}
+              <ProductTile
+                products={products.sort((a, b) => b.rating - a.rating).slice(0, 4)}
+                header="Highest rating"
+                footer="View all products"
+                footerLink="/productlist"
               />
             </div>
             <div className="tile_7">
-              <ProductTileRecommendedFour
-                title={categoriesTiles['Fashion'].title}
-                content={categoriesTiles['Fashion'].content}
+              <ProductTile
+                products={products.sort((a, b) => b.productId - a.productId).slice(0, 4)}
+                itemSubtitleLine1="title"
+                header="Newest products"
+                footer="View all products"
+                footerLink="/productlist"
               />
             </div>
             <div className="tile_8">
-              <ProductTileRecommendedFour
-                title={categoriesTiles['Outdoors'].title}
-                content={categoriesTiles['Outdoors'].content}
+              <ProductTile
+                products={products
+                  .filter((product) => product.processorBrand === 'AMD')
+                  .slice(0, 4)}
+                itemSubtitleLine1="title"
+                header="AMD laptops"
               />
             </div>
             <div className="tile_9">
-              <ProductTileRecommendedFour
-                title={categoriesTiles['Toys & Games'].title}
-                content={categoriesTiles['Toys & Games'].content}
+              <ProductTile
+                products={products
+                  .filter((product) => product.processorBrand === 'Intel')
+                  .slice(0, 4)}
+                itemSubtitleLine1="title"
+                header="Intel laptops"
+                footer="View all Intel laptops"
+                footerLink="/search/Intel"
               />
             </div>
             <div className="tile_10">
-              <ProductTileRecommendedFour
-                title={categoriesTiles['Electronics'].title}
-                content={categoriesTiles['Electronics'].content}
+              <ProductTile
+                products={products.filter((product) => product.graphicsType === 'Dedicated')}
+                itemSubtitleLine1="title"
+                itemSubtitleLine2="price"
+                header="Dedicated graphics"
+              />
+            </div>
+          </div>
+          <div className="product_tile_group_1_row_3">
+            <div className="tile_11">
+              <ProductTile
+                products={products
+                  .filter((product) => product.operatingSystem === 'Chrome OS')
+                  .slice(0, 4)}
+                itemSubtitleLine1="title"
+                header="Chromebooks"
+              />
+            </div>
+            <div className="carousel_os">
+              <Carousel title={'Windows Laptops'}>
+                <ul>
+                  {products
+                    .filter((product) => product.operatingSystem.includes('Windows'))
+                    .map((product) => (
+                      <li key={product.productId}>
+                        <Link to={`/products/${product.productId}`}>
+                          <img src={product.image} alt={product.title} />
+                          <div className="content">
+                            <div className="title">{product.title}</div>
+                            <div className="rating">
+                              <Rating rating={product.rating} />
+                              <span>({product.reviewCount})</span>
+                            </div>
+                            <Price price={product?.price} size="small" />
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </Carousel>
+            </div>
+            <div className="tile_12">
+              <ProductTile
+                products={[products.find((product) => product.brand === 'Apple')]}
+                itemSubtitleLine1="title"
+                header="Mac OS laptops"
+                footer="View all Mac OS laptops"
+                footerLink="/store/Apple"
               />
             </div>
           </div>
         </div>
 
         <div className="carousel_1">
-          <Carousel title={'Some title content'} isPageVisible={true}>
-            {slidesRowToRender}
+          <Carousel title={'Newest Products'}>
+            <ul>
+              {products
+                .sort((a, b) => b.productId - a.productId)
+                .map((product) => (
+                  <li key={product.productId}>
+                    <Link to={`/products/${product.productId}`}>
+                      <img src={product.image} alt={product.title} />
+                    </Link>
+                  </li>
+                ))}
+            </ul>
           </Carousel>
         </div>
 
         <div className="carousel_2">
-          <Carousel title={'Your Browsing History'} isPageVisible={true}>
+          <Carousel title={'Your Browsing History'}>
             <History horizontal={true} />
+          </Carousel>
+        </div>
+
+        <div className="carousel_3">
+          <Carousel title={'All Laptops'}>
+            <ul>
+              {products
+                .sort((a, b) => a.price - b.price)
+                .map((product) => (
+                  <li key={product.productId}>
+                    <Link to={`/products/${product.productId}`}>
+                      <img src={product.image} alt={product.title} />
+                      <div className="content">
+                        <div className="title">{product.title}</div>
+                        <div className="rating">
+                          <Rating rating={product.rating} />
+                          <span>({product.reviewCount})</span>
+                        </div>
+                        <Price price={product?.price} size="small" />
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
           </Carousel>
         </div>
       </div>
