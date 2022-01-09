@@ -215,10 +215,10 @@
   .timeline_container::after {
     left: calc(120px - 5px);
   }
-
+/* 
   .timeline_container {
     padding-left: 120px;
-  }
+  } */
 
   .timeline_item {
     align-self: flex-end;
