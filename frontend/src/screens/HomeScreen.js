@@ -5,10 +5,10 @@ import './styles/HomeScreen.css';
 import { images } from '../constants/for-developing/sliderImages';
 import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
-import Slider from '../components/Slider/Slider';
+import Slider from '../components/Slider';
 import { Link } from 'react-router-dom';
 import History from '../components/History';
-import ProductTile from '../components/ProductTiles/ProductTile';
+import ProductTile from '../components/ProductTile';
 import { listWishedItems } from '../actions/wishListActions';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
@@ -44,8 +44,6 @@ const HomeScreen = () => {
         <Slider
           images={images}
           dots={false}
-          prevBtnClass={'home_slider_prev_btn'}
-          nextBtnClass={'home_slider_next_btn'}
         />
       </div>
 

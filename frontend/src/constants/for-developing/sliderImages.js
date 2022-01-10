@@ -1,5 +1,8 @@
 // To be replaced with API data
-export const images = ['http://thewowstyle.com/wp-content/uploads/2015/01/nature-images.jpg'];
+export const images = [
+  'http://thewowstyle.com/wp-content/uploads/2015/01/nature-images.jpg',
+  'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2019%2F09%2F424505-river-autumn-nature.jpg&f=1&nofb=1'
+];
 
 export const carouselImages = [
   'https://flixzone.ga/uploads/video_thumb/568.jpg',

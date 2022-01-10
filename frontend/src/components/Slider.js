@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
-import SliderBtn from './SliderBtn';
 import './styles/Slider.css';
 
-const Slider = ({ images, dots, prevBtnClass, nextBtnClass }) => {
+const Slider = ({ images, dots }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const prevSlide = () => {
+  const prevSlideHandler = () => {
     setSlideIndex(slideIndex !== 0 ? slideIndex - 1 : images.length - 1);
   };
 
-  const nextSlide = () => {
+  const nextSlideHandler = () => {
     setSlideIndex(slideIndex !== images.length - 1 ? slideIndex + 1 : 0);
   };
 
   return (
-    <main className="slider_container">
+    <div className="slider_container">
       {images.map((image, index) => (
         <div className={slideIndex === index ? 'slide active' : 'slide'} key={index}>
           <img src={image} alt={image} />
         </div>
       ))}
-      <SliderBtn moveSlide={prevSlide} direction={'prev'} style={prevBtnClass} />
-      <SliderBtn moveSlide={nextSlide} direction={'next'} style={nextBtnClass} />
+      <button className="slider_btn prev" onClick={prevSlideHandler}>
+        <i className="fas fa-chevron-left"></i>
+      </button>
+      <button className="slider_btn next" onClick={nextSlideHandler}>
+        <i className="fas fa-chevron-right"></i>
+      </button>
       {dots && (
         <div className="slider_dots">
           {images.map((_, index) => (
@@ -33,7 +36,7 @@ const Slider = ({ images, dots, prevBtnClass, nextBtnClass }) => {
           ))}
         </div>
       )}
-    </main>
+    </div>
   );
 };
 
