@@ -37,7 +37,7 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Route path="/cart/:id?" component={CartScreen} />
+      <Route path="/cart/:productId?" component={CartScreen} />
       <Route path="/shipping" component={ShippingScreen} />
       <Route path="/payment" component={PaymentScreen} />
       <Route path="/placeorder" component={PlaceOrderScreen} />

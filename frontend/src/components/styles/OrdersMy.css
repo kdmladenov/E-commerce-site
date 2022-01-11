@@ -102,3 +102,37 @@
   width: fit-content;
   margin: 3px 5px 0 0;
 }
+
+@media (max-width: 1200px) {
+  .my_orders .order_title_header {
+    grid-template-columns: 50px 120px 120px 200px 1fr;
+  }
+
+  .my_orders .order_title {
+    display: grid;
+    grid-template-columns: 50px 120px 120px 200px 1fr;
+    gap: 20px;
+  }
+
+  .my_orders .order_title_header div:nth-child(4),
+  .my_orders .order_title div:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .my_orders .order_title_header {
+    grid-template-columns: 20px 90px 70px 100px 100px;
+  }
+
+  .my_orders .order_title {
+    display: grid;
+    grid-template-columns: 20px 90px 70px 100px 100px;
+    gap: 20px;
+  }
+
+  .my_orders .order_title_header div:nth-child(4),
+  .my_orders .order_title div:nth-child(4) {
+    display: none;
+  }
+}
