@@ -147,8 +147,8 @@ const PlaceOrderScreen = ({ history }) => {
                           </Button>
                         </div>
                       </div>
+                      <Price price={item.price} />
                     </div>
-                    <Price price={item.price} />
                   </li>
                 ))}
               </ul>

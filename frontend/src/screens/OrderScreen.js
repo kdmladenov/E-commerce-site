@@ -21,6 +21,7 @@ import { orderBreadcrumbsSteps } from '../constants/inputMaps';
 import Divider from '../components/Divider';
 import { getDate } from '../constants/utility-functions';
 import { addToCart } from '../actions/cartActions';
+import Tooltip from '../components/Tooltip';
 
 const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false);
@@ -37,6 +38,7 @@ const OrderScreen = ({ match, history }) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+  console.log(order, 'order');
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
@@ -193,7 +195,7 @@ const OrderScreen = ({ match, history }) => {
             <h2>Payment</h2>
           </Divider>
           <div className="payment">
-            {!order?.isPaid ? (
+            {order?.isPaid !== 1 ? (
               <div className="payment_btn flex">
                 {loadingPay && <Loader />}
                 {!sdkReady ? (
@@ -203,23 +205,25 @@ const OrderScreen = ({ match, history }) => {
                 )}
               </div>
             ) : (
-              'Paid'
+              <Tooltip direction="top" text={`Paid ${getDate(order?.paymentDate)}`}>
+                Paid <i className="fa fa-check"></i>
+              </Tooltip>
             )}
           </div>
-          {order.isPaid === true && (
-            <div>
+          {order.isPaid === 1 && (
+            <div className="delivery">
               <Divider>
                 <h2>Delivery</h2>
               </Divider>
-              <div className="delivery">
-                {userInfo?.role === 'admin' && !order.isDelivered ? (
-                  <Button onClick={deliverHandler} classes="large">
-                    Mark as Delivered
-                  </Button>
-                ) : (
-                  <span>'Delivered'</span>
-                )}
-              </div>
+              {userInfo?.role === 'admin' && !order.isDelivered ? (
+                <Button onClick={deliverHandler} classes="large">
+                  Mark as Delivered
+                </Button>
+              ) : (
+                <Tooltip direction="top" text={`Delivered ${getDate(order?.deliveryDate)}`}>
+                  Delivered <i className="fa fa-check"></i>
+                </Tooltip>
+              )}
             </div>
           )}
         </section>

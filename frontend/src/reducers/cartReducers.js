@@ -11,13 +11,13 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
   switch (action.type) {
     case CART_ADD_ITEM:
       const cartItem = action.payload;
-      const existItem = state.cartItems.find((item) => item.id === cartItem.id);
+      const existItem = state.cartItems.find((item) => item.productId === cartItem.productId);
       if (existItem) {
         const cartItemUpdatedQty = { ...cartItem, qty: existItem.qty + cartItem.qty };
         return {
           ...state,
           cartItems: state.cartItems.map((item) =>
-            item.id === existItem.id ? cartItemUpdatedQty : item
+            item.productId === existItem.productId ? cartItemUpdatedQty : item
           )
         };
       } else {
@@ -32,7 +32,7 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
         return {
           ...state,
           cartItems: state.cartItems.map((item) =>
-            item.id === updatedItem.id ? updatedItem : item
+            item.productId === updatedItem.productId ? updatedItem : item
           )
         };
       } else {
@@ -43,7 +43,7 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter((item) => item.id !== action.payload)
+        cartItems: state.cartItems.filter((item) => item.productId !== action.payload)
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return {

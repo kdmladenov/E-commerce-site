@@ -21,7 +21,7 @@ const RECENT_ITEMS_COUNT = 5;
 const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
 
-  const productId = match.params.id;
+  const productId = match.params.productId;
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const cart = useSelector((state) => state.cart);
@@ -48,8 +48,8 @@ const CartScreen = ({ match, location, history }) => {
   //     : dispatch(addWishToList(id));
   // };
 
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+  const removeFromCartHandler = (productId) => {
+    dispatch(removeFromCart(productId));
   };
 
   const checkoutHandler = () => {
@@ -71,8 +71,8 @@ const CartScreen = ({ match, location, history }) => {
     portalRefsMap: { toast_cart: toastCartRef }
   } = portalRefs;
 
-  const addToCartHandler = (id, title, image, price) => {
-    dispatch(addToCart(id, 1));
+  const addToCartHandler = (productId, title, image, price) => {
+    dispatch(addToCart(productId, 1));
     toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
 
@@ -88,7 +88,7 @@ const CartScreen = ({ match, location, history }) => {
               <Link className="title" to={`/products/${item.productId}`}>
                 {item.title}
               </Link>
-              <Price price={item.price} />
+              <Price price={item.price} size='small'/>
               <Button
                 onClick={() => addToCartHandler(item.productId, item.title, item.image, item.price)}
                 classes={'rounded small'}
@@ -127,13 +127,13 @@ const CartScreen = ({ match, location, history }) => {
         {cartItems?.length > 0 ? (
           <ul>
             {cartItems?.map((item) => (
-              <li key={item.id}>
+              <li key={item.productId}>
                 <div className="cart_item">
-                  <Link className="image" to={`/products/${item.id}`}>
+                  <Link className="image" to={`/products/${item.productId}`}>
                     <img src={item.image} alt={item.title} />
                   </Link>
                   <div className="content">
-                    <Link className="title" to={`/products/${item.id}`}>
+                    <Link className="title" to={`/products/${item.productId}`}>
                       {item.title}
                     </Link>
                     <div className="rating_review">
@@ -162,7 +162,7 @@ const CartScreen = ({ match, location, history }) => {
                       </select>
                       <Button
                         className="delete_btn"
-                        onClick={() => removeFromCartHandler(item.id)}
+                        onClick={() => removeFromCartHandler(item.productId)}
                         classes="text"
                       >
                         Delete
@@ -200,7 +200,7 @@ const CartScreen = ({ match, location, history }) => {
               {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
             </Button>
           </div>
-          {userInfo.length > 0 && (
+          {userInfo?.token && (
             <div className="recent_items card">
               <h3>Your recently viewed items</h3>
               {recentItemsToShow}
@@ -211,7 +211,7 @@ const CartScreen = ({ match, location, history }) => {
           )}
         </div>
       </aside>
-      {userInfo.length > 0 && (
+      {userInfo?.token && (
         <Carousel title={'Your Wish List'}>
           <WishList isCarousel={true} />
         </Carousel>

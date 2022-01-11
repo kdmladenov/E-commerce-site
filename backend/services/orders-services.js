@@ -30,14 +30,14 @@ const addOrderItems = (ordersData) => async (data, userId) => {
   );
 
   orderItems.forEach(async (item) => {
-    const { title, qty, image, price, id } = item;
+    const { title, qty, image, price, productId } = item;
 
     await ordersData.createOrderItem(
       title,
       qty,
       image,
       price,
-      id,
+      productId,
       createdOrderWithoutItems.orderId
     );
   });
