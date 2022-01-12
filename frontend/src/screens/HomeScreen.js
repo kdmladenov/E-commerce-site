@@ -95,7 +95,7 @@ const HomeScreen = () => {
         <div className="tile_3">
           {userInfo?.token && products ? (
             <ProductTile
-              products={browsingHistory.slice(0, 4)}
+              products={browsingHistory?.slice(0, 4)}
               itemSubtitleLine1="title"
               itemSubtitleLine2="price"
               header="Last visited"
@@ -115,7 +115,7 @@ const HomeScreen = () => {
         <div className="tile_4">
           {userInfo?.token && products ? (
             <ProductTile
-              products={wishList.slice(0, 4)}
+              products={wishList?.slice(0, 4)}
               itemSubtitleLine1="title"
               itemSubtitleLine2="price"
               header="Your wish list"
@@ -275,11 +275,11 @@ const HomeScreen = () => {
         </Carousel>
       </div>
 
-      <div className="carousel_3">
+      {userInfo?.token && <div className="carousel_3">
         <Carousel title={'Your Browsing History'}>
           <History horizontal={true} />
         </Carousel>
-      </div>
+      </div>}
       {/* </div> */}
     </main>
   );

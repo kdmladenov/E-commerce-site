@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 0 auto;
+  justify-content: center;
   padding-top: 10px;
 }
 
@@ -212,20 +212,20 @@
 
 /* Media Queries */
 @media (max-width: 900px) {
-  .timeline_container::after {
-    left: calc(120px - 5px);
-  }
-/* 
   .timeline_container {
-    padding-left: 120px;
-  } */
+    padding-left: 80px;
+  }
+
+  .timeline_container::after {
+    left: calc(80px - 5px);
+  }
 
   .timeline_item {
     align-self: flex-end;
     justify-content: flex-start;
     padding-left: 30px;
     padding-right: 0;
-    width: 100vw;
+    width: 100%;
   }
 
   .timeline_item_content {

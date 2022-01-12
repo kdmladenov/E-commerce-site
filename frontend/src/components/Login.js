@@ -6,10 +6,12 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useHistory } from 'react-router';
 import './styles/Login.css';
+import Button from './Button';
+import Tooltip from './Tooltip';
 
 const Login = ({ match }) => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,13 +32,18 @@ const Login = ({ match }) => {
     dispatch(login(email, password));
   };
 
+  const showPasswordHandler = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="login_form">
       <h1>Sign In</h1>
       {loading && <Loader />}
       {error && <Message type="error">{error}</Message>}
       <form>
-        <h6>E-mail</h6>
+        <h4>E-mail</h4>
         <input
           type="email"
           placeholder="Enter email"
@@ -44,22 +51,33 @@ const Login = ({ match }) => {
           required
           onChange={(e) => setEmail(e.target.value)}
         />
-        <h6>Password</h6>
-        <input
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Enter password"
-          value={password}
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <p>
+        <div className="password">
+          <h4>Password</h4>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Enter password"
+            value={password}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button classes="icon" onClick={showPasswordHandler}>
+            <Tooltip
+              direction="top"
+              text={showPassword ? <h5>Hide password</h5> : <h5>Show password</h5>}
+            >
+              <i className="fa fa-eye"></i>
+            </Tooltip>
+          </Button>
+        </div>
+
+        {/* <p>
           <input
             type="checkbox"
             checked={showPassword}
             onChange={(e) => setShowPassword(e.target.checked)}
           />
           <label>Show Password</label>
-        </p>
+        </p> */}
 
         <button onClick={loginHandler}>Log In</button>
       </form>

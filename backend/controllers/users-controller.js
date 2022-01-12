@@ -145,7 +145,6 @@ usersController
     '/:userId',
     authMiddleware,
     loggedUserGuard,
-    // validateBody('user', deleteUserSchema),
     errorHandler(async (req, res) => {
       const { role } = req.user;
       // case admin-delete every user, case: basic user - delete only itself

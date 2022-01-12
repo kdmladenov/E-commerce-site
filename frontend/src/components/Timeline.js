@@ -36,7 +36,7 @@ Timeline.Item = function TimelineItem({ children, ...restProps }) {
           <span className="point" />
         )}
         <span className="date">
-          {removeMode ? 'Remove' : `${getDate(historyRecord.dateVisited)}`}
+          {removeMode ? 'Remove' : `${getDate(historyRecord.dateVisited, 0, false)}`}
         </span>
       </div>
     </div>

@@ -14,11 +14,22 @@
   text-align: left;
 }
 
-.login_form > form > input {
+.login_form > form > input,
+.login_form > form .password > input {
   height: 30px;
   padding-left: 10px;
   background-color: white;
   width: 100%;
+}
+
+.login_form > form .password {
+  position: relative;
+}
+
+.login_form form .password button {
+  position: absolute;
+  top: 30px;
+  right: 0px;
 }
 
 .login_form p {
@@ -31,7 +42,7 @@
   font-size: 16px;
 }
 
-.login_form button {
+.login_form > form button {
   margin-top: 15px;
   background: #f0c14b;
   width: 100%;

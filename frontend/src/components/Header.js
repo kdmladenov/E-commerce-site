@@ -87,9 +87,10 @@ const Header = () => {
       </div>
       <div className="header_menu_btn_group">
         <DropDown
+          userInfo={userInfo}
           button={
             <div className={`header_menu_btn ${userInfo?.token ? 'user' : 'login_menu'}`}>
-              <Avatar classes='image_only' imageUrl={user?.avatar} fullName={user?.fullName} />
+              <Avatar classes="image_only" imageUrl={user?.avatar} fullName={user?.fullName} />
             </div>
           }
           tooltipText={`${userInfo?.token ? 'User Menu' : 'Login'}`}
@@ -98,6 +99,7 @@ const Header = () => {
         </DropDown>
         {userInfo?.role === 'admin' && (
           <DropDown
+            userInfo={userInfo}
             button={
               <div className="header_menu_btn admin">
                 <i className="fa fa-user-plus" />
@@ -109,6 +111,7 @@ const Header = () => {
           </DropDown>
         )}
         <DropDown
+          userInfo={userInfo}
           button={
             <div className="header_menu_btn cart">
               <i
