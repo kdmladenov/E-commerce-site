@@ -26,7 +26,7 @@
 }
 
 /* Product Image */
-.product_card a {
+.product_card > a {
   grid-area: image;
   width: 100%;
   object-fit: contain;

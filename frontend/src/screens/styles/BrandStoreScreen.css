@@ -1,11 +1,17 @@
+.brand_store {
+  background-color: var(--gray_background);
+}
+
 .brand_store_container {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  max-width: 1500px;
+  grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   grid-template-rows: 50px 1fr;
   grid-template-areas:
-    'sidebar header_controls'
-    'sidebar product_list';
+    'header_controls'
+    'product_list';
+  margin: 0 auto;
 }
 
 .brand_store_container .sidebar {
@@ -21,6 +27,9 @@
   height: fit-content;
   position: sticky;
   top: 0;
+}
+.brand_store_container .product_list h1 {
+  margin-left: 20px;
 }
 
 .brand_store_container .product_list .footer {

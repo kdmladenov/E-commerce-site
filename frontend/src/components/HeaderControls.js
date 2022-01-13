@@ -1,5 +1,6 @@
 import React from 'react';
 import Breadcrumbs from './Breadcrumbs';
+import Button from './Button';
 import DropdownSelect from './DropdownSelect';
 import SearchBox from './SearchBox';
 import './styles/HeaderControls.css';
@@ -12,7 +13,9 @@ const HeaderControls = ({
   sortOptionsMap,
   ratingFilterOptionsMap,
   isGrayBackground,
-  breadcrumbsPaths
+  breadcrumbsPaths,
+  horizontalCards,
+  setHorizontalCards
 }) => {
   return (
     <nav className={`header_controls ${isGrayBackground ? 'gray' : ''}`}>
@@ -49,6 +52,15 @@ const HeaderControls = ({
             labelStart="Sort by"
             optionsMap={sortOptionsMap}
           />
+        )}
+        {setHorizontalCards && (
+          <Button classes="icon" onClick={() => setHorizontalCards(!horizontalCards)}>
+            {horizontalCards ? (
+              <i className="fa fa-th-large"></i>
+            ) : (
+              <i className="fa fa-align-justify"></i>
+            )}
+          </Button>
         )}
       </div>
     </nav>

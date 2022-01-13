@@ -196,10 +196,10 @@
 @media (max-width: 900px) {
   .cart_container {
     grid-template-columns: 1fr;
-      grid-template-rows: 1fr 165px 515px;
+    grid-template-rows: 165px 1fr 515px;
     grid-template-areas:
-      'cart_items'
       'action_box_sidebar'
+      'cart_items'
       'wishlist_carousel';
   }
   .cart_container .cart_item .content {

@@ -9,22 +9,27 @@ import Sidebar from '../components/Sidebar';
 import {
   productListPageSizeOptionsMap,
   productListSidebarInput,
-  productListSortOptionsMap
+  productListSortOptionsMap,
+  sidebarInput
 } from '../constants/inputMaps';
 import './styles/ProductListScreen.css';
 import HeaderControls from '../components/HeaderControls';
+
+const defaultEndpoint = {
+  page: 'page=1&',
+  pageSize: 'pageSize=12&',
+  sort: 'sort=price asc&',
+  filter: [],
+  search: ''
+};
 
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
   const searchTerm = match?.params?.searchTerm || '';
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=12&',
-    sort: 'sort=price asc&',
-    filter: [],
-    search: ''
-  });
+  const [horizontalCards, setHorizontalCards] = useState(false);
+
+  const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
@@ -46,7 +51,7 @@ const ProductListScreen = ({ match }) => {
     <ul>
       {products?.map((product) => (
         <li className="product_list_item card" key={product.productId}>
-          <ProductCard product={product} />
+          <ProductCard product={product} horizontal={horizontalCards} />
         </li>
       ))}
     </ul>
@@ -54,7 +59,12 @@ const ProductListScreen = ({ match }) => {
 
   return (
     <main className="product_list_container">
-      <Sidebar endpoint={endpoint} setEndpoint={setEndpoint} inputMap={productListSidebarInput} />
+      <Sidebar
+        endpoint={endpoint}
+        setEndpoint={setEndpoint}
+        inputMap={sidebarInput()}
+        defaultEndpoint={defaultEndpoint}
+      />
       <HeaderControls
         updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
         query={endpoint}
@@ -62,9 +72,9 @@ const ProductListScreen = ({ match }) => {
         pageSizeOptionsMap={productListPageSizeOptionsMap}
         sortOptionsMap={productListSortOptionsMap}
         isGrayBackground={true}
-        breadcrumbsPaths={[
-          { label: 'Product List', path: '' }
-        ]}
+        breadcrumbsPaths={[{ label: 'Product List', path: '' }]}
+        horizontalCards={horizontalCards}
+        setHorizontalCards={setHorizontalCards}
       />
       {loading ? (
         <Loader />
@@ -73,7 +83,7 @@ const ProductListScreen = ({ match }) => {
       ) : products.length === 0 ? (
         <h2>No items to display</h2>
       ) : (
-        <div className="product_list">
+        <div className={`product_list ${horizontalCards ? 'horizontal' : ''}`}>
           {productsToShow}
           <div className="footer">
             {products?.length > 0 && (

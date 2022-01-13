@@ -45,7 +45,7 @@ const CartScreen = ({ match, location, history }) => {
   // const wishlistHandler = (id) => {
   //   wishList.find((wish) => wish.productId === id)
   //     ? dispatch(deleteWishFromList(wishList.find((wish) => wish.productId === id).wishListId))
-  //     : dispatch(addWishToList(id));
+  //     : dispatch(addWishToList(productId));
   // };
 
   const removeFromCartHandler = (productId) => {
@@ -88,7 +88,7 @@ const CartScreen = ({ match, location, history }) => {
               <Link className="title" to={`/products/${item.productId}`}>
                 {item.title}
               </Link>
-              <Price price={item.price} size='small'/>
+              <Price price={item.price} size="small" />
               <Button
                 onClick={() => addToCartHandler(item.productId, item.title, item.image, item.price)}
                 classes={'rounded small'}

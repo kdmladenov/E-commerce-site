@@ -6,25 +6,25 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
-import Sidebar from '../components/Sidebar';
 import {
   productListPageSizeOptionsMap,
-  productListSidebarInput,
   productListSortOptionsMap
 } from '../constants/inputMaps';
 import './styles/BrandStoreScreen.css';
+
+const defaultEndpoint = {
+  page: 'page=1&',
+  pageSize: 'pageSize=12&',
+  sort: 'sort=price asc&',
+  filter: [],
+  search: ''
+};
 
 const BrandStoreScreen = ({ match }) => {
   const dispatch = useDispatch();
   const brand = match?.params?.brand || '';
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=12&',
-    sort: 'sort=price asc&',
-    filter: [],
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;
@@ -53,38 +53,40 @@ const BrandStoreScreen = ({ match }) => {
   );
 
   return (
-    <main className="brand_store_container ">
-      <Sidebar endpoint={endpoint} setEndpoint={setEndpoint} inputMap={productListSidebarInput} />
-      <HeaderControls
-        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-        query={endpoint}
-        resource="products"
-        pageSizeOptionsMap={productListPageSizeOptionsMap}
-        sortOptionsMap={productListSortOptionsMap}
-        isGrayBackground={true}
-        breadcrumbsPaths={[{ label: `${brand} store`, path: '' }]}
-      />
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
-      ) : products.length === 0 ? (
-        <h2>No items to display</h2>
-      ) : (
-        <div className="product_list">
-          {productsToShow}
-          <div className="footer">
-            {products?.length > 0 && (
-              <Pagination
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                totalItems={products[0].totalDBItems}
-              />
-            )}
+    <main className="brand_store">
+      <div className="brand_store_container">
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="products"
+          pageSizeOptionsMap={productListPageSizeOptionsMap}
+          sortOptionsMap={productListSortOptionsMap}
+          isGrayBackground={true}
+          breadcrumbsPaths={[{ label: `${brand} store`, path: '' }]}
+        />
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message type="error">{error}</Message>
+        ) : products.length === 0 ? (
+          <h2>No items to display</h2>
+        ) : (
+          <div className="product_list">
+            <h1>{`${brand} laptops`}</h1>
+            {productsToShow}
+            <div className="footer">
+              {products?.length > 0 && (
+                <Pagination
+                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                  currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+                  pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                  totalItems={products[0].totalDBItems}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 };
