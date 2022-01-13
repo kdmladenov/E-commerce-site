@@ -1,5 +1,12 @@
 .product_sidebar {
   background-color: var(--gray_background);
+  display: grid;
+  grid-template-rows: 50px 1fr;
+}
+
+.product_sidebar > .button_container {
+  width: fit-content;
+  margin: auto 10px auto auto
 }
 
 .product_sidebar .accordion_header {
