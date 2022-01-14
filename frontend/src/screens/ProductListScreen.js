@@ -8,7 +8,6 @@ import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
 import {
   productListPageSizeOptionsMap,
-  productListSidebarInput,
   productListSortOptionsMap,
   sidebarInput
 } from '../constants/inputMaps';
@@ -62,7 +61,7 @@ const ProductListScreen = ({ match }) => {
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
-        inputMap={sidebarInput()}
+        inputMap={sidebarInput(JSON.parse(localStorage.getItem('allProductsList')))}
         defaultEndpoint={defaultEndpoint}
       />
       <HeaderControls

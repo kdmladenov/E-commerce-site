@@ -26,10 +26,10 @@ const ProductCard = ({
   const { wishList } = wishListItems;
 
   const wishListAdd = useSelector((state) => state.wishListAdd);
-  const { success: successAdd } = wishListAdd;
+  const { success: successAddWish } = wishListAdd;
 
   const wishListDelete = useSelector((state) => state.wishListDelete);
-  const { success: successDelete } = wishListDelete;
+  const { success: successDeleteWish } = wishListDelete;
 
   const portalRefs = useSelector((state) => state.portalRefs);
   const { portalRefsMap: {toast_cart: toastCartRef }} = portalRefs;
@@ -49,7 +49,7 @@ const ProductCard = ({
 
   useEffect(() => {
     dispatch(listWishedItems());
-  }, [dispatch, successDelete, successAdd]);
+  }, [dispatch, successAddWish, successDeleteWish]);
 
   return (
     <div className={`product_card ${horizontal ? 'horizontal' : ''}`}>

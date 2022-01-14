@@ -3,13 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import './styles/HomeScreen.css';
 import { images } from '../constants/for-developing/sliderImages';
-import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider';
 import { Link } from 'react-router-dom';
 import History from '../components/History';
 import ProductTile from '../components/ProductTile';
-import { listWishedItems } from '../actions/wishListActions';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
 
@@ -27,24 +25,21 @@ const HomeScreen = () => {
 
   const wishListItems = useSelector((state) => state.wishListItems);
   const { wishList } = wishListItems;
+  console.log(wishList?.length);
+  console.log('refresh');
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
-    dispatch(listProducts('pageSize=30'));
-    dispatch(listBrowsingHistory());
-    dispatch(listWishedItems());
+    dispatch(listProducts(`pageSize=${localStorage.getItem('totalProductCount') || 30}`));
   }, [dispatch]);
 
   return (
     <main className="home">
       {/* <div className="home"> */}
       <div className="home_slider">
-        <Slider
-          images={images}
-          dots={false}
-        />
+        <Slider images={images} dots={false} />
       </div>
 
       <div className="product_tiles_row_1">
@@ -74,7 +69,7 @@ const HomeScreen = () => {
               header="Screen 14' and down"
             />
           )}
-          {/* <Carousel title="Most affordable">
+          {/* <Carousel title="Best value">
             <ul>
               {products
                 .sort((a, b) => a.price - b.price)
@@ -93,9 +88,9 @@ const HomeScreen = () => {
           </Carousel> */}
         </div>
         <div className="tile_3">
-          {userInfo?.token && products ? (
+          {userInfo?.token && products && browsingHistory?.length > 0 ? (
             <ProductTile
-              products={browsingHistory?.slice(0, 4)}
+              products={browsingHistory?.slice(0, browsingHistory?.length >= 4 ? 4 : 1)}
               itemSubtitleLine1="title"
               itemSubtitleLine2="price"
               header="Last visited"
@@ -107,15 +102,13 @@ const HomeScreen = () => {
               products={products.filter((product) => product.price >= 900).slice(0, 4)}
               itemSubtitleLine1="title"
               header="Price $900 and up"
-              footer="View all Intel laptops"
-              footerLink="/search/Intel"
             />
           )}
         </div>
         <div className="tile_4">
-          {userInfo?.token && products ? (
+          {userInfo?.token && products && wishList?.length > 0 ? (
             <ProductTile
-              products={wishList?.slice(0, 4)}
+              products={wishList?.slice(0, wishList?.length >= 4 ? 4 : 1)}
               itemSubtitleLine1="title"
               itemSubtitleLine2="price"
               header="Your wish list"
@@ -275,11 +268,13 @@ const HomeScreen = () => {
         </Carousel>
       </div>
 
-      {userInfo?.token && <div className="carousel_3">
-        <Carousel title={'Your Browsing History'}>
-          <History horizontal={true} />
-        </Carousel>
-      </div>}
+      {userInfo?.token && (
+        <div className="carousel_3">
+          <Carousel title={'Your Browsing History'}>
+            <History horizontal={true} />
+          </Carousel>
+        </div>
+      )}
       {/* </div> */}
     </main>
   );

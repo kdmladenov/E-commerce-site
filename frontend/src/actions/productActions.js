@@ -33,9 +33,9 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../constants/constants';
 
-export const listProducts = (endpoint = '') => 
+export const listProducts =
+  (endpoint = '') =>
   async (dispatch) => {
-    console.log(endpoint, 'endpoint');
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
@@ -44,6 +44,20 @@ export const listProducts = (endpoint = '') =>
         type: PRODUCT_LIST_SUCCESS,
         payload: data
       });
+
+      // update localStorage totalProductCount
+      if (
+        !localStorage.getItem('totalProductCount') ||
+        data[0].totalDBItems > +localStorage.getItem('totalProductCount')
+      ) {
+        localStorage.setItem('totalProductCount', data[0].totalDBItems);
+      }
+      if (!localStorage.getItem('allProductsList')) {
+        const { data: allProductList } = await axios.get(
+          `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`
+        );
+        localStorage.setItem('allProductsList', JSON.stringify(allProductList));
+      }
     } catch (error) {
       dispatch({
         type: PRODUCT_LIST_FAIL,
@@ -91,6 +105,11 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_DELETE_SUCCESS
     });
+    // for Sidebar input map
+    const { data: allProductList } = await axios.get(
+      `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`
+    );
+    localStorage.setItem('allProductsList', JSON.stringify(allProductList));
   } catch (error) {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
@@ -121,6 +140,11 @@ export const restoreProduct = (productId) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_RESTORE_SUCCESS
     });
+    // for Sidebar input map
+    const { data: allProductList } = await axios.get(
+      `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`
+    );
+    localStorage.setItem('allProductsList', JSON.stringify(allProductList));
   } catch (error) {
     dispatch({
       type: PRODUCT_RESTORE_FAIL,
@@ -152,6 +176,11 @@ export const createProduct = (productData) => async (dispatch, getState) => {
       type: PRODUCT_CREATE_SUCCESS,
       payload: data
     });
+    // for Sidebar input map
+    const { data: allProductList } = await axios.get(
+      `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`
+    );
+    localStorage.setItem('allProductsList', JSON.stringify(allProductList));
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
@@ -192,6 +221,11 @@ export const updateProduct = (updatedProduct) => async (dispatch, getState) => {
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data
     });
+    // for Sidebar input map
+    const { data: allProductList } = await axios.get(
+      `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`
+    );
+    localStorage.setItem('allProductsList', JSON.stringify(allProductList));
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,

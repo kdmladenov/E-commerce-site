@@ -1,7 +1,4 @@
-import Button from '../components/Button.js';
-import Rating from '../components/Rating.js';
 import { USER, PRODUCT } from './constants.js';
-import { productsDatabase } from './productsDatabase';
 
 export const userRegisterInitialInputState = {
   fullName: {
@@ -420,309 +417,301 @@ export const productDetailsInitialInputState = {
   }
 };
 
-export const productSpecificationsInitialInputState = {
-  screenSize: {
-    formElement: 'select',
-    label: 'Screen size',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.screenSize)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue.toFixed(1)}"`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Screen size ...',
-    value: '',
-    validations: {
-      required: true
+export const productSpecificationsInitialInputState = (database) => {
+  return {
+    screenSize: {
+      formElement: 'select',
+      label: 'Screen size',
+      options: Array.from(new Set(Object.values(database).map((item) => item.screenSize)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue.toFixed(1)}"`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Screen size ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  screenResolution: {
-    formElement: 'select',
-    label: 'Screen resolution',
-    options: Array.from(
-      new Set(Object.values(productsDatabase).map((item) => item.screenResolution))
-    )
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Screen resolution ...',
-    value: '',
-    validations: {
-      required: true
+    screenResolution: {
+      formElement: 'select',
+      label: 'Screen resolution',
+      options: Array.from(new Set(Object.values(database).map((item) => item.screenResolution)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Screen resolution ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  displayType: {
-    formElement: 'select',
-    label: 'Display type',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.displayType)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Display type ...',
-    value: '',
-    validations: {
-      required: true
+    displayType: {
+      formElement: 'select',
+      label: 'Display type',
+      options: Array.from(new Set(Object.values(database).map((item) => item.displayType)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Display type ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  processorBrand: {
-    formElement: 'select',
-    label: 'Processor brand',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.processorBrand)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Processor brand ...',
-    value: '',
-    validations: {
-      required: true
+    processorBrand: {
+      formElement: 'select',
+      label: 'Processor brand',
+      options: Array.from(new Set(Object.values(database).map((item) => item.processorBrand)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Processor brand ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  processorModel: {
-    formElement: 'select',
-    label: 'Processor model',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.processorModel)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Processor model ...',
-    value: '',
-    validations: {
-      required: true
+    processorModel: {
+      formElement: 'select',
+      label: 'Processor model',
+      options: Array.from(new Set(Object.values(database).map((item) => item.processorModel)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Processor model ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  processorModelNumber: {
-    formElement: 'select',
-    label: 'Processor number',
-    options: Array.from(
-      new Set(Object.values(productsDatabase).map((item) => item.processorModelNumber))
-    )
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Processor model number...',
-    value: '',
-    validations: {
-      required: true
+    processorModelNumber: {
+      formElement: 'select',
+      label: 'Processor number',
+      options: Array.from(new Set(Object.values(database).map((item) => item.processorModelNumber)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Processor model number...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  storageType: {
-    formElement: 'select',
-    label: 'Storage type',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.storageType)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Storage type ...',
-    value: '',
-    validations: {
-      required: true
+    storageType: {
+      formElement: 'select',
+      label: 'Storage type',
+      options: Array.from(new Set(Object.values(database).map((item) => item.storageType)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Storage type ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  storageCapacity: {
-    formElement: 'select',
-    label: 'Storage capacity',
-    options: Array.from(
-      new Set(Object.values(productsDatabase).map((item) => item.storageCapacity))
-    )
-      .sort((a, b) => a - b)
-      .map((itemValue) => ({
-        label: `${itemValue} GB`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Storage capacity ...',
-    value: '',
-    validations: {
-      required: true
+    storageCapacity: {
+      formElement: 'select',
+      label: 'Storage capacity',
+      options: Array.from(new Set(Object.values(database).map((item) => item.storageCapacity)))
+        .sort((a, b) => a - b)
+        .map((itemValue) => ({
+          label: `${itemValue} GB`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Storage capacity ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  systemMemory: {
-    formElement: 'select',
-    label: 'System memory',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.systemMemory)))
-      .sort((a, b) => a - b)
-      .map((itemValue) => ({
-        label: `${itemValue} GB`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'System memory ...',
-    value: '',
-    validations: {
-      required: true
+    systemMemory: {
+      formElement: 'select',
+      label: 'System memory',
+      options: Array.from(new Set(Object.values(database).map((item) => item.systemMemory)))
+        .sort((a, b) => a - b)
+        .map((itemValue) => ({
+          label: `${itemValue} GB`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'System memory ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  operatingSystem: {
-    formElement: 'select',
-    label: 'Operating system',
-    options: Array.from(
-      new Set(Object.values(productsDatabase).map((item) => item.operatingSystem))
-    )
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Operating system ...',
-    value: '',
-    validations: {
-      required: true
+    operatingSystem: {
+      formElement: 'select',
+      label: 'Operating system',
+      options: Array.from(new Set(Object.values(database).map((item) => item.operatingSystem)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Operating system ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  graphicsType: {
-    formElement: 'select',
-    label: 'Graphics type',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.graphicsType)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Graphics type ...',
-    value: '',
-    validations: {
-      required: true
+    graphicsType: {
+      formElement: 'select',
+      label: 'Graphics type',
+      options: Array.from(new Set(Object.values(database).map((item) => item.graphicsType)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Graphics type ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  graphicsBrand: {
-    formElement: 'select',
-    label: 'Graphics brand',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.graphicsBrand)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Graphics brand ...',
-    value: '',
-    validations: {
-      required: true
+    graphicsBrand: {
+      formElement: 'select',
+      label: 'Graphics brand',
+      options: Array.from(new Set(Object.values(database).map((item) => item.graphicsBrand)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Graphics brand ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  graphicsModel: {
-    formElement: 'select',
-    label: 'Graphics model',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.graphicsModel)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Graphics model ...',
-    value: '',
-    validations: {
-      required: true
+    graphicsModel: {
+      formElement: 'select',
+      label: 'Graphics model',
+      options: Array.from(new Set(Object.values(database).map((item) => item.graphicsModel)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Graphics model ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  voiceAssistant: {
-    formElement: 'select',
-    label: 'Voice Assistant',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.voiceAssistant)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Voice Assistant ...',
-    value: '',
-    validations: {
-      required: true
+    voiceAssistant: {
+      formElement: 'select',
+      label: 'Voice Assistant',
+      options: Array.from(new Set(Object.values(database).map((item) => item.voiceAssistant)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Voice Assistant ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  batteryType: {
-    formElement: 'select',
-    label: 'Battery type',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.batteryType)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Battery type ...',
-    value: '',
-    validations: {
-      required: true
+    batteryType: {
+      formElement: 'select',
+      label: 'Battery type',
+      options: Array.from(new Set(Object.values(database).map((item) => item.batteryType)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Battery type ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  touchScreen: {
-    formElement: 'select',
-    label: 'Touch screen',
-    options: Array.from(new Set(Object.values(productsDatabase).map((item) => item.touchScreen)))
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue === 1 ? 'true' : 'false'}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Touch screen ...',
-    value: '',
-    validations: {
-      required: true
+    touchScreen: {
+      formElement: 'select',
+      label: 'Touch screen',
+      options: Array.from(new Set(Object.values(database).map((item) => item.touchScreen)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue === 1 ? 'true' : 'false'}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Touch screen ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
     },
-    valid: true,
-    touched: false
-  },
-  backlitKeyboard: {
-    formElement: 'select',
-    label: 'Backlit keyboard',
-    options: Array.from(
-      new Set(Object.values(productsDatabase).map((item) => item.backlitKeyboard))
-    )
-      .sort()
-      .map((itemValue) => ({
-        label: `${itemValue === 1 ? 'true' : 'false'}`,
-        value: `${itemValue}`
-      })),
-    placeholder: 'Backlit keyboard ...',
-    value: '',
-    validations: {
-      required: true
-    },
-    valid: true,
-    touched: false
-  }
+    backlitKeyboard: {
+      formElement: 'select',
+      label: 'Backlit keyboard',
+      options: Array.from(new Set(Object.values(database).map((item) => item.backlitKeyboard)))
+        .sort()
+        .map((itemValue) => ({
+          label: `${itemValue === 1 ? 'true' : 'false'}`,
+          value: `${itemValue}`
+        })),
+      placeholder: 'Backlit keyboard ...',
+      value: '',
+      validations: {
+        required: true
+      },
+      valid: true,
+      touched: false
+    }
+  };
 };
 
-export const sidebarInput = (database = productsDatabase) => {
+export const sidebarInput = (database) => {
   return {
     // 'Product Category': Array.from(
     //   new Set(Object.values(productsDatabase).map((product) => product.productCategory))
@@ -748,7 +737,7 @@ export const sidebarInput = (database = productsDatabase) => {
     'Customer Reviews': [5, 4, 3, 2, 1].map((rating) => ({
       label: `${rating} stars (${
         Object.values(database).filter(
-          (product) => product.rating >= rating - 0.501 && product.rating < rating + 0.501
+          (product) => product.rating >= rating - 0.501 && product.rating <= rating + 0.501
         ).length
       })`,
       // (  <div className="sidebar_review">
@@ -835,7 +824,7 @@ export const sidebarInput = (database = productsDatabase) => {
     )
       .sort()
       .map((screenSize) => ({
-        label: `${screenSize.toFixed(1)}'' (${
+        label: `${screenSize?.toFixed(1)}'' (${
           Object.values(database).filter((product) => product.screenSize === screenSize).length
         })`,
         value: `filter=screen_size between ${screenSize - 0.001} and ${screenSize + 0.001}`,
@@ -1026,243 +1015,6 @@ export const sidebarInput = (database = productsDatabase) => {
       }))
   };
 };
-
-// export const browsingHistorySidebarInput = {
-//   // 'Product Category': Array.from(
-//   //   new Set(Object.values(productsDatabase).map((product) => product.productCategory))
-//   // ).map((productCategory) => ({
-//   //   label: `${productCategory} (${
-//   //     Object.values(productsDatabase).filter(
-//   //       (product) => product.productCategory === productCategory
-//   //     ).length
-//   //   })`,
-//   //   value: `filter=product_category = '${productCategory}'`,
-//   //   type: 'checkbox'
-//   // })),
-//   Brand: Array.from(new Set(Object.values(productsDatabase).map((product) => product.brand)))
-//     .sort()
-//     .map((brand) => ({
-//       label: `${brand}`,
-//       value: `filter=brand = '${brand}'`,
-//       type: 'checkbox',
-//       accordionOpen: true
-//     })),
-//   'Customer Reviews': [5, 4, 3, 2, 1].map((rating) => ({
-//     label: (
-//       <Button classes="text">
-//         <Rating rating={rating} />
-//       </Button>
-//     ),
-//     value: `filter=rating between ${rating - 0.501} and 5.001`,
-//     type: 'checkbox',
-//     accordionOpen: true
-//   })),
-//   Price: [
-//     [0, 300],
-//     [300, 500],
-//     [500, 700],
-//     [700, 900],
-//     [900, 10000]
-//   ]
-//     .sort()
-//     .map((priceRange) => ({
-//       label: `${
-//         priceRange[0] === 0
-//           ? `Under ${priceRange[1]}`
-//           : priceRange[1] === 10000
-//           ? `${priceRange[0]} & Above`
-//           : `${priceRange[0]} to ${priceRange[1]}`
-//       }`,
-//       value: `filter=price between ${priceRange[0]} and ${priceRange[1] + 0.501}`,
-//       type: 'checkbox',
-//       accordionOpen: true
-//     })),
-//   'Release Year': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.releaseYear))
-//   )
-//     .sort((a, b) => b - a)
-//     .map((releaseYear) => ({
-//       label: `${releaseYear}`,
-//       value: `filter=release_year = ${releaseYear}`,
-//       type: 'checkbox'
-//     })),
-//   'CPU Manufacturer': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.processorBrand))
-//   )
-//     .sort()
-//     .map((processorBrand) => ({
-//       label: `${processorBrand}`,
-//       value: `filter=processor_brand = '${processorBrand}'`,
-//       type: 'checkbox'
-//     })),
-//   'Operating System': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.operatingSystem))
-//   )
-//     .sort()
-//     .map((operatingSystem) => ({
-//       label: `${operatingSystem}`,
-//       value: `filter=operating_system = '${operatingSystem}'`,
-//       type: 'checkbox'
-//     })),
-//   Color: Array.from(new Set(Object.values(productsDatabase).map((product) => product.colorFamily)))
-//     .sort()
-//     .map((mainColor) => ({
-//       label: `${mainColor}`,
-//       value: `filter=color_family ='${mainColor}'`,
-//       type: 'checkbox'
-//     })),
-//   'Display Size': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.screenSize))
-//   )
-//     .sort()
-//     .map((screenSize) => ({
-//       label: `${screenSize.toFixed(1)}''`,
-//       value: `filter=screen_size between ${screenSize - 0.001} and ${screenSize + 0.001}`,
-//       type: 'checkbox'
-//     })),
-//   'Display Type': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.displayType))
-//   )
-//     .sort()
-//     .map((displayType) => ({
-//       label: `${displayType}`,
-//       value: `filter=display_type = '${displayType}'`,
-//       type: 'checkbox'
-//     })),
-//   'CPU Model': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.processorModel))
-//   )
-//     .sort()
-//     .map((processorModel) => ({
-//       label: `${processorModel}`,
-//       value: `filter=processor_model = '${processorModel}'`,
-//       type: 'checkbox'
-//     })),
-//   'Display Resolution': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.screenResolution))
-//   )
-//     .sort()
-//     .map((screenResolution) => ({
-//       label: `${screenResolution}`,
-//       value: `filter=screen_resolution = '${screenResolution}'`,
-//       type: 'checkbox'
-//     })),
-//   'RAM Capacity': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.systemMemory))
-//   )
-//     .sort((a, b) => a - b)
-//     .map((systemMemory) => ({
-//       label: `${systemMemory} GB`,
-//       value: `filter=system_memory = ${systemMemory}`,
-//       type: 'checkbox'
-//     })),
-//   'Hard Disk Size': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.storageCapacity))
-//   )
-//     .sort((a, b) => a - b)
-//     .map((storageCapacity) => ({
-//       label: `${storageCapacity} GB`,
-//       value: `filter=storage_capacity = ${storageCapacity}`,
-//       type: 'checkbox'
-//     })),
-
-//   'Hard Disk Type': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.storageType))
-//   )
-//     .sort((a, b) => a - b)
-//     .map((storageType) => ({
-//       label: `${storageType}`,
-//       value: `filter=storage_type = '${storageType}'`,
-//       type: 'checkbox'
-//     })),
-
-//   'Graphics Type': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.graphicsType))
-//   )
-//     .sort()
-//     .map((graphicsType) => ({
-//       label: `${graphicsType}`,
-//       value: `filter=graphics_type = '${graphicsType}'`,
-//       type: 'checkbox'
-//     })),
-//   'Graphics Model': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.graphicsModel))
-//   )
-//     .sort()
-//     .map((graphicsModel) => ({
-//       label: `${graphicsModel}`,
-//       value: `filter=graphics_model = '${graphicsModel}'`,
-//       type: 'checkbox'
-//     })),
-//   Weight: [
-//     [0, 3],
-//     [3, 4],
-//     [4, 5],
-//     [5, 100]
-//   ]
-//     .sort()
-//     .map((weightRange) => ({
-//       label: `${
-//         weightRange[0] === 0
-//           ? `Up to ${weightRange[1]} Pounds`
-//           : weightRange[1] === 100
-//           ? `${weightRange[0]} Pounds & Above`
-//           : `${weightRange[0]} to ${weightRange[1]} Pounds`
-//       }`,
-//       value: `filter=weight between ${weightRange[0] - 0.001} and ${weightRange[1] - 0.001}`,
-//       type: 'checkbox'
-//     })),
-//   'Battery Type': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.batteryType))
-//   )
-//     .sort()
-//     .map((batteryType) => ({
-//       label: `${batteryType}`,
-//       value: `filter=battery_type = '${batteryType}'`,
-//       type: 'checkbox'
-//     })),
-//   'Voice Assistant': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.voiceAssistant))
-//   )
-//     .sort()
-//     .map((voiceAssistant) => ({
-//       label: `${voiceAssistant}`,
-//       value: `filter=voice_assistant = '${voiceAssistant}'`,
-//       type: 'checkbox'
-//     })),
-//   'Backlit Keyboard': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.backlitKeyboard))
-//   )
-//     .sort()
-//     .map((backlitKeyboard) => ({
-//       label: `${backlitKeyboard ? 'Yes' : 'No'}`,
-//       value: `filter=backlit_keyboard = ${backlitKeyboard}`,
-//       type: 'checkbox'
-//     })),
-//   'Touch Screen': Array.from(
-//     new Set(Object.values(productsDatabase).map((product) => product.touchScreen))
-//   )
-//     .sort()
-//     .map((touchScreen) => ({
-//       label: `${touchScreen ? 'Yes' : 'No'}`,
-//       value: `filter=touch_screen = ${touchScreen}`,
-//       type: 'checkbox'
-//     })),
-//   Availability: Array.from(
-//     new Set(
-//       Object.values(productsDatabase).map((product) => {
-//         if (product.stockCount > 0) return 'In stock';
-//         else return 'Out of stock';
-//       })
-//     )
-//   )
-//     .sort()
-//     .map((stock) => ({
-//       label: `${stock}`,
-//       value: `${stock === 'In stock' ? 'filter=stock_count > 0' : 'filter=stock_count = 0'}`,
-//       type: 'checkbox'
-//     }))
-// };
 
 export const productListPageSizeOptionsMap = [
   { label: 12, value: 'pageSize=12&' },

@@ -58,7 +58,6 @@ const ProductSpecificationsEdit = () => {
     product
   ]);
 
-
   return (
     <div className="product_specifications_edit">
       {loadingUpdateProductSpecification && <Loader />}
@@ -76,7 +75,9 @@ const ProductSpecificationsEdit = () => {
       ) : (
         <div className="product_specifications_edit_form card">
           <FormComponent
-            inputData={productSpecificationsInitialInputState}
+            inputData={productSpecificationsInitialInputState(
+              JSON.parse(localStorage.getItem('allProductsList'))
+            )}
             updateAction={updateProductSpecification}
             createAction={createProductSpecification}
             getDetailsAction={listProductDetails}

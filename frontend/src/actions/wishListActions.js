@@ -30,6 +30,13 @@ export const addWishToList = (productId) => async (dispatch, getState) => {
     await axios.post(`${BASE_URL}/wishlist/${productId}`, {}, config);
 
     dispatch({ type: WISH_LIST_ADD_SUCCESS });
+    
+    // for Sidebar input map
+    const { data } = await axios.get(
+      `${BASE_URL}/wishlist?pageSize=${localStorage.getItem('totalProductCount')}`,
+      config
+    );
+    localStorage.setItem('allWishList', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: WISH_LIST_ADD_FAIL,
@@ -60,6 +67,7 @@ export const listWishedItems =
         type: WISH_ITEMS_LIST_SUCCESS,
         payload: data
       });
+
     } catch (error) {
       dispatch({
         type: WISH_ITEMS_LIST_FAIL,
@@ -89,6 +97,12 @@ export const deleteWishFromList = (wishListId) => async (dispatch, getState) => 
     dispatch({
       type: WISH_LIST_DELETE_SUCCESS
     });
+    // for Sidebar input map
+    const { data } = await axios.get(
+      `${BASE_URL}/wishlist?pageSize=${localStorage.getItem('totalProductCount')}`,
+      config
+    );
+    localStorage.setItem('allWishList', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: WISH_LIST_DELETE_FAIL,

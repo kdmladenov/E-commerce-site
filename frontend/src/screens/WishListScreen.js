@@ -7,23 +7,26 @@ import Sidebar from '../components/Sidebar';
 import {
   productListPageSizeOptionsMap,
   productListSidebarInput,
-  productListSortOptionsMap
+  productListSortOptionsMap,
+  sidebarInput
 } from '../constants/inputMaps';
 import './styles/WishListScreen.css';
 import WishListCard from '../components/WishListCard';
 import Pagination from '../components/Pagination';
 import HeaderControls from '../components/HeaderControls';
 
+const defaultEndpoint = {
+  page: 'page=1&',
+  pageSize: 'pageSize=12&',
+  sort: 'sort=dateCreated desc&',
+  filter: [],
+  search: ''
+};
+
 const WishListScreen = () => {
   const dispatch = useDispatch();
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=12&',
-    sort: 'sort=dateCreated desc&',
-    filter: [],
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
   const wishListItems = useSelector((state) => state.wishListItems);
   const { loading, wishList, error } = wishListItems;
@@ -31,7 +34,9 @@ const WishListScreen = () => {
   const wishListDelete = useSelector((state) => state.wishListDelete);
   const { success: successDelete } = wishListDelete;
 
-  const wishListCardsToShow = wishList?.map((wish) => <WishListCard wish={wish} />);
+    const [sidebarInputMap, setSidebarInputMap] = useState(
+      sidebarInput(JSON.parse(localStorage.getItem('allWishList')))
+    );
 
   useEffect(() => {
     const { page, pageSize, sort, search, filter } = endpoint;
@@ -39,9 +44,18 @@ const WishListScreen = () => {
     dispatch(listWishedItems(`${page}${pageSize}${sort}${search}${filter.join('&')}`));
   }, [dispatch, endpoint, successDelete]);
 
+    useEffect(() => {
+      setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allWishList'))));
+    }, [successDelete, sidebarInputMap]);
+
   return (
     <main className="wish_list_screen_container">
-      <Sidebar endpoint={endpoint} setEndpoint={setEndpoint} inputMap={productListSidebarInput} />
+      <Sidebar
+        endpoint={endpoint}
+        setEndpoint={setEndpoint}
+        inputMap={sidebarInputMap}
+        defaultEndpoint={defaultEndpoint}
+      />
       <HeaderControls
         updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
         query={endpoint}
@@ -62,7 +76,11 @@ const WishListScreen = () => {
         <h2>No items to display</h2>
       ) : (
         <div className="wish_list_screen">
-          <ul>{wishListCardsToShow}</ul>
+          <ul>
+            {wishList?.map((wish) => (
+              <WishListCard wish={wish} key={wish.wishListId} />
+            ))}
+          </ul>
           <div className="footer">
             {wishList?.length > 0 && (
               <Pagination

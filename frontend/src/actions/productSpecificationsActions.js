@@ -40,6 +40,12 @@ export const createProductSpecification =
         type: PRODUCT_SPECIFICATION_CREATE_SUCCESS,
         payload: data
       });
+      // for Sidebar input map
+      const { data: allProductList } = await axios.get(
+        `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`,
+        config
+      );
+      localStorage.setItem('allProductsList', JSON.stringify(allProductList));
     } catch (error) {
       dispatch({
         type: PRODUCT_SPECIFICATION_CREATE_FAIL,
@@ -87,6 +93,13 @@ export const updateProductSpecification =
       //   type: PRODUCT_DETAILS_SUCCESS,
       //   payload: data
       // });
+
+      // for Sidebar input map
+      const { data: allProductList } = await axios.get(
+        `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`,
+        config
+      );
+      localStorage.setItem('allProductsList', JSON.stringify(allProductList));
     } catch (error) {
       dispatch({
         type: PRODUCT_SPECIFICATION_UPDATE_FAIL,
@@ -119,6 +132,13 @@ export const deleteProductSpecification = (specificationId) => async (dispatch, 
     dispatch({
       type: PRODUCT_SPECIFICATION_DELETE_SUCCESS
     });
+    
+    // for Sidebar input map
+    const { data: allProductList } = await axios.get(
+      `${BASE_URL}/products?pageSize=${localStorage.getItem('totalProductCount')}`,
+      config
+    );
+    localStorage.setItem('allProductsList', JSON.stringify(allProductList));
   } catch (error) {
     dispatch({
       type: PRODUCT_SPECIFICATION_DELETE_FAIL,

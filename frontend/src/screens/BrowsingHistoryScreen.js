@@ -7,24 +7,30 @@ import Message from '../components/Message';
 import ProductCard from '../components/ProductCard';
 import './styles/BrowsingHistoryScreen.css';
 import {
-  browsingHistorySidebarInput,
   browsingHistorySortOptionsMap,
-  productListPageSizeOptionsMap
+  productListPageSizeOptionsMap,
+  sidebarInput
 } from '../constants/inputMaps';
 import Pagination from '../components/Pagination';
 import Sidebar from '../components/Sidebar';
 import Tooltip from '../components/Tooltip';
 import HeaderControls from '../components/HeaderControls';
 
+const defaultEndpoint = {
+  page: 'page=1&',
+  pageSize: 'pageSize=12&',
+  sort: 'sort=dateVisited desc&',
+  filter: [],
+  search: ''
+};
+
 const BrowsingHistoryScreen = () => {
   const dispatch = useDispatch();
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=12&',
-    sort: 'sort=dateVisited desc&',
-    filter: [],
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint);
+
+  const [sidebarInputMap, setSidebarInputMap] = useState(
+    sidebarInput(JSON.parse(localStorage.getItem('allHistory')))
+  );
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { loading, browsingHistory, error } = browsingHistoryList;
@@ -37,6 +43,10 @@ const BrowsingHistoryScreen = () => {
 
     dispatch(listBrowsingHistory(`${page}${pageSize}${sort}${search}${filter.join('&')}`));
   }, [dispatch, endpoint, successDelete]);
+
+  useEffect(() => {
+    setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allHistory'))));
+  }, [successDelete, sidebarInputMap]);
 
   const productsToShow = (
     <ul>
@@ -61,7 +71,8 @@ const BrowsingHistoryScreen = () => {
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
-        inputMap={browsingHistorySidebarInput}
+        inputMap={sidebarInputMap}
+        defaultEndpoint={defaultEndpoint}
       />
       <HeaderControls
         updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
