@@ -1,24 +1,99 @@
-.slider_container .slider_container {
+.home .slider_container {
   position: relative;
-  overflow: hidden;
   height: 100%;
   width: 100%;
 }
 
-.slider_container .slide {
+.slider_container .slide,
+.slider_container .slides_list,
+.slider_container .slides_list li,
+.slider_container .slides_list li > div {
   width: 100%;
   height: 100%;
   position: absolute;
+  top: 0;
+}
+
+.slider_container .slide {
   opacity: 0;
+  z-index: -1;
   transition: opacity ease-in-out 0.4s;
 }
 
 .slider_container .slide.active {
+  z-index: 1;
   opacity: 1;
 }
 
-.slider_container .slide img {
+/* Slide with title and items */
+.slider_container li.slide > div {
+  display: grid;
+  grid-template-rows: 200px;
+  gap: 20px;
+  align-items: center;
+}
+.slider_container li.slide > div.title_left {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'title product_list';
+}
+.slider_container li.slide > div.title_right {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'product_list title';
+}
+
+.slider_container li.slide .title {
+  grid-area: title;
+  font-size: 50px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.slider_container li.slide .product_list {
+  grid-area: product_list;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.slider_container li.slide a {
+  position: relative;
+  background-color: white;
+  height: 150px;
+  width: 150px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  box-shadow: var(--box_shadow_3);
+}
+
+.slider_container li.slide a img {
+  height: 100px;
+  width: 100px;
+}
+
+.slider_container li.slide a span {
+  position: absolute;
+  bottom: -30px;
+  font-weight: bold;
+}
+
+/* Image only slide */
+.slider_container li.slide > img {
   object-fit: cover;
+}
+/* Text color */
+.slider_container li.slide div.white_text .title,
+.slider_container li.slide div.white_text a span {
+  color: var(--white);
+}
+
+.slider_container li.slide div.black_text .title,
+.slider_container li.slide div.black_text a span {
+  color: var(--ramones);
 }
 
 /* Arrow buttons */
@@ -34,6 +109,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 1
 }
 
 .slider_container .slider_btn:hover {
@@ -44,18 +120,16 @@
 }
 
 .slider_container .next {
-  top: 220px;
+  top: 120px;
   right: 20px;
   transform: translateY(-60%);
 }
 
 .slider_container .prev {
-  top: 220px;
+  top: 120px;
   left: 20px;
   transform: translateY(-60%);
 }
-
-
 
 /* Dot group */
 .slider_container .slider_dots {
@@ -64,9 +138,10 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1
 }
 
-.slider_container  .dot {
+.slider_container .dot {
   margin: 5px;
   background: #fff;
   width: 12px;
@@ -76,7 +151,7 @@
   cursor: pointer;
 }
 
-.slider_container  .dot.active {
+.slider_container .dot.active {
   margin: 5px;
   background: red;
   width: 12px;
@@ -86,7 +161,7 @@
   cursor: pointer;
 }
 
-.slider_container  .dot:hover,
-.slider_container  .dot.active:hover {
+.slider_container .dot:hover,
+.slider_container .dot.active:hover {
   transform: scale(1.3);
 }

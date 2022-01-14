@@ -12,6 +12,8 @@ export const TAX_RATE = 0.2;
 
 export const STORE_NAME = 'MyShop';
 
+export const SLIDER_IMAGE_1 = 'https://m.media-amazon.com/images/I/61lJ3xlQX2L._SX3000_.jpg';
+
 export const USER = {
   MIN_FULL_NAME_LENGTH: 2,
   MAX_FULL_NAME_LENGTH: 100,

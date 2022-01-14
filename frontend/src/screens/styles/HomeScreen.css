@@ -1,7 +1,12 @@
-.home {
+.home_screen {
+  width: 100%;
   background: var(--gray_background);
+}
+
+.home {
   max-width: 1920px;
   width: 100%;
+  margin: 0 auto;
   display: grid;
   gap: 20px;
   padding: 0 20px;
@@ -20,16 +25,7 @@
   grid-area: slider;
   height: 600px;
   z-index: 1;
-  overflow: hidden;
-  margin: 0 -20px -300px -20px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-}
-.home_slider {
-  grid-area: slider;
-  height: 600px;
-  z-index: 1;
-  overflow: hidden;
-  margin: 0 -20px -300px -20px;
+  margin: 0 -20px -400px -20px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 
