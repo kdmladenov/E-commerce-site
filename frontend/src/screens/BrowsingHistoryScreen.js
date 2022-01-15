@@ -15,6 +15,7 @@ import Pagination from '../components/Pagination';
 import Sidebar from '../components/Sidebar';
 import Tooltip from '../components/Tooltip';
 import HeaderControls from '../components/HeaderControls';
+import { getRibbonText } from '../constants/utility-functions';
 
 const defaultEndpoint = {
   page: 'page=1&',
@@ -48,24 +49,6 @@ const BrowsingHistoryScreen = () => {
     setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allHistory'))));
   }, [successDelete, sidebarInputMap]);
 
-  const productsToShow = (
-    <ul>
-      {browsingHistory?.map((historyRecord) => (
-        <li className="history_item card" key={historyRecord.productId}>
-          <ProductCard product={historyRecord} />
-          <Button
-            classes="icon"
-            onClick={() => dispatch(deleteBrowsingHistory(historyRecord.historyId))}
-          >
-            <Tooltip text="Remove">
-              <i className="fa fa-times"></i>
-            </Tooltip>
-          </Button>
-        </li>
-      ))}
-    </ul>
-  );
-
   return (
     <main className="browsing_history_screen_container">
       <Sidebar
@@ -94,7 +77,25 @@ const BrowsingHistoryScreen = () => {
         <h2>No items to display</h2>
       ) : (
         <div className="browsing_history_list">
-          {productsToShow}
+          <ul>
+            {browsingHistory?.map((historyRecord) => (
+              <ProductCard
+                product={historyRecord}
+                key={historyRecord.productId}
+                ribbonText={getRibbonText(historyRecord.productId)}
+                deleteBtn={
+                  <Button
+                    classes="icon"
+                    onClick={() => dispatch(deleteBrowsingHistory(historyRecord.historyId))}
+                  >
+                    <Tooltip text="Remove">
+                      <i className="fa fa-times"></i>
+                    </Tooltip>
+                  </Button>
+                }
+              />
+            ))}
+          </ul>
           <div className="footer">
             {browsingHistory?.length > 0 && (
               <Pagination

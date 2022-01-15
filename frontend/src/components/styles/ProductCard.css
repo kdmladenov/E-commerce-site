@@ -85,6 +85,11 @@
   top: 5px;
   right: 10px;
 }
+.product_card .wish_list_btn,
+.product_card .wish_list_btn button {
+  width: 20px;
+  padding: 0;
+}
 
 .product_card .wish_list_btn i {
   color: rgb(202, 188, 188);

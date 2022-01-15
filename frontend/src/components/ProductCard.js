@@ -13,11 +13,7 @@ import Popover from './Popover';
 import RatingWidget from './RatingWidget';
 import Tooltip from './Tooltip';
 
-const ProductCard = ({
-  product,
-  horizontal,
-  ribbonText,
-}) => {
+const ProductCard = ({ product, horizontal, ribbonText, deleteBtn }) => {
   const dispatch = useDispatch();
 
   const { productId, title, image, price, rating, reviewCount, stockCount } = product;
@@ -32,7 +28,9 @@ const ProductCard = ({
   const { success: successDeleteWish } = wishListDelete;
 
   const portalRefs = useSelector((state) => state.portalRefs);
-  const { portalRefsMap: {toast_cart: toastCartRef }} = portalRefs;
+  const {
+    portalRefsMap: { toast_cart: toastCartRef }
+  } = portalRefs;
 
   const addToCartHandler = () => {
     dispatch(addToCart(productId, 1));
@@ -107,6 +105,7 @@ const ProductCard = ({
         </Button>
       </div>
       <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>
+      {deleteBtn}
     </div>
   );
 };

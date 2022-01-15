@@ -6,6 +6,7 @@ import {
   browsingHistorySortOptionsMap,
   productListPageSizeOptionsMap
 } from '../constants/inputMaps';
+import { getRibbonText } from '../constants/utility-functions';
 import Button from './Button';
 import HeaderControls from './HeaderControls';
 import Loader from './Loader';
@@ -70,7 +71,11 @@ const History = ({ horizontal }) => {
               deleteHistoryItem={deleteHistoryItemHandler}
               historyRecord={historyRecord}
             >
-              <ProductCard product={historyRecord} horizontal={!horizontal} ribbonText="history" />
+              <ProductCard
+                product={historyRecord}
+                horizontal={!horizontal}
+                ribbonText={getRibbonText(historyRecord.productId)}
+              />
             </Timeline.Item>
           ))}
           {horizontal && (

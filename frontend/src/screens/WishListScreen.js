@@ -14,6 +14,7 @@ import './styles/WishListScreen.css';
 import WishListCard from '../components/WishListCard';
 import Pagination from '../components/Pagination';
 import HeaderControls from '../components/HeaderControls';
+import { getRibbonText } from '../constants/utility-functions';
 
 const defaultEndpoint = {
   page: 'page=1&',
@@ -78,7 +79,11 @@ const WishListScreen = () => {
         <div className="wish_list_screen">
           <ul>
             {wishList?.map((wish) => (
-              <WishListCard wish={wish} key={wish.wishListId} />
+              <WishListCard
+                wish={wish}
+                key={wish.wishListId}
+                ribbonText={getRibbonText(wish.productId)}
+              />
             ))}
           </ul>
           <div className="footer">

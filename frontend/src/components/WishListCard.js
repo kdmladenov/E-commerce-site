@@ -11,8 +11,9 @@ import './styles/WishListCard.css';
 import Tooltip from './Tooltip';
 import { addToCart } from '../actions/cartActions';
 import Price from './Price';
+import Ribbon from './Ribbon';
 
-const WishListCard = ({ wish }) => {
+const WishListCard = ({ wish, ribbonText }) => {
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -72,6 +73,7 @@ const WishListCard = ({ wish }) => {
           Add To Cart
         </Button>
       </div>
+      <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>
     </li>
   );
 };

@@ -108,3 +108,17 @@ export const randomNumber = (min, max) => {
 };
 
 export const uniqueId = () => new Date().getTime();
+
+export const getRibbonText = (currentProductId) => {
+  const allProducts = JSON.parse(localStorage.getItem('allProductsList'));
+
+  return allProducts.sort((a, b) => a.price - b.price)[0].productId === currentProductId
+    ? 'Best value'
+    : allProducts.sort((a, b) => b.rating - a.rating)[0].productId === currentProductId
+    ? '#1 Rated'
+    : allProducts.sort((a, b) => b.discount - a.discount)[0].productId === currentProductId
+    ? 'Best deal'
+    : allProducts.sort((a, b) => b.reviewCount - a.reviewCount)[0].productId === currentProductId
+    ? 'Most reviewed'
+    : null;
+};

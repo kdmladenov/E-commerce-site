@@ -42,7 +42,7 @@
 .wish_list_item .remove_btn {
   position: absolute;
   top: 5px;
-  left: 5px;
+  right: 5px;
   z-index: 100;
 }
 
@@ -53,4 +53,13 @@
 .wish_list_item .add_to_cart_btn {
   grid-area: add_to_cart_btn;
   margin: 10px auto 5px auto;
+}
+
+.wish_list_item .product_ribbon {
+  height: 24px;
+  width: fit-content;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  z-index: 2;
 }

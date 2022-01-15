@@ -13,6 +13,7 @@ import {
 } from '../constants/inputMaps';
 import './styles/ProductListScreen.css';
 import HeaderControls from '../components/HeaderControls';
+import { getRibbonText } from '../constants/utility-functions';
 
 const defaultEndpoint = {
   page: 'page=1&',
@@ -46,16 +47,6 @@ const ProductListScreen = ({ match }) => {
     });
   }, [searchTerm]);
 
-  const productsToShow = (
-    <ul>
-      {products?.map((product) => (
-        <li className="product_list_item card" key={product.productId}>
-          <ProductCard product={product} horizontal={horizontalCards} />
-        </li>
-      ))}
-    </ul>
-  );
-
   return (
     <main className="product_list_container">
       <Sidebar
@@ -83,7 +74,16 @@ const ProductListScreen = ({ match }) => {
         <h2>No items to display</h2>
       ) : (
         <div className={`product_list ${horizontalCards ? 'horizontal' : ''}`}>
-          {productsToShow}
+          <ul>
+            {products?.map((product) => (
+              <ProductCard
+                key={product.productId}
+                product={product}
+                horizontal={horizontalCards}
+                ribbonText={getRibbonText(product.productId)}
+              />
+            ))}
+          </ul>
           <div className="footer">
             {products?.length > 0 && (
               <Pagination
