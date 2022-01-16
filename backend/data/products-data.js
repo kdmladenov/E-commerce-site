@@ -4,7 +4,15 @@ import db from './pool.js';
 const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
-  const sortColumn = ['price', 'rating', 'dateCreated', 'productId'].includes(sortArr[0])
+  const sortColumn = [
+    'price',
+    'rating',
+    'dateCreated',
+    'productId',
+    'salesCount',
+    'visitedCount',
+    'wishedCount'
+  ].includes(sortArr[0])
     ? sortArr[0]
     : 'price';
 

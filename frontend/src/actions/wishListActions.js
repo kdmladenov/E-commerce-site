@@ -36,7 +36,7 @@ export const addWishToList = (productId) => async (dispatch, getState) => {
       `${BASE_URL}/wishlist?pageSize=${localStorage.getItem('totalProductCount')}`,
       config
     );
-    localStorage.setItem('allWishList', JSON.stringify(data));
+    localStorage.setItem('allMyWishList', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: WISH_LIST_ADD_FAIL,
@@ -102,7 +102,7 @@ export const deleteWishFromList = (wishListId) => async (dispatch, getState) => 
       `${BASE_URL}/wishlist?pageSize=${localStorage.getItem('totalProductCount')}`,
       config
     );
-    localStorage.setItem('allWishList', JSON.stringify(data));
+    localStorage.setItem('allMyWishList', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: WISH_LIST_DELETE_FAIL,

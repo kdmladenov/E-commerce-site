@@ -3,7 +3,14 @@ import db from './pool.js';
 const getAllWishListRecords = async (userId, search, filter, sort, pageSize, page) => {
   const sortArr = sort?.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
-  const sortColumn = ['price', 'rating', 'dateCreated'].includes(sortArr[0])
+  const sortColumn = [
+    'price',
+    'rating',
+    'dateCreated',
+    'salesCount',
+    'visitedCount',
+    'wishedCount'
+  ].includes(sortArr[0])
     ? sortArr[0]
     : 'dateCreated';
   const offset = page ? (page - 1) * pageSize : 0;
@@ -63,6 +70,9 @@ const getAllWishListRecords = async (userId, search, filter, sort, pageSize, pag
       s.voice_assistant as voiceAssistant,
       s.battery_type as batteryType,
       s.backlit_keyboard as backlitKeyboard,
+      IFNULL(o.sales_count, 0) as salesCount,
+      IFNULL(h.visited_count, 0) as visitedCount,
+      IFNULL(w.wished_count, 0) as wishedCount,
       r.review_count as reviewCount,
       r.rating,
       rt.starOne,
@@ -79,6 +89,17 @@ const getAllWishListRecords = async (userId, search, filter, sort, pageSize, pag
             FROM reviews
             WHERE is_deleted = 0
             GROUP BY product_id) as r using (product_id)
+    LEFT JOIN (SELECT sum(quantity) as sales_count,  product_id
+        FROM order_items
+        GROUP BY product_id) as o using (product_id)
+    LEFT JOIN (SELECT count(product_id) as visited_count,  product_id
+        FROM browsing_history
+        WHERE is_deleted = 0
+        GROUP BY product_id) as h using (product_id)
+    LEFT JOIN (SELECT count(product_id) as wished_count,  product_id
+        FROM wishlist
+        WHERE is_deleted = 0
+        GROUP BY product_id) as w using (product_id)
     LEFT JOIN (SELECT *
             FROM specifications) as s using (product_id)
     LEFT JOIN (select product_id,

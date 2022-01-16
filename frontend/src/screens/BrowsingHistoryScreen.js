@@ -30,7 +30,7 @@ const BrowsingHistoryScreen = () => {
   const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
   const [sidebarInputMap, setSidebarInputMap] = useState(
-    sidebarInput(JSON.parse(localStorage.getItem('allHistory')))
+    sidebarInput(JSON.parse(localStorage.getItem('allMyHistory')))
   );
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
@@ -46,7 +46,7 @@ const BrowsingHistoryScreen = () => {
   }, [dispatch, endpoint, successDelete]);
 
   useEffect(() => {
-    setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allHistory'))));
+    setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allMyHistory'))));
   }, [successDelete, sidebarInputMap]);
 
   return (

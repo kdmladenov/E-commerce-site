@@ -36,7 +36,7 @@ const WishListScreen = () => {
   const { success: successDelete } = wishListDelete;
 
     const [sidebarInputMap, setSidebarInputMap] = useState(
-      sidebarInput(JSON.parse(localStorage.getItem('allWishList')))
+      sidebarInput(JSON.parse(localStorage.getItem('allMyWishList')))
     );
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const WishListScreen = () => {
   }, [dispatch, endpoint, successDelete]);
 
     useEffect(() => {
-      setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allWishList'))));
+      setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allMyWishList'))));
     }, [successDelete, sidebarInputMap]);
 
   return (

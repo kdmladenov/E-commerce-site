@@ -36,7 +36,7 @@ export const addBrowsingHistoryRecord = (productId) => async (dispatch, getState
       `${BASE_URL}/history?pageSize=${localStorage.getItem('totalProductCount')}`,
       config
     );
-    localStorage.setItem('allHistory', JSON.stringify(data));
+    localStorage.setItem('allMyHistory', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: BROWSING_HISTORY_ADD_FAIL,
@@ -102,7 +102,7 @@ export const deleteBrowsingHistory = (historyId) => async (dispatch, getState) =
       `${BASE_URL}/history?pageSize=${localStorage.getItem('totalProductCount')}`,
       config
     );
-    localStorage.setItem('allHistory', JSON.stringify(data));
+    localStorage.setItem('allMyHistory', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: BROWSING_HISTORY_DELETE_FAIL,
