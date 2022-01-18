@@ -207,12 +207,14 @@ const FormComponent = ({
           >
             {screen === 'register'
               ? 'Register'
+              : screen === 'login'
+              ? 'Login'
               : screen !== 'shipping'
               ? 'Save Changes'
               : 'Proceed to Payment'}
           </Button>
         )}
-        {Object.values(form).some((input) => input.touched) && (
+        {Object.values(form).some((input) => input.touched) && screen !== 'login' && (
           <Button classes="rounded orange" type="Button" onClick={handleCancelButton}>
             Cancel Changes
           </Button>

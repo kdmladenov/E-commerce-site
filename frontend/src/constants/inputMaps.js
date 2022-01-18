@@ -64,6 +64,35 @@ export const userRegisterInitialInputState = {
   }
 };
 
+export const userLoginInitialInputState = {
+  email: {
+    label: 'Email',
+    type: 'email',
+    placeholder: 'Your email ...',
+    value: '',
+    validations: {
+      required: true,
+      minLength: USER.MIN_EMAIL_LENGTH,
+      maxLength: USER.MAX_EMAIL_LENGTH,
+      format: USER.EMAIL_REGEX
+    },
+    valid: true,
+    touched: false
+  },
+  password: {
+    label: 'Password',
+    type: 'password',
+    placeholder: 'Your password ...',
+    value: '',
+    validations: {
+      required: true,
+      format: USER.PASSWORD_REGEX
+    },
+    valid: true,
+    touched: false
+  }
+};
+
 export const profileOverviewInitialInputState = {
   fullName: {
     label: 'Full Name',
@@ -1037,6 +1066,9 @@ export const questionsListPageSizeOptionsMap = [
 export const productListSortOptionsMap = [
   { label: 'Price: Low to High', value: 'sort=price asc&' },
   { label: 'Price: High to Low', value: 'sort=price desc&' },
+  { label: 'Sales: High to Low', value: 'sort=salesCount desc&' },
+  { label: 'Popularity: High to Low', value: 'sort=visitedCount desc&' },
+  { label: 'Most wished', value: 'sort=wishedCount desc&' },
   { label: 'Avg. Customer Rating', value: 'sort=rating desc&' },
   { label: 'Newest first', value: 'sort=dateCreated desc&' },
   { label: 'Oldest first', value: 'sort=dateCreated asc&' }
@@ -1047,6 +1079,9 @@ export const browsingHistorySortOptionsMap = [
   { label: 'Visited first', value: 'sort=dateVisited asc&' },
   { label: 'Price: Low to High', value: 'sort=price asc&' },
   { label: 'Price: High to Low', value: 'sort=price desc&' },
+  { label: 'Sales: High to Low', value: 'sort=salesCount desc&' },
+  { label: 'Popularity: High to Low', value: 'sort=visitedCount desc&' },
+  { label: 'Most wished', value: 'sort=wishedCount desc&' },
   { label: 'Avg. Customer Rating', value: 'sort=rating desc&' }
 ];
 

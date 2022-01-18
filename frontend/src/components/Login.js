@@ -70,15 +70,6 @@ const Login = ({ match }) => {
           </Button>
         </div>
 
-        {/* <p>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={(e) => setShowPassword(e.target.checked)}
-          />
-          <label>Show Password</label>
-        </p> */}
-
         <button onClick={loginHandler}>Log In</button>
       </form>
       <div className="registerRedirect">
