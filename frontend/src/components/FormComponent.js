@@ -13,6 +13,7 @@ const FormComponent = ({
   subResourceId,
   updateAction,
   createAction,
+  loginAction,
   getDetailsAction,
   successUpdate,
   validateInput,
@@ -150,7 +151,9 @@ const FormComponent = ({
     }, {});
 
     dispatch(
-      mode === 'create'
+      screen === 'login'
+        ? loginAction(data.email, data.password)
+        : mode === 'create'
         ? createAction({
             id: resourceId || subResourceId,
             ...data

@@ -6,7 +6,7 @@ import jwtStrategy from './authentication/strategy.js';
 import { PORT, PAYPAL_CLIENT_ID } from '../config.js';
 import usersController from './controllers/users-controller.js';
 import authController from './controllers/auth-controller.js';
-import productsController from './controllers/products-controller.js'
+import productsController from './controllers/products-controller.js';
 import ordersController from './controllers/orders-controller.js';
 import reviewsController from './controllers/reviews-controller.js';
 import historyController from './controllers/history-controller.js';
@@ -38,6 +38,7 @@ app.use('/storage/avatars', express.static('storage/avatars'));
 
 app.get('/config/paypal', (req, res) => res.send(PAYPAL_CLIENT_ID));
 
+app.all('*', (req, res) => res.status(404).send({ message: 'Resource not found!' }));
 
 app.use((err, req, res, next) => {
   res.status(500).send({

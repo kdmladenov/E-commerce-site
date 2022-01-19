@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login } from '../actions/userActions';
+import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { userLoginInitialInputState } from '../constants/inputMaps';
+import validateInputUser from '../validations/userValidator';
 import './styles/LoginScreen.css';
 
 const LoginScreen = ({ location, history }) => {
-  const dispatch = useDispatch();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo, loading, error } = userLogin;
 
@@ -23,40 +21,23 @@ const LoginScreen = ({ location, history }) => {
     }
   }, [history, userInfo, error, redirect]);
 
-  const loginHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
-  };
-
   return (
-    <div className="login_container">
-      <h1>Sign In</h1>
-      {loading && <Loader />}
-      {error && <Message type="error">{error}</Message>}
-      <form>
-        <h5>E-mail</h5>
-        <input
-          type="email"
-          placeholder="Enter email"
-          value={email}
-          required
-          onChange={(e) => setEmail(e.target.value)}
+    <div className="login_screen flex">
+      <div className="login_container card flex">
+        <h1>Log In</h1>
+        {loading && <Loader />}
+        {error && <Message type="error">{error}</Message>}
+
+        <FormComponent
+          inputData={userLoginInitialInputState}
+          loginAction={login}
+          validateInput={validateInputUser}
+          screen="login"
         />
-        <h5>Password</h5>
-        <input
-          type="password"
-          placeholder="Enter password"
-          value={password}
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="login_signInButton" onClick={loginHandler}>
-          Log In
-        </button>
-      </form>
-      <div className="registerRedirect">
-        New Customer?
-        <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
+        <div className="registerRedirect">
+          New Customer?
+          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
+        </div>
       </div>
     </div>
   );

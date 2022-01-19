@@ -103,7 +103,7 @@ const create = async (user) => {
     user.zip,
     user.state,
     user.country,
-    user?.role || 'basic'
+    user?.role || rolesEnum.basic
   ]);
 
   return getBy('user_id', result.insertId, true);
