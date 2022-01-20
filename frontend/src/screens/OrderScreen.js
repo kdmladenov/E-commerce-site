@@ -28,7 +28,7 @@ const OrderScreen = ({ match, history }) => {
 
   const dispatch = useDispatch();
 
-  const orderId = match.params.id;
+  const orderId = match.params.orderId;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;

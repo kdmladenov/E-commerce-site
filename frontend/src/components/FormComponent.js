@@ -13,10 +13,11 @@ const FormComponent = ({
   subResourceId,
   updateAction,
   createAction,
-  loginAction,
+  authorizationAction,
   getDetailsAction,
   successUpdate,
   validateInput,
+  resetPasswordToken,
   mode
 }) => {
   const dispatch = useDispatch();
@@ -151,8 +152,10 @@ const FormComponent = ({
     }, {});
 
     dispatch(
-      screen === 'login'
-        ? loginAction(data.email, data.password)
+      screen === 'login' || screen === 'forgottenPassword'
+        ? authorizationAction(data)
+        : screen === 'resetPassword'
+        ? authorizationAction({...data, userId: resourceId, token: resetPasswordToken})
         : mode === 'create'
         ? createAction({
             id: resourceId || subResourceId,
@@ -212,16 +215,24 @@ const FormComponent = ({
               ? 'Register'
               : screen === 'login'
               ? 'Login'
+              : screen === 'forgottenPassword'
+              ? 'Request Password Reset'
+              : screen === 'resetPassword'
+              ? 'Reset Password'
               : screen !== 'shipping'
               ? 'Save Changes'
               : 'Proceed to Payment'}
           </Button>
         )}
-        {Object.values(form).some((input) => input.touched) && screen !== 'login' && (
-          <Button classes="rounded orange" type="Button" onClick={handleCancelButton}>
-            Cancel Changes
-          </Button>
-        )}
+        {Object.values(form).some((input) => input.touched) &&
+          screen !== 'register' &&
+          screen !== 'resetPassword' &&
+          screen !== 'login' &&
+          screen !== 'forgottenPassword' && (
+            <Button classes="rounded orange" type="Button" onClick={handleCancelButton}>
+              Cancel Changes
+            </Button>
+          )}
       </div>
     </form>
   );

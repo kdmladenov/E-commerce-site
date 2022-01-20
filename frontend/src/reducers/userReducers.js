@@ -1,4 +1,10 @@
 import {
+  FORGOTTEN_PASSWORD_FAIL,
+  FORGOTTEN_PASSWORD_REQUEST,
+  FORGOTTEN_PASSWORD_SUCCESS,
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_REQUEST,
+  PASSWORD_RESET_SUCCESS,
   USER_DELETE_AVATAR_FAIL,
   USER_DELETE_AVATAR_REQUEST,
   USER_DELETE_AVATAR_SUCCESS,
@@ -27,14 +33,10 @@ import {
   USER_UPDATE_AVATAR_FAIL,
   USER_UPDATE_AVATAR_REQUEST,
   USER_UPDATE_AVATAR_SUCCESS,
-  USER_UPDATE_FAIL,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_REQUEST,
-  USER_UPDATE_RESET,
-  USER_UPDATE_SUCCESS
 } from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -136,21 +138,6 @@ export const userRestoreReducer = (state = {}, action) => {
   }
 };
 
-// export const userUpdateReducer = (state = { user: {} }, action) => {
-//   switch (action.type) {
-//     case USER_UPDATE_REQUEST:
-//       return { loading: true };
-//     case USER_UPDATE_SUCCESS:
-//       return { loading: false, success: true };
-//     case USER_UPDATE_FAIL:
-//       return { loading: false, error: action.payload };
-//     case USER_UPDATE_RESET:
-//       return { user: {} };
-//     default:
-//       return state;
-//   }
-// };
-
 export const userAvatarUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_UPDATE_AVATAR_REQUEST:
@@ -172,6 +159,33 @@ export const userAvatarDeleteReducer = (state = {}, action) => {
     case USER_DELETE_AVATAR_SUCCESS:
       return { loading: false, success: true };
     case USER_DELETE_AVATAR_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const forgottenPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FORGOTTEN_PASSWORD_REQUEST:
+      return { loading: true };
+    case FORGOTTEN_PASSWORD_SUCCESS:
+      return { loading: false, success: true };
+    case FORGOTTEN_PASSWORD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+export const passwordResetReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PASSWORD_RESET_REQUEST:
+      return { loading: true };
+    case PASSWORD_RESET_SUCCESS:
+      return { loading: false, success: true, message: action.payload };
+    case PASSWORD_RESET_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

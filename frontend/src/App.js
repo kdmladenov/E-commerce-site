@@ -23,6 +23,8 @@ import ReviewsScreen from './screens/ReviewsScreen';
 import QuestionsAndAnswersScreen from './screens/QuestionsAndAnswersScreen';
 import BrandStoreScreen from './screens/BrandStoreScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
+import ForgottenPasswordScreen from './screens/ForgottenPasswordScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const App = () => {
       <Route path="/shipping" component={ShippingScreen} />
       <Route path="/payment" component={PaymentScreen} />
       <Route path="/placeorder" component={PlaceOrderScreen} />
-      <Route path="/order/:id" component={OrderScreen} />
+      <Route path="/order/:orderId" component={OrderScreen} />
       <Route path="/admin/main/:section" component={AdminScreen} />
       <Route path="/admin/product/create" component={ProductEditScreen} />
       <Route path="/admin/product/:productId/edit" component={ProductEditScreen} />
@@ -52,6 +54,8 @@ const App = () => {
       <Route path="/wishlist" component={WishListScreen} />
       <Route path="/history" component={BrowsingHistoryScreen} />
       <Route path="/login" component={LoginScreen} />
+      <Route path="/forgotPassword" component={ForgottenPasswordScreen} />
+      <Route path="/resetPassword/:userId/:token" component={ResetPasswordScreen} />
       <Route path="/register" component={RegisterScreen} />
       <Route path="/account/:section" component={AccountScreen} />
       <Route path="/search/:searchTerm" component={ProductListScreen} />

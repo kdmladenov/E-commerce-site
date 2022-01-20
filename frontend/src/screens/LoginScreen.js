@@ -30,13 +30,19 @@ const LoginScreen = ({ location, history }) => {
 
         <FormComponent
           inputData={userLoginInitialInputState}
-          loginAction={login}
+          authorizationAction={login}
           validateInput={validateInputUser}
           screen="login"
         />
         <div className="registerRedirect">
           New Customer?
           <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link>
+        </div>
+        <div className="registerRedirect">
+          Forgot your password?
+          <Link to={redirect ? `/forgotPassword?redirect=${redirect}` : '/forgotPassword'}
+            Reset
+          </Link>
         </div>
       </div>
     </div>

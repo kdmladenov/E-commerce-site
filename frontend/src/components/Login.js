@@ -29,7 +29,7 @@ const Login = ({ match }) => {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login({ email, password }));
   };
 
   const showPasswordHandler = (e) => {
@@ -75,6 +75,10 @@ const Login = ({ match }) => {
       <div className="registerRedirect">
         New Customer?
         <Link to={'/register'}> Register</Link>
+      </div>
+      <div className="forgottenPasswordRedirect">
+        Forgot your password?
+        <Link to={'/forgotPassword'}> Reset</Link>
       </div>
     </div>
   );

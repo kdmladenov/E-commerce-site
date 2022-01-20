@@ -14,6 +14,10 @@ import {
   productUpdateReducer
 } from './reducers/productReducers';
 import {
+  forgottenPasswordReducer,
+  
+  passwordResetReducer,
+  
   userAvatarDeleteReducer,
   userAvatarUpdateReducer,
   userDeleteReducer,
@@ -113,16 +117,17 @@ const reducer = combineReducers({
   wishListAdd: wishListAddReducer,
   wishListItems: wishListItemsReducer,
   wishListDelete: wishListDeleteReducer,
+  forgottenPassword: forgottenPasswordReducer,
+  passwordReset: passwordResetReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userRestore: userRestoreReducer,
-  // userUpdate: userUpdateReducer,
   userUpdateProfile: userUpdateProfileReducer,
   userAvatarUpdate: userAvatarUpdateReducer,
-  userAvatarDelete:userAvatarDeleteReducer,
+  userAvatarDelete: userAvatarDeleteReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
