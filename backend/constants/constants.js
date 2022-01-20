@@ -101,8 +101,6 @@ export const uploads = {
 export const forgotPassword = {
   tokenExpiration: '15m',
   emailService: 'hotmail',
-  emailUser: 'fullstackecommercestore@outlook.com',
-  emailPassword: 'Sekretenklu4',
   frontEndPort: 3000
 };
 

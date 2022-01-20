@@ -181,13 +181,14 @@ const restoreUser = (usersData) => async (deletedUserId) => {
 
 // forgotten password
 const forgottenPassword = (usersData) => async (email) => {
-  const existingUser = await usersData.getBy('email', email);
+  const existingUser = await usersData.getBy('email', email, true);
   if (!existingUser) {
     return {
       error: errors.RECORD_NOT_FOUND,
       result: null
     };
   }
+
   const { password: savedPassword } = await usersData.getPasswordBy('user_id', existingUser.userId);
   const newPrivateKey = PRIVATE_KEY + savedPassword;
   const payload = {
@@ -198,20 +199,21 @@ const forgottenPassword = (usersData) => async (email) => {
   const token = jwt.sign(payload, newPrivateKey, {
     expiresIn: forgotPassword.tokenExpiration
   });
-  const link = `http://${DB_CONFIG.host}:${forgotPassword.frontEndPort}/reset-password/${existingUser.userId}/${token}`;
+
+  const link = `http://${DB_CONFIG.host}:${forgotPassword.frontEndPort}/resetPassword/${existingUser.userId}/${token}`;
   // Sending mail with reset link
   const transporter = nodemailer.createTransport({
     service: forgotPassword.emailService,
     auth: {
-      user: forgotPassword.emailUser,
-      pass: forgotPassword.emailPassword
+      user: DB_CONFIG.adminEmail,
+      pass: DB_CONFIG.adminEmailPassword
     }
   });
   const options = {
-    from: forgotPassword.emailUser,
+    from: DB_CONFIG.adminEmail,
     to: `${existingUser.email}`,
     subject: 'Password reset link.',
-    text: `Dear ${existingUser.firstName},\nA request has been received to reset yor password. You can do that by clicking on the below link.\n
+    text: `Dear ${existingUser.fullName},\nA request has been received to reset yor password. You can do that by clicking on the below link (valid for ${forgotPassword.tokenExpiration.slice(0,-1)} minutes).\n
 ${link}\nIf you did not initiate the request, just ignore this email - your password will not be changed.`
   };
   transporter.sendMail(options, (err, info) => {
@@ -223,13 +225,13 @@ ${link}\nIf you did not initiate the request, just ignore this email - your pass
 
   return {
     error: null,
-    result: { message: `The password reset link has been send to ${email}` }
+    result: { message: options }
   };
 };
 
 // reset password
 const resetPassword = (usersData) => async (password, reenteredPassword, userId, token) => {
-  const existingUser = await usersData.getBy('user_id', userId);
+  const existingUser = await usersData.getBy('user_id', userId, true);
   if (!existingUser) {
     return {
       error: errors.RECORD_NOT_FOUND,
@@ -255,16 +257,16 @@ const resetPassword = (usersData) => async (password, reenteredPassword, userId,
   const transporter = nodemailer.createTransport({
     service: forgotPassword.emailService,
     auth: {
-      user: forgotPassword.emailUser,
-      pass: forgotPassword.emailPassword
+      user: DB_CONFIG.adminEmail,
+      pass: DB_CONFIG.adminEmailPassword
     }
   });
 
   const options = {
-    from: forgotPassword.emailUser,
+    from: DB_CONFIG.adminEmail,
     to: `${existingUser.email}`,
     subject: 'Your password has been reset.',
-    text: `Dear ${existingUser.firstName},\nYour password has been reset.\nThank you!`
+    text: `Dear ${existingUser.fullName},\nYour password has been reset.\nThank you!`
   };
 
   transporter.sendMail(options, (err, info) => {
@@ -276,7 +278,7 @@ const resetPassword = (usersData) => async (password, reenteredPassword, userId,
 
   return {
     error: null,
-    result: { message: 'The password was successfully reset' }
+    result: { email: existingUser.email, message: 'The password was successfully reset' }
   };
 };
 
