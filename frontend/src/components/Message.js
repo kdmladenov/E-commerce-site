@@ -7,13 +7,22 @@ const Message = ({ type, children }) => {
 
   return (
     showMessage && (
-      <div className="message_container">
-        <div className={`message ${type}`}>
-          {children}
-          <Tooltip direction="top" text="Remove">
-            <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"></i>
-          </Tooltip>
-        </div>
+      <div className={`message_container ${type}`}>
+        <i
+          className={`fa ${
+            type === 'error'
+              ? 'fa-times-circle'
+              : type === 'success'
+              ? 'fa-check-circle'
+              : type === 'info'
+              ? 'fa-info-circle'
+              : 'fa-exclamation-circle'
+          }`}
+        />
+        <div className="message">{children}</div>
+        <Tooltip direction="top" text="close">
+          <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"></i>
+        </Tooltip>
       </div>
     )
   );
