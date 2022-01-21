@@ -1,0 +1,17 @@
+.wish_list_btn,
+.wish_list_btn button {
+  width: 20px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 10;
+}
+
+.wish_list_btn i {
+  color: var(--gray);
+  font-weight: 15px;
+}
+
+.wish_list_btn.active i {
+  color: red;
+}
