@@ -9,6 +9,9 @@
   border-radius: 5px;
   box-shadow: var(--box_shadow_3);
 }
+.message_container:hover {
+  filter: brightness(97%);
+}
 
 .message {
   font-size: 16px;
@@ -29,11 +32,18 @@
   height: 100%;
   text-align: end;
   padding: 10px 0;
-  
 }
 
 .message_container .tooltip i {
   font-size: 13px;
+}
+
+.message_container .tooltip:hover {
+  cursor: pointer;
+}
+
+.message_container .tooltip:hover i {
+  color: black;
 }
 
 .message_container.error {

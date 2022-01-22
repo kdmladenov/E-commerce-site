@@ -23,7 +23,6 @@
   top: 0;
 }
 
-
 .wish_list_screen_container .wish_list_screen .footer {
   height: 60px;
   width: 100%;
@@ -41,19 +40,19 @@
 }
 
 @media (max-width: 1500px) {
-  .wish_list_screen_container .wish_list_screen {
+  .wish_list_screen_container .wish_list_screen ul {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1200px) {
-  .wish_list_screen_container .wish_list_screen {
+  .wish_list_screen_container .wish_list_screen ul {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 900px) {
-  .wish_list_screen_container .wish_list_screen {
-    grid-template-columns: 1;
+  .wish_list_screen_container .wish_list_screen ul {
+    grid-template-columns: 1fr;
   }
 }

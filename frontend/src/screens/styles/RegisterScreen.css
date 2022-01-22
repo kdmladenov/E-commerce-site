@@ -5,6 +5,7 @@
 }
 
 .register_screen .register_container {
+  max-width: 500px;
   padding: 30px 50px;
   height: fit-content;
   flex-direction: column;
@@ -13,4 +14,8 @@
 
 .register_screen .register_container .form_component {
   width: 400px;
+}
+
+.register_screen .register_container .form_component .wrapper {
+  height: 36px;
 }

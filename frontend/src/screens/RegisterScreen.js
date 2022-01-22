@@ -6,8 +6,6 @@ import validateInputUser from '../validations/userValidator';
 import './styles/RegisterScreen.css';
 
 const RegisterScreen = () => {
-  // const dispatch = useDispatch();
-
   return (
     <div className="register_screen flex">
       <div className="register_container card flex">
@@ -16,8 +14,8 @@ const RegisterScreen = () => {
           inputData={userRegisterInitialInputState}
           createAction={register}
           validateInput={validateInputUser}
-          mode='create'
-          screen='register'
+          mode="create"
+          screen="register"
         />
       </div>
     </div>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/Slider.css';
 
 const Slider = ({ dots, children }) => {
   const [slideIndex, setSlideIndex] = useState(0);
+  // const [count, setCount] = useState(0);
 
   const prevSlideHandler = () => {
     setSlideIndex(slideIndex !== 0 ? slideIndex - 1 : children.length - 1);
@@ -12,7 +13,20 @@ const Slider = ({ dots, children }) => {
   const nextSlideHandler = () => {
     setSlideIndex(slideIndex !== children.length - 1 ? slideIndex + 1 : 0);
   };
-  
+
+  // useEffect(() => {
+  //   setInterval(
+  //     () => {
+  //       setSlideIndex(slideIndex !== children.length - 1 ? slideIndex + 1 : 0);
+  //       setCount(count + 1);
+  //       console.log(count);
+  //     },
+  //     // nextSlideHandler();
+
+  //     1000
+  //   );
+  // }, []);
+
   return (
     <div className="slider_container">
       <ul className="slides_list">

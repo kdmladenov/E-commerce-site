@@ -40,7 +40,7 @@ const LoginScreen = ({ location, history }) => {
         </div>
         <div className="registerRedirect">
           Forgot your password?
-          <Link to={redirect ? `/forgotPassword?redirect=${redirect}` : '/forgotPassword'}
+          <Link to={redirect ? `/forgotPassword?redirect=${redirect}` : '/forgotPassword'}>
             Reset
           </Link>
         </div>

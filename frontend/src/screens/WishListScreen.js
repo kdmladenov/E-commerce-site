@@ -6,7 +6,6 @@ import Message from '../components/Message';
 import Sidebar from '../components/Sidebar';
 import {
   productListPageSizeOptionsMap,
-  productListSidebarInput,
   productListSortOptionsMap,
   sidebarInput
 } from '../constants/inputMaps';
