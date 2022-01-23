@@ -10,6 +10,7 @@ import ProductTile from '../components/ProductTile';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
 import { SLIDER_IMAGE_1 } from '../constants/constants';
+import { listWishedItems } from '../actions/wishListActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     dispatch(listProducts(`pageSize=${localStorage.getItem('totalProductCount') || 30}`));
+    dispatch(listWishedItems());
   }, [dispatch]);
 
   return (

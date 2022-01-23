@@ -157,6 +157,12 @@
   box-shadow: none;
 }
 
+@media (max-width: 1000px) {
+  .menu {
+    top: 120px;
+  }
+}
+
 @media (max-width: 768px) {
   .menu_container {
     width: 100%;
@@ -172,11 +178,5 @@
   }
   .menu h2 {
     padding-left: 40px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .menu {
-    top: 120px;
   }
 }

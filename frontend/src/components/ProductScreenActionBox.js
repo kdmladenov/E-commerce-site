@@ -14,6 +14,7 @@ import Button from './Button';
 import Popover from './Popover';
 import Price from './Price';
 import './styles/ProductScreenActionBox.css';
+import WishListBtn from './WishListBtn';
 
 const ProductScreenActionBox = ({ product }) => {
   const dispatch = useDispatch();
@@ -118,6 +119,7 @@ const ProductScreenActionBox = ({ product }) => {
           {`Items can be returned within ${DAYS_FOR_RETURNS_AFTER_DELIVERY} days of delivery.`}
         </Popover>
       </li>
+      <WishListBtn productId={productId} />
     </ul>
   );
 };

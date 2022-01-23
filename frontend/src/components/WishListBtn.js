@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/wishListActions';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addWishToList, deleteWishFromList } from '../actions/wishListActions';
 import Button from './Button';
 import Tooltip from './Tooltip';
 import './styles/WishListBtn.css';
@@ -8,33 +8,22 @@ import './styles/WishListBtn.css';
 const WishListBtn = ({ productId }) => {
   const dispatch = useDispatch();
 
-  const wishListItems = useSelector((state) => state.wishListItems);
-  const { wishList } = wishListItems;
-
-  const wishListAdd = useSelector((state) => state.wishListAdd);
-  const { success: successAddWish } = wishListAdd;
-
-  const wishListDelete = useSelector((state) => state.wishListDelete);
-  const { success: successDeleteWish } = wishListDelete;
+  const [isInWishList, setIsInWishList] = useState(
+    JSON.parse(localStorage.getItem('allMyWishList'))?.some((wish) => wish.productId === productId)
+  );
 
   const wishlistHandler = () => {
-    wishList.some((wish) => wish.productId === productId)
-      ? dispatch(
-          deleteWishFromList(wishList.find((wish) => wish.productId === productId).wishListId)
-        )
-      : dispatch(addWishToList(productId));
+    if (isInWishList) {
+      dispatch(deleteWishFromList(productId));
+      setIsInWishList(false);
+    } else {
+      dispatch(addWishToList(productId));
+      setIsInWishList(true);
+    }
   };
 
-  useEffect(() => {
-    dispatch(listWishedItems());
-  }, [dispatch, successAddWish, successDeleteWish]);
-
   return (
-    <div
-      className={`wish_list_btn ${
-        wishList?.some((wish) => wish.productId === productId) ? 'active' : ''
-      }`}
-    >
+    <div className={`wish_list_btn ${isInWishList ? 'active' : ''}`}>
       <Button onClick={wishlistHandler} classes={'icon'}>
         <Tooltip text="Wish List">{<i className={`fa fa-heart`} />}</Tooltip>
       </Button>

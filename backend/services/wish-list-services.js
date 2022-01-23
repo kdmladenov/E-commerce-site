@@ -30,8 +30,8 @@ const createWishListRecord = (wishListData) => async (productId, userId) => {
   };
 };
 
-const deleteWishListRecord = (wishListData) => async (wishListId) => {
-  const existingWish = await wishListData.getById(wishListId);
+const deleteWishListRecord = (wishListData) => async (productId, userId) => {
+  const existingWish = await wishListData.getBy('product_id', productId, userId);
 
   if (!existingWish) {
     return {
@@ -40,7 +40,7 @@ const deleteWishListRecord = (wishListData) => async (wishListId) => {
     };
   }
 
-  await wishListData.remove(wishListId);
+  await wishListData.remove(existingWish.wishListId);
 
   return {
     error: null,

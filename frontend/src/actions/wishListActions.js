@@ -68,6 +68,11 @@ export const listWishedItems =
         payload: data
       });
 
+      // if no wishlist in localstorage, add it
+      data.length > 0 &&
+        !JSON.parse(localStorage.getItem('allMyWishList'))?.length &&
+        localStorage.setItem('allMyWishList', JSON.stringify(data));
+
     } catch (error) {
       dispatch({
         type: WISH_ITEMS_LIST_FAIL,
@@ -76,7 +81,7 @@ export const listWishedItems =
     }
   };
 
-export const deleteWishFromList = (wishListId) => async (dispatch, getState) => {
+export const deleteWishFromList = (productId) => async (dispatch, getState) => {
   try {
     dispatch({
       type: WISH_LIST_DELETE_REQUEST
@@ -92,7 +97,7 @@ export const deleteWishFromList = (wishListId) => async (dispatch, getState) => 
       }
     };
 
-    await axios.delete(`${BASE_URL}/wishlist/${wishListId}`, config);
+    await axios.delete(`${BASE_URL}/wishlist/${productId}`, config);
 
     dispatch({
       type: WISH_LIST_DELETE_SUCCESS

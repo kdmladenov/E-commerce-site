@@ -67,6 +67,11 @@ export const listBrowsingHistory =
         type: BROWSING_HISTORY_LIST_SUCCESS,
         payload: data
       });
+
+      // if no history in localstorage, add it
+      data.length > 0 &&
+        !JSON.parse(localStorage.getItem('allMyHistory'))?.length &&
+        localStorage.setItem('allMyHistory', JSON.stringify(data));
     } catch (error) {
       dispatch({
         type: BROWSING_HISTORY_LIST_FAIL,

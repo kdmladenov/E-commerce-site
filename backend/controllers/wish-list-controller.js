@@ -19,7 +19,7 @@ wishListController
     authMiddleware,
     loggedUserGuard,
     // errorHandler(
-      async (req, res) => {
+    async (req, res) => {
       const userId = req.user.userId;
 
       const { search = '', filter = '', sort = 'dateCreated desc' } = req.query;
@@ -39,7 +39,8 @@ wishListController
       );
 
       res.status(200).send(wishList);
-    })
+    }
+  )
   // )
 
   // @desc CREATE wishlist by ID
@@ -70,18 +71,20 @@ wishListController
   // @route DELETE /wishlist/:id
   // @access Private - logged user
   .delete(
-    '/:wishListId',
+    '/:productId',
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     errorHandler(async (req, res) => {
-      const { wishListId } = req.params;
+      const { productId } = req.params;
+      const { userId } = req.user;
       const { error, wishListRecord } = await wishListServices.deleteWishListRecord(wishListData)(
-        wishListId
+        +productId,
+        +userId
       );
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
-          message: 'A wishlist with this id is not found!'
+          message: 'A product with this id is not found in your wishlist!'
         });
       } else {
         res.status(200).send(wishListRecord);

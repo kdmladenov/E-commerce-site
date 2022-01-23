@@ -31,6 +31,7 @@
   grid-template-rows: 200px;
   gap: 20px;
   align-items: center;
+  padding: 0 100px;
 }
 .slider_container li.slide > div.title_left {
   grid-template-columns: 1fr 1fr;
@@ -109,7 +110,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 1
+  z-index: 1;
 }
 
 .slider_container .slider_btn:hover {
@@ -138,7 +139,7 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1
+  z-index: 1;
 }
 
 .slider_container .dot {
@@ -164,4 +165,29 @@
 .slider_container .dot:hover,
 .slider_container .dot.active:hover {
   transform: scale(1.3);
+}
+
+@media (max-width: 1200px) {
+  .slider_container li.slide > div {
+    align-items: flex-start;
+    gap: 0;
+  }
+  .slider_container li.slide > div.title_left,
+  .slider_container li.slide > div.title_right {
+    grid-template-columns: 1fr;
+    grid-template-rows: 80px 150px;
+    grid-template-areas:
+      'title'
+      'product_list';
+  }
+
+  .slider_container li.slide .title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .slider_container li.slide .product_list {
+    align-items: flex-start;
+    height: 150px;
+  }
 }
