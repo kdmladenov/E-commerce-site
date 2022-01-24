@@ -29,9 +29,9 @@ const BrowsingHistoryScreen = () => {
   const dispatch = useDispatch();
   const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
-  const [sidebarInputMap, setSidebarInputMap] = useState(
-    sidebarInput(JSON.parse(localStorage.getItem('allMyHistory')))
-  );
+  const allMyHistory = JSON.parse(localStorage.getItem('allMyHistory'));
+
+  const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyHistory));
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { loading, browsingHistory, error } = browsingHistoryList;
@@ -46,8 +46,8 @@ const BrowsingHistoryScreen = () => {
   }, [dispatch, endpoint, successDelete]);
 
   useEffect(() => {
-    setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allMyHistory'))));
-  }, [successDelete, sidebarInputMap]);
+    setSidebarInputMap(sidebarInput(allMyHistory));
+  }, [successDelete]);
 
   return (
     <main className="browsing_history_screen_container">

@@ -7,7 +7,6 @@ import './styles/Sidebar.css';
 const Sidebar = ({ endpoint, setEndpoint, inputMap, defaultEndpoint }) => {
   const location = useLocation();
   const history = useHistory();
-  console.log(location.pathname);
 
   const filterHandler = (e) => {
     if (e.target.checked) {
@@ -38,7 +37,7 @@ const Sidebar = ({ endpoint, setEndpoint, inputMap, defaultEndpoint }) => {
         Clear filters
       </Button>
       {Object.keys(inputMap).map((inputGroup) => (
-        <Accordion>
+        <Accordion key={inputGroup}>
           <Accordion.Item open={inputMap[inputGroup][0]?.accordionOpen || false}>
             <Accordion.Header>
               <Accordion.Title>{inputGroup}</Accordion.Title>
@@ -46,7 +45,7 @@ const Sidebar = ({ endpoint, setEndpoint, inputMap, defaultEndpoint }) => {
             </Accordion.Header>
             <Accordion.Body>
               {inputMap[inputGroup].map((inputItem) => (
-                <div className="product_sidebar_checkbox_item">
+                <div className="product_sidebar_checkbox_item" key={inputItem.label}>
                   <input
                     id={inputItem.label}
                     type={inputItem.type}

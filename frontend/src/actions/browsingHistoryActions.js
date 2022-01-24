@@ -29,14 +29,14 @@ export const addBrowsingHistoryRecord = (productId) => async (dispatch, getState
 
     await axios.post(`${BASE_URL}/history/${productId}`, {}, config);
 
-    dispatch({ type: BROWSING_HISTORY_ADD_SUCCESS });
-
     // for Sidebar input map
     const { data } = await axios.get(
       `${BASE_URL}/history?pageSize=${localStorage.getItem('totalProductCount')}`,
       config
     );
     localStorage.setItem('allMyHistory', JSON.stringify(data));
+
+    dispatch({ type: BROWSING_HISTORY_ADD_SUCCESS });
   } catch (error) {
     dispatch({
       type: BROWSING_HISTORY_ADD_FAIL,
@@ -98,16 +98,16 @@ export const deleteBrowsingHistory = (historyId) => async (dispatch, getState) =
 
     await axios.delete(`${BASE_URL}/history/${historyId}`, config);
 
-    dispatch({
-      type: BROWSING_HISTORY_DELETE_SUCCESS
-    });
-
     // for Sidebar input map
     const { data } = await axios.get(
       `${BASE_URL}/history?pageSize=${localStorage.getItem('totalProductCount')}`,
       config
     );
     localStorage.setItem('allMyHistory', JSON.stringify(data));
+
+    dispatch({
+      type: BROWSING_HISTORY_DELETE_SUCCESS
+    });
   } catch (error) {
     dispatch({
       type: BROWSING_HISTORY_DELETE_FAIL,
