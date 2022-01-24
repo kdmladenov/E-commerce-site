@@ -136,7 +136,6 @@ export const userResetPasswordInitialInputState = {
   }
 };
 
-
 export const profileOverviewInitialInputState = {
   fullName: {
     label: 'Full Name',

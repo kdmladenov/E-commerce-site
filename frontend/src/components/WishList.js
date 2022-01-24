@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { listWishedItems } from '../actions/wishListActions';
 import Loader from './Loader';
 import Message from './Message';
 import './styles/WishList.css';
-import WishListCard from './WishListCard';
 import { productListPageSizeOptionsMap, productListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
+import ProductCard from './ProductCard';
+import { getRibbonText } from '../constants/utility-functions';
 
 const WishList = ({ isCarousel = false }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const [endpoint, setEndpoint] = useState({
@@ -27,15 +26,14 @@ const WishList = ({ isCarousel = false }) => {
   const wishListDelete = useSelector((state) => state.wishListDelete);
   const { success: successDeleteWish } = wishListDelete;
 
-  const wishListCardsToShow = wishList?.map((wish) => (
-    <WishListCard wish={wish} key={wish.wishListId} />
-  ));
+  const wishListAdd = useSelector((state) => state.wishListAdd);
+  const { success: successAddWish } = wishListAdd;
 
   useEffect(() => {
     const { page, pageSize, sort, search } = endpoint;
 
     dispatch(listWishedItems(`${page}${pageSize}${sort}${search}`));
-  }, [dispatch, successDeleteWish, endpoint]);
+  }, [dispatch, successDeleteWish, successAddWish, endpoint]);
 
   return (
     <div className={`wish_list ${isCarousel ? 'horizontal' : ''}`}>
@@ -55,7 +53,17 @@ const WishList = ({ isCarousel = false }) => {
       ) : wishList.length === 0 ? (
         <h2>Your Wish List Is Empty</h2>
       ) : (
-        <ul className="wish_list_items">{wishListCardsToShow}</ul>
+        <ul className="wish_list_items">
+          {wishList?.map((wish) => (
+            <li key={wish.productId}>
+              <ProductCard
+                product={wish}
+                ribbonText={getRibbonText(wish.productId)}
+                isWishList={true}
+              />
+            </li>
+          ))}
+        </ul>
       )}
       {!isCarousel && (
         <div className="footer">

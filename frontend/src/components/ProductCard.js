@@ -12,7 +12,14 @@ import Popover from './Popover';
 import RatingWidget from './RatingWidget';
 import WishListBtn from './WishListBtn';
 
-const ProductCard = ({ product, horizontal, ribbonText, deleteBtn }) => {
+const ProductCard = ({
+  product,
+  horizontal,
+  ribbonText,
+  deleteBtn,
+  isCard = true,
+  isWishList = false
+}) => {
   const dispatch = useDispatch();
 
   const { productId, title, image, price, rating, reviewCount, stockCount } = product;
@@ -28,7 +35,7 @@ const ProductCard = ({ product, horizontal, ribbonText, deleteBtn }) => {
   };
 
   return (
-    <div className={`product_card ${horizontal ? 'horizontal' : ''}`}>
+    <div className={`product_card ${horizontal ? 'horizontal' : ''} ${isCard ? 'card' : ''}`}>
       <Link to={`/products/${productId}`}>
         <img
           src={image?.startsWith('http') ? image : `${BASE_URL}/${image}`}
@@ -73,7 +80,7 @@ const ProductCard = ({ product, horizontal, ribbonText, deleteBtn }) => {
           {stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
         </Button>
       </div>
-      <WishListBtn productId={productId} />
+      <WishListBtn productId={productId} isHeartIcon={!isWishList} />
       <div className="product_ribbon">{ribbonText && <Ribbon>{ribbonText}</Ribbon>}</div>
       {deleteBtn}
     </div>

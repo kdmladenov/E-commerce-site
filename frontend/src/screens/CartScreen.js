@@ -9,14 +9,10 @@ import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
 import Button from '../components/Button';
-import { addWishToList, deleteWishFromList, listWishedItems } from '../actions/wishListActions';
 import Carousel from '../components/Carousel';
-import WishListCard from '../components/WishListCard';
 import { listBrowsingHistory } from '../actions/browsingHistoryActions';
 import WishList from '../components/WishList';
-import History from '../components/History';
-
-const RECENT_ITEMS_COUNT = 5;
+import WishListBtn from '../components/WishListBtn';
 
 const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
@@ -30,23 +26,8 @@ const CartScreen = ({ match, location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const wishListItems = useSelector((state) => state.wishListItems);
-  // const { wishList } = wishListItems;
-
-  // const wishListAdd = useSelector((state) => state.wishListAdd);
-  // const { success: successAddWish } = wishListAdd;
-
-  // const wishListDelete = useSelector((state) => state.wishListDelete);
-  // const { success: successDeleteWish } = wishListDelete;
-
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { browsingHistory } = browsingHistoryList;
-
-  // const wishlistHandler = (id) => {
-  //   wishList.find((wish) => wish.productId === id)
-  //     ? dispatch(deleteWishFromList(wishList.find((wish) => wish.productId === id).wishListId))
-  //     : dispatch(addWishToList(productId));
-  // };
 
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
@@ -55,16 +36,6 @@ const CartScreen = ({ match, location, history }) => {
   const checkoutHandler = () => {
     history.push(`/login?redirect=shipping`);
   };
-
-  // const wishListCardsToShow = (
-  //   <ul>
-  //     {wishList?.map((wish) => (
-  //       <li key={wish.wishListId}>
-  //         <WishListCard wish={wish} />
-  //       </li>
-  //     ))}
-  //   </ul>
-  // );
 
   const portalRefs = useSelector((state) => state.portalRefs);
   const {
@@ -78,7 +49,7 @@ const CartScreen = ({ match, location, history }) => {
 
   const recentItemsToShow = (
     <ul>
-      {browsingHistory?.slice(0, 5).map((item) => (
+      {browsingHistory?.slice(0, Math.min(cartItems?.length, 5)).map((item) => (
         <li key={item.productId}>
           <div className="recent_item">
             <Link className="image" to={`/products/${item.productId}`}>
@@ -110,12 +81,8 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, cartItems, productId, qty]);
 
   useEffect(() => {
-    // dispatch(listWishedItems());
     dispatch(listBrowsingHistory());
-  }, [
-    dispatch
-    //  successAddWish, successDeleteWish
-  ]);
+  }, [dispatch]);
 
   return (
     <main className="cart_container">
@@ -167,11 +134,7 @@ const CartScreen = ({ match, location, history }) => {
                       >
                         Delete
                       </Button>
-                      {/* <Button classes="text" onClick={() => wishlistHandler(item.id)}>
-                        {wishList?.find((wish) => wish.productId === item.id)
-                          ? 'Remove from Wish List'
-                          : 'Add to Wish List'}
-                      </Button> */}
+                      <WishListBtn productId={item.productId} />
                     </div>
                   </div>
                 </div>
@@ -216,9 +179,6 @@ const CartScreen = ({ match, location, history }) => {
           <WishList isCarousel={true} />
         </Carousel>
       )}
-      {/* <Carousel title={'Your Browsing History'} isPageVisible={true}>
-          <History horizontal={true} />
-      </Carousel> */}
     </main>
   );
 };

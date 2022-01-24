@@ -12,6 +12,10 @@
   font-weight: 15px;
 }
 
-.wish_list_btn.active i {
-  color: red;
+.wish_list_btn.active i.fa-heart {
+  color: var(--red);
+}
+
+.wish_list_btn.active i.fa-times {
+  color: var(--black);
 }

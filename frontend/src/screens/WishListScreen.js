@@ -10,10 +10,10 @@ import {
   sidebarInput
 } from '../constants/inputMaps';
 import './styles/WishListScreen.css';
-import WishListCard from '../components/WishListCard';
 import Pagination from '../components/Pagination';
 import HeaderControls from '../components/HeaderControls';
 import { getRibbonText } from '../constants/utility-functions';
+import ProductCard from '../components/ProductCard';
 
 const defaultEndpoint = {
   page: 'page=1&',
@@ -28,15 +28,15 @@ const WishListScreen = () => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
+  const allMyWishList = JSON.parse(localStorage.getItem('allMyWishList'));
+
   const wishListItems = useSelector((state) => state.wishListItems);
   const { loading, wishList, error } = wishListItems;
 
   const wishListDelete = useSelector((state) => state.wishListDelete);
   const { success: successDelete } = wishListDelete;
 
-    const [sidebarInputMap, setSidebarInputMap] = useState(
-      sidebarInput(JSON.parse(localStorage.getItem('allMyWishList')))
-    );
+  const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyWishList));
 
   useEffect(() => {
     const { page, pageSize, sort, search, filter } = endpoint;
@@ -44,9 +44,9 @@ const WishListScreen = () => {
     dispatch(listWishedItems(`${page}${pageSize}${sort}${search}${filter.join('&')}`));
   }, [dispatch, endpoint, successDelete]);
 
-    useEffect(() => {
-      setSidebarInputMap(sidebarInput(JSON.parse(localStorage.getItem('allMyWishList'))));
-    }, [successDelete, sidebarInputMap]);
+  useEffect(() => {
+    setSidebarInputMap(sidebarInput(allMyWishList));
+  }, [successDelete]);
 
   return (
     <main className="wish_list_screen_container">
@@ -78,10 +78,11 @@ const WishListScreen = () => {
         <div className="wish_list_screen">
           <ul>
             {wishList?.map((wish) => (
-              <WishListCard
-                wish={wish}
-                key={wish.wishListId}
+              <ProductCard
+                key={wish.productId}
+                product={wish}
                 ribbonText={getRibbonText(wish.productId)}
+                isWishList={true}
               />
             ))}
           </ul>

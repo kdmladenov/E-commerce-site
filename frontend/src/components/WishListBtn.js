@@ -5,7 +5,7 @@ import Button from './Button';
 import Tooltip from './Tooltip';
 import './styles/WishListBtn.css';
 
-const WishListBtn = ({ productId }) => {
+const WishListBtn = ({ productId, isHeartIcon = true }) => {
   const dispatch = useDispatch();
 
   const [isInWishList, setIsInWishList] = useState(
@@ -25,7 +25,9 @@ const WishListBtn = ({ productId }) => {
   return (
     <div className={`wish_list_btn ${isInWishList ? 'active' : ''}`}>
       <Button onClick={wishlistHandler} classes={'icon'}>
-        <Tooltip text="Wish List">{<i className={`fa fa-heart`} />}</Tooltip>
+        <Tooltip text={isHeartIcon ? (isInWishList ? 'Added' : 'Add') : 'Remove'}>
+          {<i className={`fa ${isHeartIcon ? 'fa-heart' : 'fa-times'}`} />}
+        </Tooltip>
       </Button>
     </div>
   );

@@ -16,7 +16,6 @@ import History from '../components/History';
 import Divider from '../components/Divider';
 import ProductDetails from '../components/ProductDetails';
 
-// TO DO to fix aspect ratio of the zoomed image
 const ProductScreen = ({ match }) => {
   const productId = match.params.productId;
   const dispatch = useDispatch();

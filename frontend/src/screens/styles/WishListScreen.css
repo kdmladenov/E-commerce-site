@@ -23,6 +23,10 @@
   top: 0;
 }
 
+.wish_list_screen_container .wish_list_screen .product_card {
+  width: 100%;
+}
+
 .wish_list_screen_container .wish_list_screen .footer {
   height: 60px;
   width: 100%;
