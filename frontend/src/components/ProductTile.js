@@ -18,8 +18,8 @@ const ProductTile = ({
     <div className="product_tile card">
       <h2 className="header">{header}</h2>
       <ul className={`content ${products?.length === 4 ? 'four_items' : ''}`}>
-        {products?.map((product) => (
-          <li key={product?.productId} className="card">
+        {products?.map((product, index) => (
+          <li key={index} className="card">
             <Link
               to={
                 itemSubtitleLine1 === 'brand'

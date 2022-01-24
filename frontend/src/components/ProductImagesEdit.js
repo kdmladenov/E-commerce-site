@@ -11,7 +11,6 @@ import { BASE_URL } from '../constants/constants';
 import Loader from './Loader';
 import Message from './Message';
 import Button from './Button';
-import Divider from './Divider';
 import './styles/ProductImagesEdit.css';
 import Tooltip from './Tooltip';
 

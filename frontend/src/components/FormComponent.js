@@ -198,7 +198,8 @@ const FormComponent = ({
     successUpdate,
     getDetailsAction,
     isResourceLoaded,
-    isResourceUpdated
+    isResourceUpdated,
+    mode
   ]);
 
   return (

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './styles/ProductFeaturesEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listProductFeatures } from '../actions/productFeaturesActions';

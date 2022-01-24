@@ -5,8 +5,7 @@ import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import {
   PRODUCT_SPECIFICATION_CREATE_RESET,
-  PRODUCT_SPECIFICATION_UPDATE_RESET,
-  PRODUCT_UPDATE_RESET
+  PRODUCT_SPECIFICATION_UPDATE_RESET
 } from '../constants/productConstants';
 import Loader from '../components/Loader';
 import Message from '../components/Message';

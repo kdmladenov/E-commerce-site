@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createAnswer, deleteAnswer, editAnswer } from '../actions/questionsAndAnswersActions';
+import {  deleteAnswer, editAnswer } from '../actions/questionsAndAnswersActions';
 import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
 import EditButtons from './EditButtons';
@@ -9,15 +9,12 @@ import './styles/QuestionsAndAnswers.css';
 
 const AnswerCard = ({
   currentUser,
-  productId,
   userId: authorId,
-  questionId,
   answerId,
   answerContent,
   dateCreated,
   dateEdited,
-  fullName,
-  avatar
+  fullName
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [contentAnswer, setContentAnswer] = useState(answerContent);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, listUsers, restoreUser } from '../actions/userActions';
 import Button from './Button';
-import { Link } from 'react-router-dom';
 import './styles/UserListAdmin.css';
 import Accordion from './Accordion';
 import Loader from './Loader';
@@ -50,7 +49,16 @@ const UserListAdmin = ({ history }) => {
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo, deleteSuccess, restoreSuccess, successUpdateAvatar,successDeleteAvatar, endpoint]);
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    deleteSuccess,
+    restoreSuccess,
+    successUpdateAvatar,
+    successDeleteAvatar,
+    endpoint
+  ]);
 
   // // TO DO implement restore user
   const deleteUserHandler = (userId) => {

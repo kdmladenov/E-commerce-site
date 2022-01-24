@@ -42,14 +42,14 @@ const HomeScreen = () => {
           <Slider dots={false}>
             <Slider.Item
               classes="title_right white_text"
-              color="carrot-juice"
+              color="var(--carrot-juice)"
               title="Top Deals"
               products={products.sort((a, b) => b.discount - a.discount).slice(0, 4)}
               itemSubtitleLine="discount"
             />
             <Slider.Item
               classes="title_left black_text"
-              color="playdoh"
+              color="var(--playdoh)"
               title="Shop by Brand"
               products={['Apple', 'MSI', 'Microsoft'].map((brand) =>
                 products.find((product) => product.brand === brand)
