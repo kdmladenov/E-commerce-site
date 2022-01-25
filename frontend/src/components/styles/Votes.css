@@ -6,6 +6,9 @@
   align-items: center;
   margin-top: 0px;
 }
+.votes.vertical {
+  flex-direction: column;
+}
 
 .votes i {
   font-size: 20px;

@@ -30,7 +30,7 @@
 }
 
 .questions_and_answers_container .questions_and_answers {
-  width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -59,4 +59,19 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+@media (max-width: 1000px) {
+  .product_screen_container {
+    grid-template-areas:
+      'product_details'
+      'product_features'
+      'product_specifications'
+      'product_reviews'
+      'product_questions_and_answers'
+      'product_carousel_history';
+  }
+  .comparison_table_container {
+    display: none;
+  }
 }

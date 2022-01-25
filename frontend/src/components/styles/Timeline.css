@@ -216,6 +216,10 @@
     padding-left: 80px;
   }
 
+  .timeline_container.horizontal {
+    padding-left: 10px;
+  }
+
   .timeline_container::after {
     left: calc(80px - 5px);
   }

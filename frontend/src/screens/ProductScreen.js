@@ -66,6 +66,7 @@ const ProductScreen = ({ match }) => {
         </Divider>
         <ProductFeatures productId={productId} />
       </section>
+
       <section className="product_specifications" ref={specsRef}>
         <Divider>
           <h2>Product Specifications</h2>
@@ -105,6 +106,7 @@ const ProductScreen = ({ match }) => {
           isScreen={false}
         />
       </section>
+
       <section>
         <Divider>
           <h2>Your Browsing History</h2>
@@ -115,6 +117,7 @@ const ProductScreen = ({ match }) => {
           </Carousel>
         </div>
       </section>
+
       <ScrollToTopButton />
     </main>
   );

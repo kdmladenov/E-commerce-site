@@ -17,8 +17,6 @@
 .questions_and_answers .question,
 .questions_and_answers .answer {
   position: relative;
-  /* border-bottom: 1px solid var(--gray); */
-  /* margin-bottom: 5px; */
   padding: 0 70px 5px 0;
 }
 
@@ -105,4 +103,31 @@
 .questions_and_answers .answers_footer .input_with_avatar {
   padding: 0;
   margin-bottom: 10px;
+}
+
+@media (max-width: 1000px) {
+  .question_and_answer_card {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 30px;
+    grid-template-areas:
+      'question_and_answer'
+      'votes';
+    padding: 10px;
+    gap: 0;
+  }
+
+  .questions_and_answers .question,
+  .questions_and_answers .answer,
+  .questions_and_answers .answer:last-of-type {
+    padding: 20px 0 0 0;
+  }
+  .votes.vertical {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .questions_and_answers .input_with_avatar {
+    padding: 0 0 0 0;
+    margin-top: 0px;
+    grid-template-columns: 30px 1fr;
+  }
 }
