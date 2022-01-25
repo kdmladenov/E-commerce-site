@@ -20,12 +20,13 @@ const ProductDetails = ({
   productListAdmin = false
 }) => {
   const dispatch = useDispatch();
-  //TO DO to be replaced with backend data
-  const images = [
-    product?.image,
-    'https://m.media-amazon.com/images/I/718BI2k4-KL._AC_UY436_FMwebp_QL65_.jpg'
-  ];
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+
+  const productImagesList = useSelector((state) => state.productImagesList);
+  const { productImages, loading: loadingImages, error: errorImages } = productImagesList;
+
+  const [selectedImage, setSelectedImage] = useState(
+    productImages?.filter((img) => img.isMain === 0)[0]
+  );
   const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
   const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();
 
@@ -33,24 +34,30 @@ const ProductDetails = ({
   const zoomedImageRect = useResize(zoomedImageRef);
   const [showZoomedImage, setShowZoomedImage] = useState(false);
 
-  const productImagesList = useSelector((state) => state.productImagesList);
-  const { productImages, loading: loadingImages, error: errorImages } = productImagesList;
-
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [dispatch, product]);
 
   return (
     <>
-      <div className="product_image_sidebar">
-        <ProductScreenImageSidebar images={productImages} setSelectedImage={setSelectedImage} />
-      </div>
-      <div className="product_details_image">
-        {loadingImages ? (
-          <Loader />
-        ) : errorImages ? (
-          <Message type="error">{errorImages}</Message>
-        ) : (
+      {loadingImages ? (
+        <Loader />
+      ) : errorImages ? (
+        <Message type="error">{errorImages}</Message>
+      ) : (
+        <div className="product_image_sidebar">
+          <ProductScreenImageSidebar
+            images={productImages.filter((img) => img.isMain === 0)}
+            setSelectedImage={setSelectedImage}
+          />
+        </div>
+      )}
+      {loadingImages ? (
+        <Loader />
+      ) : errorImages ? (
+        <Message type="error">{errorImages}</Message>
+      ) : (
+        <div className="product_details_image">
           <ProductImageGallery
             selectedImage={selectedImage}
             zoomedImageRect={zoomedImageRect}
@@ -58,8 +65,8 @@ const ProductDetails = ({
             setZoomBackgroundPosition={setZoomBackgroundPosition}
             setShowZoomedImage={setShowZoomedImage}
           />
-        )}
-      </div>
+        </div>
+      )}
       <div
         className="product_details_info"
         ref={zoomedImageRef}

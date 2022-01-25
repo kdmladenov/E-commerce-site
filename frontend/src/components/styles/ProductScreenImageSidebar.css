@@ -11,7 +11,6 @@
   height: 70px;
   padding: 5px;
   object-fit: contain;
-  margin: 10px 0;
   border: 1px solid var(--gray);
   box-shadow: var(--box_shadow);
 }
@@ -20,3 +19,4 @@
   border-color: var(--mimosa);
   cursor: pointer;
 }
+

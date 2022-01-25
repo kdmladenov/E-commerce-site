@@ -49,3 +49,16 @@
   top: 5px;
   right: 10px;
 }
+
+@media (max-width: 1000px) {
+  .product_screen_action_box ul {
+    height: 250px;
+    top: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 25px);
+  }
+  .product_screen_action_box ul li:nth-child(n+7) {
+    visibility: hidden;
+  }
+}

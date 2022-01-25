@@ -50,26 +50,21 @@ const ProductImageGallery = ({
     setMousePosition({ x, y });
   };
 
-  // const imagesSideBarToRender = images.map((image) => (
-  //   <li key={image} onMouseEnter={() => setSelectedImage(image)}>
-  //     <img src={image} alt="" />
-  //   </li>
-  // ));
-
   return (
     <div className="gallery_container" ref={imageContainerRef}>
-      {/* <ul>{imagesSideBarToRender}</ul> */}
       <div
         className="selected_image"
         onMouseMove={onMouseMoveHandler}
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeaveHandler}
       >
-        <img
-          src={selectedImage?.startsWith('http') ? selectedImage : `${BASE_URL}/${selectedImage}`}
-          alt=""
-          ref={imageRef}
-        />
+        {selectedImage?.length && (
+          <img
+            src={selectedImage?.startsWith('http') ? selectedImage : `${BASE_URL}/${selectedImage}`}
+            alt=""
+            ref={imageRef}
+          />
+        )}
         <div
           className="lens"
           ref={lensRef}
