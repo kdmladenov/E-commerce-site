@@ -26,6 +26,10 @@
 .wish_list_screen_container .wish_list_screen .product_card {
   width: 100%;
 }
+.wish_list_screen_container .wish_list_screen  h2 {
+  text-align: center;
+  margin: 20px auto;
+}
 
 .wish_list_screen_container .wish_list_screen .footer {
   height: 60px;

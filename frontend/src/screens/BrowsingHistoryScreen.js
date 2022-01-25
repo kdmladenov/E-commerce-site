@@ -69,14 +69,14 @@ const BrowsingHistoryScreen = () => {
           { label: 'Browsing History', path: '' }
         ]}
       />
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
-      ) : browsingHistory.length === 0 ? (
-        <h2>No items to display</h2>
-      ) : (
-        <div className="browsing_history_list">
+      <div className="browsing_history_list">
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message type="error">{error}</Message>
+        ) : browsingHistory.length === 0 ? (
+          <h2>No items to display</h2>
+        ) : (
           <ul>
             {browsingHistory?.map((historyRecord) => (
               <ProductCard
@@ -96,18 +96,18 @@ const BrowsingHistoryScreen = () => {
               />
             ))}
           </ul>
-          <div className="footer">
-            {browsingHistory?.length > 0 && (
-              <Pagination
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                totalItems={browsingHistory[0].totalDBItems}
-              />
-            )}
-          </div>
+        )}
+        <div className="footer">
+          {browsingHistory?.length > 0 && (
+            <Pagination
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+              pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+              totalItems={browsingHistory[0].totalDBItems}
+            />
+          )}
         </div>
-      )}
+      </div>
     </main>
   );
 };

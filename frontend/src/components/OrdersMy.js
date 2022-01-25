@@ -55,84 +55,86 @@ const OrdersMy = () => {
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
-      ) : orders?.length > 0 ? (
-        <>
-          <div className="order_title_header">
-            <div>
-              <span>ID</span>
-            </div>
-            <div>
-              <span>Order date</span>
-            </div>
-            <div>
-              <span>Total</span>
-            </div>
-            <div>
-              <span>Ship to</span>
-            </div>
-            <div>
-              <span>Payment status</span>
-            </div>
-            <div>
-              <span>Delivery status</span>
-            </div>
-          </div>
-          <Accordion>
-            {orders?.map((order) => (
-              <Accordion.Item key={order.orderId}>
-                <Accordion.Header>
-                  <Accordion.Title>
-                    <div className="order_title">
-                      <div>
-                        <strong>{order.orderId}</strong>
-                      </div>
-                      <div>
-                        <span>{getDate(order.orderDate)}</span>
-                      </div>
-                      <div>
-                        <Price price={order.totalPrice} color="black" size="small" />
-                      </div>
-                      <div>
-                        <span>{`${order.shippingAddress} ${
-                          order.shippingAddress2 !== null ? order.shippingAddress2 : ''
-                        }, ${order.shippingCity}, ${order.shippingState}, ${
-                          order.shippingCountry
-                        }`}</span>
-                      </div>
-                      <div>
-                        <span className={order.isDelivered ? 'completed' : 'not_started'}>
-                          {order.isPaid ? ` Paid (${getDate(order.paymentDate)})` : 'Not paid'}
-                        </span>
-                      </div>
-                      <div>
-                        <span
-                          className={
-                            order.isDelivered
-                              ? 'completed'
-                              : order.isPaid
-                              ? 'in_progress'
-                              : 'not_started'
-                          }
-                        >
-                          {order.isDelivered
-                            ? ` Delivered (${getDate(order.deliveryDate)})`
-                            : order.isPaid
-                            ? `Shipped (exp. ${getDate(order.paymentDate, DAYS_FOR_DELIVERY)})`
-                            : 'Not shipped'}
-                        </span>
-                      </div>
-                    </div>
-                  </Accordion.Title>
-                  <Accordion.ButtonGroup>
-                    <div className="button_group">
-                      <Button
-                        classes="white rounded"
-                        onClick={() => history.push(`/order/${order.orderId}`)}
-                      >
-                        Details
-                      </Button>
-                    </div>
-                    {/* <div className="button_group">
+      ) : (
+        <div className="orders_container">
+          {orders?.length > 0 ? (
+            <>
+              <div className="order_title_header">
+                <div>
+                  <span>ID</span>
+                </div>
+                <div>
+                  <span>Order date</span>
+                </div>
+                <div>
+                  <span>Total</span>
+                </div>
+                <div>
+                  <span>Ship to</span>
+                </div>
+                <div>
+                  <span>Payment status</span>
+                </div>
+                <div>
+                  <span>Delivery status</span>
+                </div>
+              </div>
+              <Accordion>
+                {orders?.map((order) => (
+                  <Accordion.Item key={order.orderId}>
+                    <Accordion.Header>
+                      <Accordion.Title>
+                        <div className="order_title">
+                          <div>
+                            <strong>{order.orderId}</strong>
+                          </div>
+                          <div>
+                            <span>{getDate(order.orderDate)}</span>
+                          </div>
+                          <div>
+                            <Price price={order.totalPrice} color="black" size="small" />
+                          </div>
+                          <div>
+                            <span>{`${order.shippingAddress} ${
+                              order.shippingAddress2 !== null ? order.shippingAddress2 : ''
+                            }, ${order.shippingCity}, ${order.shippingState}, ${
+                              order.shippingCountry
+                            }`}</span>
+                          </div>
+                          <div>
+                            <span className={order.isDelivered ? 'completed' : 'not_started'}>
+                              {order.isPaid ? ` Paid (${getDate(order.paymentDate)})` : 'Not paid'}
+                            </span>
+                          </div>
+                          <div>
+                            <span
+                              className={
+                                order.isDelivered
+                                  ? 'completed'
+                                  : order.isPaid
+                                  ? 'in_progress'
+                                  : 'not_started'
+                              }
+                            >
+                              {order.isDelivered
+                                ? ` Delivered (${getDate(order.deliveryDate)})`
+                                : order.isPaid
+                                ? `Shipped (exp. ${getDate(order.paymentDate, DAYS_FOR_DELIVERY)})`
+                                : 'Not shipped'}
+                            </span>
+                          </div>
+                        </div>
+                      </Accordion.Title>
+                      <Accordion.ButtonGroup>
+                        <div className="button_group">
+                          <Button
+                            classes="white rounded"
+                            onClick={() => history.push(`/order/${order.orderId}`)}
+                          >
+                            Details
+                          </Button>
+                        </div>
+                        {/* <div className="button_group">
                       <span>
                         ORDER # <strong>{`${order.orderId}`}</strong>
                       </span>
@@ -140,46 +142,48 @@ const OrdersMy = () => {
                         <Button classes="text">View order details</Button>
                       </Link>
                     </div> */}
-                  </Accordion.ButtonGroup>
-                </Accordion.Header>
-                <Accordion.Body>
-                  {order?.orderItems?.length === 0 ? (
-                    <Message type="error">Order is empty</Message>
-                  ) : (
-                    <ul>
-                      {order?.orderItems?.map((item) => (
-                        <li key={item.orderItemId}>
-                          <div className="order_item">
-                            <div className="image">
-                              <img src={item.image} alt={item.title} />
-                            </div>
-                            <div className="title">
-                              <Link to={`/products/${item.orderItemId}`}>{item.title}</Link>
-                            </div>
-                            <div className="total">
-                              <Price price={item.price} size="small" />
-                              <span>{` x ${item.qty}`}</span>
-                            </div>
-                            <Button
-                              onClick={() => addToCartHandler(item.orderItemId)}
-                              classes="rounded small"
-                              className="order_item_btn"
-                              disabled={item.stockCount === 0}
-                            >
-                              {item.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
-                            </Button>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </Accordion.Body>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        </>
-      ) : (
-        <h2>You have no orders</h2>
+                      </Accordion.ButtonGroup>
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      {order?.orderItems?.length === 0 ? (
+                        <Message type="error">Order is empty</Message>
+                      ) : (
+                        <ul>
+                          {order?.orderItems?.map((item) => (
+                            <li key={item.orderItemId}>
+                              <div className="order_item">
+                                <div className="image">
+                                  <img src={item.image} alt={item.title} />
+                                </div>
+                                <div className="title">
+                                  <Link to={`/products/${item.orderItemId}`}>{item.title}</Link>
+                                </div>
+                                <div className="total">
+                                  <Price price={item.price} size="small" />
+                                  <span>{` x ${item.qty}`}</span>
+                                </div>
+                                <Button
+                                  onClick={() => addToCartHandler(item.orderItemId)}
+                                  classes="rounded small"
+                                  className="order_item_btn"
+                                  disabled={item.stockCount === 0}
+                                >
+                                  {item.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
+                                </Button>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </Accordion.Body>
+                  </Accordion.Item>
+                ))}
+              </Accordion>
+            </>
+          ) : (
+            <h2>You have no orders</h2>
+          )}
+        </div>
       )}
       <div className="footer">
         {orders?.length > 0 && (

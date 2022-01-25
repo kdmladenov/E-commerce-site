@@ -68,14 +68,14 @@ const WishListScreen = () => {
           { label: 'Wish List', path: '' }
         ]}
       />
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
-      ) : wishList.length === 0 ? (
-        <h2>No items to display</h2>
-      ) : (
-        <div className="wish_list_screen">
+      <div className="wish_list_screen">
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message type="error">{error}</Message>
+        ) : wishList.length === 0 ? (
+          <h2>No items to display</h2>
+        ) : (
           <ul>
             {wishList?.map((wish) => (
               <ProductCard
@@ -86,18 +86,18 @@ const WishListScreen = () => {
               />
             ))}
           </ul>
-          <div className="footer">
-            {wishList?.length > 0 && (
-              <Pagination
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                totalItems={wishList[0].totalDBItems}
-              />
-            )}
-          </div>
+        )}
+        <div className="footer">
+          {wishList?.length > 0 && (
+            <Pagination
+              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+              currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+              pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+              totalItems={wishList[0].totalDBItems}
+            />
+          )}
         </div>
-      )}
+      </div>
     </main>
   );
 };

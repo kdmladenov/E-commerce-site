@@ -16,6 +16,15 @@
   box-shadow: var(--box_shadow);
 }
 
+.my_orders .orders_container {
+  background-color: var(--white);
+  padding: 40px auto;
+}
+.my_orders .orders_container > h2 {
+  text-align: center;
+
+}
+
 .my_orders .accordion .accordion_item:first-child {
   border-radius: 0;
 }

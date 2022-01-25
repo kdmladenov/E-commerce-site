@@ -7,3 +7,8 @@
 .browsing_history_list_container .full_history_btn.horizontal {
   margin: auto 50px auto 20px;
 }
+
+.account_screen .browsing_history_list_container h2 {
+  text-align: center;
+  margin: 20px auto;
+}

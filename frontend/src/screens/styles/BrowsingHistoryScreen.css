@@ -39,6 +39,11 @@
   padding: 20px;
 }
 
+.browsing_history_screen_container .browsing_history_list h2 {
+  text-align: center;
+  margin: 20px auto;
+}
+
 .browsing_history_screen_container .product_card {
   width: 100%;
   border-radius: var(--border_radius);
@@ -46,7 +51,7 @@
   padding: 10px 20px;
 }
 
-.browsing_history_screen_container .product_card .wish_list_btn{
+.browsing_history_screen_container .product_card .wish_list_btn {
   right: 15px;
 }
 .browsing_history_screen_container .product_card > button {
@@ -58,7 +63,6 @@
   width: 10px;
   padding: 0;
 }
-
 
 @media (max-width: 1500px) {
   .browsing_history_screen_container .browsing_history_list {

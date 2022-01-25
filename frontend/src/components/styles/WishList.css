@@ -21,6 +21,11 @@
   width: 100%;
 }
 
+.account_screen .wish_list h2 {
+  text-align: center;
+  margin: 20px auto 0 auto;
+}
+
 @media (max-width: 1200px) {
   .wish_list .wish_list_items {
     grid-template-columns: repeat(3, 1fr);

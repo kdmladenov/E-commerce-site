@@ -24,6 +24,7 @@
 .review_card .title input {
   font-weight: bold;
   width: 100%;
+  flex: 1;
 }
 
 .review_card .title,
