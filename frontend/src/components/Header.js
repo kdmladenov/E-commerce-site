@@ -115,9 +115,9 @@ const Header = () => {
           button={
             <div className="header_menu_btn cart">
               <i
-                onClick={() => {
-                  history.push('/cart');
-                }}
+                // onClick={() => {
+                //   history.push('/cart');
+                // }}
                 className="fa fa-shopping-cart"
               ></i>
               {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}

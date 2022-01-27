@@ -6,7 +6,7 @@
   font-weight: bold;
 }
 
-.price_container.strike_through{
+.price_container.strike_through {
   text-decoration: line-through;
   text-decoration-thickness: 2px;
 }
@@ -57,6 +57,10 @@
 /* red color */
 .price_container.red {
   color: var(--red_dark);
+}
+
+.price_container.white {
+  color: var(--white);
 }
 
 .price_container {

@@ -1,8 +1,8 @@
 .login_form {
   width: 250px;
-  height: 280px;
-  display: grid;
-  grid-template-rows: 50px 180px 20px 20px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
   padding: 0 15px;
 }
 
