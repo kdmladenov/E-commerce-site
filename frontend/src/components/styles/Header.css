@@ -1,5 +1,6 @@
 header {
   display: grid;
+  width: 100vw;
   grid-auto-rows: 60px;
   grid-auto-columns: 250px 1fr 250px;
   grid-template-areas: 'logo search user_cart';
@@ -42,13 +43,13 @@ header .header_menu_btn_group {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 }
 
 header .header_menu_btn {
   position: relative;
   width: 45px;
   height: 45px;
-  margin: 0 10px;
   outline: none;
   border: none;
   font-size: 20px;
@@ -79,8 +80,7 @@ header .menu_user > div {
   white-space: nowrap;
 }
 
-header .menu_user > div{
-  cursor: pointer;
+header .menu_user li:last-child {
   border-top: 2px solid var(--gray);
 }
 
@@ -108,8 +108,14 @@ header .header_menu_btn .badge {
     grid-template-areas:
       'logo   user_cart'
       'search search';
+    justify-content: center;
   }
+
   .search {
     padding: 0 10px;
+  }
+
+  .logo_mega_menu_group {
+    width: 160px;
   }
 }

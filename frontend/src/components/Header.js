@@ -7,11 +7,13 @@ import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
 import Login from './Login';
 import CartItems from './CartItems';
-import { useHistory } from 'react-router';
 import DropDown from './Dropdown';
 import Avatar from './Avatar';
+import { adminMenuMap, userMenuMap } from '../constants/inputMaps';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -20,47 +22,6 @@ const Header = () => {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
-
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const logoutHandler = () => {
-    dispatch(logout());
-  };
-
-  const adminMenuToRender = (
-    <ul className="menu_admin">
-      <li>
-        <NavLink to={'/admin/main/userlist'}>Users</NavLink>
-      </li>
-      <li>
-        <NavLink to={'/admin/main/productlist'}>Products</NavLink>
-      </li>
-      <li>
-        <NavLink to={'/admin/main/orderlist'}>Orders</NavLink>
-      </li>
-    </ul>
-  );
-
-  const userMenuToRender = (
-    <div className="menu_user">
-      <ul>
-        <li>
-          <NavLink to={'/account/profile'}>Profile</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/account/orders'}>Orders</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/account/history'}>Browsing History</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/account/wishlist'}>Wish List</NavLink>
-        </li>
-      </ul>
-      <div onClick={logoutHandler}>Log out</div>
-    </div>
-  );
 
   useEffect(() => {
     if (!user?.email) {
@@ -95,7 +56,18 @@ const Header = () => {
           }
           tooltipText={`${userInfo?.token ? 'User Menu' : 'Login'}`}
         >
-          {userInfo?.token ? userMenuToRender : <Login />}
+          {userInfo?.token ? (
+            <ul className="menu_user">
+              {userMenuMap.map((link, index) => (
+                <li key={index}>
+                  <NavLink to={link.path}>{link.label}</NavLink>
+                </li>
+              ))}
+              <li onClick={() => dispatch(logout())}>Log out</li>
+            </ul>
+          ) : (
+            <Login />
+          )}
         </DropDown>
         {userInfo?.role === 'admin' && (
           <DropDown
@@ -107,19 +79,20 @@ const Header = () => {
             }
             tooltipText="Admin Menu"
           >
-            {adminMenuToRender}
+            <ul className="menu_admin">
+              {adminMenuMap.map((link, index) => (
+                <li key={index}>
+                  <NavLink to={link.path}>{link.label}</NavLink>
+                </li>
+              ))}
+            </ul>
           </DropDown>
         )}
         <DropDown
           userInfo={userInfo}
           button={
             <div className="header_menu_btn cart">
-              <i
-                // onClick={() => {
-                //   history.push('/cart');
-                // }}
-                className="fa fa-shopping-cart"
-              ></i>
+              <i className="fa fa-shopping-cart" />
               {cartItems.length > 0 && <div className="badge">{cartItems.length}</div>}
             </div>
           }
