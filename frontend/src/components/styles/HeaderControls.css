@@ -21,3 +21,10 @@
   display: flex;
   gap: 20px;
 }
+
+@media (max-width: 768px) {
+  .header_controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

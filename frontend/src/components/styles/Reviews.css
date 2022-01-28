@@ -54,14 +54,25 @@
 }
 
 @media (max-width: 1000px) {
-.reviews {
-  grid-template-columns: 1fr;
-  grid-template-rows: 230px 1fr;
-  grid-template-areas: 'sidebar''reviews_list';
+  .reviews {
+    grid-template-columns: 1fr;
+    grid-template-rows: 230px 1fr;
+    grid-template-areas: 'sidebar' 'reviews_list';
+  }
+
+  .reviews .reviews_sidebar .sidebar_wrapper {
+    display: flex;
+    align-items: center;
+  }
 }
 
-.reviews .reviews_sidebar .sidebar_wrapper {
-  display: flex;
-  align-items: center;
-}
+@media (max-width: 768px) {
+  .reviews {
+    grid-template-rows: 280px 1fr;
+    gap: 0;
+  }
+
+  .reviews .reviews_sidebar .sidebar_wrapper {
+    flex-direction: column;
+  }
 }

@@ -5,7 +5,7 @@ import { listProductDetails, listProductImages } from '../actions/productActions
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Reviews from '../components/Reviews';
-import { addBrowsingHistoryRecord } from '../actions/browsingHistoryActions';
+import { addBrowsingHistoryRecord, listBrowsingHistory } from '../actions/browsingHistoryActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';
@@ -15,6 +15,7 @@ import Carousel from '../components/Carousel';
 import History from '../components/History';
 import Divider from '../components/Divider';
 import ProductDetails from '../components/ProductDetails';
+import { MIN_HISTORY_LIST_COUNT } from '../constants/constants';
 
 const ProductScreen = ({ match }) => {
   const productId = match.params.productId;
@@ -24,6 +25,9 @@ const ProductScreen = ({ match }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
+
+  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
+  const { browsingHistory } = browsingHistoryList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo: currentUser } = userLogin;
@@ -39,6 +43,7 @@ const ProductScreen = ({ match }) => {
     dispatch(listProductImages(productId));
     dispatch(addBrowsingHistoryRecord(productId));
   }, [dispatch, match, productId]);
+  console.log(currentUser?.token && browsingHistory?.length >= MIN_HISTORY_LIST_COUNT);
 
   return (
     <main className="product_screen_container">
@@ -107,16 +112,17 @@ const ProductScreen = ({ match }) => {
         />
       </section>
 
-      <section>
-        <Divider>
-          <h2>Your Browsing History</h2>
-        </Divider>
-        <div className="product_carousel_history">
+      {currentUser?.token && (
+        <section className="product_carousel_history">
+          <Divider>
+            <h2>Your Browsing History</h2>
+          </Divider>
+
           <Carousel isPageVisible={true}>
             <History horizontal={true} />
           </Carousel>
-        </div>
-      </section>
+        </section>
+      )}
 
       <ScrollToTopButton />
     </main>

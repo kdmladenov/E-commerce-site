@@ -44,10 +44,6 @@
 
 .product_carousel_history {
   grid-area: product_carousel_history;
-  max-width: 96vw;
-  margin: 0 auto;
-  position: absolute;
-  left: 2vw;
 }
 
 .reviews_container,
@@ -56,6 +52,8 @@
 .product_specifications,
 .product_features,
 .product_carousel_history {
+  width: 100%;
+  max-width: calc(100vw - 40px);
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -63,15 +61,16 @@
 
 @media (max-width: 1000px) {
   .product_screen_container {
+    max-width: 100%;
     grid-template-areas:
       'product_details'
       'product_features'
       'product_specifications'
       'product_reviews'
-      'product_questions_and_answers'
-      'product_carousel_history';
+      'product_questions_and_answers';
   }
-  .comparison_table_container {
+  .comparison_table_container,
+  .product_carousel_history {
     display: none;
   }
 }

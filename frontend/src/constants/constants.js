@@ -3,6 +3,8 @@ export const BASE_URL = 'http://localhost:5555';
 export const MAX_PRODUCT_QTY_FOR_PURCHASE = 10;
 export const PRODUCT_FEATURES_MAIN_COUNT = 5;
 
+export const MIN_HISTORY_LIST_COUNT = 3;
+
 export const DAYS_FOR_DELIVERY = 5;
 export const DAYS_FOR_RETURNS_AFTER_DELIVERY = 30;
 
