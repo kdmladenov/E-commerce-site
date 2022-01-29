@@ -14,6 +14,7 @@ import {
 import './styles/ProductListScreen.css';
 import HeaderControls from '../components/HeaderControls';
 import { getRibbonText } from '../constants/utility-functions';
+import Button from '../components/Button';
 
 const defaultEndpoint = {
   page: 'page=1&',
@@ -28,6 +29,7 @@ const ProductListScreen = ({ match }) => {
   const searchTerm = match?.params?.searchTerm || '';
 
   const [horizontalCards, setHorizontalCards] = useState(false);
+  const [hiddenSidebar, setHiddenSidebar] = useState(false);
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint);
 
@@ -48,7 +50,7 @@ const ProductListScreen = ({ match }) => {
   }, [searchTerm]);
 
   return (
-    <main className="product_list_container">
+    <main className={`product_list_container ${!hiddenSidebar ? 'hidden_sidebar' : ''}`}>
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
@@ -96,6 +98,9 @@ const ProductListScreen = ({ match }) => {
           </div>
         </div>
       )}
+      <Button classes="icon sidebar_toggle_btn" onClick={() => setHiddenSidebar(!hiddenSidebar)}>
+        <i className={`fas fa-chevron-circle-${hiddenSidebar ? 'left' : 'right'}`} />
+      </Button>
     </main>
   );
 };

@@ -1,4 +1,5 @@
 .product_list_container {
+  position: relative;
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-template-rows: 1fr;
@@ -12,6 +13,15 @@
   grid-area: sidebar;
   background-color: var(--white);
   box-shadow: var(--box_shadow_angle);
+}
+
+.product_list_container .sidebar_toggle_btn {
+  position: absolute;
+  display: none;
+  top: 10px;
+  left: 0px;
+  font-size: 22px;
+  color: var(--gray_dark);
 }
 
 .product_list_container .product_list {
@@ -86,22 +96,75 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .product_list_container .product_list > ul {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .product_list_container .product_list > ul {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  /* Show sidebar, hide product list */
+  .product_list_container {
+    grid-template-columns: 50vw 50vw;
   }
 
-  .product_list_container .product_list.horizontal .product_card.horizontal {
-    width: 100%;
-    grid-template-columns: 0.5fr 1fr;
-    padding: 10px;
-    justify-content: flex-start;
-    column-gap: 40px;
+  .product_list_container,
+  .product_list_container .product_sidebar {
+    grid-template-rows: 120px 1fr;
   }
+
+  .product_list_container .header_controls {
+    padding: 0 20px;
+    gap: 10px;
+  }
+
+  .product_list_container.hidden_sidebar .header_controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .product_list_container.hidden_sidebar .header_controls .dropdown_group_container {
+    gap: 10px;
+  }
+  .product_list_container.hidden_sidebar .header_controls .dropdown_group_container button {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .product_list_container .sidebar_toggle_btn {
+    display: block;
+  }
+  .product_list_container {
+    grid-template-columns: 100vw 0px;
+  }
+
+  .product_list_container .header_controls {
+    display: none;
+    padding: 0 20px;
+    gap: 10px;
+  }
+
+  .product_list_container .accordion i {
+    visibility: visible;
+  }
+
+  .product_list_container.hidden_sidebar {
+    grid-template-columns: 0px 100vw;
+    grid-template-rows: 120px 1fr;
+  }
+
+  .product_list_container.hidden_sidebar .accordion i {
+    visibility: hidden;
+  }
+
+  .product_list_container.hidden_sidebar .header_controls .dropdown_group_container {
+    gap: 10px;
+  }
+  
 }
