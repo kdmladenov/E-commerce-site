@@ -33,6 +33,8 @@ const BrowsingHistoryScreen = () => {
 
   const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyHistory));
 
+  const [hiddenSidebar, setHiddenSidebar] = useState(false);
+
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { loading, browsingHistory, error } = browsingHistoryList;
 
@@ -50,7 +52,7 @@ const BrowsingHistoryScreen = () => {
   }, [successDelete]);
 
   return (
-    <main className="browsing_history_screen_container">
+    <main className={`browsing_history_screen_container ${!hiddenSidebar ? 'hidden_sidebar' : ''}`}>
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
@@ -108,6 +110,9 @@ const BrowsingHistoryScreen = () => {
           )}
         </div>
       </div>
+      <Button classes="icon sidebar_toggle_btn" onClick={() => setHiddenSidebar(!hiddenSidebar)}>
+        <i className={`fas fa-chevron-circle-${hiddenSidebar ? 'left' : 'right'}`} />
+      </Button>
     </main>
   );
 };

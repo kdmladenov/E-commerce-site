@@ -9,12 +9,6 @@
     'sidebar product_list';
 }
 
-.product_list_container .sidebar {
-  grid-area: sidebar;
-  background-color: var(--white);
-  box-shadow: var(--box_shadow_angle);
-}
-
 .product_list_container .sidebar_toggle_btn {
   position: absolute;
   display: none;
@@ -111,8 +105,7 @@
     grid-template-columns: 50vw 50vw;
   }
 
-  .product_list_container,
-  .product_list_container .product_sidebar {
+  .product_list_container {
     grid-template-rows: 120px 1fr;
   }
 
@@ -166,5 +159,4 @@
   .product_list_container.hidden_sidebar .header_controls .dropdown_group_container {
     gap: 10px;
   }
-  
 }
