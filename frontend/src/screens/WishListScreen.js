@@ -14,6 +14,7 @@ import Pagination from '../components/Pagination';
 import HeaderControls from '../components/HeaderControls';
 import { getRibbonText } from '../constants/utility-functions';
 import ProductCard from '../components/ProductCard';
+import Button from '../components/Button';
 
 const defaultEndpoint = {
   page: 'page=1&',
@@ -33,6 +34,8 @@ const WishListScreen = () => {
   const wishListItems = useSelector((state) => state.wishListItems);
   const { loading, wishList, error } = wishListItems;
 
+  const [hiddenSidebar, setHiddenSidebar] = useState(false);
+
   const wishListDelete = useSelector((state) => state.wishListDelete);
   const { success: successDelete } = wishListDelete;
 
@@ -49,7 +52,7 @@ const WishListScreen = () => {
   }, [successDelete]);
 
   return (
-    <main className="wish_list_screen_container">
+    <main className={`wish_list_screen_container ${!hiddenSidebar ? 'hidden_sidebar' : ''}`}>
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
@@ -98,6 +101,9 @@ const WishListScreen = () => {
           )}
         </div>
       </div>
+      <Button classes="icon sidebar_toggle_btn" onClick={() => setHiddenSidebar(!hiddenSidebar)}>
+        <i className={`fas fa-chevron-circle-${hiddenSidebar ? 'left' : 'right'}`} />
+      </Button>
     </main>
   );
 };
