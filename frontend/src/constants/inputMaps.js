@@ -13,6 +13,30 @@ export const userMenuMap = [
   { path: '/account/wishlist', label: 'Wish List' }
 ];
 
+export const defaultEndpoint = {
+  productListScreen: {
+    page: 'page=1&',
+    pageSize: 'pageSize=12&',
+    sort: 'sort=price asc&',
+    filter: [],
+    search: ''
+  },
+  wishListScreen: {
+    page: 'page=1&',
+    pageSize: 'pageSize=12&',
+    sort: 'sort=dateCreated desc&',
+    filter: [],
+    search: ''
+  },
+  browsingHistoryScreen:{
+  page: 'page=1&',
+  pageSize: 'pageSize=12&',
+  sort: 'sort=dateVisited desc&',
+  filter: [],
+  search: ''
+}
+};
+
 export const userRegisterInitialInputState = {
   fullName: {
     label: 'Full Name',

@@ -1,5 +1,6 @@
-.questions_and_answers_screen .questions_and_answers_screen {
-  background-color: var(--gray_background);
+.questions_and_answers_screen {
+  /* background-color: var(--gray_background); */
+  padding: 0 20px;
 }
 
 .questions_and_answers_screen .questions_and_answers_container {
@@ -7,4 +8,16 @@
   margin: 0 auto;
 }
 
+@media (max-width: 1000px) {
+  .questions_and_answers_screen .header_controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 
+@media (max-width: 768px) {
+  .questions_and_answers_screen .header_controls .dropdown_group_container{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
