@@ -8,7 +8,7 @@
 .slider_container .slides_list,
 .slider_container .slides_list li,
 .slider_container .slides_list li > div {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   position: absolute;
   top: 0;
@@ -189,5 +189,40 @@
   .slider_container li.slide .product_list {
     align-items: flex-start;
     height: 150px;
+  }
+  .slider_container li.slide > div {
+    justify-content: center;
+    align-items: center;
+    padding: 0 auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .slider_container li.slide .product_list {
+    width: 100vw;
+  }
+  .slider_container li.slide a {
+    height: 17vw;
+    width: 17vw;
+  }
+
+  .slider_container li.slide a img {
+    height: 14vw;
+    width: 14vw;
+  }
+  .slider_container .next {
+    right: 0px;
+  }
+  .slider_container .prev {
+    left: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider_container .next {
+    right: -15px;
+  }
+  .slider_container .prev {
+    left: -15px;
   }
 }
