@@ -1,5 +1,6 @@
 .shipping_screen {
   background-color: rgb(234, 237, 237);
+  padding: 0 20px;
 }
 
 .shipping_container {
@@ -21,7 +22,13 @@
   padding: 40px 100px;
 }
 
-.address_container h1{
+.address_container h1 {
   margin-bottom: 30px;
   padding-top: 0px;
+}
+
+@media (max-width: 768px) {
+  .address_container {
+    padding: 40px 20px;
+  }
 }

@@ -13,7 +13,6 @@
   white-space: nowrap;
 }
 
-
 .breadcrumbs_steps .step a {
   pointer-events: none;
 }
@@ -22,7 +21,6 @@
 .breadcrumbs_steps .step.complete a {
   pointer-events: all;
 }
-
 
 .breadcrumbs_steps .step.current .label,
 .breadcrumbs_steps .step.complete .label {
@@ -123,4 +121,76 @@
 
 .breadcrumbs_steps .step.current:last-child > .progress > .progress-bar {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs_steps {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .breadcrumbs_steps .step {
+    width: 110px;
+    height: 50px;
+    margin: 0 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .breadcrumbs_steps .step .label {
+    margin: 0 0 0 20px;
+  }
+  /* Inner Dot */
+  .breadcrumbs_steps .step .dot {
+    right: 0%;
+    left: 0%;
+    margin-top: 0px;
+    margin-left: -2.5px;
+  }
+  /* Progress bar */
+  .breadcrumbs_steps .step .progress {
+    height: 100%;
+    width: 11px;
+    margin-top: 0px;
+  }
+
+  .breadcrumbs_steps .step .progress .progress-bar {
+    height: 0px;
+    width: 11px;
+  }
+
+  .breadcrumbs_steps .step:first-child > .progress {
+    left: 0%;
+    width: 0%;
+    bottom: 0%;
+    height: 50%;
+  }
+
+  .breadcrumbs_steps .step:last-child > .progress {
+    width: 11px;
+    height: 50%;
+    top: 0px;
+  }
+
+  /* Completed */
+
+  .breadcrumbs_steps .step.complete .progress > .progress-bar {
+    height: 100%;
+    width: 11px;
+  }
+
+  /* Current Line */
+  .breadcrumbs_steps .step.current .progress > .progress-bar {
+    height: 50%;
+    width: 11px;
+  }
+
+  .breadcrumbs_steps .step.current:first-child > .progress > .progress-bar {
+    width: 100%;
+  }
+
+  .breadcrumbs_steps .step.current:last-child > .progress > .progress-bar {
+    width: 0%;
+  }
 }
