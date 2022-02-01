@@ -5,10 +5,9 @@ import Tooltip from './Tooltip';
 
 const Timeline = ({ children, ...restProps }) => {
   return (
-    <div className={`timeline_container ${restProps.horizontal ? 'horizontal' : ''}`}>
-      {/* <h2>{restProps.title}</h2> */}
+    <ul className={`timeline_container ${restProps.horizontal ? 'horizontal' : ''}`}>
       {children}
-    </div>
+    </ul>
   );
 };
 
@@ -19,7 +18,7 @@ Timeline.Item = function TimelineItem({ children, ...restProps }) {
   const [removeMode, setRemoveMode] = useState(false);
 
   return (
-    <div
+    <li
       className="timeline_item"
       onMouseEnter={() => setRemoveMode(true)}
       onMouseLeave={() => setRemoveMode(false)}
@@ -35,10 +34,18 @@ Timeline.Item = function TimelineItem({ children, ...restProps }) {
         ) : (
           <span className="point" />
         )}
-        <span className="date">
-          {removeMode ? 'Remove' : `${getDate(historyRecord.dateVisited, 0, false)}`}
-        </span>
+        {removeMode ? (
+          <span className="date">Remove</span>
+        ) : (
+          <span className="date">
+            {getDate(historyRecord.dateVisited, 0, false)
+              .split(',')
+              .map((subString, index) => (
+                <span key={index}>{subString}</span>
+              ))}
+          </span>
+        )}
       </div>
-    </div>
+    </li>
   );
 };

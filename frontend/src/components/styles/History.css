@@ -12,3 +12,7 @@
   text-align: center;
   margin: 20px auto;
 }
+
+.browsing_history_list_container .history_timeline.horizontal {
+  justify-content: flex-start;
+}

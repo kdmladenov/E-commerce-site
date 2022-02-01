@@ -57,36 +57,38 @@ const History = ({ horizontal }) => {
           sortOptionsMap={browsingHistorySortOptionsMap}
         />
       )}
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
-      ) : browsingHistory.length === 0 ? (
-        <h2>Your Browsing History Is Empty</h2>
-      ) : (
-        <Timeline horizontal={horizontal}>
-          {browsingHistory?.map((historyRecord) => (
-            <Timeline.Item
-              key={historyRecord.historyId}
-              deleteHistoryItem={deleteHistoryItemHandler}
-              historyRecord={historyRecord}
-            >
-              <ProductCard
-                product={historyRecord}
-                horizontal={!horizontal}
-                ribbonText={getRibbonText(historyRecord.productId)}
-              />
-            </Timeline.Item>
-          ))}
-          {horizontal && (
-            <div className={`full_history_btn ${horizontal ? 'horizontal' : ''}`}>
-              <Button classes="circle" onClick={() => history.push('/history')}>
-                View full history
-              </Button>
-            </div>
-          )}
-        </Timeline>
-      )}
+      <div className={`history_timeline flex ${horizontal ? 'horizontal' : ''}`}>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message type="error">{error}</Message>
+        ) : browsingHistory.length === 0 ? (
+          <h2>Your Browsing History Is Empty</h2>
+        ) : (
+          <Timeline horizontal={horizontal}>
+            {browsingHistory?.map((historyRecord) => (
+              <Timeline.Item
+                key={historyRecord.historyId}
+                deleteHistoryItem={deleteHistoryItemHandler}
+                historyRecord={historyRecord}
+              >
+                <ProductCard
+                  product={historyRecord}
+                  horizontal={!horizontal}
+                  ribbonText={getRibbonText(historyRecord.productId)}
+                />
+              </Timeline.Item>
+            ))}
+            {horizontal && (
+              <div className={`full_history_btn ${horizontal ? 'horizontal' : ''}`}>
+                <Button classes="circle" onClick={() => history.push('/history')}>
+                  View full history
+                </Button>
+              </div>
+            )}
+          </Timeline>
+        )}
+      </div>
       {historyRecordsCount > historyRecordsPagesize && !horizontal && (
         <div className="full_history_btn">
           <Button classes="rounded" onClick={() => history.push('/history')}>
