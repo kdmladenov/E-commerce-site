@@ -76,7 +76,7 @@ const PlaceOrderScreen = ({ history }) => {
         <div className="nav card">
           <BreadcrumbsSteps currentStep="Place Order" steps={checkoutBreadcrumbsSteps} />
         </div>
-        <section className={`body`}>
+        <section className="body">
           <div className="order_header card">
             <div className="shipping_address">
               <h3>Shipping Address:</h3>
@@ -95,10 +95,57 @@ const PlaceOrderScreen = ({ history }) => {
             </div>
             <div className="payment_method">
               <h3>Payment Method</h3>
-              <i className="fa fa-paypal"></i>
               {paymentMethod}
             </div>
           </div>
+          <aside className="sidebar">
+            <div className="action_box card">
+              <h2>Order summary:</h2>
+              <table>
+                <tr>
+                  <td>{`Items (${cartItems.reduce((acc, item) => acc + item.qty, 0)}):`}</td>
+                  <td>
+                    <Price price={cart.itemsPrice} size="small" color="black" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Shipping & handling:</td>
+                  <td>
+                    <Price price={cart.shippingPrice} size="small" color="black" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total before tax:</td>
+                  <td>
+                    <Price
+                      price={cart.itemsPrice + cart.shippingPrice}
+                      size="small"
+                      color="black"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Estimated tax:</td>
+                  <td>
+                    <Price price={cart.taxPrice} size="small" color="black" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Order total:</td>
+                  <td>
+                    <Price price={cart.totalPrice} />
+                  </td>
+                </tr>
+              </table>
+              <Button
+                classes="rounded"
+                disabled={cartItems.length === 0}
+                onClick={() => placeOrderHandler()}
+              >
+                {cartItems.length === 0 ? 'Cart is empty' : 'Place order'}
+              </Button>
+            </div>
+          </aside>
           <div className="order_items card">
             {cartItems?.length > 0 ? (
               <ul>
@@ -159,50 +206,6 @@ const PlaceOrderScreen = ({ history }) => {
             )}
           </div>
         </section>
-        <aside className={`sidebar`}>
-          <div className="action_box card">
-            <h2>Order summary:</h2>
-            <table>
-              <tr>
-                <td>{`Items (${cartItems.reduce((acc, item) => acc + item.qty, 0)}):`}</td>
-                <td>
-                  <Price price={cart.itemsPrice} size="small" color="black" />
-                </td>
-              </tr>
-              <tr>
-                <td>Shipping & handling:</td>
-                <td>
-                  <Price price={cart.shippingPrice} size="small" color="black" />
-                </td>
-              </tr>
-              <tr>
-                <td>Total before tax:</td>
-                <td>
-                  <Price price={cart.itemsPrice + cart.shippingPrice} size="small" color="black" />
-                </td>
-              </tr>
-              <tr>
-                <td>Estimated tax:</td>
-                <td>
-                  <Price price={cart.taxPrice} size="small" color="black" />
-                </td>
-              </tr>
-              <tr>
-                <td>Order total:</td>
-                <td>
-                  <Price price={cart.totalPrice} />
-                </td>
-              </tr>
-            </table>
-            <Button
-              classes="rounded"
-              disabled={cartItems.length === 0}
-              onClick={() => placeOrderHandler()}
-            >
-              {cartItems.length === 0 ? 'Cart is empty' : 'Place order'}
-            </Button>
-          </div>
-        </aside>
       </div>
     </main>
   );
