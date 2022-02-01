@@ -28,13 +28,27 @@ export const defaultEndpoint = {
     filter: [],
     search: ''
   },
-  browsingHistoryScreen:{
-  page: 'page=1&',
-  pageSize: 'pageSize=12&',
-  sort: 'sort=dateVisited desc&',
-  filter: [],
-  search: ''
-}
+  browsingHistoryScreen: {
+    page: 'page=1&',
+    pageSize: 'pageSize=12&',
+    sort: 'sort=dateVisited desc&',
+    filter: [],
+    search: ''
+  }
+};
+
+export const buttonNavMap = {
+  account: [
+    { tabName: 'profile', path: '/account/profile', label: 'Profile' },
+    { tabName: 'orders', path: '/account/orders', label: 'Orders' },
+    { tabName: 'history', path: '/account/history', label: 'History' },
+    { tabName: 'wishlist', path: '/account/wishlist', label: 'Wishes' }
+  ],
+  admin: [
+    { tabName: 'userlist', path: '/admin/main/userlist', label: 'Users' },
+    { tabName: 'productlist', path: '/admin/main/productlist', label: 'Products' },
+    { tabName: 'orderlist', path: '/admin/main/orderlist', label: 'Orders' }
+  ]
 };
 
 export const userRegisterInitialInputState = {

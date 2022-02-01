@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ButtonNav from '../components/ButtonNav';
 import OrderListAdmin from '../components/OrderListAdmin';
 import ProductListAdmin from '../components/ProductListAdmin';
 import UserListAdmin from '../components/UserListAdmin';
@@ -13,26 +14,7 @@ const AdminScreen = ({ match }) => {
   return (
     <main className="admin_screen">
       <div className="admin_container">
-        <div className="header card">
-          <button
-            className={`tab ${activeTab === 'userlist' && 'active'}`}
-            onClick={() => setActiveTab('userlist')}
-          >
-            Users
-          </button>
-          <button
-            className={`tab ${activeTab === 'productlist' && 'active'}`}
-            onClick={() => setActiveTab('productlist')}
-          >
-            Products
-          </button>
-          <button
-            className={`tab ${activeTab === 'orderlist' && 'active'}`}
-            onClick={() => setActiveTab('orderlist')}
-          >
-            Orders
-          </button>
-        </div>
+        <ButtonNav activeTab={activeTab} screen="admin" />
         <section className={`userlist_container content ${activeTab === 'userlist' && 'active'}`}>
           <UserListAdmin />
         </section>

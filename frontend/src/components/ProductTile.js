@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Button from './Button';
 import Price from './Price';
+import Rating from './Rating';
 import './styles/ProductTile.css';
 
 const ProductTile = ({
@@ -42,6 +43,8 @@ const ProductTile = ({
                           price={product?.price}
                           size={`${products?.length === 4 ? 'small' : ''}`}
                         />
+                      ) : itemSubtitleLine2 === 'rating' ? (
+                        <Rating rating={product?.rating} />
                       ) : (
                         product[itemSubtitleLine2] || itemSubtitleLine2
                       )}

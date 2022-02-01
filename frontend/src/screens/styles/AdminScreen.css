@@ -9,42 +9,11 @@
 }
 
 /* Tab Buttons  Header*/
-.admin_container .content,
-.admin_container .header {
+.admin_container .content {
   margin: 5px 0;
   color: var(--gray_dark);
   outline: none;
   border-radius: 5px;
-}
-
-.admin_container .header {
-  padding-bottom: 0;
-}
-
-.admin_container .tab {
-  background-color: var(--white);
-  color: var(--gray_dark);
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 33.33%;
-}
-
-.admin_container .tab:hover {
-  background-color: #fafafa;
-  border-radius: 5px;
-}
-
-.admin_container .tab.active:hover {
-  border-radius: 5px 5px 0 0;
-}
-
-.admin_container .tab.active {
-  color: var(--cheetos);
-  font-weight: bold;
-  border-bottom: 3px solid var(--cheetos);
 }
 
 .admin_container .content {

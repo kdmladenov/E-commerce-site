@@ -1,5 +1,6 @@
 .account_screen {
   background-color: var(--gray_background);
+  padding: 0 20px;
 }
 
 .account_container {
@@ -9,8 +10,7 @@
 }
 
 /* Tab Buttons  Header*/
-.account_container > .content,
-.account_container > .header {
+.account_container > .content {
   margin: 5px 0;
   color: var(--gray_dark);
   padding: 5px;
@@ -22,40 +22,16 @@
   padding: 0px;
 }
 
-.account_container > .header {
-  padding-bottom: 0;
-}
-
-.account_container .tab {
-  background-color: var(--white);
-  color: var(--gray_dark);
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
-
-.account_container .tab:hover {
-  background-color: var(--blue_light);
-  border-radius: 5px;
-}
-
-.account_container .tab.active:hover {
-  border-radius: 5px 5px 0 0;
-}
-
-.account_container .tab.active {
-  color: var(--blue_middle);
-  font-weight: bold;
-  border-bottom: 3px solid var(--blue_middle);
-}
-
 .account_container > .content {
   display: none;
 }
 
 .account_container > .content.active {
   display: block;
+}
+
+@media (max-width: 768px) {
+  .account_screen {
+    padding: 0;
+  }
 }

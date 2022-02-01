@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import ButtonNav from '../components/ButtonNav';
 
-const AccountScreen = ({ match, history }) => {
+const AccountScreen = ({ match }) => {
   const dispatch = useDispatch();
 
   const section = match.params.section;
@@ -37,32 +38,7 @@ const AccountScreen = ({ match, history }) => {
   return (
     <main className="account_screen">
       <div className="account_container">
-        <div className="header card">
-          <button
-            className={`tab ${activeTab === 'profile' && 'active'}`}
-            onClick={() => history.push('/account/profile')}
-          >
-            Profile
-          </button>
-          <button
-            className={`tab ${activeTab === 'orders' && 'active'}`}
-            onClick={() => history.push('/account/orders')}
-          >
-            Orders
-          </button>
-          <button
-            className={`tab ${activeTab === 'history' && 'active'}`}
-            onClick={() => history.push('/account/history')}
-          >
-            Browsing History
-          </button>
-          <button
-            className={`tab ${activeTab === 'wishlist' && 'active'}`}
-            onClick={() => history.push('/account/wishlist')}
-          >
-            Wish List
-          </button>
-        </div>
+        <ButtonNav activeTab={activeTab} screen='account'/>
         <section
           className={`profile_container card content ${activeTab === 'profile' && 'active'}`}
         >

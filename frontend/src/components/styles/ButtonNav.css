@@ -1,0 +1,57 @@
+/* Tab Buttons  Header*/
+.button_nav_container {
+  background-color: var(--white);
+  width: 100%;
+  margin: 5px 0;
+  color: var(--gray_dark);
+  padding: 5px 5px 0 5px;
+  outline: none;
+  border-radius: 5px;
+}
+
+.button_nav_container .tab {
+  background-color: var(--white);
+  color: var(--gray_dark);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+  min-height: 100%;
+}
+
+.button_nav_container.account .tab {
+  width: 25%;
+}
+
+.button_nav_container.admin .tab {
+  width: 33.33%;
+}
+
+.button_nav_container .tab:hover {
+  background-color: var(--blue_light);
+  border-radius: 5px;
+}
+
+.button_nav_container .tab.active:hover {
+  border-radius: 5px 5px 0 0;
+}
+
+.button_nav_container.account .tab.active {
+  color: var(--blue_middle);
+  font-weight: bold;
+  border-bottom: 3px solid var(--blue_middle);
+}
+
+.button_nav_container.admin .tab.active {
+  color: var(--cheetos);
+  font-weight: bold;
+  border-bottom: 3px solid var(--cheetos);
+}
+
+@media (max-width: 768px) {
+  .button_nav_container {
+    width: calc(100vw);
+  }
+}
