@@ -1,5 +1,7 @@
 .payment_screen {
-  background-color: rgb(234, 237, 237);
+  background-color: var(--gray_background);
+  padding: 0 20px;
+
 }
 
 .payment_container {
@@ -15,10 +17,11 @@
 }
 
 .payment_options_container {
+  flex-direction: column;
   color: var(--gray_dark);
   outline: none;
-  border-radius: 5px;
-  padding: 40px 100px;
+  border-radius: var(--border_radius);
+  padding: 40px 0;
   position: relative;
 }
 
@@ -28,6 +31,7 @@
 }
 
 .payment_options_container button{
-  margin: 60px auto 0px auto;
+  width: 230px;
+  margin: 40px auto 0px auto;
   padding-top: 0px;
 }

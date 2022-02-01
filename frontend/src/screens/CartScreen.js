@@ -85,100 +85,104 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch]);
 
   return (
-    <main className="cart_container">
-      <div className="cart_items card">
-        <div className="header">
-          <h1>Shopping Cart</h1>
-          <h4>Price</h4>
-        </div>
-        {cartItems?.length > 0 ? (
-          <ul>
-            {cartItems?.map((item) => (
-              <li key={item.productId}>
-                <div className="cart_item">
-                  <Link className="image" to={`/products/${item.productId}`}>
-                    <img src={item.image} alt={item.title} />
-                  </Link>
-                  <div className="content">
-                    <Link className="title" to={`/products/${item.productId}`}>
-                      {item.title}
+    <main className="cart_screen">
+      <div className="cart_container">
+        <div className="cart_items card">
+          <div className="header">
+            <h1>Shopping Cart</h1>
+            <h4>Price</h4>
+          </div>
+          {cartItems?.length > 0 ? (
+            <ul>
+              {cartItems?.map((item) => (
+                <li key={item.productId}>
+                  <div className="cart_item">
+                    <Link className="image" to={`/products/${item.productId}`}>
+                      <img src={item.image} alt={item.title} />
                     </Link>
-                    <div className="rating_review">
-                      <Rating rating={item.rating}></Rating>
-                      <span>{`(${item.reviewCount})`}</span>
-                    </div>
-                    <div className="status">
-                      <h5 style={{ color: item.stockCount <= 10 ? 'red' : 'green' }}>
-                        {item.stockCount === 0
-                          ? 'Out of Stock'
-                          : item.stockCount <= 10
-                          ? `Only ${item.stockCount} left in stock - order soon.`
-                          : 'In Stock'}
-                      </h5>
-                    </div>
-                    <div className="control_group">
-                      <select onChange={(e) => dispatch(updateCartItemQty(item, +e.target.value))}>
-                        <option value="">{`Qty: ${item.qty}`}</option>
-                        {[...Array(item.stockCount).keys()]
-                          .slice(0, Math.min(item.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
-                          .map((index) => (
-                            <option key={index + 1} value={index + 1}>
-                              {index + 1}
-                            </option>
-                          ))}
-                      </select>
-                      <Button
-                        className="delete_btn"
-                        onClick={() => removeFromCartHandler(item.productId)}
-                        classes="text"
-                      >
-                        Delete
-                      </Button>
-                      <WishListBtn productId={item.productId} />
+                    <div className="content">
+                      <Link className="title" to={`/products/${item.productId}`}>
+                        {item.title}
+                      </Link>
+                      <div className="rating_review">
+                        <Rating rating={item.rating}></Rating>
+                        <span>{`(${item.reviewCount})`}</span>
+                      </div>
+                      <div className="status">
+                        <h5 style={{ color: item.stockCount <= 10 ? 'red' : 'green' }}>
+                          {item.stockCount === 0
+                            ? 'Out of Stock'
+                            : item.stockCount <= 10
+                            ? `Only ${item.stockCount} left in stock - order soon.`
+                            : 'In Stock'}
+                        </h5>
+                      </div>
+                      <div className="control_group">
+                        <select
+                          onChange={(e) => dispatch(updateCartItemQty(item, +e.target.value))}
+                        >
+                          <option value="">{`Qty: ${item.qty}`}</option>
+                          {[...Array(item.stockCount).keys()]
+                            .slice(0, Math.min(item.stockCount, MAX_PRODUCT_QTY_FOR_PURCHASE))
+                            .map((index) => (
+                              <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                              </option>
+                            ))}
+                        </select>
+                        <Button
+                          className="delete_btn"
+                          onClick={() => removeFromCartHandler(item.productId)}
+                          classes="text"
+                        >
+                          Delete
+                        </Button>
+                        <WishListBtn productId={item.productId} />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <Price price={item.price} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <Message type="info">
-            Your cart is empty <Link to="/">Go Back to Home Screen</Link>
-          </Message>
-        )}
-        {cartItems?.length > 0 && (
-          <div className="subtotal">
-            <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items:</h2>
-            <Price price={cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)} />
-          </div>
-        )}
-      </div>
-      <aside className="sidebar">
-        <div className="sidebar_group">
-          <div className="cart_action_box card">
-            <h3>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items:</h3>
-            <Price price={cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)} />
-            <Button classes="rounded" disabled={cartItems.length === 0} onClick={checkoutHandler}>
-              {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
-            </Button>
-          </div>
-          {userInfo?.token && (
-            <div className="recent_items card">
-              <h3>Your recently viewed items</h3>
-              {recentItemsToShow}
-              <Button classes="text" onClick={() => history.push('/history')}>
-                Your Full Browsing History
-              </Button>
+                  <Price price={item.price} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Message type="info">
+              Your cart is empty <Link to="/">Go Back to Home Screen</Link>
+            </Message>
+          )}
+          {cartItems?.length > 0 && (
+            <div className="subtotal">
+              <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items:</h2>
+              <Price price={cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)} />
             </div>
           )}
         </div>
-      </aside>
-      {userInfo?.token && (
-        <Carousel title={'Your Wish List'}>
-          <WishList isCarousel={true} />
-        </Carousel>
-      )}
+        <aside className="sidebar">
+          <div className="sidebar_group">
+            <div className="cart_action_box card">
+              <h3>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items:</h3>
+              <Price price={cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)} />
+              <Button classes="rounded" disabled={cartItems.length === 0} onClick={checkoutHandler}>
+                {cartItems.length === 0 ? 'Cart is empty' : 'Proceed to checkout'}
+              </Button>
+            </div>
+            {userInfo?.token && (
+              <div className="recent_items card">
+                <h3>Your recently viewed items</h3>
+                {recentItemsToShow}
+                <Button classes="text" onClick={() => history.push('/history')}>
+                  Your Full Browsing History
+                </Button>
+              </div>
+            )}
+          </div>
+        </aside>
+        {userInfo?.token && (
+          <Carousel title={'Your Wish List'}>
+            <WishList isCarousel={true} />
+          </Carousel>
+        )}
+      </div>
     </main>
   );
 };

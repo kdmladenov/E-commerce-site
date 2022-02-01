@@ -1,5 +1,5 @@
 .shipping_screen {
-  background-color: rgb(234, 237, 237);
+  background-color: var(--gray_background);
   padding: 0 20px;
 }
 
@@ -18,7 +18,7 @@
 .address_container {
   color: var(--gray_dark);
   outline: none;
-  border-radius: 5px;
+  border-radius: var(--border_radius);
   padding: 40px 100px;
 }
 

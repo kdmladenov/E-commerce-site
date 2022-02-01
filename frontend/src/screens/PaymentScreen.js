@@ -29,7 +29,7 @@ const PaymentScreen = ({ history }) => {
         <div className="nav card">
           <BreadcrumbsSteps currentStep="Pay Info" steps={checkoutBreadcrumbsSteps} />
         </div>
-        <section className={`payment_options_container card `}>
+        <section className="payment_options_container card flex">
           <h1>Select A Payment Method</h1>
           <form>
             <input
@@ -43,34 +43,11 @@ const PaymentScreen = ({ history }) => {
             <label htmlFor="Paypal">Paypal or Credit Card</label>
           </form>
           <Button classes="yellow rounded" type="submit" onClick={submitHandler}>
-            Continue to Place Order
+            Proceed to Place Order
           </Button>
         </section>
       </div>
     </main>
-
-    // <div className="shipping">
-    //   <div className="container">
-    //     <div className="header">
-    //       <CheckoutBreadcrumbs currentStep="Payment" />
-    //     </div>
-    //     <form>
-    //       <legend>Select A Payment Method</legend>
-    //       <input
-    //         id="Paypal"
-    //         type="radio"
-    //         value={paymentMethod}
-    //         required
-    //         checked
-    //         onChange={(e) => setPaymentMethod(e.target.value)}
-    //       />
-    //       <label htmlFor="Paypal">Paypal or Credit Card</label>
-    //     </form>
-    //     <button type="submit" onClick={submitHandler} className="btn btn-primary">
-    //       Continue
-    //     </button>
-    //   </div>
-    // </div>
   );
 };
 
