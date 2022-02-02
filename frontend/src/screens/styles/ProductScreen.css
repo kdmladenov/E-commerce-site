@@ -1,6 +1,6 @@
 .product_screen_container {
   width: 100%;
-  max-width: 1500px;
+  max-width: 1200px;
   display: grid;
   grid-auto-columns: 100%;
   margin: 0 auto;
