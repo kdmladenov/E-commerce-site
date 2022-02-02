@@ -1,6 +1,5 @@
 .my_orders .order_title_header {
   display: grid;
-  grid-template-columns: 50px 120px 120px 250px 200px 1fr;
   padding: 10px 20px;
   font-weight: 700;
   color: rgb(88, 88, 88);
@@ -11,6 +10,11 @@
   background: var(--white);
   z-index: 100;
 }
+.my_orders .order_title,
+.my_orders .order_title_header {
+  grid-template-columns: 50px 120px 120px 350px 100px 1fr;
+}
+
 .my_orders .header_controls {
   border-radius: 5px 5px 0 0;
   box-shadow: var(--box_shadow);
@@ -22,7 +26,6 @@
 }
 .my_orders .orders_container > h2 {
   text-align: center;
-
 }
 
 .my_orders .accordion .accordion_item:first-child {
@@ -31,12 +34,15 @@
 
 .my_orders .order_title {
   display: grid;
-  grid-template-columns: 50px 120px 120px 250px 200px 1fr;
   gap: 20px;
 }
 
 .my_orders .order_title > div {
   display: flex;
+  align-items: center;
+}
+.my_orders .order_title > div:last-child {
+  flex-direction: column;
   align-items: center;
 }
 .my_orders .order_title .price_container {
@@ -49,6 +55,9 @@
   text-align: left;
   width: 100%;
   font-size: 18px;
+}
+.my_orders .order_title div:last-child {
+  justify-content: flex-start;
 }
 
 .my_orders .order_title > div > span,
@@ -65,16 +74,22 @@
   text-decoration: none;
 }
 
-.my_orders .order_title > div > span.completed {
-  color: var(--spirulina);
+.my_orders .order_title .tooltip span.completed {
+  color: var(--blue);
 }
 
-.my_orders .order_title > div > span.in_progress {
-  color: var(--dory);
+.my_orders .order_title .tooltip span.in_progress {
+  color: var(--green);
 }
 
-.my_orders .order_title > div > span.not_started {
+.my_orders .order_title .tooltip span.not_started {
   color: var(--red);
+}
+
+.my_orders .order_title .tooltip .tooltip_body {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .my_orders .order_item {
@@ -101,6 +116,10 @@
   text-decoration: none;
 }
 
+.my_orders .order_item .image {
+  grid-area: image;
+}
+
 .my_orders .order_item .total {
   grid-area: total;
   display: flex;
@@ -111,37 +130,73 @@
   width: fit-content;
   margin: 3px 5px 0 0;
 }
+.my_orders .order_item button {
+  grid-area: btn;
+}
 
 @media (max-width: 1200px) {
+  .my_orders .order_title,
   .my_orders .order_title_header {
-    grid-template-columns: 50px 120px 120px 200px 1fr;
+    grid-template-columns: 50px 90px 120px 300px 150px 1fr;
   }
 
-  .my_orders .order_title {
-    display: grid;
-    grid-template-columns: 50px 120px 120px 200px 1fr;
-    gap: 20px;
+  .my_orders .accordion_button_group {
+    width: 140px;
+    display: flex;
+    justify-content: center;
   }
+  .my_orders .accordion_button_group .button_group {
+    width: 100%;
+  }
+  .my_orders .accordion_button_group .button_group .button_container {
+    margin: 0;
+    padding: 0 5px;
+    min-width: 80px;
+    width: 80px;
+  }
+}
 
-  .my_orders .order_title_header div:nth-child(4),
-  .my_orders .order_title div:nth-child(4) {
-    display: none;
+@media (max-width: 1024px) {
+  .my_orders .order_title,
+  .my_orders .order_title_header {
+    grid-template-columns: 20px 70px 60px 200px 75px 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .my_orders .order_title_header {
-    grid-template-columns: 20px 90px 70px 100px 100px;
+  .my_orders .accordion_header {
+    grid-template-columns: 1fr 100px;
   }
-
-  .my_orders .order_title {
-    display: grid;
-    grid-template-columns: 20px 90px 70px 100px 100px;
-    gap: 20px;
+  .my_orders .order_title,
+  .my_orders .order_title_header {
+    grid-template-columns: 20px 70px 60px 1fr;
+    gap: 5px;
   }
 
   .my_orders .order_title_header div:nth-child(4),
   .my_orders .order_title div:nth-child(4) {
     display: none;
+  }
+
+  .my_orders .order_item {
+    height: 100px;
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-rows: 50px 25px;
+    grid-template-areas:
+      'image title total'
+      'image btn btn';
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid var(--gray);
+  }
+}
+@media (max-width: 480px) {
+  .my_orders .order_title,
+  .my_orders .order_title_header {
+    grid-template-columns: 20px 50px 60px 1fr;
+    gap: 5px;
+  }
+  .my_orders .order_item {
+    grid-template-columns: 100px 1fr 80px;
   }
 }

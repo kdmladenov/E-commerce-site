@@ -14,6 +14,7 @@ import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../co
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import { DAYS_FOR_DELIVERY } from '../constants/constants';
+import Tooltip from './Tooltip';
 
 const OrdersMy = () => {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const OrdersMy = () => {
                   <span>ID</span>
                 </div>
                 <div>
-                  <span>Order date</span>
+                  <span>Date</span>
                 </div>
                 <div>
                   <span>Total</span>
@@ -73,11 +74,9 @@ const OrdersMy = () => {
                   <span>Ship to</span>
                 </div>
                 <div>
-                  <span>Payment status</span>
+                  <span>Status</span>
                 </div>
-                <div>
-                  <span>Delivery status</span>
-                </div>
+                <div></div>
               </div>
               <Accordion>
                 {orders?.map((order) => (
@@ -89,10 +88,10 @@ const OrdersMy = () => {
                             <strong>{order.orderId}</strong>
                           </div>
                           <div>
-                            <span>{getDate(order.orderDate)}</span>
+                            <span>{getDate(order.orderDate, 0, false, false)}</span>
                           </div>
                           <div>
-                            <Price price={order.totalPrice} color="black" size="small" />
+                            <Price price={order.totalPrice} size="small" />
                           </div>
                           <div>
                             <span>{`${order.shippingAddress} ${
@@ -102,26 +101,43 @@ const OrdersMy = () => {
                             }`}</span>
                           </div>
                           <div>
-                            <span className={order.isDelivered ? 'completed' : 'not_started'}>
-                              {order.isPaid ? ` Paid (${getDate(order.paymentDate)})` : 'Not paid'}
-                            </span>
-                          </div>
-                          <div>
-                            <span
-                              className={
-                                order.isDelivered
-                                  ? 'completed'
-                                  : order.isPaid
-                                  ? 'in_progress'
-                                  : 'not_started'
+                            <Tooltip
+                              text={
+                                <>
+                                  <span>
+                                    {order.isPaid
+                                      ? ` Paid (${getDate(order.paymentDate)})`
+                                      : 'Not paid'}
+                                  </span>
+                                  <span>
+                                    {order.isDelivered
+                                      ? ` Delivered (${getDate(order.deliveryDate)})`
+                                      : order.isPaid
+                                      ? `Shipped (exp. ${getDate(
+                                          order.paymentDate,
+                                          DAYS_FOR_DELIVERY
+                                        )})`
+                                      : ''}
+                                  </span>
+                                </>
                               }
                             >
-                              {order.isDelivered
-                                ? ` Delivered (${getDate(order.deliveryDate)})`
-                                : order.isPaid
-                                ? `Shipped (exp. ${getDate(order.paymentDate, DAYS_FOR_DELIVERY)})`
-                                : 'Not shipped'}
-                            </span>
+                              <span
+                                className={
+                                  order.isDelivered
+                                    ? 'completed'
+                                    : order.isPaid
+                                    ? 'in_progress'
+                                    : 'not_started'
+                                }
+                              >
+                                {order.isDelivered
+                                  ? 'Delivered'
+                                  : order.isPaid
+                                  ? 'Shipped'
+                                  : 'Not Paid'}
+                              </span>
+                            </Tooltip>
                           </div>
                         </div>
                       </Accordion.Title>
@@ -134,21 +150,13 @@ const OrdersMy = () => {
                             Details
                           </Button>
                         </div>
-                        {/* <div className="button_group">
-                      <span>
-                        ORDER # <strong>{`${order.orderId}`}</strong>
-                      </span>
-                      <Link to={`/order/${order.orderId}`}>
-                        <Button classes="text">View order details</Button>
-                      </Link>
-                    </div> */}
                       </Accordion.ButtonGroup>
                     </Accordion.Header>
                     <Accordion.Body>
                       {order?.orderItems?.length === 0 ? (
                         <Message type="error">Order is empty</Message>
                       ) : (
-                        <ul>
+                        <ul className='order_items'>
                           {order?.orderItems?.map((item) => (
                             <li key={item.orderItemId}>
                               <div className="order_item">

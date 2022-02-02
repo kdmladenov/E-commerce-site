@@ -34,7 +34,9 @@
 }
 
 .accordion_header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  grid-template-areas: 'title button_group';
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -51,14 +53,15 @@
 }
 
 .accordion_title {
-  flex: 1;
+  grid-area: title;
   height: 100%;
   font-size: 20px;
   font-weight: 600;
-  color: rgb(88, 88, 88);
+  color: var(--gray_dark);
 }
 
 .accordion_button_group {
+  grid-area: button_group;
   position: relative;
   display: flex;
   justify-content: center;
