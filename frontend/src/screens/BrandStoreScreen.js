@@ -7,24 +7,17 @@ import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import {
+  defaultEndpoint,
   productListPageSizeOptionsMap,
   productListSortOptionsMap
 } from '../constants/inputMaps';
 import './styles/BrandStoreScreen.css';
 
-const defaultEndpoint = {
-  page: 'page=1&',
-  pageSize: 'pageSize=12&',
-  sort: 'sort=price asc&',
-  filter: [],
-  search: ''
-};
-
 const BrandStoreScreen = ({ match }) => {
   const dispatch = useDispatch();
   const brand = match?.params?.brand || '';
 
-  const [endpoint, setEndpoint] = useState(defaultEndpoint);
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['brandStoreScreen']);
 
   const productlist = useSelector((state) => state.productList);
   const { loading, products, error } = productlist;

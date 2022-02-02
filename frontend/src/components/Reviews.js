@@ -7,6 +7,7 @@ import { getUserDetails } from '../actions/userActions';
 import RatingWidget from './RatingWidget';
 import { useHistory } from 'react-router-dom';
 import {
+  defaultEndpoint,
   productListPageSizeOptionsMap,
   ratingFilterOptionsMap,
   reviewsSortOptionsMap
@@ -24,11 +25,8 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
   const productId = productIdProp || match.params.productId;
 
   const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: `pageSize=${isScreen ? 12 : 3}&`,
-    sort: 'sort=dateCreated desc&',
-    rating: 'ratingMin=1&ratingMax=5&',
-    search: ''
+    ...defaultEndpoint['reviews'],
+    pageSize: `pageSize=${isScreen ? 12 : 3}&`
   });
 
   const userLogin = useSelector((state) => state.userLogin);

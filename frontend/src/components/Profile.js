@@ -9,7 +9,7 @@ import './styles/Profile.css';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { useSelector } from 'react-redux';
 import validateInputUser from '../validations/userValidator';
-import ProfileSidebar from './ProfileSidebar';
+import ProfileAvatar from './ProfileAvatar';
 
 const Profile = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -19,7 +19,7 @@ const Profile = ({ user }) => {
 
   return (
     <div className="profile">
-      <ProfileSidebar user={user} />
+      <ProfileAvatar user={user} />
       <div className="profile_header">
         <Button
           classes={`rounded large ${activeTab === 'overview' ? 'blue_light' : 'white'}`}

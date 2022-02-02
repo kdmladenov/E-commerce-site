@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
 import {
   browsingHistorySortOptionsMap,
+  defaultEndpoint,
   productListPageSizeOptionsMap
 } from '../constants/inputMaps';
 import { getRibbonText } from '../constants/utility-functions';
@@ -19,13 +20,7 @@ const History = ({ horizontal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=12&',
-    sort: 'sort=dateVisited desc&',
-    filter: [],
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['history']);
 
   const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
   const { loading, browsingHistory, error } = browsingHistoryList;

@@ -8,7 +8,7 @@ import Message from './Message';
 import { askQuestion, listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import Loader from './Loader';
 import HeaderControls from './HeaderControls';
-import { questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../constants/inputMaps';
+import { defaultEndpoint, questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../constants/inputMaps';
 import { useHistory } from 'react-router-dom';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import { QUESTION } from '../constants/constants';
@@ -22,10 +22,8 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
   const productId = productIdProp || match.params.productId;
 
   const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: `pageSize=${isScreen ? 6 : 3}&`,
-    sort: 'sort=dateCreated desc&',
-    search: ''
+    ...defaultEndpoint['questionsAndAnswers'],
+    pageSize: `pageSize=${isScreen ? 6 : 3}&`
   });
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -35,8 +33,6 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
-
-  console.log(product, 'product');
 
   const questionsAndAnswersList = useSelector((state) => state.questionsAndAnswersList);
   const { questions, loading, error } = questionsAndAnswersList;

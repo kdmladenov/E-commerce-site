@@ -1,5 +1,5 @@
-.profile_sidebar {
-  grid-area: sidebar;
+.profile_avatar {
+  grid-area: avatar;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -11,15 +11,15 @@
   height: 100%;
 }
 
-.profile_sidebar h2 {
+.profile_avatar h2 {
   padding-left: 10px;
 }
 
-.profile_sidebar .avatar_container {
+.profile_avatar .avatar_container {
   position: relative;
 }
 
-.profile_sidebar .avatar_container button {
+.profile_avatar .avatar_container button {
   position: absolute;
   width: 40px;
   height: 40px;
@@ -33,7 +33,7 @@
   color: var(--gray_dark);
 }
 
-.profile_sidebar .avatar_container button.button_container.delete {
+.profile_avatar .avatar_container button.button_container.delete {
   position: absolute;
   width: 40px;
   height: 40px;
@@ -42,9 +42,9 @@
 }
 
 /* Avatar change inputs */
-.profile_sidebar .input_group .image_url,
-.profile_sidebar .input_group .file_upload,
-.profile_sidebar .input_group {
+.profile_avatar .input_group .image_url,
+.profile_avatar .input_group .file_upload,
+.profile_avatar .input_group {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -53,27 +53,35 @@
   align-items: center;
 }
 
-.profile_sidebar .input_group .button_container {
+.profile_avatar .input_group .button_container {
   width: 160px;
 }
 
 /* URL input */
-.profile_sidebar .input_group .image_url input {
+.profile_avatar .input_group .image_url input {
   width: 100%;
 }
 
-.profile_sidebar .input_group .file_upload input[type='file'] {
+.profile_avatar .input_group .file_upload input[type='file'] {
   display: none;
 }
 
-.profile_sidebar .input_group .file_upload label {
+.profile_avatar .input_group .file_upload label {
   cursor: pointer;
 }
-.profile_sidebar .input_group .file_upload .button_container {
+.profile_avatar .input_group .file_upload .button_container {
   margin: 0;
   padding: 0;
 }
 
-.profile_sidebar .divider{
+.profile_avatar .divider {
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .profile_avatar {
+    justify-content: flex-start;
+    border-right: none;
+    border-bottom: 2px solid var(--gray_light);
+  }
 }

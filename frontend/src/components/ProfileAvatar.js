@@ -4,9 +4,9 @@ import { deleteUserAvatar, updateUserAvatarReducer } from '../actions/userAction
 import Avatar from './Avatar';
 import Button from './Button';
 import Divider from './Divider';
-import './styles/ProfileSidebar.css';
+import './styles/ProfileAvatar.css';
 
-const ProfileSidebar = ({ user }) => {
+const ProfileAvatar = ({ user }) => {
   const dispatch = useDispatch();
   const [showImageUrlForm, setShowImageUrlForm] = useState(false);
   const [image, setImage] = useState('');
@@ -30,8 +30,7 @@ const ProfileSidebar = ({ user }) => {
   };
 
   return (
-    <div className="profile_sidebar">
-      <h2>Profile</h2>
+    <div className="profile_avatar">
       <div className="avatar_container">
         <Avatar classes="large" imageUrl={user?.avatar} fullName={user?.fullName} />
         <Button classes="icon" onClick={() => setShowImageUrlForm(!showImageUrlForm)}>
@@ -70,4 +69,4 @@ const ProfileSidebar = ({ user }) => {
   );
 };
 
-export default ProfileSidebar;
+export default ProfileAvatar;

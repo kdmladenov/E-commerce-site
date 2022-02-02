@@ -4,7 +4,7 @@ import { listWishedItems } from '../actions/wishListActions';
 import Loader from './Loader';
 import Message from './Message';
 import './styles/WishList.css';
-import { productListPageSizeOptionsMap, productListSortOptionsMap } from '../constants/inputMaps';
+import { defaultEndpoint, productListPageSizeOptionsMap, productListSortOptionsMap } from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import ProductCard from './ProductCard';
@@ -13,12 +13,7 @@ import { getRibbonText } from '../constants/utility-functions';
 const WishList = ({ isCarousel = false }) => {
   const dispatch = useDispatch();
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=12&',
-    sort: 'sort=price asc&',
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['wishList']);
 
   const wishListItems = useSelector((state) => state.wishListItems);
   const { loading: loadingWishList, wishList, error: errorWishList } = wishListItems;

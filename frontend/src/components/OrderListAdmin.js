@@ -8,11 +8,16 @@ import './styles/OrderListAdmin.css';
 import { listOrders } from '../actions/orderActions';
 import Accordion from './Accordion';
 import { getDate } from '../constants/utility-functions';
-import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
+import {
+  adminListPageSizeOptionsMap,
+  adminOrderListSortOptionsMap,
+  defaultEndpoint
+} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import Price from './Price';
 import HeaderControls from './HeaderControls';
 import { DAYS_FOR_DELIVERY } from '../constants/constants';
+import Tooltip from './Tooltip';
 
 const OrderListAdmin = () => {
   const dispatch = useDispatch();
@@ -24,12 +29,7 @@ const OrderListAdmin = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=10&',
-    sort: 'sort=order_id asc&',
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['orderListAdmin']);
 
   useEffect(() => {
     if (userInfo?.role === 'admin') {
@@ -61,7 +61,7 @@ const OrderListAdmin = () => {
               <span>ID</span>
             </div>
             <div>
-              <span>Order date</span>
+              <span>Date</span>
             </div>
             <div>
               <span>Total</span>
@@ -70,11 +70,9 @@ const OrderListAdmin = () => {
               <span>Ship to</span>
             </div>
             <div>
-              <span>Payment status</span>
+              <span>Status</span>
             </div>
-            <div>
-              <span>Delivery status</span>
-            </div>
+            <div></div>
           </div>
           <Accordion>
             {orders?.map((order) => (
@@ -86,10 +84,10 @@ const OrderListAdmin = () => {
                         <strong>{order.orderId}</strong>
                       </div>
                       <div>
-                        <span>{getDate(order.orderDate)}</span>
+                        <span>{getDate(order.orderDate, 0, false, false)}</span>
                       </div>
                       <div>
-                        <Price price={order.totalPrice} color="black" size="small" />
+                        <Price price={order.totalPrice} size="small" />
                       </div>
                       <div>
                         <span>{`${order.shippingAddress} ${
@@ -99,38 +97,56 @@ const OrderListAdmin = () => {
                         }`}</span>
                       </div>
                       <div>
-                        <span className={order.isDelivered ? 'completed' : 'not_started'}>
-                          {order.isPaid ? ` Paid (${getDate(order.paymentDate)})` : 'Not paid'}
-                        </span>
-                      </div>
-                      <div>
-                        <span
-                          className={
-                            order.isDelivered
-                              ? 'completed'
-                              : order.isPaid
-                              ? 'in_progress'
-                              : 'not_started'
+                        <Tooltip
+                          text={
+                            <>
+                              <span>
+                                {order.isPaid
+                                  ? ` Paid (${getDate(order.paymentDate)})`
+                                  : 'Not paid'}
+                              </span>
+                              <span>
+                                {order.isDelivered
+                                  ? ` Delivered (${getDate(order.deliveryDate)})`
+                                  : order.isPaid
+                                  ? `Shipped (exp. ${getDate(
+                                      order.paymentDate,
+                                      DAYS_FOR_DELIVERY
+                                    )})`
+                                  : ''}
+                              </span>
+                            </>
                           }
                         >
-                          {order.isDelivered
-                            ? ` Delivered (${getDate(order.deliveryDate)})`
-                            : order.isPaid
-                            ? `Shipped (exp. ${getDate(order.paymentDate, DAYS_FOR_DELIVERY)})`
-                            : 'Not shipped'}
-                        </span>
+                          <span
+                            className={
+                              order.isDelivered
+                                ? 'completed'
+                                : order.isPaid
+                                ? 'in_progress'
+                                : 'not_started'
+                            }
+                          >
+                            {order.isDelivered
+                              ? 'Delivered'
+                              : order.isPaid
+                              ? 'Shipped'
+                              : 'Not Paid'}
+                          </span>
+                        </Tooltip>
                       </div>
                     </div>
                   </Accordion.Title>
                   <Accordion.ButtonGroup>
-                    <div className="button_group">
+                    <Tooltip direction="top" text="Details">
                       <Button
                         classes="white rounded"
                         onClick={() => history.push(`/order/${order.orderId}`)}
                       >
-                        Details
+                        <i className="fa fa-share" />
+                        <span>Details</span>
                       </Button>
-                    </div>
+                    </Tooltip>
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
                 <Accordion.Body>
