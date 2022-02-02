@@ -10,7 +10,11 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Button from './Button';
 import Price from './Price';
-import { adminListPageSizeOptionsMap, adminOrderListSortOptionsMap } from '../constants/inputMaps';
+import {
+  adminListPageSizeOptionsMap,
+  adminOrderListSortOptionsMap,
+  defaultEndpoint
+} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import { DAYS_FOR_DELIVERY } from '../constants/constants';
@@ -20,12 +24,7 @@ const OrdersMy = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=10&',
-    sort: 'sort=order_id desc&',
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['ordersMy']);
 
   const orderMyList = useSelector((state) => state.orderMyList);
   const { loading, error, orders } = orderMyList;
@@ -142,21 +141,22 @@ const OrdersMy = () => {
                         </div>
                       </Accordion.Title>
                       <Accordion.ButtonGroup>
-                        <div className="button_group">
+                        <Tooltip direction="top" text="Details">
                           <Button
                             classes="white rounded"
                             onClick={() => history.push(`/order/${order.orderId}`)}
                           >
-                            Details
+                            <i className="fa fa-share" />
+                            <span>Details</span>
                           </Button>
-                        </div>
+                        </Tooltip>
                       </Accordion.ButtonGroup>
                     </Accordion.Header>
                     <Accordion.Body>
                       {order?.orderItems?.length === 0 ? (
                         <Message type="error">Order is empty</Message>
                       ) : (
-                        <ul className='order_items'>
+                        <ul className="order_items">
                           {order?.orderItems?.map((item) => (
                             <li key={item.orderItemId}>
                               <div className="order_item">
@@ -164,14 +164,14 @@ const OrdersMy = () => {
                                   <img src={item.image} alt={item.title} />
                                 </div>
                                 <div className="title">
-                                  <Link to={`/products/${item.orderItemId}`}>{item.title}</Link>
+                                  <Link to={`/products/${item.productId}`}>{item.title}</Link>
                                 </div>
                                 <div className="total">
                                   <Price price={item.price} size="small" />
                                   <span>{` x ${item.qty}`}</span>
                                 </div>
                                 <Button
-                                  onClick={() => addToCartHandler(item.orderItemId)}
+                                  onClick={() => addToCartHandler(item.productId)}
                                   classes="rounded small"
                                   className="order_item_btn"
                                   disabled={item.stockCount === 0}

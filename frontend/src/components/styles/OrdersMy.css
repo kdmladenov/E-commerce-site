@@ -1,63 +1,59 @@
-.my_orders .order_title_header {
-  display: grid;
-  padding: 10px 20px;
-  font-weight: 700;
-  color: rgb(88, 88, 88);
-  gap: 20px;
-  position: sticky;
-  top: 0px;
-  box-shadow: var(--box_shadow);
-  background: var(--white);
-  z-index: 100;
-}
-.my_orders .order_title,
-.my_orders .order_title_header {
-  grid-template-columns: 50px 120px 120px 350px 100px 1fr;
-}
-
+/* Header controls */
 .my_orders .header_controls {
   border-radius: 5px 5px 0 0;
   box-shadow: var(--box_shadow);
 }
 
-.my_orders .orders_container {
-  background-color: var(--white);
-  padding: 40px auto;
+/* Header */
+.my_orders .order_title_header {
+  display: grid;
+  grid-template-columns: 50px 120px 120px 1fr 100px 150px;
+  padding: 10px 20px;
+  font-weight: 700;
+  color: var(--gray_dark);
+  gap: 20px;
+  position: sticky;
+  top: 0px;
+  box-shadow: var(--box_shadow);
+  background: var(--white);
+  z-index: 10;
 }
-.my_orders .orders_container > h2 {
-  text-align: center;
+/* Accordion Header */
+.my_orders .accordion_header {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  padding: 10px 20px;
+  /* justify-content: center; */
+  gap: 20px;
+}
+/* Button group */
+.my_orders .accordion_header .accordion_button_group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .my_orders .accordion .accordion_item:first-child {
   border-radius: 0;
 }
 
+/* Accordion Header without button group*/
 .my_orders .order_title {
   display: grid;
+  grid-template-columns: 50px 120px 120px 1fr 100px;
   gap: 20px;
+  padding: 0;
 }
 
 .my_orders .order_title > div {
   display: flex;
   align-items: center;
 }
-.my_orders .order_title > div:last-child {
-  flex-direction: column;
-  align-items: center;
-}
+
 .my_orders .order_title .price_container {
   justify-content: flex-start;
   color: rgb(88, 88, 88);
-}
-
-.my_orders .order_title div,
-.my_orders .order_title_header > div span {
-  text-align: left;
-  width: 100%;
-  font-size: 18px;
-}
-.my_orders .order_title div:last-child {
-  justify-content: flex-start;
 }
 
 .my_orders .order_title > div > span,
@@ -73,7 +69,7 @@
   text-overflow: ellipsis;
   text-decoration: none;
 }
-
+/* Statuses */
 .my_orders .order_title .tooltip span.completed {
   color: var(--blue);
 }
@@ -91,7 +87,7 @@
   flex-direction: column;
   width: fit-content;
 }
-
+/* Order Item - open accordion */
 .my_orders .order_item {
   display: grid;
   grid-template-columns: 75px 1fr 100px 170px;
@@ -130,51 +126,54 @@
   width: fit-content;
   margin: 3px 5px 0 0;
 }
+
+/* Add to cart Button */
 .my_orders .order_item button {
   grid-area: btn;
 }
 
-@media (max-width: 1200px) {
-  .my_orders .order_title,
+@media (max-width: 1024px) {
   .my_orders .order_title_header {
-    grid-template-columns: 50px 90px 120px 300px 150px 1fr;
+    grid-template-columns: 20px 50px 65px 1fr 100px 100px;
   }
 
-  .my_orders .accordion_button_group {
-    width: 140px;
-    display: flex;
-    justify-content: center;
+  .my_orders .accordion_header {
+    grid-template-columns: 1fr 100px;
   }
-  .my_orders .accordion_button_group .button_group {
-    width: 100%;
+  .my_orders .order_title {
+    grid-template-columns: 20px 50px 65px 1fr 100px;
   }
-  .my_orders .accordion_button_group .button_group .button_container {
+  .my_orders .accordion_button_group .button_container {
     margin: 0;
     padding: 0 5px;
-    min-width: 80px;
-    width: 80px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .my_orders .order_title,
-  .my_orders .order_title_header {
-    grid-template-columns: 20px 70px 60px 200px 75px 1fr;
+    min-width: 100px;
+    width: 100px;
   }
 }
 
 @media (max-width: 768px) {
-  .my_orders .accordion_header {
-    grid-template-columns: 1fr 100px;
-  }
-  .my_orders .order_title,
   .my_orders .order_title_header {
-    grid-template-columns: 20px 70px 60px 1fr;
-    gap: 5px;
+    grid-template-columns: 20px 50px 65px 1fr 100px 30px;
+    padding: 10px 5px;
+    gap: 10px;
   }
 
-  .my_orders .order_title_header div:nth-child(4),
-  .my_orders .order_title div:nth-child(4) {
+  .my_orders .accordion_header {
+    grid-template-columns: 1fr 30px;
+    gap: 10px;
+    padding: 10px 5px;
+  }
+  .my_orders .order_title {
+    grid-template-columns: 20px 50px 65px 1fr 100px;
+    gap: 10px;
+  }
+
+  .my_orders .accordion_button_group .button_container {
+    width: 26px;
+    min-width: 26px;
+    padding: 5px;
+  }
+  .my_orders .accordion_button_group .button_container span {
     display: none;
   }
 
@@ -187,16 +186,30 @@
       'image btn btn';
     justify-content: space-between;
     gap: 10px;
-    border-bottom: 1px solid var(--gray);
   }
 }
 @media (max-width: 480px) {
-  .my_orders .order_title,
   .my_orders .order_title_header {
-    grid-template-columns: 20px 50px 60px 1fr;
-    gap: 5px;
+    grid-template-columns: 20px 50px 65px 1fr 30px;
+    padding: 10px 5px;
+    gap: 10px;
   }
-  .my_orders .order_item {
-    grid-template-columns: 100px 1fr 80px;
+
+  .my_orders .accordion_header {
+    grid-template-columns: 1fr 30px;
+    gap: 10px;
+    padding: 10px 5px;
+  }
+  .my_orders .order_title {
+    grid-template-columns: 20px 50px 65px 1fr;
+    gap: 10px;
+  }
+  .my_orders .order_title_header div:nth-child(4),
+  .my_orders .order_title div:nth-child(4) {
+    display: none;
+  }
+  .my_orders .accordion_body {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
