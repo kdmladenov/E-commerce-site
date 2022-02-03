@@ -3,8 +3,8 @@
   grid-template-columns: 300px 1fr;
   grid-template-rows: 70px minmax(450px, 1fr);
   grid-template-areas:
-    'sidebar header'
-    'sidebar form';
+    'avatar header'
+    'avatar form';
   gap: 20px;
 }
 
@@ -36,4 +36,16 @@
 
 .profile .profile_form {
   padding: 20px 40px;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 70px minmax(450px, 1fr);
+    grid-template-areas:
+      'avatar'
+      'header'
+      'form';
+    gap: 20px;
+  }
 }
