@@ -1,5 +1,5 @@
-.product_specifications_edit {
-}
+/* .product_specifications_edit {
+} */
 
 /* Form  */
 .product_specifications_edit .product_specifications_edit_form {
@@ -23,4 +23,13 @@
   font-size: 16px;
   font-weight: 400;
   box-shadow: var(--box_shadow_2);
+}
+
+@media (max-width: 768px) {
+  .product_specifications_edit .product_specifications_edit_form {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 480px) {
 }
