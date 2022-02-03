@@ -7,20 +7,20 @@ import Accordion from './Accordion';
 import Loader from './Loader';
 import Message from './Message';
 import Profile from './Profile';
-import { adminListPageSizeOptionsMap, adminUserListSortOptionsMap } from '../constants/inputMaps';
+import {
+  adminListPageSizeOptionsMap,
+  adminUserListSortOptionsMap,
+  defaultEndpoint
+} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import Avatar from './Avatar';
+import Tooltip from './Tooltip';
 
 const UserListAdmin = ({ history }) => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('profile');
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=10&',
-    sort: 'sort=user_id asc&',
-    search: ''
-  });
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['userListAdmin']);
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
@@ -62,12 +62,12 @@ const UserListAdmin = ({ history }) => {
 
   // // TO DO implement restore user
   const deleteUserHandler = (userId) => {
-    window.confirm('Are your sure you want to delete this user?');
+    // window.confirm('Are your sure you want to delete this user?');
     dispatch(deleteUser(userId));
   };
 
   const restoreUserHandler = (userId) => {
-    window.confirm('Are your sure you want to restore this user?');
+    // window.confirm('Are your sure you want to restore this user?');
     dispatch(restoreUser(userId));
   };
 
@@ -91,7 +91,7 @@ const UserListAdmin = ({ history }) => {
               <span>ID</span>
             </div>
             <div>
-              <span>Name</span>
+              <span>User</span>
             </div>
             <div>
               <span>Email</span>
@@ -99,23 +99,21 @@ const UserListAdmin = ({ history }) => {
             <div>
               <span>Active</span>
             </div>
+            <div></div>
           </div>
-          <Accordion className="user_list">
+          <Accordion>
             {users?.map((user) => (
               <Accordion.Item key={user.userId}>
                 <Accordion.Header>
                   <Accordion.Title>
                     <div className="user_title">
-                      <div>
-                        <strong>{user.userId}</strong>
-                      </div>
-                      <div className="avatar">
+                      <strong>{user.userId}</strong>
+                      <div className="user_avatar">
                         <Avatar fullName={user.fullName} imageUrl={user.avatar} />
+                        <span>{user.fullName}</span>
                       </div>
-                      <div>
-                        <span>{user.email}</span>
-                      </div>
-                      <div>
+                      <span className="email">{user.email}</span>
+                      <div className="active">
                         {!user.isDeleted ? (
                           <i className="fa fa-check" style={{ color: 'green' }}></i>
                         ) : (
@@ -124,32 +122,43 @@ const UserListAdmin = ({ history }) => {
                       </div>
                     </div>
                   </Accordion.Title>
-                  <Accordion.ButtonGroup className="button_group">
-                    <Button
-                      classes="white rounded"
-                      className={`tab_button ${activeTab === 'profile' && 'active'}`}
-                      onClick={() => setActiveTab('profile')}
-                    >
-                      Profile
-                    </Button>
-                    <Button
-                      classes="white rounded"
-                      className={`tab_button ${activeTab === 'orders' && 'active'}`}
-                      onClick={() => setActiveTab('orders')}
-                    >
-                      Orders
-                    </Button>
-                    <Button
-                      classes="white rounded"
-                      disabled={user.userId === userInfo?.userId}
-                      onClick={() =>
-                        !user.isDeleted
-                          ? deleteUserHandler(user.userId)
-                          : restoreUserHandler(user.userId)
-                      }
-                    >
-                      {!user.isDeleted ? 'Delete' : 'Restore'}
-                    </Button>
+                  <Accordion.ButtonGroup>
+                    <div className="button_group">
+                      <Tooltip direction="top" text="Profile">
+                        <Button
+                          classes="white rounded"
+                          className={`tab_button ${activeTab === 'profile' && 'active'}`}
+                          onClick={() => setActiveTab('profile')}
+                        >
+                          <i className="fa fa-user" />
+                          <span>Profile</span>
+                        </Button>
+                      </Tooltip>
+                      <Tooltip direction="top" text="Orders">
+                        <Button
+                          classes="white rounded"
+                          className={`tab_button ${activeTab === 'orders' && 'active'}`}
+                          onClick={() => setActiveTab('orders')}
+                        >
+                          <i className="fa fa-list" />
+                          <span>Orders</span>
+                        </Button>
+                      </Tooltip>
+                      <Tooltip direction="top" text={!user.isDeleted ? 'Delete' : 'Restore'}>
+                        <Button
+                          classes="white rounded"
+                          disabled={user.userId === userInfo?.userId}
+                          onClick={() =>
+                            !user.isDeleted
+                              ? deleteUserHandler(user.userId)
+                              : restoreUserHandler(user.userId)
+                          }
+                        >
+                          <i className={`fa fa-${!user.isDeleted ? 'trash' : 'undo'}`} />
+                          <span>{!user.isDeleted ? 'Delete' : 'Restore'}</span>
+                        </Button>
+                      </Tooltip>
+                    </div>
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
                 <Accordion.Body>
