@@ -21,6 +21,7 @@
   min-height: 100%;
 }
 
+.button_nav_container.product_edit .tab,
 .button_nav_container.account .tab {
   width: 25%;
 }
@@ -38,6 +39,7 @@
   border-radius: 5px 5px 0 0;
 }
 
+.button_nav_container.product_edit .tab.active,
 .button_nav_container.account .tab.active {
   color: var(--blue_middle);
   font-weight: bold;

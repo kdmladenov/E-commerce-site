@@ -1,5 +1,6 @@
 .product_edit_screen {
   background-color: var(--gray_background);
+  padding: 0 20px;
 }
 
 .product_edit_container {
@@ -32,7 +33,7 @@
   width: 25%;
 }
 
-.product_edit_container button:disabled.tab  {
+.product_edit_container button:disabled.tab {
   color: var(--gray);
   pointer-events: none;
 }
@@ -58,4 +59,10 @@
 
 .product_edit_container .content.active {
   display: block;
+}
+
+@media (max-width: 768px) {
+  .product_edit_screen {
+    padding: 0px;
+  }
 }

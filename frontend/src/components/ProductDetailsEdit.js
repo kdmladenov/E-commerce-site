@@ -38,7 +38,7 @@ const ProductDetailsEdit = ({ productId }) => {
     if (successCreate) {
       dispatch({ type: PRODUCT_CREATE_RESET });
       dispatch(listProductDetails(createdProduct.productId));
-      history.push(`/admin/product/${createdProduct.productId}/edit`);
+      history.push(`/admin/products/${createdProduct.productId}/edit/details`);
     }
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
@@ -61,12 +61,6 @@ const ProductDetailsEdit = ({ productId }) => {
         <Message type="error">{error}</Message>
       ) : (
         <div className="product_details_edit_form card">
-          {/* <div className="product_edit_go_back">
-            <Link to="/admin/main/productlist">
-              <Button>Go back</Button>
-            </Link>
-          </div> */}
-          {/* <h1>Edit Product Details</h1> */}
           <FormComponent
             inputData={productDetailsInitialInputState}
             updateAction={updateProduct}

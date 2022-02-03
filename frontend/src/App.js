@@ -45,8 +45,8 @@ const App = () => {
       <Route path="/placeorder" component={PlaceOrderScreen} />
       <Route path="/order/:orderId" component={OrderScreen} />
       <Route path="/admin/main/:section" component={AdminScreen} />
-      <Route path="/admin/product/create" component={ProductEditScreen} />
-      <Route path="/admin/product/:productId/edit" component={ProductEditScreen} />
+      <Route path="/admin/products/create" component={ProductEditScreen} />
+      <Route path="/admin/products/:productId/edit/:section" component={ProductEditScreen} />
       <Route path="/products/:productId" component={ProductScreen} />
       <Route path="/reviews/:productId" component={ReviewsScreen} />
       <Route path="/questions/:productId" component={QuestionsAndAnswersScreen} />

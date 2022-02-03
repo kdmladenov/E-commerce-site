@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ButtonNav from '../components/ButtonNav';
 import ProductDetailsEdit from '../components/ProductDetailsEdit';
 import ProductFeaturesEdit from '../components/ProductFeaturesEdit';
 import ProductImagesEdit from '../components/ProductImagesEdit';
@@ -6,42 +7,19 @@ import ProductSpecificationsEdit from '../components/ProductSpecificationsEdit';
 import './styles/ProductEditScreen.css';
 
 const ProductEditScreen = ({ match }) => {
-  const productId = match.params.productId;
+  console.log(match.params);
+  const { productId, section } = match.params;
+  console.log(productId, section, 'productId, section');
 
-  const [activeTab, setActiveTab] = useState('details');
+  const [activeTab, setActiveTab] = useState(section);
+  console.log(section);
+
+  useEffect(() => setActiveTab(section || 'details'), [section]);
 
   return (
     <main className="product_edit_screen">
       <div className="product_edit_container">
-        <div className="header card">
-          <button
-            className={`tab ${activeTab === 'details' && 'active'}`}
-            onClick={() => setActiveTab('details')}
-          >
-            {productId ? `Edit Product` : `Create Product`}
-          </button>
-          <button
-            className={`tab ${activeTab === 'images' && 'active'}`}
-            onClick={() => setActiveTab('images')}
-            disabled={!productId}
-          >
-            Add Product Images
-          </button>
-          <button
-            className={`tab ${activeTab === 'specifications' && 'active'}`}
-            onClick={() => setActiveTab('specifications')}
-            disabled={!productId}
-          >
-            {productId ? `Edit Product Specifications` : `Add Product Specifications`}
-          </button>
-          <button
-            className={`tab ${activeTab === 'features' && 'active'}`}
-            onClick={() => setActiveTab('features')}
-            disabled={!productId}
-          >
-            Add/Edit Product Features
-          </button>
-        </div>
+        <ButtonNav activeTab={activeTab} screen="product_edit" productId={productId} />
         <section
           className={`product_details_edit_container content ${
             activeTab === 'details' && 'active'

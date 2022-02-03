@@ -40,7 +40,9 @@
   opacity: 1;
 }
 
-.dropdown .body.show li:hover {
+
+.dropdown .body.show a:hover {
   background-color: var(--gray_background);
   z-index: 1;
+  cursor: pointer;
 }
