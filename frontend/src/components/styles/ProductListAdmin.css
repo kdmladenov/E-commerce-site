@@ -1,43 +1,39 @@
-.product_list_admin .accordion .accordion_header {
+.product_list_admin .product_title_header {
   display: grid;
-  padding: 0 20px;
-  grid-template-columns: 2.5fr 1fr;
-  height: 50px;
-  grid-gap: 15px;
-}
-
-.product_list_admin .product_header {
+  grid-template-columns: 20px 70px 1fr 65px 50px 330px;
+  padding: 10px 20px;
+  font-weight: 700;
+  color: var(--black);
+  gap: 20px;
   position: sticky;
   top: 0px;
   box-shadow: var(--box_shadow);
   background: var(--white);
-  z-index: 100;
+  z-index: 10;
 }
 
-.product_list_admin .product_title_header {
+.product_list_admin .product_title_header .buttons button {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_list_admin .accordion .accordion_header {
   display: grid;
-  width: 100%;
   padding: 0 20px;
-  grid-template-columns: 2.5fr 1fr;
+  grid-template-columns: 1fr 330px;
   height: 50px;
   grid-gap: 15px;
 }
 
-.product_list_admin .product_title_header .titles {
-  display: grid;
-  grid-template-columns: 20px 70px 1fr 70px 50px;
-  padding: 10px 0;
-  justify-content: center;
-  font-weight: 700;
-  color: rgb(88, 88, 88);
-  gap: 15px;
-}
-
-.product_list_admin .product_title_header .buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
+/* .product_list_admin .product_header {
+  position: sticky;
+  top: 0px;
+  box-shadow: var(--box_shadow);
+  background: var(--red);
+  z-index: 100;
+} */
 
 .product_list_admin .header_controls {
   border-radius: 5px 5px 0 0;
@@ -48,16 +44,16 @@
   border-radius: 0;
 }
 
-.product_list_admin .accordion .accordion_header .product_list_admin_card {
+.product_list_admin .accordion .accordion_header .product_title {
   display: grid;
-  grid-template-columns: 20px 70px 1fr 70px 50px;
+  grid-template-columns: 20px 70px 1fr 65px 50px;
   padding: 0;
   justify-content: flex-start;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
-.product_list_admin .accordion .accordion_header .product_list_admin_card > * {
+.product_list_admin .accordion .accordion_header .product_title > * {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,15 +66,25 @@
 
 .product_list_admin .accordion .accordion_header .button_container {
   margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.product_list_admin .accordion .accordion_header .product_list_admin_card .image {
+.product_list_admin .accordion .accordion_header .button_container i {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+}
+
+.product_list_admin .accordion .accordion_header .product_title .image {
   padding: 7px;
   height: 50px;
   width: 60px;
 }
 
-.product_list_admin .accordion .accordion_header .product_list_admin_card .title {
+.product_list_admin .accordion .accordion_header .product_title .title {
   height: 15px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -94,4 +100,128 @@
 
 .product_list_admin .accordion .accordion_button_group {
   max-width: 1000px;
+}
+.product_list_admin .product_details {
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas:
+    'image_sidebar info'
+    'image info';
+}
+
+.product_list_admin .product_details .product_image_sidebar ul {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+/* .product_list_admin .product_details {
+  grid-template-columns: 90px 1fr 1fr;
+  grid-template-areas: 'image_sidebar image info';
+} */
+
+/* .product_list_admin .product_details .product_screen_action_box {
+  display: none;
+} */
+
+@media (max-width: 1024px) {
+  .product_list_admin .product_title_header {
+    grid-template-columns: 20px 70px 1fr 65px 30px 200px;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header {
+    padding: 0 20px;
+    grid-template-columns: 1fr 200px;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header .product_title {
+    grid-template-columns: 20px 70px 1fr 65px 30px;
+    padding: 0;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header .button_group {
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header .button_container {
+    width: 60px;
+    min-width: 60px;
+    padding: 5px;
+  }
+  .product_list_admin .product_title_header .buttons button i,
+  .product_list_admin .accordion .accordion_header .button_container i {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .product_list_admin .product_title_header {
+    grid-template-columns: 20px 70px 1fr 65px 30px 100px;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header {
+    padding: 0 10px;
+    grid-template-columns: 1fr 100px;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header .product_title {
+    grid-template-columns: 20px 70px 1fr 65px 30px;
+    padding: 0;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header .button_group {
+    gap: 0px;
+  }
+  .product_list_admin .accordion .accordion_header .button_container {
+    width: 26px;
+    min-width: 26px;
+    padding: 5px;
+  }
+  .product_list_admin .accordion .accordion_header .button_container i {
+    display: flex;
+  }
+  .product_list_admin .product_title_header .buttons button span,
+  .product_list_admin .accordion .accordion_header .button_container span {
+    display: none;
+  }
+  .product_list_admin .product_title_header .buttons button i {
+    display: block;
+  }
+
+  .product_list_admin .product_title_header .buttons button {
+    width: 40px;
+    min-width: 40px;
+  }
+  .product_list_admin .product_details {
+    grid-template-columns: 100%;
+    grid-template-rows: 60px 0.3fr 1fr;
+    grid-template-areas:
+      'image_sidebar'
+      'image'
+      'info';
+    padding: 30px 0 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .product_list_admin .product_title_header {
+    grid-template-columns: 20px 1fr 65px 30px 100px;
+    padding: 10px 10px;
+    gap: 5px;
+  }
+  .product_list_admin .accordion .accordion_header {
+    padding: 0 10px;
+    grid-template-columns: 1fr 100px;
+    gap: 10px;
+  }
+  .product_list_admin .accordion .accordion_header .product_title {
+    grid-template-columns: 20px 1fr 65px 30px;
+    padding: 0;
+    gap: 5px;
+  }
+  .product_list_admin .product_title_header div:nth-child(2),
+  .product_list_admin .accordion .accordion_header .product_title div:nth-child(2),
+  .product_list_admin .product_title_header .buttons button span {
+    display: none;
+  }
 }

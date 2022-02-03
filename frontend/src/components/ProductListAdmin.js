@@ -9,7 +9,8 @@ import './styles/ProductListAdmin.css';
 import Accordion from './Accordion';
 import {
   adminListPageSizeOptionsMap,
-  adminProductListSortOptionsMap
+  adminProductListSortOptionsMap,
+  defaultEndpoint
 } from '../constants/inputMaps';
 import Pagination from './Pagination';
 import { deleteProduct, listProducts, restoreProduct } from '../actions/productActions';
@@ -17,10 +18,13 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import HeaderControls from './HeaderControls';
 import Price from './Price';
 import ProductDetails from './ProductDetails';
+import Tooltip from './Tooltip';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [endpoint, setEndpoint] = useState(defaultEndpoint['productListAdmin']);
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
@@ -54,16 +58,8 @@ const ProductListAdmin = () => {
 
   const createProductHandler = () => {
     dispatch({ type: PRODUCT_CREATE_RESET });
-    history.push(`/admin/product/create`);
+    history.push(`/admin/products/create`);
   };
-
-  const [endpoint, setEndpoint] = useState({
-    page: 'page=1&',
-    pageSize: 'pageSize=10&',
-    sort: 'sort=productId asc&',
-    search: '',
-    role: 'role=admin'
-  });
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
@@ -71,7 +67,7 @@ const ProductListAdmin = () => {
       history.push('/login');
     }
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct.productId}/edit`);
+      history.push(`/admin/products/${createdProduct.productId}/edit/details`);
     } else {
       const { page, pageSize, sort, search, role } = endpoint;
       dispatch(listProducts(`${page}${pageSize}${sort}${search}${role}`));
@@ -108,30 +104,26 @@ const ProductListAdmin = () => {
         <Message type="error">{error}</Message>
       ) : products?.length > 0 ? (
         <>
-          <div className="product_header">
-            <div className="product_title_header">
-              <div className="titles">
-                <div>
-                  <span>ID</span>
-                </div>
-                <div>
-                  <span>Image</span>
-                </div>
-                <div>
-                  <span>Title</span>
-                </div>
-                <div>
-                  <span>Price</span>
-                </div>
-                <div>
-                  <span>Active</span>
-                </div>
-              </div>
-              <div className="buttons">
-                <Button classes="rounded" onClick={createProductHandler}>
-                  <i className="fas fa-plus" /> Create Product
-                </Button>
-              </div>
+          <div className="product_title_header">
+            <div>
+              <span>ID</span>
+            </div>
+            <div>
+              <span>Image</span>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+            <div>
+              <span>Price</span>
+            </div>
+            <div>
+              <span>Active</span>
+            </div>
+            <div className="buttons">
+              <Button classes="rounded" onClick={createProductHandler}>
+                <i className="fas fa-plus" /> <span>Create</span>
+              </Button>
             </div>
           </div>
           <Accordion>
@@ -139,7 +131,7 @@ const ProductListAdmin = () => {
               <Accordion.Item key={product.productId}>
                 <Accordion.Header>
                   <Accordion.Title>
-                    <div className="product_list_admin_card">
+                    <div className="product_title">
                       <strong>{product.productId}</strong>
                       <div className="image ">
                         <img src={product.image} alt={product.title} />
@@ -158,26 +150,39 @@ const ProductListAdmin = () => {
                   <Accordion.ButtonGroup>
                     <div className="button_group">
                       <Link to={`/products/${product.productId}`}>
-                        <Button classes="white rounded">Details</Button>
+                        <Tooltip direction="top" text="Details">
+                          <Button classes="white rounded">
+                            <i className="fa fa-share" />
+                            <span>Details</span>
+                          </Button>
+                        </Tooltip>
                       </Link>
-                      <Link to={`/admin/product/${product.productId}/edit`}>
-                        <Button classes="white rounded">Edit</Button>
+                      <Link to={`/admin/products/${product.productId}/edit/details`}>
+                        <Tooltip direction="top" text="Edit">
+                          <Button classes="white rounded">
+                            <i className="fa fa-edit" />
+                            <span>Edit</span>
+                          </Button>
+                        </Tooltip>
                       </Link>
-                      <Button
-                        classes="white rounded"
-                        onClick={() =>
-                          !product.isDeleted
-                            ? deleteProductHandler(product.productId)
-                            : restoreProductHandler(product.productId)
-                        }
-                      >
-                        {!product.isDeleted ? 'Delete' : 'Restore'}
-                      </Button>
+                      <Tooltip direction="top" text={!product.isDeleted ? 'Delete' : 'Restore'}>
+                        <Button
+                          classes="white rounded"
+                          onClick={() =>
+                            !product.isDeleted
+                              ? deleteProductHandler(product.productId)
+                              : restoreProductHandler(product.productId)
+                          }
+                        >
+                          <i className={`fa fa-${!product.isDeleted ? 'trash' : 'refresh'}`} />
+                          <span>{!product.isDeleted ? 'Delete' : 'Restore'}</span>
+                        </Button>
+                      </Tooltip>
                     </div>
                   </Accordion.ButtonGroup>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <section className="product_details hidden_action_box">
+                  <section className="product_details">
                     <ProductDetails product={product} productListAdmin={true} />
                   </section>
                 </Accordion.Body>

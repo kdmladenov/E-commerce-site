@@ -74,13 +74,20 @@ header .menu_user ul {
   justify-content: left;
 }
 
-header .menu_admin li a,
-header .menu_user li a,
-header .menu_user > div {
+header .menu_admin a li,
+header .menu_user a li,
+header .menu_user div {
   white-space: nowrap;
 }
 
-header .menu_user li:last-child {
+header .menu_admin a li:hover,
+header .menu_user a li:hover,
+header ul.menu_user div:hover {
+  background-color: var(--gray_background);
+  cursor: pointer;
+}
+
+header ul.menu_user div {
   border-top: 2px solid var(--gray);
 }
 

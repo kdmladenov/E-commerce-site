@@ -59,11 +59,11 @@ const Header = () => {
           {userInfo?.token ? (
             <ul className="menu_user">
               {userMenuMap.map((link, index) => (
-                <li key={index}>
-                  <NavLink to={link.path}>{link.label}</NavLink>
-                </li>
+                <NavLink to={link.path}>
+                  <li key={index}>{link.label}</li>
+                </NavLink>
               ))}
-              <li onClick={() => dispatch(logout())}>Log out</li>
+              <div onClick={() => dispatch(logout())}>Log out</div>
             </ul>
           ) : (
             <Login />
@@ -81,9 +81,9 @@ const Header = () => {
           >
             <ul className="menu_admin">
               {adminMenuMap.map((link, index) => (
-                <li key={index}>
-                  <NavLink to={link.path}>{link.label}</NavLink>
-                </li>
+                <NavLink to={link.path}>
+                  <li key={index}>{link.label}</li>
+                </NavLink>
               ))}
             </ul>
           </DropDown>
