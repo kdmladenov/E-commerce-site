@@ -35,16 +35,6 @@ const BrandStoreScreen = ({ match }) => {
     });
   }, [brand]);
 
-  const productsToShow = (
-    <ul>
-      {products?.map((product) => (
-        <li className="product_list_item card" key={product.productId}>
-          <ProductCard product={product} />
-        </li>
-      ))}
-    </ul>
-  );
-
   return (
     <main className="brand_store">
       <div className="brand_store_container">
@@ -66,7 +56,11 @@ const BrandStoreScreen = ({ match }) => {
         ) : (
           <div className="product_list">
             <h1>{`${brand} laptops`}</h1>
-            {productsToShow}
+            <ul>
+              {products?.map((product) => (
+                <ProductCard product={product} key={product.productId} />
+              ))}
+            </ul>
             <div className="footer">
               {products?.length > 0 && (
                 <Pagination

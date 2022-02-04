@@ -1,10 +1,11 @@
 .brand_store {
   background-color: var(--gray_background);
+  padding: 0 20px;
 }
 
 .brand_store_container {
   display: grid;
-  max-width: 1500px;
+  max-width: 1200px;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   grid-template-rows: 50px 1fr;
@@ -12,17 +13,31 @@
     'header_controls'
     'product_list';
   margin: 0 auto;
+  background-color: var(--white);
+  border-radius: var(--border_radius);
+}
+
+.brand_store .header_controls {
+  background-color: var(--white);
+}
+
+.brand_store .header_controls .search_box input {
+  background-color: var(--gray_background);
+  color: var(--black);
+}
+
+.brand_store .header_controls .search_box input::placeholder {
+  color: var(--black);
 }
 
 .brand_store_container .sidebar {
   grid-area: sidebar;
-  background-color: var(--white);
+  background-color: var(--black);
   box-shadow: var(--box_shadow_angle);
 }
 
 .brand_store_container .product_list {
   grid-area: product_list;
-  background-color: var(--gray_background);
   min-height: 100vh;
   height: fit-content;
   position: sticky;
@@ -48,26 +63,39 @@
   padding: 20px;
 }
 
-.brand_store_container .product_list_item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.brand_store_container .product_card {
+  width: 100%;
 }
 
-@media (max-width: 1500px) {
-  .brand_store_container .product_list {
+@media (max-width: 1200px) {
+  .brand_store_container .product_list ul {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 1200px) {
-  .brand_store_container .product_list {
+@media (max-width: 1024px) {
+  .brand_store_container .product_list ul {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 900px) {
-  .brand_store_container .product_list {
-    grid-template-columns: 1;
+@media (max-width: 768px) {
+  .brand_store_container {
+    grid-template-rows: 120px 1fr;
+  }
+  .brand_store .header_controls {
+    gap: 10px;
+  }
+  .brand_store_container .product_list ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .brand_store {
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand_store_container {
+    grid-template-rows: 150px 1fr;
   }
 }

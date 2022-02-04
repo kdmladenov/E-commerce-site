@@ -174,7 +174,7 @@ const ProductListAdmin = () => {
                               : restoreProductHandler(product.productId)
                           }
                         >
-                          <i className={`fa fa-${!product.isDeleted ? 'trash' : 'refresh'}`} />
+                          <i className={`fa fa-${!product.isDeleted ? 'trash' : 'undo'}`} />
                           <span>{!product.isDeleted ? 'Delete' : 'Restore'}</span>
                         </Button>
                       </Tooltip>
