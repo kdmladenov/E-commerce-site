@@ -1,38 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './styles/SearchBar.css';
-import { suggestions } from '../constants/for-developing/suggestions';
-import { trending } from '../constants/for-developing/trending';
-import {
-  alphabeticalSort,
-  isKeywordInString,
-  keywordInString
-} from '../constants/utility-functions';
 import { useHistory } from 'react-router';
 import Tooltip from './Tooltip';
+import Button from './Button';
 import useOutsideClick from '../hooks/useOutsideClick';
-
-const PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH = 5;
+import { PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH } from '../constants/constants';
 
 const SearchBar = () => {
   const history = useHistory();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-
-  const [previousSearches, setPreviousSearches] = useState([]);
-
-  const previousSearchesToRender =
-    previousSearches.length &&
-    previousSearches
-      ?.map((previousSearch, index) => (
-        <li key={`${previousSearch}_${index}`}>
-          <div>
-            <i className="fa fa-search"></i>
-            {previousSearch}
-          </div>
-        </li>
-      ))
-      .slice(0, PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH);
+  const [previousSearches, setPreviousSearches] = useState(
+    JSON.parse(localStorage.getItem('previousSearches')) || []
+  );
 
   const resetInputButtonHandler = () => {
     setSearchTerm('');
@@ -45,23 +26,19 @@ const SearchBar = () => {
     setShowDropdown(false);
   };
 
-  const keyPressHandler = (e) => {
+  const enterKeyPressHandler = (e) => {
     e.preventDefault();
 
     if (e.key === 'Enter') {
-      if (searchTerm.trim()) {
-        localStorage.setItem(
-          'previousSearches',
-          JSON.stringify(
-            previousSearches?.length >= PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH
-              ? [
-                  ...previousSearches.slice(0, PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH - 1),
-                  searchTerm.trim()
-                ]
-              : [...previousSearches, searchTerm.trim()]
-          )
-        );
-        history.push(`/search/${searchTerm}`);
+      if (searchTerm) {
+        const updatedPreviousSearches = [
+          searchTerm.trim(),
+          ...previousSearches.filter((term) => term !== searchTerm.trim())
+        ];
+        localStorage.setItem('previousSearches', JSON.stringify(updatedPreviousSearches));
+        setPreviousSearches(updatedPreviousSearches);
+
+        history.push(`/search/${searchTerm.trim()}`);
       } else {
         history.push(`/productlist`);
       }
@@ -71,76 +48,91 @@ const SearchBar = () => {
 
   const searchButtonHandler = (e) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      localStorage.setItem(
-        'previousSearches',
-        JSON.stringify(
-          previousSearches?.length >= PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH
-            ? [
-                ...previousSearches.slice(0, PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH - 1),
-                searchTerm.trim()
-              ]
-            : [...previousSearches, searchTerm.trim()]
-        )
-      );
-      history.push(`/search/${searchTerm}`);
+    if (searchTerm) {
+      const updatedPreviousSearches = [
+        searchTerm.trim(),
+        ...previousSearches.filter((term) => term !== searchTerm.trim())
+      ];
+      localStorage.setItem('previousSearches', JSON.stringify(updatedPreviousSearches));
+      setPreviousSearches(updatedPreviousSearches);
+
+      history.push(`/search/${searchTerm.trim()}`);
     } else {
       history.push(`/productlist`);
     }
     setShowDropdown(false);
   };
 
+  const previousSearchButtonHandler = (previousSearchTerm) => {
+    history.push(`/search/${previousSearchTerm}`);
+    setSearchTerm(previousSearchTerm);
+    setShowDropdown(false);
+  };
+
+  const removePreviousSearchButtonHandler = (previousSearchTerm) => {
+    previousSearches.length === 1 && setShowDropdown(false);
+    localStorage.setItem(
+      'previousSearches',
+      JSON.stringify(previousSearches.filter((term) => term !== previousSearchTerm))
+    );
+    setPreviousSearches(previousSearches.filter((term) => term !== previousSearchTerm));
+  };
+
   const inputClickHandler = () => {
-    setShowDropdown(true);
-    // if (!searchTerm) {
-    //   setShowDropdown(false);
-    // }
+    previousSearches.length > 0 && setShowDropdown(true);
   };
 
   let nodeRef = useOutsideClick(() => setShowDropdown(false));
 
-  useEffect(() => {
-    setPreviousSearches(
-      localStorage.getItem('previousSearches')
-        ? JSON.parse(localStorage.getItem('previousSearches'))
-        : []
-    );
-  }, []);
-
   return (
-    <main className="search_container" ref={nodeRef}>
-      <div className={`search_bar ${(searchTerm || showDropdown) && 'active'}`}>
-        <div className="search_inputs">
-          <input
-            className="search_term_input"
-            type="text"
-            value={searchTerm}
-            onChange={keywordInputHandler}
-            onKeyUp={(e) => keyPressHandler(e)}
-            onClick={inputClickHandler}
-            // placeholder={productCategory ? `Search in ${productCategory}` : 'Search ...'}
-          />
-        </div>
-        {showDropdown && <ul>{previousSearchesToRender}</ul>}
-        <div className="search_button_group">
-          {searchTerm && (
-            <button
-              type="button"
-              className="reset_search_term_button"
-              onClick={resetInputButtonHandler}
-            >
-              <Tooltip text="Clear">
-                <i className="fa fa-times" aria-hidden="true"></i>
-              </Tooltip>
-            </button>
-          )}
-
-          <button type="submit" className="search_button" onClick={(e) => searchButtonHandler(e)}>
-            <Tooltip text="Search">
-              <i className="fa fa-search"></i>
+    <main className={`search_bar ${!showDropdown ? 'closed_dropdown' : ''}`} ref={nodeRef}>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={keywordInputHandler}
+        onKeyUp={(e) => enterKeyPressHandler(e)}
+        onClick={inputClickHandler}
+        placeholder="Search in products..."
+      />
+      <ul className="dropdown flex">
+        {previousSearches.length > 0 &&
+          previousSearches
+            ?.map((previousSearch, index) => (
+              <li key={`${previousSearch}_${index}`}>
+                <div
+                  className="previous_search_btn"
+                  onClick={() => previousSearchButtonHandler(previousSearch)}
+                >
+                  <i className="fa fa-search" />
+                  {previousSearch}
+                </div>
+                <Button
+                  classes="icon remove_previous_search_btn"
+                  onClick={() => removePreviousSearchButtonHandler(previousSearch)}
+                >
+                  <i className="fa fa-times" />
+                </Button>
+              </li>
+            ))
+            .slice(0, PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH)}
+      </ul>
+      <div className="search_button_group">
+        {searchTerm && (
+          <button
+            type="button"
+            className="reset_search_term_button"
+            onClick={resetInputButtonHandler}
+          >
+            <Tooltip direction="top" text="Clear">
+              <i className="fa fa-times" aria-hidden="true"></i>
             </Tooltip>
           </button>
-        </div>
+        )}
+        <button type="submit" className="search_button" onClick={(e) => searchButtonHandler(e)}>
+          <Tooltip direction="top" text="Search">
+            <i className="fa fa-search"></i>
+          </Tooltip>
+        </button>
       </div>
     </main>
   );

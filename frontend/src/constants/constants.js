@@ -12,6 +12,8 @@ export const FREE_SHIPPING_THRESHOLD = 500;
 export const SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE = 0.1;
 export const TAX_RATE = 0.2;
 
+export const PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH = 5;
+
 export const STORE_NAME = 'MyShop';
 
 export const SLIDER_IMAGE_1 = 'https://m.media-amazon.com/images/I/61lJ3xlQX2L._SX3000_.jpg';

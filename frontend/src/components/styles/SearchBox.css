@@ -1,7 +1,7 @@
 .search_box_container {
   width: 250px;
   height: 26px;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .search_box_container .search_box {

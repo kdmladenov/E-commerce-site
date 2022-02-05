@@ -1,6 +1,6 @@
 .product_screen_container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   display: grid;
   grid-auto-columns: 100%;
   margin: 0 auto;
@@ -59,7 +59,7 @@
   gap: 30px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .product_screen_container {
     max-width: 100%;
     grid-template-areas:
