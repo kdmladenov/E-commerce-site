@@ -71,33 +71,37 @@ const ListScreenComponent = ({
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
-      ) : resource.length === 0 ? (
-        <h2>No items to display</h2>
       ) : (
         <div className={`items_list ${horizontalCards ? 'horizontal' : ''}`}>
-          <ul className={resourceName === 'browsing history' ? 'history_list' : ''}>
-            {resource?.map((listItem) => (
-              <ProductCard
-                key={listItem.productId}
-                product={listItem}
-                horizontal={horizontalCards}
-                ribbonText={getRibbonText(listItem.productId)}
-                deleteBtn={
-                  resourceName === 'browsing history' && deleteHistoryBtn(listItem.historyId)
-                }
-              />
-            ))}
-          </ul>
-          <div className="footer">
-            {resource?.length > 0 && (
-              <Pagination
-                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                totalItems={resource[0].totalDBItems}
-              />
-            )}
-          </div>
+          {resource?.length === 0 ? (
+            <h2>No items to display</h2>
+          ) : (
+            <>
+              <ul className={resourceName === 'browsing history' ? 'history_list' : ''}>
+                {resource?.map((listItem) => (
+                  <ProductCard
+                    key={listItem.productId}
+                    product={listItem}
+                    horizontal={horizontalCards}
+                    ribbonText={getRibbonText(listItem.productId)}
+                    deleteBtn={
+                      resourceName === 'browsing history' && deleteHistoryBtn(listItem.historyId)
+                    }
+                  />
+                ))}
+              </ul>
+              <div className="footer">
+                {resource?.length > 0 && (
+                  <Pagination
+                    updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                    currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+                    pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                    totalItems={resource[0].totalDBItems}
+                  />
+                )}
+              </div>
+            </>
+          )}
         </div>
       )}
       <Button classes="icon sidebar_toggle_btn" onClick={() => setHiddenSidebar(!hiddenSidebar)}>

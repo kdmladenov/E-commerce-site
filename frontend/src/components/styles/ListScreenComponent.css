@@ -17,6 +17,10 @@
   color: var(--gray_dark);
 }
 
+.list_container h2 {
+  text-align: center;
+}
+
 .list_container .items_list {
   grid-area: items_list;
   background-color: var(--gray_background);

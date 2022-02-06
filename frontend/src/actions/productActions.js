@@ -44,11 +44,11 @@ export const listProducts =
         type: PRODUCT_LIST_SUCCESS,
         payload: data
       });
-
       // update localStorage totalProductCount
       if (
-        !localStorage.getItem('totalProductCount') ||
-        data[0].totalDBItems > +localStorage.getItem('totalProductCount')
+        data?.length > 0 &&
+        (!localStorage.getItem('totalProductCount') ||
+          data[0].totalDBItems > +localStorage.getItem('totalProductCount'))
       ) {
         localStorage.setItem('totalProductCount', data[0].totalDBItems);
       }
