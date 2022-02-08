@@ -124,13 +124,13 @@ const SearchBar = () => {
             onClick={resetInputButtonHandler}
           >
             <Tooltip direction="top" text="Clear">
-              <i className="fa fa-times" aria-hidden="true"></i>
+              <i className="fa fa-times" aria-hidden="true" />
             </Tooltip>
           </button>
         )}
         <button type="submit" className="search_button" onClick={(e) => searchButtonHandler(e)}>
           <Tooltip direction="top" text="Search">
-            <i className="fa fa-search"></i>
+            <i className="fa fa-search" />
           </Tooltip>
         </button>
       </div>

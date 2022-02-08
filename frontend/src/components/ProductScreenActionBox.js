@@ -86,7 +86,7 @@ const ProductScreenActionBox = ({ product }) => {
         </Button>
       </li>
       <li>
-        <i className="fa fa-lock"></i>
+        <i className="fa fa-lock"/>
         Secure transaction
       </li>
       <li>

@@ -23,10 +23,10 @@ const Slider = ({ dots, children }) => {
       </ul>
 
       <button className="slider_btn prev" onClick={prevSlideHandler}>
-        <i className="fas fa-chevron-left"></i>
+        <i className="fas fa-chevron-left"/>
       </button>
       <button className="slider_btn next" onClick={nextSlideHandler}>
-        <i className="fas fa-chevron-right"></i>
+        <i className="fas fa-chevron-right"/>
       </button>
       {dots && (
         <div className="slider_dots">

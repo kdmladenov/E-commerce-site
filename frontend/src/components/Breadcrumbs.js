@@ -9,7 +9,7 @@ const Breadcrumbs = ({ paths }) => {
         <ul>
           <li>
             <Link to={`/`}>
-              <i className="fa fa-home"></i>
+              <i className="fa fa-home"/>
             </Link>
           </li>
           {paths.map((item, index) => (

@@ -65,7 +65,7 @@ const Login = ({ match }) => {
               direction="top"
               text={showPassword ? <h5>Hide password</h5> : <h5>Show password</h5>}
             >
-              <i className="fa fa-eye"></i>
+              <i className="fa fa-eye"/>
             </Tooltip>
           </Button>
         </div>

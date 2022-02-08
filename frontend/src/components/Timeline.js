@@ -28,7 +28,7 @@ Timeline.Item = function TimelineItem({ children, ...restProps }) {
         {removeMode ? (
           <span className="remove_btn" onClick={() => deleteHistoryItem(historyRecord.historyId)}>
             <Tooltip text="Remove">
-              <i className="fa fa-times"></i>
+              <i className="fa fa-times"/>
             </Tooltip>
           </span>
         ) : (

@@ -21,7 +21,7 @@ const Message = ({ type, children }) => {
         />
         <div className="message">{children}</div>
         <Tooltip direction="top" text="close">
-          <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"></i>
+          <i onClick={() => setShowMessage(!showMessage)} className="fa fa-times"/>
         </Tooltip>
       </div>
     )

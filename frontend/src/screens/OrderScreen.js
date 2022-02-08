@@ -145,7 +145,7 @@ const OrderScreen = ({ match, history }) => {
             </div>
             <div className="payment_method">
               <h3>Payment Method</h3>
-              <i className="fa fa-paypal"></i>
+              <i className="fa fa-paypal"/>
               {order?.paymentMethod}
             </div>
             <div className="order_price">
@@ -206,7 +206,7 @@ const OrderScreen = ({ match, history }) => {
               </div>
             ) : (
               <Tooltip direction="top" text={`Paid ${getDate(order?.paymentDate)}`}>
-                Paid <i className="fa fa-check"></i>
+                Paid <i className="fa fa-check"/>
               </Tooltip>
             )}
           </div>
@@ -221,7 +221,7 @@ const OrderScreen = ({ match, history }) => {
                 </Button>
               ) : (
                 <Tooltip direction="top" text={`Delivered ${getDate(order?.deliveryDate)}`}>
-                  Delivered <i className="fa fa-check"></i>
+                  Delivered <i className="fa fa-check"/>
                 </Tooltip>
               )}
             </div>
@@ -265,7 +265,7 @@ const OrderScreen = ({ match, history }) => {
                           'Out of Stock'
                         ) : (
                           <span>
-                            <i className="fa fa-cart-plus"></i> Buy it again
+                            <i className="fa fa-cart-plus"/> Buy it again
                           </span>
                         )}
                       </Button>

@@ -18,7 +18,7 @@ const EditButtons = ({
       {!createMode && !editMode && isUserAuthorized && (
         <Button classes="icon" onClick={handleEditButton}>
           <Tooltip direction="top" text="Edit">
-            <i className="fa fa-edit"></i>
+            <i className="fa fa-edit"/>
           </Tooltip>
         </Button>
       )}
@@ -27,20 +27,20 @@ const EditButtons = ({
           {handleCloseButton && (
             <Button classes="icon" onClick={handleCloseButton}>
               <Tooltip direction="top" text="Cancel">
-                <i className="fa fa-times"></i>
+                <i className="fa fa-times"/>
               </Tooltip>
             </Button>
           )}
           {!createMode && (
             <Button classes="icon">
               <Tooltip direction="top" text="Delete">
-                <i className="fas fa-trash" onClick={handleDeleteButton}></i>
+                <i className="fas fa-trash" onClick={handleDeleteButton}/>
               </Tooltip>
             </Button>
           )}
           <Button classes="icon" onClick={handleSaveButton} disabled={disabledSaveButton}>
             <Tooltip direction="top" text="Save">
-              <i className="fa fa-save"></i>
+              <i className="fa fa-save"/>
             </Tooltip>
           </Button>
         </div>

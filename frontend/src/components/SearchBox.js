@@ -42,7 +42,7 @@ const SearchBox = ({ updateQuery, resource }) => {
         {searchTerm.length >= RESET_BTN_THRESHOLD && (
           <button type="button" className="reset_btn" onClick={resetInputButtonHandler}>
             <Tooltip text="Clear">
-              <i className="fa fa-times" aria-hidden="true"></i>
+              <i className="fa fa-times" aria-hidden="true"/>
             </Tooltip>
           </button>
         )}

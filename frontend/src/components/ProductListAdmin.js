@@ -140,9 +140,9 @@ const ProductListAdmin = () => {
                       <Price price={product.price} size="small" color="black" />
                       <div className="active">
                         {!product.isDeleted ? (
-                          <i className="fa fa-check" style={{ color: 'green' }}></i>
+                          <i className="fa fa-check" style={{ color: 'green' }}/>
                         ) : (
-                          <i className="fa fa-times" style={{ color: 'red' }}></i>
+                          <i className="fa fa-times" style={{ color: 'red' }}/>
                         )}
                       </div>
                     </div>
@@ -194,14 +194,12 @@ const ProductListAdmin = () => {
         <h2>You have no product</h2>
       )}
       <div className="footer">
-        {products?.length > 0 && (
-          <Pagination
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-            totalItems={products[0].totalDBItems}
-          />
-        )}
+        <Pagination
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+          pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+          totalItems={products?.[0]?.totalDBItems}
+        />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const Loader = () => {
   return (
     <div className="spinner">
       <Tooltip direction="top" text="Loading...">
-        <i className="fa fa-spinner"></i>
+        <i className="fa fa-spinner"/>
       </Tooltip>
     </div>
   );

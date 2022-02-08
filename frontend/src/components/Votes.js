@@ -77,7 +77,7 @@ const Votes = ({
             className={`${iconUp || 'fa fa-thumbs-up'} ${
               currentVote === 'UP' ? 'active' : 'inactive'
             }`}
-          ></i>
+          />
         </Button>
         {type !== 'vertical' && <div className="vote_count_up">{countVotesUp || 0}</div>}
         {type === 'vertical' && (
@@ -99,7 +99,7 @@ const Votes = ({
             className={`${iconDown || 'fa fa-thumbs-down'} ${
               currentVote === 'DOWN' ? 'active' : 'inactive'
             }`}
-          ></i>
+          />
         </Button>
         {type !== 'vertical' && <div className="vote_count_down">{countVotesDown || 0}</div>}
       </div>

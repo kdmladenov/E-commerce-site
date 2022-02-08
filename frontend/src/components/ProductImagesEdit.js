@@ -120,13 +120,13 @@ const ProductImagesEdit = () => {
                       onClick={() => deleteImageHandler(image?.productImageId)}
                     >
                       <Tooltip direction="top" text="Delete">
-                        <i className="fa fa-times"></i>
+                        <i className="fa fa-times"/>
                       </Tooltip>
                     </Button>
                     {image?.isMain ? (
                       <Button classes="icon star">
                         <Tooltip direction="top" text="Main image">
-                          <i className="fas fa-star"></i>
+                          <i className="fas fa-star"/>
                         </Tooltip>
                       </Button>
                     ) : (
@@ -135,7 +135,7 @@ const ProductImagesEdit = () => {
                         onClick={() => setImageAsMainHandler(image?.productImageId)}
                       >
                         <Tooltip direction="top" text="Set as main">
-                          <i className="far fa-star"></i>
+                          <i className="far fa-star"/>
                         </Tooltip>
                       </Button>
                     )}

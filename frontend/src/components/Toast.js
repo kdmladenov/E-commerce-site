@@ -46,7 +46,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
               <div className="image ">
                 <img src={toast.image} alt={toast.title} />
                 <div className="badge">
-                  <i className="fa fa-shopping-cart"></i>
+                  <i className="fa fa-shopping-cart"/>
                 </div>
               </div>
               <div className="content">

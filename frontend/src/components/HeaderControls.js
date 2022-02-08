@@ -56,9 +56,9 @@ const HeaderControls = ({
         {setHorizontalCards && (
           <Button classes="icon" onClick={() => setHorizontalCards(!horizontalCards)}>
             {horizontalCards ? (
-              <i className="fa fa-th-large"></i>
+              <i className="fa fa-th-large"/>
             ) : (
-              <i className="fa fa-align-justify"></i>
+              <i className="fa fa-align-justify"/>
             )}
           </Button>
         )}

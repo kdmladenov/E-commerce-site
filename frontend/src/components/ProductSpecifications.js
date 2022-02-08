@@ -31,13 +31,13 @@ const ProductSpecifications = ({ product }) => {
             <div className="price">{<Price price={product[spec]} />}</div>
           ) : spec === 'backlitKeyboard' ? (
             product[spec] === 1 ? (
-              <i className="fa fa-check"></i>
+              <i className="fa fa-check"/>
             ) : (
-              <i className="fa fa-times"></i>
+              <i className="fa fa-times"/>
             )
           ) : spec === 'voiceAssistant' ? (
             product[spec] === 'No' ? (
-              <i className="fa fa-times"></i>
+              <i className="fa fa-times"/>
             ) : (
               <span>{`${voiceAssistant}`}</span>
             )

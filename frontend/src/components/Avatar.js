@@ -29,7 +29,7 @@ const Avatar = ({ classes, imageUrl, fullName }) => {
             {firstInitials}
           </div>
         ) : (
-          <i className="fa fa-user"></i>
+          <i className="fa fa-user"/>
         )}
       </div>
       {fullName && !classes?.includes('large') && (
