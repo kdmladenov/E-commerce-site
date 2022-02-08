@@ -62,14 +62,12 @@ const WishList = ({ isCarousel = false }) => {
       )}
       {!isCarousel && (
         <div className="footer">
-          {wishList?.length > 0 && (
             <Pagination
               updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
               currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
               pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-              totalItems={wishList[0].totalDBItems}
+              totalItems={wishList?.[0]?.totalDBItems}
             />
-          )}
         </div>
       )}
     </div>

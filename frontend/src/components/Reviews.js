@@ -142,7 +142,7 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
                   })
                 }
               >
-                <i className="fa fa-chevron-down"></i> See more reviews (10)
+                <i className="fa fa-chevron-down" /> See more reviews (10)
               </Button>
             ) : (
               <Button
@@ -154,7 +154,7 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
                   })
                 }
               >
-                <i className="fa fa-chevron-up"></i> Collapse reviews
+                <i className="fa fa-chevron-up" /> Collapse reviews
               </Button>
             ))}
           {!isScreen && (
@@ -162,12 +162,12 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
               See all reviews
             </Button>
           )}
-          {isScreen && reviews?.length > 0 && (
+          {isScreen && (
             <Pagination
               updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
               currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
               pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-              totalItems={reviews[0].totalDBItems}
+              totalItems={reviews?.[0]?.totalDBItems}
             />
           )}
         </div>

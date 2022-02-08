@@ -115,9 +115,9 @@ const UserListAdmin = ({ history }) => {
                       <span className="email">{user.email}</span>
                       <div className="active">
                         {!user.isDeleted ? (
-                          <i className="fa fa-check" style={{ color: 'green' }}></i>
+                          <i className="fa fa-check" style={{ color: 'green' }}/>
                         ) : (
-                          <i className="fa fa-times" style={{ color: 'red' }}></i>
+                          <i className="fa fa-times" style={{ color: 'red' }}/>
                         )}
                       </div>
                     </div>
@@ -163,6 +163,7 @@ const UserListAdmin = ({ history }) => {
                 </Accordion.Header>
                 <Accordion.Body>
                   {activeTab === 'profile' && <Profile user={user} />}
+                  {activeTab === 'orders' && <h1>Orders</h1>}
                 </Accordion.Body>
               </Accordion.Item>
             ))}
@@ -172,14 +173,12 @@ const UserListAdmin = ({ history }) => {
         <h2>There are no users to show</h2>
       )}
       <div className="footer">
-        {users?.length > 0 && (
-          <Pagination
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-            totalItems={users[0].totalDBItems}
-          />
-        )}
+        <Pagination
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+          pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+          totalItems={users?.[0]?.totalDBItems}
+        />
       </div>
     </div>
   );

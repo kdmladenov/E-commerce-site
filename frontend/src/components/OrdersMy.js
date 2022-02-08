@@ -194,14 +194,12 @@ const OrdersMy = () => {
         </div>
       )}
       <div className="footer">
-        {orders?.length > 0 && (
-          <Pagination
-            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-            totalItems={orders[0].totalDBItems}
-          />
-        )}
+        <Pagination
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+          pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+          totalItems={orders?.[0]?.totalDBItems}
+        />
       </div>
     </div>
   );

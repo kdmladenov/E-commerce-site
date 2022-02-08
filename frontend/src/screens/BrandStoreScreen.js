@@ -62,14 +62,12 @@ const BrandStoreScreen = ({ match }) => {
               ))}
             </ul>
             <div className="footer">
-              {products?.length > 0 && (
-                <Pagination
-                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                  currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                  pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                  totalItems={products[0].totalDBItems}
-                />
-              )}
+              <Pagination
+                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                totalItems={products?.[0]?.totalDBItems}
+              />
             </div>
           </div>
         )}

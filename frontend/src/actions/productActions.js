@@ -46,11 +46,10 @@ export const listProducts =
       });
       // update localStorage totalProductCount
       if (
-        data?.length > 0 &&
-        (!localStorage.getItem('totalProductCount') ||
-          data[0].totalDBItems > +localStorage.getItem('totalProductCount'))
+        !localStorage.getItem('totalProductCount') ||
+        data?.[0]?.totalDBItems > +localStorage.getItem('totalProductCount')
       ) {
-        localStorage.setItem('totalProductCount', data[0].totalDBItems);
+        localStorage.setItem('totalProductCount', data?.[0]?.totalDBItems);
       }
       if (!localStorage.getItem('allProductsList')) {
         const { data: allProductList } = await axios.get(

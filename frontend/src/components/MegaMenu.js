@@ -12,7 +12,7 @@ const MegaMenu = () => {
   menuLevels = ['main', 'mid', 'sub'];
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(menuLevels[0]);
+  const [activeMenu, setActiveMenu] = useState(menuLevels?.[0]);
   const [parentCategories, setParentCategories] = useState([]);
 
   const handleCloseMenu = () => {
@@ -65,7 +65,7 @@ const MegaMenu = () => {
         <h2>Categories</h2>
       ) : (
         <div className="menu_header">
-          <i className="fas fa-arrow-left" onClick={handlePreviousLinkClick}></i>
+          <i className="fas fa-arrow-left" onClick={handlePreviousLinkClick}/>
           <span>{`${parentCategories[parentCategories.length - 1]}`}</span>
         </div>
       )}
@@ -80,11 +80,11 @@ const MegaMenu = () => {
               className={`${
                 level === 'main' ? categoryIcons[category] : 'fa fa-align-justify'
               } left`}
-            ></i>
+            />
             <span>{`${category} ${
               level !== 'sub' ? `(${getSubCategories(category).length})` : ''
             }`}</span>
-            {level !== 'sub' && <i className="fas fa-angle-right chevron"></i>}
+            {level !== 'sub' && <i className="fas fa-angle-right chevron"/>}
           </li>
         ))}
       </ul>

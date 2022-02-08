@@ -37,7 +37,7 @@ const ListScreenComponent = ({
   const deleteHistoryBtn = (historyId) => (
     <Button classes="icon" onClick={() => dispatch(deleteBrowsingHistory(historyId))}>
       <Tooltip text="Remove">
-        <i className="fa fa-times"></i>
+        <i className="fa fa-times" />
       </Tooltip>
     </Button>
   );
@@ -91,14 +91,12 @@ const ListScreenComponent = ({
                 ))}
               </ul>
               <div className="footer">
-                {resource?.length > 0 && (
-                  <Pagination
-                    updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                    currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                    pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                    totalItems={resource[0].totalDBItems}
-                  />
-                )}
+                <Pagination
+                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                  currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+                  pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                  totalItems={resource?.[0]?.totalDBItems}
+                />
               </div>
             </>
           )}

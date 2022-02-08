@@ -130,7 +130,7 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
                       })
                     }
                   >
-                    <i className="fa fa-chevron-down"></i> See more questions
+                    <i className="fa fa-chevron-down"/> See more questions
                   </Button>
                 ) : (
                   <Button
@@ -142,7 +142,7 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
                       })
                     }
                   >
-                    <i className="fa fa-chevron-up"></i> Collapse questions
+                    <i className="fa fa-chevron-up"/> Collapse questions
                   </Button>
                 ))}
               {!isScreen && (
@@ -150,12 +150,12 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
                   See all questions
                 </Button>
               )}
-              {isScreen && questions?.length > 0 && (
+              {isScreen && (
                 <Pagination
                   updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
                   currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
                   pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                  totalItems={questions[0].totalDBItems}
+                  totalItems={questions?.[0]?.totalDBItems}
                 />
               )}
             </div>
