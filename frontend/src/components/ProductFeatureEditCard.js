@@ -22,7 +22,6 @@ const ProductFeatureEditCard = ({
   const [featureContent, setFeatureContent] = useState(!createMode ? contentInState : '');
   const [featureTitle, setFeatureTitle] = useState(!createMode ? titleInState : '');
 
-  console.log(productId, featureId, featureContent, featureTitle, createMode, setCreateMode, role);
   const dispatch = useDispatch();
 
   const handleEditButton = () => {

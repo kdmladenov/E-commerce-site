@@ -7,12 +7,9 @@ import ProductSpecificationsEdit from '../components/ProductSpecificationsEdit';
 import './styles/ProductEditScreen.css';
 
 const ProductEditScreen = ({ match }) => {
-  console.log(match.params);
   const { productId, section } = match.params;
-  console.log(productId, section, 'productId, section');
 
   const [activeTab, setActiveTab] = useState(section);
-  console.log(section);
 
   useEffect(() => setActiveTab(section || 'details'), [section]);
 

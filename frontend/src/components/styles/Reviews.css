@@ -34,7 +34,6 @@
 }
 
 .reviews .reviews_sidebar .sidebar_wrapper {
-  /* grid-area: sidebar_wrapper; */
   position: sticky;
   top: 10px;
 }

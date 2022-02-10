@@ -43,7 +43,6 @@ export const getTimeDuration = (start, end) => {
 };
 
 export const getDate = (date, additionalDays = 0, isPrefix = true, isWeekDay = true) => {
-  console.log(isPrefix, isWeekDay, 'getdate');
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'Jan',

@@ -43,7 +43,6 @@ const ProductScreen = ({ match }) => {
     dispatch(listProductImages(productId));
     dispatch(addBrowsingHistoryRecord(productId));
   }, [dispatch, match, productId]);
-  console.log(currentUser?.token && browsingHistory?.length >= MIN_HISTORY_LIST_COUNT);
 
   return (
     <main className="product_screen_container">
