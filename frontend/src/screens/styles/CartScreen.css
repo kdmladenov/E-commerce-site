@@ -5,7 +5,7 @@
 
 .cart_container {
   display: grid;
-  max-width: 1200px;
+  max-width: 1280px;
   grid-template-columns: 1fr 300px;
   grid-template-rows: 1fr 515px;
   grid-template-areas:

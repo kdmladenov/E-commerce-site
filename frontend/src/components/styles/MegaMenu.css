@@ -157,7 +157,7 @@
   box-shadow: none;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .menu {
     top: 120px;
   }

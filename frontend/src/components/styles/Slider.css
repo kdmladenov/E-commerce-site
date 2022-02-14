@@ -167,7 +167,7 @@
   transform: scale(1.3);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .slider_container li.slide > div {
     align-items: flex-start;
     gap: 0;

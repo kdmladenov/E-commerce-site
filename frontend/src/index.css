@@ -106,7 +106,6 @@ body {
     'header'
     'content_area'
     'footer';
-  overflow-x: hidden;
 }
 
 footer {

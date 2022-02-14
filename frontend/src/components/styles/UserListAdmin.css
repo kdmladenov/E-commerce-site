@@ -84,7 +84,7 @@
 }
 
 .user_list_admin .accordion .accordion_button_group {
-  max-width: 1000px;
+  max-width: 1024px;
 }
 
 @media (max-width: 1024px) {

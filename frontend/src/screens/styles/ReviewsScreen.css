@@ -59,13 +59,13 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .reviews_screen_container .reviews_list .reviews_list_wrapper {
     column-count: 1;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .reviews_screen_container {
     padding: 0;
   }

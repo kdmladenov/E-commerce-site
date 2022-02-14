@@ -52,7 +52,7 @@
   margin: 10px 0;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .reviews {
     grid-template-columns: 1fr;
     grid-template-rows: 230px 1fr;

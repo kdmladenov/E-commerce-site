@@ -1,6 +1,7 @@
 header {
   display: grid;
-  width: 100vw;
+  width: 100%;
+  max-width: 100vw;
   grid-auto-rows: 60px;
   grid-auto-columns: 250px 1fr 250px;
   grid-template-areas: 'logo search user_cart';
@@ -9,6 +10,7 @@ header {
   top: 0;
   z-index: 100;
   padding: 0 10px;
+  overflow: hidden;
 }
 
 .logo_mega_menu_group {
@@ -109,7 +111,7 @@ header .header_menu_btn .badge {
   align-items: center;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   header {
     grid-auto-columns: 1fr;
     grid-template-areas:
