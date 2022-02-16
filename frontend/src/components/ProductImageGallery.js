@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { BASE_URL } from '../constants/constants';
 import { useResize } from '../hooks/useResize';
+import Modal from './Modal';
 import './styles/ProductImageGallery.css';
 
 const ZOOM_RATIO = 0.3;
@@ -12,6 +13,8 @@ const ProductImageGallery = ({
   setZoomBackgroundPosition,
   setShowZoomedImage
 }) => {
+  const [openImageModal, setOpenImageModal] = useState(false);
+
   const imageContainerRef = useRef(null);
   const imageRef = useRef(null);
   const lensRef = useRef(null);
@@ -76,8 +79,18 @@ const ProductImageGallery = ({
             background: showLens ? 'rgba(214, 214, 214, 0.4)' : 'none',
             border: showLens ? '1px solid rgb(75, 75, 75)' : 'none'
           }}
+          onClick={() => setOpenImageModal(true)}
         />
       </div>
+
+      {openImageModal && (
+        <Modal setIsOpenModal={setOpenImageModal}>
+          <img
+            src={selectedImage?.startsWith('http') ? selectedImage : `${BASE_URL}/${selectedImage}`}
+            alt=""
+          />
+        </Modal>
+      )}
     </div>
   );
 };

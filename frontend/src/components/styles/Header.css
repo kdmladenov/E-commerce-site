@@ -10,7 +10,7 @@ header {
   top: 0;
   z-index: 100;
   padding: 0 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .logo_mega_menu_group {

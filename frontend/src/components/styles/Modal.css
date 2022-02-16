@@ -1,0 +1,32 @@
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  z-index: 10000;
+}
+.modal_container {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+}
+
+.modal_container button {
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--white);
+  background: var(--gray_dark);
+}

@@ -12,11 +12,6 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
 
   const deleteToast = (id) => setToasts(toasts.filter((toast) => toast.id !== id));
 
-  // const onClickHandlerCartToast = () => {
-  //   history.push('/cart');
-  //   setToasts([]);
-  // };
-
   useImperativeHandle(ref, () => ({
     createToast(toast) {
       setToasts([...toasts, { ...toast, id: uniqueId() }]);
