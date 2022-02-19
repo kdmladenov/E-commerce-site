@@ -84,7 +84,7 @@ const ProductImageGallery = ({
       </div>
 
       {openImageModal && (
-        <Modal setIsOpenModal={setOpenImageModal}>
+        <Modal classes="image" setIsOpenModal={setOpenImageModal}>
           <img
             src={selectedImage?.startsWith('http') ? selectedImage : `${BASE_URL}/${selectedImage}`}
             alt=""

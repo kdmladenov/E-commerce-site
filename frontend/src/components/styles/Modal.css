@@ -1,4 +1,4 @@
-.modal {
+#modal {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -10,14 +10,20 @@
   background-color: var(--white);
   z-index: 10000;
 }
-.modal_container {
-  height: 100%;
-  width: 100%;
+
+#modal .modal_container {
+  height: 300px;
+  width: 500px;
   padding: 20px;
   position: relative;
 }
 
-.modal_container button {
+#modal .modal_container.image {
+  height: 100%;
+  width: 100%;
+}
+
+#modal .modal_container button.close_modal_btn {
   height: 40px;
   width: 40px;
   font-size: 20px;
@@ -29,4 +35,21 @@
   cursor: pointer;
   color: var(--white);
   background: var(--gray_dark);
+}
+
+/* Confirm */
+ #modal .modal_container.confirm .confirm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_list_admin #modal .modal_container.confirm .confirm .button_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }

@@ -3,18 +3,16 @@ import ReactDOM from 'react-dom';
 import useCreateDiv from '../hooks/useCreateDiv';
 import './styles/Modal.css';
 
-const Modal = ({ setIsOpenModal, children }) => {
+const Modal = ({ classes, setIsOpenModal, children }) => {
   const { loaded, divId } = useCreateDiv('modal');
 
   return loaded ? (
     ReactDOM.createPortal(
-      <div className="modal">
-        <div className="modal_container">
-          {children}
-          <button onClick={() => setIsOpenModal(false)}>
-            <i className="fa fa-times" />
-          </button>
-        </div>
+      <div className={`modal_container ${classes ? classes : ''}`}>
+        {children}
+        <button className='close_modal_btn' onClick={() => setIsOpenModal(false)}>
+          <i className="fa fa-times" />
+        </button>
       </div>,
       document.getElementById(divId)
     )
