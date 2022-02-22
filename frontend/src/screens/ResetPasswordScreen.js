@@ -12,16 +12,14 @@ import './styles/ResetPasswordScreen.css';
 const ResetPasswordScreen = ({ history, match }) => {
   const { userId, token } = match.params;
 
-  const passwordReset = useSelector((state) => state.passwordReset);
   const {
     loading,
     success: successResetPassword,
     message: successResetMessage,
     error: errorMessage
-  } = passwordReset;
+  } = useSelector((state) => state.passwordReset);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (!errorMessage && userInfo?.token) {
@@ -48,7 +46,6 @@ const ResetPasswordScreen = ({ history, match }) => {
             resetPasswordToken={token}
           />
         )}
-
       </div>
     </div>
   );

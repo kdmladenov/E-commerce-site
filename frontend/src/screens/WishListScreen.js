@@ -14,11 +14,9 @@ const WishListScreen = () => {
 
   const allMyWishList = JSON.parse(localStorage.getItem('allMyWishList'));
 
-  const wishListItems = useSelector((state) => state.wishListItems);
-  const { loading, wishList, error } = wishListItems;
+  const { loading, wishList, error } = useSelector((state) => state.wishListItems);
 
-  const wishListDelete = useSelector((state) => state.wishListDelete);
-  const { success: successDelete } = wishListDelete;
+  const { success: successDelete } = useSelector((state) => state.wishListDelete);
 
   const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyWishList));
 

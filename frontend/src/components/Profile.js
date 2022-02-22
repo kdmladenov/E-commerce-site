@@ -14,8 +14,7 @@ import ProfileAvatar from './ProfileAvatar';
 const Profile = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success: successUpdateUser } = userUpdateProfile;
+  const { success: successUpdateUser } = useSelector((state) => state.userUpdateProfile);
 
   return (
     <div className="profile">

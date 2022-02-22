@@ -9,8 +9,7 @@ import './styles/ProductFeatures.css';
 const ProductFeatures = ({ productId }) => {
   const dispatch = useDispatch();
 
-  const productFeaturesList = useSelector((state) => state.productFeaturesList);
-  const { productFeatures, loading, error } = productFeaturesList;
+  const { productFeatures, loading, error } = useSelector((state) => state.productFeaturesList);
 
   useEffect(() => {
     dispatch(listProductFeatures(productId));

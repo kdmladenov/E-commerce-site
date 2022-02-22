@@ -29,9 +29,6 @@ const PlaceOrderScreen = ({ history }) => {
     cartItems
   } = cart;
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
-
   cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   cart.shippingPrice =
     cart.itemsPrice >= FREE_SHIPPING_THRESHOLD
@@ -40,8 +37,9 @@ const PlaceOrderScreen = ({ history }) => {
   cart.taxPrice = (cart.itemsPrice + cart.shippingPrice) * TAX_RATE;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+  const { user } = useSelector((state) => state.userDetails);
+  
+  const { order, success, error } = useSelector((state) => state.orderCreate);
 
   useEffect(() => {
     if (success) {

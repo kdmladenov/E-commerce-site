@@ -12,14 +12,11 @@ const ProductFeaturesEdit = ({ productId }) => {
 
   const [createMode, setCreateMode] = useState(false);
 
-  const productFeaturesList = useSelector((state) => state.productFeaturesList);
-  const { productFeatures, loading, error } = productFeaturesList;
+  const { productFeatures, loading, error } = useSelector((state) => state.productFeaturesList);
 
-  const productFeaturesCreate = useSelector((state) => state.productFeaturesCreate);
-  const { success: successCreate } = productFeaturesCreate;
+  const { success: successCreate } = useSelector((state) => state.productFeaturesCreate);
 
-  const productFeaturesDelete = useSelector((state) => state.productFeaturesDelete);
-  const { success: successDelete } = productFeaturesDelete;
+  const { success: successDelete } = useSelector((state) => state.productFeaturesDelete);
 
   useEffect(() => {
     dispatch(listProductFeatures(productId));

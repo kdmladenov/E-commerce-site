@@ -18,8 +18,7 @@ const Login = ({ match }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, loading, error } = userLogin;
+  const { userInfo, loading, error } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (!error && userInfo?.token) {
@@ -65,7 +64,7 @@ const Login = ({ match }) => {
               direction="top"
               text={showPassword ? <h5>Hide password</h5> : <h5>Show password</h5>}
             >
-              <i className="fa fa-eye"/>
+              <i className="fa fa-eye" />
             </Tooltip>
           </Button>
         </div>

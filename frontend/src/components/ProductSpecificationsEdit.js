@@ -22,22 +22,19 @@ const ProductSpecificationsEdit = () => {
   const history = useHistory();
   const params = useParams();
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const { product, loading, error } = useSelector((state) => state.productDetails);
 
-  const productSpecificationUpdate = useSelector((state) => state.productSpecificationUpdate);
   const {
+    success: successUpdateProductSpecification,
     loading: loadingUpdateProductSpecification,
-    error: errorUpdateProductSpecification,
-    success: successUpdateProductSpecification
-  } = productSpecificationUpdate;
+    error: errorUpdateProductSpecification
+  } = useSelector((state) => state.productSpecificationUpdate);
 
-  const productSpecificationCreate = useSelector((state) => state.productSpecificationCreate);
   const {
+    success: successCreateProductSpecification,
     loading: loadingCreateProductSpecification,
-    error: errorCreateProductSpecification,
-    success: successCreateProductSpecification
-  } = productSpecificationCreate;
+    error: errorCreateProductSpecification
+  } = useSelector((state) => state.productSpecificationCreate);
 
   useEffect(() => {
     if (successCreateProductSpecification) {

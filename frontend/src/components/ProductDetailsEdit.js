@@ -14,22 +14,22 @@ const ProductDetailsEdit = ({ productId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const { loading, error, product } = useSelector((state) => state.productDetails);
 
-  const productCreate = useSelector((state) => state.productCreate);
   const {
+    product: createdProduct,
     loading: loadingCreate,
     error: errorCreate,
-    success: successCreate,
-    product: createdProduct
-  } = productCreate;
+    success: successCreate
+  } = useSelector((state) => state.productCreate);
 
-  const productUpdate = useSelector((state) => state.productUpdate);
-  const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
+  const {
+    success: successUpdate,
+    loading: loadingUpdate,
+    error: errorUpdate
+  } = useSelector((state) => state.productUpdate);
 
   useEffect(() => {
     if (userInfo?.role !== 'admin') {

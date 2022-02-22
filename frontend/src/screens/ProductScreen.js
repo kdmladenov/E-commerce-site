@@ -23,14 +23,11 @@ const ProductScreen = ({ match }) => {
 
   const [questionsCount, setQuestionsCount] = useState(0);
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product, loading, error } = productDetails;
+  const { product, loading, error } = useSelector((state) => state.productDetails);
 
-  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { browsingHistory } = browsingHistoryList;
+  const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo: currentUser } = userLogin;
+ const { userInfo: currentUser } = useSelector((state) => state.userLogin);
 
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);

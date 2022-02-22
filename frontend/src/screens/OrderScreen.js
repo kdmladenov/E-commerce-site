@@ -30,20 +30,17 @@ const OrderScreen = ({ match, history }) => {
 
   const orderId = match.params.orderId;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
+  const { user } = useSelector((state) => state.userDetails);
 
-  const orderDetails = useSelector((state) => state.orderDetails);
-  const { order, loading, error } = orderDetails;
+  const { order, loading, error } = useSelector((state) => state.orderDetails);
 
-  const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
+  const { loading: loadingPay, success: successPay } = useSelector((state) => state.orderPay);
 
-  const orderDeliver = useSelector((state) => state.orderDeliver);
-  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+  const { loading: loadingDeliver, success: successDeliver } = useSelector(
+    (state) => state.orderDeliver
+  );
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
@@ -144,7 +141,7 @@ const OrderScreen = ({ match, history }) => {
             </div>
             <div className="payment_method">
               <h3>Payment Method</h3>
-              <i className="fa fa-paypal"/>
+              <i className="fa fa-paypal" />
               {order?.paymentMethod}
             </div>
             <div className="order_price">
@@ -205,7 +202,7 @@ const OrderScreen = ({ match, history }) => {
               </div>
             ) : (
               <Tooltip direction="top" text={`Paid ${getDate(order?.paymentDate)}`}>
-                Paid <i className="fa fa-check"/>
+                Paid <i className="fa fa-check" />
               </Tooltip>
             )}
           </div>
@@ -220,7 +217,7 @@ const OrderScreen = ({ match, history }) => {
                 </Button>
               ) : (
                 <Tooltip direction="top" text={`Delivered ${getDate(order?.deliveryDate)}`}>
-                  Delivered <i className="fa fa-check"/>
+                  Delivered <i className="fa fa-check" />
                 </Tooltip>
               )}
             </div>
@@ -264,7 +261,7 @@ const OrderScreen = ({ match, history }) => {
                           'Out of Stock'
                         ) : (
                           <span>
-                            <i className="fa fa-cart-plus"/> Buy it again
+                            <i className="fa fa-cart-plus" /> Buy it again
                           </span>
                         )}
                       </Button>

@@ -8,7 +8,11 @@ import Message from './Message';
 import { askQuestion, listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
 import Loader from './Loader';
 import HeaderControls from './HeaderControls';
-import { defaultEndpoint, questionsListPageSizeOptionsMap, questionsSortOptionsMap } from '../constants/inputMaps';
+import {
+  defaultEndpoint,
+  questionsListPageSizeOptionsMap,
+  questionsSortOptionsMap
+} from '../constants/inputMaps';
 import { useHistory } from 'react-router-dom';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import { QUESTION } from '../constants/constants';
@@ -25,29 +29,22 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
     ...defaultEndpoint['questionsAndAnswers'],
     pageSize: `pageSize=${isScreen ? 6 : 3}&`
   });
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user: currentUserDetails } = userDetails;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product } = productDetails;
+  const { user: currentUserDetails } = useSelector((state) => state.userDetails);
 
-  const questionsAndAnswersList = useSelector((state) => state.questionsAndAnswersList);
-  const { questions, loading, error } = questionsAndAnswersList;
+  const { product } = useSelector((state) => state.productDetails);
 
-  const questionAsk = useSelector((state) => state.questionAsk);
-  const { success: successAskQuestion } = questionAsk;
+  const { questions, loading, error } = useSelector((state) => state.questionsAndAnswersList);
 
-  const questionDelete = useSelector((state) => state.questionDelete);
-  const { success: successQuestionDelete } = questionDelete;
+  const { success: successQuestionAsk } = useSelector((state) => state.questionAsk);
 
-  const answerCreate = useSelector((state) => state.answerCreate);
-  const { success: successAnswerCreate } = answerCreate;
+  const { success: successQuestionDelete } = useSelector((state) => state.questionDelete);
 
-  const answerDelete = useSelector((state) => state.answerDelete);
-  const { success: successAnswerDelete } = answerDelete;
+  const { success: successAnswerCreate } = useSelector((state) => state.answerCreate);
+
+  const { success: successAnswerDelete } = useSelector((state) => state.answerDelete);
 
   useEffect(() => {
     dispatch(getUserDetails(userInfo?.userId));
@@ -58,7 +55,7 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
     if (questions?.length > 0 && setQuestionsCount) {
       setQuestionsCount(questions[0]?.totalDBItems);
     }
-  }, [setQuestionsCount, questions, successAskQuestion, successQuestionDelete]);
+  }, [setQuestionsCount, questions, successQuestionAsk, successQuestionDelete]);
 
   useEffect(() => {
     const { page, pageSize, sort, search } = endpoint;
@@ -68,7 +65,7 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
     dispatch,
     productId,
     endpoint,
-    successAskQuestion,
+    successQuestionAsk,
     successAnswerCreate,
     successQuestionDelete,
     successAnswerDelete
@@ -130,7 +127,7 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
                       })
                     }
                   >
-                    <i className="fa fa-chevron-down"/> See more questions
+                    <i className="fa fa-chevron-down" /> See more questions
                   </Button>
                 ) : (
                   <Button
@@ -142,7 +139,7 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
                       })
                     }
                   >
-                    <i className="fa fa-chevron-up"/> Collapse questions
+                    <i className="fa fa-chevron-up" /> Collapse questions
                   </Button>
                 ))}
               {!isScreen && (

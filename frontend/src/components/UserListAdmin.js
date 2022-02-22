@@ -22,23 +22,17 @@ const UserListAdmin = ({ history }) => {
   const [activeTab, setActiveTab] = useState('profile');
   const [endpoint, setEndpoint] = useState(defaultEndpoint['userListAdmin']);
 
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  const { users,loading, error,  } = useSelector((state) => state.userList);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const userDelete = useSelector((state) => state.userDelete);
-  const { success: deleteSuccess } = userDelete;
+  const { success: deleteSuccess } = useSelector((state) => state.userDelete);
 
-  const userRestore = useSelector((state) => state.userRestore);
-  const { success: restoreSuccess } = userRestore;
+  const { success: restoreSuccess } = useSelector((state) => state.userRestore);
 
-  const userAvatarUpdate = useSelector((state) => state.userAvatarUpdate);
-  const { success: successUpdateAvatar } = userAvatarUpdate;
+  const { success: successUpdateAvatar } = useSelector((state) => state.userAvatarUpdate);
 
-  const userAvatarDelete = useSelector((state) => state.userAvatarDelete);
-  const { success: successDeleteAvatar } = userAvatarDelete;
+  const { success: successDeleteAvatar }  = useSelector((state) => state.userAvatarDelete);
 
   useEffect(() => {
     // only admins to have access to the url

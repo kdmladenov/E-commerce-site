@@ -26,11 +26,9 @@ const OrdersMy = () => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['ordersMy']);
 
-  const orderMyList = useSelector((state) => state.orderMyList);
-  const { loading, error, orders } = orderMyList;
+  const { orders, loading, error } = useSelector((state) => state.orderMyList);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
   const addToCartHandler = (id) => {
     history.push(`/cart/${id}?qty=1`);

@@ -29,26 +29,23 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
     pageSize: `pageSize=${isScreen ? 12 : 3}&`
   });
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
+  const { user } = useSelector((state) => state.userDetails);
 
-  const reviewList = useSelector((state) => state.reviewList);
-  const { reviews, loading, error } = reviewList;
+  const { reviews, loading, error } = useSelector((state) => state.reviewList);
 
-  const reviewCreate = useSelector((state) => state.reviewCreate);
-  const { success: successCreate } = reviewCreate;
+  const { success: successCreate } = useSelector((state) => state.reviewCreate);
 
-  const reviewDelete = useSelector((state) => state.reviewDelete);
-  const { success: successDelete } = reviewDelete;
+  const { success: successDelete } = useSelector((state) => state.reviewDelete);
 
-  const reviewEdit = useSelector((state) => state.reviewEdit);
-  const { success: successEdit } = reviewEdit;
+  const { success: successEdit } = useSelector((state) => state.reviewEdit);
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product, loading: loadingProduct, error: errorProduct } = productDetails;
+  const {
+    product,
+    loading: loadingProduct,
+    error: errorProduct
+  } = useSelector((state) => state.productDetails);
 
   const hasUserLeftReview =
     reviews?.length && reviews?.some((review) => review.userId === user?.userId);

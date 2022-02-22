@@ -22,14 +22,14 @@ const History = ({ horizontal }) => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['history']);
 
-  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { loading, browsingHistory, error } = browsingHistoryList;
+  const { loading, browsingHistory, error } = useSelector((state) => state.browsingHistoryList);
 
-  const browsingHistoryDelete = useSelector((state) => state.browsingHistoryDelete);
-  const { success: successDelete } = browsingHistoryDelete;
+  const { success: successDeleteHistoryRecord } = useSelector(
+    (state) => state.browsingHistoryDelete
+  );
 
   const historyRecordsPagesize = +endpoint.pageSize.replace('pageSize=', '').replace('&', '');
-  const historyRecordsCount =  browsingHistory?.[0]?.totalDBItems;
+  const historyRecordsCount = browsingHistory?.[0]?.totalDBItems;
 
   const deleteHistoryItemHandler = (id) => {
     dispatch(deleteBrowsingHistory(id));
@@ -39,7 +39,7 @@ const History = ({ horizontal }) => {
     const { page, pageSize, sort, search, filter } = endpoint;
 
     dispatch(listBrowsingHistory(`${page}${pageSize}${sort}${search}${filter.join('&')}`));
-  }, [dispatch, endpoint, successDelete]);
+  }, [dispatch, endpoint, successDeleteHistoryRecord]);
 
   return (
     <section className="browsing_history_list_container">

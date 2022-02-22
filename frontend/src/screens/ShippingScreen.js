@@ -10,11 +10,9 @@ import './styles/ShippingScreen.css';
 const ShippingScreen = () => {
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
+  const { user } = useSelector((state) => state.userDetails);
 
   useEffect(() => {
     if (!user?.email) {

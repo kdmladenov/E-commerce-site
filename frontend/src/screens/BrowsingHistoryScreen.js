@@ -16,11 +16,9 @@ const BrowsingHistoryScreen = () => {
 
   const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyHistory));
 
-  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { loading, browsingHistory, error } = browsingHistoryList;
-
-  const browsingHistoryDelete = useSelector((state) => state.browsingHistoryDelete);
-  const { success: successDelete } = browsingHistoryDelete;
+  const { browsingHistory, loading, error } = useSelector((state) => state.browsingHistoryList);
+  
+  const { success: successDelete } = useSelector((state) => state.browsingHistoryDelete);
 
   useEffect(() => {
     setSidebarInputMap(sidebarInput(allMyHistory));

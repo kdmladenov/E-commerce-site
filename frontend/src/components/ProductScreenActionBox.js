@@ -22,10 +22,9 @@ const ProductScreenActionBox = ({ product }) => {
 
   const { productId, title, brand, image, price, stockCount } = product;
 
-  const portalRefs = useSelector((state) => state.portalRefs);
   const {
     portalRefsMap: { toast_cart: toastCartRef }
-  } = portalRefs;
+  } = useSelector((state) => state.portalRefs);
 
   const addToCartHandler = () => {
     dispatch(addToCart(productId, +qty));
@@ -86,7 +85,7 @@ const ProductScreenActionBox = ({ product }) => {
         </Button>
       </li>
       <li>
-        <i className="fa fa-lock"/>
+        <i className="fa fa-lock" />
         Secure transaction
       </li>
       <li>

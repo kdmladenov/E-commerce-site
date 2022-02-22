@@ -28,9 +28,9 @@ const ScrollToTopButton = () => {
   };
 
   return (
-    <div className={`scroll_to_top_btn ${!topOfPage && 'top'}`} onClick={scrollToTop}>
+    <div className={`scroll_to_top_btn ${!topOfPage ? 'top' : ''}`} onClick={scrollToTop}>
       <Tooltip direction="top" text="Scroll To Top">
-        <i className="fa fa-arrow-circle-up"/>
+        <i className="fa fa-arrow-circle-up" />
       </Tooltip>
     </div>
   );

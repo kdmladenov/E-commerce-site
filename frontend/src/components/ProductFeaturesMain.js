@@ -8,8 +8,7 @@ import Message from './Message';
 import './styles/ProductFeaturesMain.css';
 
 const ProductFeaturesMain = ({ featuresRef }) => {
-  const productFeaturesList = useSelector((state) => state.productFeaturesList);
-  const { productFeatures, loading, error } = productFeaturesList;
+  const { productFeatures, loading, error } = useSelector((state) => state.productFeaturesList);
 
   return loading ? (
     <Loader />

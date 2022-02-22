@@ -20,14 +20,11 @@ const CartScreen = ({ match, location, history }) => {
   const productId = match.params.productId;
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const { cartItems } = useSelector((state) => state.cart);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { browsingHistory } = browsingHistoryList;
+  const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
 
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
@@ -37,10 +34,9 @@ const CartScreen = ({ match, location, history }) => {
     history.push(`/login?redirect=shipping`);
   };
 
-  const portalRefs = useSelector((state) => state.portalRefs);
   const {
     portalRefsMap: { toast_cart: toastCartRef }
-  } = portalRefs;
+  } = useSelector((state) => state.portalRefs);
 
   const addToCartHandler = (productId, title, image, price) => {
     dispatch(addToCart(productId, 1));

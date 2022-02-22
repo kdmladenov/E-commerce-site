@@ -46,21 +46,25 @@ const ProductImagesEdit = () => {
     dispatch(setImageAsMain(productImageId));
   };
 
-  const productImagesList = useSelector((state) => state.productImagesList);
-  const { loading, error, productImages } = productImagesList;
+  const { productImages, loading, error } = useSelector((state) => state.productImagesList);
 
-  const productImageUpload = useSelector((state) => state.productImageUpload);
-  const { loading: loadingUpload, error: errorUpload, success: successUpload } = productImageUpload;
-
-  const productImageDelete = useSelector((state) => state.productImageDelete);
-  const { loading: loadingDelete, error: errorDelete, success: successDelete } = productImageDelete;
-
-  const productImageSetMain = useSelector((state) => state.productImageSetMain);
   const {
+    success: successUpload,
+    loading: loadingUpload,
+    error: errorUpload
+  } = useSelector((state) => state.productImageUpload);
+
+  const {
+    success: successDelete,
+    loading: loadingDelete,
+    error: errorDelete
+  } = useSelector((state) => state.productImageDelete);
+
+  const {
+    success: successSetMain,
     loading: loadingSetMain,
-    error: errorSetMain,
-    success: successSetMain
-  } = productImageSetMain;
+    error: errorSetMain
+  } = useSelector((state) => state.productImageSetMain);
 
   useEffect(() => {
     dispatch(listProductImages(productId));
@@ -120,13 +124,13 @@ const ProductImagesEdit = () => {
                       onClick={() => deleteImageHandler(image?.productImageId)}
                     >
                       <Tooltip direction="top" text="Delete">
-                        <i className="fa fa-times"/>
+                        <i className="fa fa-times" />
                       </Tooltip>
                     </Button>
                     {image?.isMain ? (
                       <Button classes="icon star">
                         <Tooltip direction="top" text="Main image">
-                          <i className="fas fa-star"/>
+                          <i className="fas fa-star" />
                         </Tooltip>
                       </Button>
                     ) : (
@@ -135,7 +139,7 @@ const ProductImagesEdit = () => {
                         onClick={() => setImageAsMainHandler(image?.productImageId)}
                       >
                         <Tooltip direction="top" text="Set as main">
-                          <i className="far fa-star"/>
+                          <i className="far fa-star" />
                         </Tooltip>
                       </Button>
                     )}

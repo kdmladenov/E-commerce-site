@@ -23,11 +23,9 @@ const OrderListAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const orderList = useSelector((state) => state.orderList);
-  const { loading, error, orders } = orderList;
+  const { loading, error, orders } = useSelector((state) => state.orderList);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['orderListAdmin']);
 

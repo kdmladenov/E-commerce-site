@@ -13,8 +13,7 @@ const ProductListScreen = ({ match }) => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['productListScreen']);
 
-  const productlist = useSelector((state) => state.productList);
-  const { loading, products, error } = productlist;
+  const { loading, products, error } = useSelector((state) => state.productList);
 
   useEffect(() => {
     setEndpoint({

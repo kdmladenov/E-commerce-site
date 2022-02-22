@@ -16,17 +16,17 @@ const AccountScreen = ({ match }) => {
   const section = match.params.section;
   const [activeTab, setActiveTab] = useState(section);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading: loadingUser, error: errorUser, user } = userDetails;
+  const {
+    user,
+    loading: loadingUser,
+    error: errorUser
+  } = useSelector((state) => state.userDetails);
 
-  const userAvatarUpdate = useSelector((state) => state.userAvatarUpdate);
-  const { success: successUpdateAvatar } = userAvatarUpdate;
-
-  const userAvatarDelete = useSelector((state) => state.userAvatarDelete);
-  const { success: successDeleteAvatar } = userAvatarDelete;
+  const { success: successUpdateAvatar } = useSelector((state) => state.userAvatarUpdate);
+  
+  const { success: successDeleteAvatar } = useSelector((state) => state.userAvatarDelete);
 
   useEffect(() => {
     if (!user?.email) {
@@ -38,7 +38,7 @@ const AccountScreen = ({ match }) => {
   return (
     <main className="account_screen">
       <div className="account_container">
-        <ButtonNav activeTab={activeTab} screen='account'/>
+        <ButtonNav activeTab={activeTab} screen="account" />
         <section
           className={`profile_container card content ${activeTab === 'profile' && 'active'}`}
         >

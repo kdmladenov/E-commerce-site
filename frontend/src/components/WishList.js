@@ -4,7 +4,11 @@ import { listWishedItems } from '../actions/wishListActions';
 import Loader from './Loader';
 import Message from './Message';
 import './styles/WishList.css';
-import { defaultEndpoint, productListPageSizeOptionsMap, productListSortOptionsMap } from '../constants/inputMaps';
+import {
+  defaultEndpoint,
+  productListPageSizeOptionsMap,
+  productListSortOptionsMap
+} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import ProductCard from './ProductCard';
@@ -15,14 +19,15 @@ const WishList = ({ isCarousel = false }) => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['wishList']);
 
-  const wishListItems = useSelector((state) => state.wishListItems);
-  const { loading: loadingWishList, wishList, error: errorWishList } = wishListItems;
+  const {
+    wishList,
+    loading: loadingWishList,
+    error: errorWishList
+  } = useSelector((state) => state.wishListItems);
 
-  const wishListDelete = useSelector((state) => state.wishListDelete);
-  const { success: successDeleteWish } = wishListDelete;
+  const { success: successDeleteWish } = useSelector((state) => state.wishListDelete);
 
-  const wishListAdd = useSelector((state) => state.wishListAdd);
-  const { success: successAddWish } = wishListAdd;
+  const { success: successAddWish } = useSelector((state) => state.wishListAdd);
 
   useEffect(() => {
     const { page, pageSize, sort, search } = endpoint;
@@ -62,12 +67,12 @@ const WishList = ({ isCarousel = false }) => {
       )}
       {!isCarousel && (
         <div className="footer">
-            <Pagination
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-              pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-              totalItems={wishList?.[0]?.totalDBItems}
-            />
+          <Pagination
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+            pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+            totalItems={wishList?.[0]?.totalDBItems}
+          />
         </div>
       )}
     </div>

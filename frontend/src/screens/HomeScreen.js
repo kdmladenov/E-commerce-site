@@ -15,20 +15,15 @@ import { listWishedItems } from '../actions/wishListActions';
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const productlist = useSelector((state) => state.productList);
-  const { products } = productlist;
+  const { products } = useSelector((state) => state.productList);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-  const browsingHistoryList = useSelector((state) => state.browsingHistoryList);
-  const { browsingHistory } = browsingHistoryList;
+  const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
 
-  const wishListItems = useSelector((state) => state.wishListItems);
-  const { wishList } = wishListItems;
-
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const { wishList } = useSelector((state) => state.wishListItems);
+  
+  const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(listProducts(`pageSize=${localStorage.getItem('totalProductCount') || 30}`));

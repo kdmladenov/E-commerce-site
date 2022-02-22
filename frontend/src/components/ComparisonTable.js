@@ -14,8 +14,7 @@ import './styles/ComparisonTable.css';
 const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
   const dispatch = useDispatch();
 
-  const productlist = useSelector((state) => state.productList);
-  const { loading, products, error } = productlist;
+  const { loading, products, error } = useSelector((state) => state.productList);
 
   const sortedProducts = products && [
     ...products.filter((product) => product.productId === currentProductId),

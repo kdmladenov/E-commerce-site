@@ -3,7 +3,7 @@ import './styles/ProductScreenImageSidebar.css';
 import { BASE_URL } from '../constants/constants';
 
 const ProductScreenImageSidebar = ({ images, setSelectedImage }) => {
-  // .filter(image => !image.isMain)
+
   return (
     <ul>
       {images?.map((image, index) => (

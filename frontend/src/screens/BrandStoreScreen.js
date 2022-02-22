@@ -19,8 +19,7 @@ const BrandStoreScreen = ({ match }) => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['brandStoreScreen']);
 
-  const productlist = useSelector((state) => state.productList);
-  const { loading, products, error } = productlist;
+  const { products, loading, error } = useSelector((state) => state.productList);
 
   useEffect(() => {
     const { page, pageSize, sort, search, filter } = endpoint;

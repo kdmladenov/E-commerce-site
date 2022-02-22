@@ -21,8 +21,11 @@ const ProductDetails = ({
 }) => {
   const dispatch = useDispatch();
 
-  const productImagesList = useSelector((state) => state.productImagesList);
-  const { productImages, loading: loadingImages, error: errorImages } = productImagesList;
+  const {
+    productImages,
+    loading: loadingImages,
+    error: errorImages
+  } = useSelector((state) => state.productImagesList);
 
   const [selectedImage, setSelectedImage] = useState(
     productImages?.filter((img) => img.isMain === 0)[0]
