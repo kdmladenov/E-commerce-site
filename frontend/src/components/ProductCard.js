@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Button from './Button';
 import { BASE_URL } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../actions/cartActions';
+import { addToCart } from '../state/actions/cartActions';
 import Price from './Price';
 import Ribbon from './Ribbon';
 import Popover from './Popover';

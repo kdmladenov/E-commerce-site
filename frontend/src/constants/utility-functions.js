@@ -96,10 +96,10 @@ export const areReviewsFiltered = (reviews) => {
 };
 
 // Scroll to a specified element
-export const scrollTo = (ref, margin = 0) => {
+export const scrollTo = (ref, margin = 0, behavior = 'smooth') => {
   window.scrollTo({
     top: ref.current.offsetTop - margin,
-    behavior: 'smooth'
+    behavior
   });
 };
 

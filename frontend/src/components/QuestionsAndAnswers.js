@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import './styles/QuestionsAndAnswers.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails } from '../state/actions/userActions';
 import QuestionsAndAnswersCard from './QuestionsAndAnswersCard';
 import Message from './Message';
-import { askQuestion, listQuestionsAndAnswers } from '../actions/questionsAndAnswersActions';
+import { askQuestion, listQuestionsAndAnswers } from '../state/actions/questionsAndAnswersActions';
 import Loader from './Loader';
 import HeaderControls from './HeaderControls';
 import {
@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import { QUESTION } from '../constants/constants';
 import Pagination from './Pagination';
-import { listProductDetails } from '../actions/productActions';
+import { listProductDetails } from '../state/actions/productActions';
 
 const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCount, isScreen }) => {
   const dispatch = useDispatch();

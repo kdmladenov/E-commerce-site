@@ -6,7 +6,7 @@ import {
   createProductFeature,
   deleteProductFeature,
   updateProductFeature
-} from '../actions/productFeaturesActions';
+} from '../state/actions/productFeaturesActions';
 import { FEATURE } from '../constants/constants';
 
 const ProductFeatureEditCard = ({

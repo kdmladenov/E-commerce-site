@@ -3,7 +3,7 @@ import './styles/FormComponent.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import Button from './Button';
-import { saveShippingAddress } from '../actions/cartActions';
+import { saveShippingAddress } from '../state/actions/cartActions';
 
 const FormComponent = ({
   inputData,

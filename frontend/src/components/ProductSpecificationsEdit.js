@@ -6,16 +6,16 @@ import { useParams } from 'react-router-dom';
 import {
   PRODUCT_SPECIFICATION_CREATE_RESET,
   PRODUCT_SPECIFICATION_UPDATE_RESET
-} from '../constants/productConstants';
+} from '../state/constants/productConstants';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { listProductDetails } from '../actions/productActions';
+import { listProductDetails } from '../state/actions/productActions';
 import FormComponent from '../components/FormComponent';
 import { productSpecificationsInitialInputState } from '../constants/inputMaps';
 import {
   createProductSpecification,
   updateProductSpecification
-} from '../actions/productSpecificationsActions';
+} from '../state/actions/productSpecificationsActions';
 
 const ProductSpecificationsEdit = () => {
   const dispatch = useDispatch();

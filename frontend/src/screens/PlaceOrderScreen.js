@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeFromCart, updateCartItemQty } from '../actions/cartActions';
-import { createOrder } from '../actions/orderActions';
+import { removeFromCart, updateCartItemQty } from '../state/actions/cartActions';
+import { createOrder } from '../state/actions/orderActions';
 import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import Message from '../components/Message';
 import Price from '../components/Price';
 import Rating from '../components/Rating';
-import { CART_REMOVE_ALL_ITEMS } from '../constants/cartConstants';
+import { CART_REMOVE_ALL_ITEMS } from '../state/constants/cartConstants';
 import {
   FREE_SHIPPING_THRESHOLD,
   MAX_PRODUCT_QTY_FOR_PURCHASE,
@@ -16,7 +16,7 @@ import {
   TAX_RATE
 } from '../constants/constants';
 import { checkoutBreadcrumbsSteps } from '../constants/inputMaps';
-import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+import { ORDER_CREATE_RESET } from '../state/constants/orderConstants';
 import './styles/PlaceOrderScreen.css';
 
 const PlaceOrderScreen = ({ history }) => {
@@ -38,7 +38,7 @@ const PlaceOrderScreen = ({ history }) => {
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const { user } = useSelector((state) => state.userDetails);
-  
+
   const { order, success, error } = useSelector((state) => state.orderCreate);
 
   useEffect(() => {

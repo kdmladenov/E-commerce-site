@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { listWishedItems } from '../actions/wishListActions';
+import { listWishedItems } from '../state/actions/wishListActions';
 import {
   defaultEndpoint,
   productListPageSizeOptionsMap,

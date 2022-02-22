@@ -18,7 +18,7 @@ import WishListScreen from './screens/WishListScreen';
 import AdminScreen from './screens/AdminScreen';
 import Toast from './components/Toast';
 import { useDispatch } from 'react-redux';
-import { addToPortalRefs } from './actions/portalActions';
+import { addToPortalRefs } from './state/actions/portalActions';
 import ReviewsScreen from './screens/ReviewsScreen';
 import QuestionsAndAnswersScreen from './screens/QuestionsAndAnswersScreen';
 import BrandStoreScreen from './screens/BrandStoreScreen';

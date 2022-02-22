@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { resetPassword } from '../actions/userActions';
+import { resetPassword } from '../state/actions/userActions';
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';

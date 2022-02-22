@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { savePaymentMethod } from '../actions/cartActions';
+import { savePaymentMethod } from '../state/actions/cartActions';
 import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import { checkoutBreadcrumbsSteps } from '../constants/inputMaps';

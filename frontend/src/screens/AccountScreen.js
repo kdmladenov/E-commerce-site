@@ -5,7 +5,7 @@ import './styles/AccountScreen.css';
 import History from '../components/History';
 import WishList from '../components/WishList';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails } from '../state/actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ButtonNav from '../components/ButtonNav';
@@ -25,7 +25,7 @@ const AccountScreen = ({ match }) => {
   } = useSelector((state) => state.userDetails);
 
   const { success: successUpdateAvatar } = useSelector((state) => state.userAvatarUpdate);
-  
+
   const { success: successDeleteAvatar } = useSelector((state) => state.userAvatarDelete);
 
   useEffect(() => {

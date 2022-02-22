@@ -10,7 +10,7 @@ import {
   BROWSING_HISTORY_LIST_REQUEST,
   BROWSING_HISTORY_LIST_SUCCESS
 } from '../constants/browsingHistoryConstants';
-import { BASE_URL } from '../constants/constants';
+import { BASE_URL } from '../../constants/constants';
 
 export const addBrowsingHistoryRecord = (productId) => async (dispatch, getState) => {
   try {

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/Header.css';
-import { getUserDetails, logout } from '../actions/userActions';
+import { getUserDetails, logout } from '../state/actions/userActions';
 import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
 import Login from './Login';

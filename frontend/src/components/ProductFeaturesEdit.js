@@ -3,7 +3,7 @@ import './styles/ProductFeaturesEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { listProductFeatures } from '../actions/productFeaturesActions';
+import { listProductFeatures } from '../state/actions/productFeaturesActions';
 import Button from './Button';
 import ProductFeatureEditCard from './ProductFeatureEditCard';
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { Link } from 'react-router-dom';
-import { deliverOrder, getOrderDetails, payOrder } from '../actions/orderActions';
+import { deliverOrder, getOrderDetails, payOrder } from '../state/actions/orderActions';
 import Message from '../components/Message';
 import { BASE_URL } from '../constants/constants';
 import './styles/OrderScreen.css';
@@ -12,7 +12,7 @@ import {
   ORDER_CREATE_RESET,
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET
-} from '../constants/orderConstants';
+} from '../state/constants/orderConstants';
 import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import Rating from '../components/Rating';
@@ -20,7 +20,7 @@ import Price from '../components/Price';
 import { orderBreadcrumbsSteps } from '../constants/inputMaps';
 import Divider from '../components/Divider';
 import { getDate } from '../constants/utility-functions';
-import { addToCart } from '../actions/cartActions';
+import { addToCart } from '../state/actions/cartActions';
 import Tooltip from '../components/Tooltip';
 
 const OrderScreen = ({ match, history }) => {

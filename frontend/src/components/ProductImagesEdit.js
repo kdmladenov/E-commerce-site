@@ -6,7 +6,7 @@ import {
   listProductImages,
   setImageAsMain,
   uploadProductImage
-} from '../actions/productActions';
+} from '../state/actions/productActions';
 import { BASE_URL } from '../constants/constants';
 import Loader from './Loader';
 import Message from './Message';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { login } from '../actions/userActions';
+import { login } from '../state/actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useHistory } from 'react-router';

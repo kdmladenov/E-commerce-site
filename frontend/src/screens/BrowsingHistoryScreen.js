@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { listBrowsingHistory } from '../actions/browsingHistoryActions';
+import { listBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import {
   browsingHistorySortOptionsMap,
   defaultEndpoint,
@@ -17,7 +17,7 @@ const BrowsingHistoryScreen = () => {
   const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyHistory));
 
   const { browsingHistory, loading, error } = useSelector((state) => state.browsingHistoryList);
-  
+
   const { success: successDelete } = useSelector((state) => state.browsingHistoryDelete);
 
   useEffect(() => {

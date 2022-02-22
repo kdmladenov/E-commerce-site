@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import FormComponent from '../components/FormComponent';
 import { checkoutBreadcrumbsSteps, profileAddressInitialInputState } from '../constants/inputMaps';

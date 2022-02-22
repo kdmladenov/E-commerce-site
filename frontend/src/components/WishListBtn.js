@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addWishToList, deleteWishFromList } from '../actions/wishListActions';
+import { addWishToList, deleteWishFromList } from '../state/actions/wishListActions';
 import Button from './Button';
 import Tooltip from './Tooltip';
 import './styles/WishListBtn.css';

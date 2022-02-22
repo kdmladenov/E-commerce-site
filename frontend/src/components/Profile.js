@@ -6,7 +6,7 @@ import {
 import Button from './Button';
 import FormComponent from './FormComponent';
 import './styles/Profile.css';
-import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
 import { useSelector } from 'react-redux';
 import validateInputUser from '../validations/userValidator';
 import ProfileAvatar from './ProfileAvatar';

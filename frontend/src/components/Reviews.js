@@ -3,7 +3,7 @@ import ReviewCard from './ReviewCard';
 import Button from './Button';
 import './styles/Reviews.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails } from '../state/actions/userActions';
 import RatingWidget from './RatingWidget';
 import { useHistory } from 'react-router-dom';
 import {
@@ -12,8 +12,8 @@ import {
   ratingFilterOptionsMap,
   reviewsSortOptionsMap
 } from '../constants/inputMaps';
-import { listReviews } from '../actions/reviewActions';
-import { listProductDetails } from '../actions/productActions';
+import { listReviews } from '../state/actions/reviewActions';
+import { listProductDetails } from '../state/actions/productActions';
 import HeaderControls from './HeaderControls';
 import Loader from './Loader';
 import Message from './Message';

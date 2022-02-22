@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listWishedItems } from '../actions/wishListActions';
+import { listWishedItems } from '../state/actions/wishListActions';
 import Loader from './Loader';
 import Message from './Message';
 import './styles/WishList.css';

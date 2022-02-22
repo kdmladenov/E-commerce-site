@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart, updateCartItemQty } from '../actions/cartActions';
+import { addToCart, removeFromCart, updateCartItemQty } from '../state/actions/cartActions';
 import Message from '../components/Message';
 import './styles/CartScreen.css';
 import { MAX_PRODUCT_QTY_FOR_PURCHASE } from '../constants/constants';
@@ -10,7 +10,7 @@ import Rating from '../components/Rating';
 import Price from '../components/Price';
 import Button from '../components/Button';
 import Carousel from '../components/Carousel';
-import { listBrowsingHistory } from '../actions/browsingHistoryActions';
+import { listBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import WishList from '../components/WishList';
 import WishListBtn from '../components/WishListBtn';
 

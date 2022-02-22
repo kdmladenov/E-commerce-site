@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { deleteBrowsingHistory, listBrowsingHistory } from '../actions/browsingHistoryActions';
+import { deleteBrowsingHistory, listBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import {
   browsingHistorySortOptionsMap,
   defaultEndpoint,

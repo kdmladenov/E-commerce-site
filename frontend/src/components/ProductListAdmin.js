@@ -13,12 +13,13 @@ import {
   defaultEndpoint
 } from '../constants/inputMaps';
 import Pagination from './Pagination';
-import { deleteProduct, listProducts, restoreProduct } from '../actions/productActions';
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import { deleteProduct, listProducts, restoreProduct } from '../state/actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../state/constants/productConstants';
 import HeaderControls from './HeaderControls';
 import Price from './Price';
 import ProductDetails from './ProductDetails';
 import Tooltip from './Tooltip';
+import Modal from './Modal';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();
@@ -26,29 +27,51 @@ const ProductListAdmin = () => {
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['productListAdmin']);
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const productDelete = useSelector((state) => state.productDelete);
-  const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
+  const [modalContent, setModalContent] = useState(<></>);
 
-  const productRestore = useSelector((state) => state.productRestore);
-  const { loading: loadingRestore, error: errorRestore, success: successRestore } = productRestore;
+  const { products, loading, error } = useSelector((state) => state.productList);
 
-  const productCreate = useSelector((state) => state.productCreate);
+  const { userInfo } = useSelector((state) => state.userLogin);
+
   const {
-    loading: loadingCreate,
-    error: errorCreate,
+    product: createdProduct,
     success: successCreate,
-    product: createdProduct
-  } = productCreate;
+    loading: loadingCreate,
+    error: errorCreate
+  } = useSelector((state) => state.productCreate);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const {
+    success: successDelete,
+    loading: loadingDelete,
+    error: errorDelete
+  } = useSelector((state) => state.productDelete);
+
+  const {
+    success: successRestore,
+    loading: loadingRestore,
+    error: errorRestore
+  } = useSelector((state) => state.productRestore);
 
   const deleteProductHandler = (productId) => {
-    window.confirm('Are your sure you want to delete this product?');
-    dispatch(deleteProduct(productId));
+    setIsModalOpen(true);
+    setModalContent(
+      <div className="confirm">
+        <span className="message">'Are your sure you want to delete this product?'</span>
+        <div className="button_group">
+          <Button
+            onClick={() => {
+              dispatch(deleteProduct(productId));
+              setIsModalOpen(false);
+            }}
+          >
+            Yes
+          </Button>
+          <Button onClick={() => setIsModalOpen(false)}>No</Button>
+        </div>
+      </div>
+    );
   };
 
   const restoreProductHandler = (productId) => {
@@ -140,9 +163,9 @@ const ProductListAdmin = () => {
                       <Price price={product.price} size="small" color="black" />
                       <div className="active">
                         {!product.isDeleted ? (
-                          <i className="fa fa-check" style={{ color: 'green' }}/>
+                          <i className="fa fa-check" style={{ color: 'green' }} />
                         ) : (
-                          <i className="fa fa-times" style={{ color: 'red' }}/>
+                          <i className="fa fa-times" style={{ color: 'red' }} />
                         )}
                       </div>
                     </div>
@@ -201,6 +224,11 @@ const ProductListAdmin = () => {
           totalItems={products?.[0]?.totalDBItems}
         />
       </div>
+      {isModalOpen && (
+        <Modal classes="confirm" setIsOpenModal={setIsModalOpen}>
+          {modalContent}
+        </Modal>
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { register } from '../actions/userActions';
+import { register } from '../state/actions/userActions';
 import FormComponent from '../components/FormComponent';
 import { userRegisterInitialInputState } from '../constants/inputMaps';
 import validateInputUser from '../validations/userValidator';

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/ProductScreen.css';
-import { listProductDetails, listProductImages } from '../actions/productActions';
+import { listProductDetails, listProductImages } from '../state/actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Reviews from '../components/Reviews';
-import { addBrowsingHistoryRecord, listBrowsingHistory } from '../actions/browsingHistoryActions';
+import { addBrowsingHistoryRecord, listBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import QuestionsAndAnswers from '../components/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';

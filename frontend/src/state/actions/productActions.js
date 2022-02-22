@@ -31,7 +31,7 @@ import {
   PRODUCT_UPDATE_SUCCESS
 } from '../constants/productConstants';
 import axios from 'axios';
-import { BASE_URL } from '../constants/constants';
+import { BASE_URL } from '../../constants/constants';
 
 export const listProducts =
   (endpoint = '') =>

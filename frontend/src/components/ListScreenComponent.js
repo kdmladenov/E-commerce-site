@@ -10,7 +10,7 @@ import './styles/ListScreenComponent.css';
 import HeaderControls from '../components/HeaderControls';
 import { getRibbonText } from '../constants/utility-functions';
 import Button from '../components/Button';
-import { deleteBrowsingHistory } from '../actions/browsingHistoryActions';
+import { deleteBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import Tooltip from './Tooltip';
 
 const ListScreenComponent = ({

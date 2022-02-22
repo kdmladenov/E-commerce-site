@@ -6,7 +6,7 @@ import {
   productListSortOptionsMap
 } from '../constants/inputMaps';
 import ListScreenComponent from '../components/ListScreenComponent';
-import { listProducts } from '../actions/productActions';
+import { listProducts } from '../state/actions/productActions';
 
 const ProductListScreen = ({ match }) => {
   const searchTerm = match?.params?.searchTerm || '';

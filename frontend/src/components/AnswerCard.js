@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {  deleteAnswer, editAnswer } from '../actions/questionsAndAnswersActions';
+import {  deleteAnswer, editAnswer } from '../state/actions/questionsAndAnswersActions';
 import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
 import EditButtons from './EditButtons';

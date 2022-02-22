@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProductFeatures } from '../actions/productFeaturesActions';
+import { listProductFeatures } from '../state/actions/productFeaturesActions';
 import Accordion from './Accordion';
 import Loader from './Loader';
 import Message from './Message';

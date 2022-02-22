@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, listUsers, restoreUser } from '../actions/userActions';
+import { deleteUser, listUsers, restoreUser } from '../state/actions/userActions';
 import Button from './Button';
 import './styles/UserListAdmin.css';
 import Accordion from './Accordion';

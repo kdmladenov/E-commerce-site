@@ -7,7 +7,7 @@ import {
   deleteQuestion,
   editQuestion,
   voteQuestion
-} from '../actions/questionsAndAnswersActions';
+} from '../state/actions/questionsAndAnswersActions';
 import EditButtons from './EditButtons';
 import AnswerCard from './AnswerCard';
 import Votes from './Votes';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import { listProducts } from '../state/actions/productActions';
 import HeaderControls from '../components/HeaderControls';
 import Loader from '../components/Loader';
 import Message from '../components/Message';

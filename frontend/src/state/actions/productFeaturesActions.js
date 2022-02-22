@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../constants/constants';
+import { BASE_URL } from '../../constants/constants';
 import {
   PRODUCT_FEATURES_LIST_FAIL,
   PRODUCT_FEATURES_LIST_REQUEST,

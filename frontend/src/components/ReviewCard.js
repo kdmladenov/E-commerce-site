@@ -3,7 +3,7 @@ import Rating from './Rating';
 import ShowMoreButton from './ShowMoreButton';
 import './styles/ReviewCard.css';
 import { useDispatch } from 'react-redux';
-import { createReview, deleteReview, editReview, voteReview } from '../actions/reviewActions';
+import { createReview, deleteReview, editReview, voteReview } from '../state/actions/reviewActions';
 import Votes from './Votes';
 import EditButtons from './EditButtons';
 import { getTimeDuration } from '../constants/utility-functions';

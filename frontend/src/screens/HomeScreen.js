@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import { listProducts } from '../state/actions/productActions';
 import './styles/HomeScreen.css';
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider';
@@ -10,7 +10,7 @@ import ProductTile from '../components/ProductTile';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
 import { SLIDER_IMAGE_1 } from '../constants/constants';
-import { listWishedItems } from '../actions/wishListActions';
+import { listWishedItems } from '../state/actions/wishListActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const HomeScreen = () => {
   const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
 
   const { wishList } = useSelector((state) => state.wishListItems);
-  
+
   const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
