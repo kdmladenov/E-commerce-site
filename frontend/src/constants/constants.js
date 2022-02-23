@@ -1,22 +1,27 @@
 export const BASE_URL = 'http://localhost:5555';
 
+export const STORE_NAME = 'MyShop';
+
 export const MAX_PRODUCT_QTY_FOR_PURCHASE = 10;
+
 export const PRODUCT_FEATURES_MAIN_COUNT = 5;
 
 export const MIN_HISTORY_LIST_COUNT = 3;
 
 export const DAYS_FOR_DELIVERY = 5;
+
 export const DAYS_FOR_RETURNS_AFTER_DELIVERY = 30;
 
 export const FREE_SHIPPING_THRESHOLD = 500;
+
 export const SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE = 0.1;
+
 export const TAX_RATE = 0.2;
 
 export const PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH = 5;
 
-export const STORE_NAME = 'MyShop';
-
 export const SLIDER_IMAGE_1 = 'https://m.media-amazon.com/images/I/61lJ3xlQX2L._SX3000_.jpg';
+
 
 export const USER = {
   MIN_FULL_NAME_LENGTH: 2,

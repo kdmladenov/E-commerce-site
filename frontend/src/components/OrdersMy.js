@@ -58,22 +58,11 @@ const OrdersMy = () => {
           {orders?.length > 0 ? (
             <>
               <div className="order_title_header">
-                <div>
-                  <span>ID</span>
-                </div>
-                <div>
-                  <span>Date</span>
-                </div>
-                <div>
-                  <span>Total</span>
-                </div>
-                <div>
-                  <span>Ship to</span>
-                </div>
-                <div>
-                  <span>Status</span>
-                </div>
-                <div></div>
+                {['ID', 'Date', 'Total', 'Ship to', 'Status', ''].map((column) => (
+                  <div key={column}>
+                    <span>{column}</span>
+                  </div>
+                ))}
               </div>
               <Accordion>
                 {orders?.map((order) => (

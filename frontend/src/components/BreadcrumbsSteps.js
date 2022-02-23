@@ -43,8 +43,3 @@ const BreadcrumbsSteps = ({ currentStep = 'Cart', steps }) => {
 };
 
 export default BreadcrumbsSteps;
-
-// {step1 ? <Link to="/login">Sign In</Link> : <Link disabled>Sign In</Link>}
-//       {step2 ? <Link to="/shipping">Shipping</Link> : <Link disabled>Shipping</Link>}
-//       {step3 ? <Link to="/payment">Payment</Link> : <Link disabled>Payment</Link>}
-//       {step4 ? <Link to="/placeorder">Place Order</Link> : <Link disabled>Place Order</Link>}

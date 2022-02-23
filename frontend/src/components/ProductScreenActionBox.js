@@ -55,7 +55,7 @@ const ProductScreenActionBox = ({ product }) => {
       )}
       <li>
         <Popover header={<h3>{`Arrives ${getDate(currentDate, DAYS_FOR_DELIVERY)}`}</h3>}>
-          {'Order until the end of the day.'}{' '}
+          {'Order until the end of the day.'}
         </Popover>
       </li>
       <li>

@@ -4,12 +4,10 @@ import { Link } from 'react-router-dom';
 import { listProducts } from '../state/actions/productActions';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
-import { poundToKg } from '../constants/utility-functions';
 import Loader from './Loader';
 import Message from './Message';
-import Price from './Price';
-import Rating from './Rating';
 import './styles/ComparisonTable.css';
+import { getProductSpecificationItem } from '../constants/inputMaps';
 
 const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
   const dispatch = useDispatch();
@@ -27,48 +25,7 @@ const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
     <tr key={index}>
       <td>{productSpecificationsEnum[spec]}</td>
       {sortedProducts?.map((product) => (
-        <td key={product.productId}>
-          {spec === 'price' ? (
-            <div className="price">{<Price price={product[spec]} />}</div>
-          ) : spec === 'backlitKeyboard' ? (
-            product[spec] === 1 ? (
-              <i className="fa fa-check"/>
-            ) : (
-              <i className="fa fa-times"/>
-            )
-          ) : spec === 'voiceAssistant' ? (
-            product[spec] === 'No' ? (
-              <i className="fa fa-times"/>
-            ) : (
-              <span>{`${product?.voiceAssistant}`}</span>
-            )
-          ) : spec === 'rating' ? (
-            product?.reviewCount ? (
-              <div className="rating">
-                <Rating rating={product[spec]} />({product?.reviewCount})
-              </div>
-            ) : (
-              'Not rated yet'
-            )
-          ) : spec === 'weight' ? (
-            <span>{`${product[spec].toFixed(1)} pounds (${poundToKg(product[spec], 1)} kg)`}</span>
-          ) : spec === 'displayType' ? (
-            <span>{`${product?.screenSize?.toFixed(1)}-inch ${product?.displayType} with ${
-              product?.screenResolution
-            } resolution ${product?.touchScreen ? 'and touchscreen' : ''}`}</span>
-          ) : spec === 'storageCapacity' ? (
-            <span>{`${product?.storageCapacity} GB ${product?.storageType}`}</span>
-          ) : spec === 'systemMemory' ? (
-            <span>{`${product?.systemMemory} GB`}</span>
-          ) : spec === 'graphicsModel' ? (
-            <p>
-              {`${product?.graphicsModel}`}
-              <span>{`(${product?.graphicsType})`}</span>
-            </p>
-          ) : (
-            product[spec]
-          )}
-        </td>
+        <td key={product.productId}>{getProductSpecificationItem(spec, product)}</td>
       ))}
     </tr>
   ));

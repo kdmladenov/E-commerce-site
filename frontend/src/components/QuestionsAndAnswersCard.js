@@ -20,15 +20,10 @@ const answerCountAtStart = 1;
 
 const QuestionsAndAnswersCard = ({
   currentUser,
-  productId,
   userId: authorId,
   questionId,
   questionContent,
   answers,
-  dateCreated,
-  dateEdited,
-  fullName,
-  avatar,
   thumbsUp,
   thumbsDown,
   userThumbsUpList,
@@ -126,16 +121,10 @@ const QuestionsAndAnswersCard = ({
           <div className="answers_footer">
             {answerList?.length > answerCountAtStart && (
               <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
-                {!showAllAnswers ? (
-                  <>
-                    <i className="fa fa-chevron-down" />
-                    {`See more answers (${answerList?.length - answerCountAtStart})`}
-                  </>
-                ) : (
-                  <>
-                    <i className="fa fa-chevron-up" /> {`Collapse answers`}
-                  </>
-                )}
+                <i className={`fa fa-chevron-${!showAllAnswers ? 'down' : 'up'}`} />
+                {!showAllAnswers
+                  ? `See more answers (${answerList?.length - answerCountAtStart})`
+                  : 'Collapse answers'}
               </Button>
             )}
           </div>

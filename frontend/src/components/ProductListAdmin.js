@@ -115,34 +115,19 @@ const ProductListAdmin = () => {
         pageSizeOptionsMap={adminListPageSizeOptionsMap}
         sortOptionsMap={adminProductListSortOptionsMap}
       />
-      {loadingDelete && <Loader />}
-      {errorDelete && <Message type="error">{errorDelete}</Message>}
-      {loadingRestore && <Loader />}
-      {errorRestore && <Message type="error">{errorRestore}</Message>}
-      {loadingCreate && <Loader />}
-      {errorCreate && <Message type="error">{errorCreate}</Message>}
-      {loading ? (
+      {loading || loadingDelete || loadingRestore || loadingCreate ? (
         <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
+      ) : error || errorDelete || errorRestore || errorCreate ? (
+        <Message type="error">{error || errorDelete || errorRestore || errorCreate}</Message>
       ) : products?.length > 0 ? (
         <>
           <div className="product_title_header">
-            <div>
-              <span>ID</span>
-            </div>
-            <div>
-              <span>Image</span>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-            <div>
-              <span>Price</span>
-            </div>
-            <div>
-              <span>Active</span>
-            </div>
+            {['ID', 'Image', 'Title', 'Price', 'Active'].map((column) => (
+              <div key={column}>
+                <span>{column}</span>
+              </div>
+            ))}
+
             <div className="buttons">
               <Button classes="rounded" onClick={createProductHandler}>
                 <i className="fas fa-plus" /> <span>Create</span>
@@ -162,11 +147,10 @@ const ProductListAdmin = () => {
                       <div className="title">{product.title}</div>
                       <Price price={product.price} size="small" color="black" />
                       <div className="active">
-                        {!product.isDeleted ? (
-                          <i className="fa fa-check" style={{ color: 'green' }} />
-                        ) : (
-                          <i className="fa fa-times" style={{ color: 'red' }} />
-                        )}
+                        <i
+                          className={`fa fa-${!product.isDeleted ? 'check' : 'times'}`}
+                          style={{ color: `${!product.isDeleted ? 'green' : 'red'}` }}
+                        />
                       </div>
                     </div>
                   </Accordion.Title>

@@ -72,10 +72,10 @@
   --border_radius_bottom: 0 0 10px 10px;
   --border_radius_left: 10px 0 0 10px;
   --border_radius_right: 0 10px 10px 0;
-  --box_shadow: 0 0 1px rgb(0 0 0 / 20%), 0 4px 8px rgb(0 0 0 / 10%);
-  --box_shadow_2: 0 0.0625rem 0.125rem 0.0625rem rgb(0 0 0 / 15%);
+  --box_shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+  --box_shadow_2: 0 0.0625rem 0.125rem 0.0625rem rgba(0, 0, 0, 0.15);
   --box_shadow_3: 0 3px 10px rgba(0, 0, 0, 0.2);
-  --box_shadow_4: 0 14px 28px rgb(0 0 0 / 30%);
+  --box_shadow_4: 0 14px 28px rgba(0, 0, 0, 0.3);
   --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
     4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
     inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;

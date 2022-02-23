@@ -72,16 +72,10 @@ const ProductImagesEdit = () => {
 
   return (
     <div className="product_images_edit">
-      {loadingUpload && <Loader />}
-      {errorUpload && <Message type="error">{errorUpload}</Message>}
-      {loadingDelete && <Loader />}
-      {errorDelete && <Message type="error">{errorDelete}</Message>}
-      {loadingSetMain && <Loader />}
-      {errorSetMain && <Message type="error">{errorSetMain}</Message>}
-      {loading ? (
+      {loading || loadingUpload || loadingDelete || loadingSetMain ? (
         <Loader />
-      ) : error ? (
-        <Message type="error">{error}</Message>
+      ) : error || errorUpload || errorDelete || errorSetMain ? (
+        <Message type="error">{error || errorUpload || errorDelete || errorSetMain}</Message>
       ) : (
         <div className="product_images_edit_list_form">
           <div className="input_group card">
@@ -127,22 +121,15 @@ const ProductImagesEdit = () => {
                         <i className="fa fa-times" />
                       </Tooltip>
                     </Button>
-                    {image?.isMain ? (
-                      <Button classes="icon star">
-                        <Tooltip direction="top" text="Main image">
-                          <i className="fas fa-star" />
-                        </Tooltip>
-                      </Button>
-                    ) : (
-                      <Button
-                        classes="icon star"
-                        onClick={() => setImageAsMainHandler(image?.productImageId)}
-                      >
-                        <Tooltip direction="top" text="Set as main">
-                          <i className="far fa-star" />
-                        </Tooltip>
-                      </Button>
-                    )}
+
+                    <Button
+                      classes="icon star"
+                      onClick={() => !image?.isMain && setImageAsMainHandler(image?.productImageId)}
+                    >
+                      <Tooltip direction="top" text={image?.isMain ? 'Main image' : 'Set as main'}>
+                        <i className={`${image?.isMain ? 'fas' : 'far'} fa-star`} />
+                      </Tooltip>
+                    </Button>
                   </li>
                 ))}
               </ul>

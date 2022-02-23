@@ -115,33 +115,29 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
               );
             })}
             <div className="footer">
-              {!isScreen &&
-                questions?.length > 0 &&
-                (endpoint.pageSize === 'pageSize=3&' ? (
-                  <Button
-                    classes="text"
-                    onClick={() =>
-                      setEndpoint({
-                        ...endpoint,
-                        pageSize: 'pageSize=8&'
-                      })
-                    }
-                  >
-                    <i className="fa fa-chevron-down" /> See more questions
-                  </Button>
-                ) : (
-                  <Button
-                    classes="text"
-                    onClick={() =>
-                      setEndpoint({
-                        ...endpoint,
-                        pageSize: 'pageSize=3&'
-                      })
-                    }
-                  >
-                    <i className="fa fa-chevron-up" /> Collapse questions
-                  </Button>
-                ))}
+              {!isScreen && questions?.length > 0 && (
+                <Button
+                  classes="text"
+                  onClick={() =>
+                    setEndpoint({
+                      ...endpoint,
+                      pageSize: `${
+                        endpoint.pageSize === 'pageSize=3&' ? 'pageSize=8&' : 'pageSize=3&'
+                      }`
+                    })
+                  }
+                >
+                  {endpoint.pageSize === 'pageSize=3&' ? (
+                    <>
+                      <i className="fa fa-chevron-down" /> See more questions
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa fa-chevron-up" /> Collapse questions
+                    </>
+                  )}
+                </Button>
+              )}
               {!isScreen && (
                 <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
                   See all questions

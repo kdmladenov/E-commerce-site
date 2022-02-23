@@ -127,33 +127,29 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
             })}
         </ul>
         <div className="footer">
-          {!isScreen &&
-            reviews?.length > 0 &&
-            (endpoint.pageSize === 'pageSize=3&' ? (
-              <Button
-                classes="text"
-                onClick={() =>
-                  setEndpoint({
-                    ...endpoint,
-                    pageSize: 'pageSize=13&'
-                  })
-                }
-              >
-                <i className="fa fa-chevron-down" /> See more reviews (10)
-              </Button>
-            ) : (
-              <Button
-                classes="text"
-                onClick={() =>
-                  setEndpoint({
-                    ...endpoint,
-                    pageSize: 'pageSize=3&'
-                  })
-                }
-              >
-                <i className="fa fa-chevron-up" /> Collapse reviews
-              </Button>
-            ))}
+          {!isScreen && reviews?.length > 0 && (
+            <Button
+              classes="text"
+              onClick={() =>
+                setEndpoint({
+                  ...endpoint,
+                  pageSize: `${
+                    endpoint.pageSize === 'pageSize=3&' ? 'pageSize=13&' : 'pageSize=3&'
+                  }`
+                })
+              }
+            >
+              {endpoint.pageSize === 'pageSize=3&' ? (
+                <>
+                  <i className="fa fa-chevron-down" /> See more reviews (10)
+                </>
+              ) : (
+                <>
+                  <i className="fa fa-chevron-up" /> Collapse reviews
+                </>
+              )}
+            </Button>
+          )}
           {!isScreen && (
             <Button classes="text" onClick={() => history.push(`/reviews/${productId}`)}>
               See all reviews

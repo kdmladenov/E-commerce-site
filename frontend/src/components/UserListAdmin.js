@@ -22,7 +22,7 @@ const UserListAdmin = ({ history }) => {
   const [activeTab, setActiveTab] = useState('profile');
   const [endpoint, setEndpoint] = useState(defaultEndpoint['userListAdmin']);
 
-  const { users,loading, error,  } = useSelector((state) => state.userList);
+  const { users, loading, error } = useSelector((state) => state.userList);
 
   const { userInfo } = useSelector((state) => state.userLogin);
 
@@ -32,7 +32,7 @@ const UserListAdmin = ({ history }) => {
 
   const { success: successUpdateAvatar } = useSelector((state) => state.userAvatarUpdate);
 
-  const { success: successDeleteAvatar }  = useSelector((state) => state.userAvatarDelete);
+  const { success: successDeleteAvatar } = useSelector((state) => state.userAvatarDelete);
 
   useEffect(() => {
     // only admins to have access to the url
@@ -81,19 +81,11 @@ const UserListAdmin = ({ history }) => {
       ) : users?.length > 0 ? (
         <>
           <div className="user_title_header">
-            <div>
-              <span>ID</span>
-            </div>
-            <div>
-              <span>User</span>
-            </div>
-            <div>
-              <span>Email</span>
-            </div>
-            <div>
-              <span>Active</span>
-            </div>
-            <div></div>
+            {['ID', 'User', 'Email', 'Active', ''].map((column) => (
+              <div key={column}>
+                <span>{column}</span>
+              </div>
+            ))}
           </div>
           <Accordion>
             {users?.map((user) => (
@@ -108,11 +100,10 @@ const UserListAdmin = ({ history }) => {
                       </div>
                       <span className="email">{user.email}</span>
                       <div className="active">
-                        {!user.isDeleted ? (
-                          <i className="fa fa-check" style={{ color: 'green' }}/>
-                        ) : (
-                          <i className="fa fa-times" style={{ color: 'red' }}/>
-                        )}
+                        <i
+                          className={`fa fa-${!user.isDeleted ? 'check' : 'times'}`}
+                          style={{ color: `${!user.isDeleted ? 'green' : 'red'}` }}
+                        />
                       </div>
                     </div>
                   </Accordion.Title>

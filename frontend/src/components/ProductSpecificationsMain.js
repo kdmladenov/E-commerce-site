@@ -1,23 +1,11 @@
 import React from 'react';
+import { getProductSpecificationItem } from '../constants/inputMaps';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import { scrollTo } from '../constants/utility-functions';
 import Button from './Button';
 import './styles/ProductSpecificationsMain.css';
 
 const ProductSpecificationsMain = ({ product, specsRef }) => {
-  const {
-    productId,
-    screenSize,
-    displayType,
-    touchScreen,
-    screenResolution,
-    storageCapacity,
-    storageType,
-    systemMemory,
-    graphicsModel,
-    graphicsType
-  } = product;
-
   const specificationList = [
     'modelNumber',
     'releaseYear',
@@ -30,23 +18,7 @@ const ProductSpecificationsMain = ({ product, specsRef }) => {
       product && (
         <tr key={index}>
           <td>{productSpecificationsEnum[spec]}</td>
-          <td key={productId}>
-            {spec === 'displayType' ? (
-              <span>{`${screenSize?.toFixed(
-                1
-              )}-inch ${displayType} with ${screenResolution} resolution ${
-                touchScreen ? 'and touchscreen' : ''
-              }`}</span>
-            ) : spec === 'storageCapacity' ? (
-              <span>{`${storageCapacity} GB ${storageType}`}</span>
-            ) : spec === 'systemMemory' ? (
-              <span>{`${systemMemory} GB`}</span>
-            ) : spec === 'graphicsModel' ? (
-              `${graphicsModel} (${graphicsType})`
-            ) : (
-              product[spec]
-            )}
-          </td>
+          <td key={product.productId}>{getProductSpecificationItem(spec, product)}</td>
         </tr>
       )
   );

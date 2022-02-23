@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {  deleteAnswer, editAnswer } from '../state/actions/questionsAndAnswersActions';
+import { deleteAnswer, editAnswer } from '../state/actions/questionsAndAnswersActions';
 import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
 import EditButtons from './EditButtons';
@@ -16,10 +16,10 @@ const AnswerCard = ({
   dateEdited,
   fullName
 }) => {
+  const dispatch = useDispatch();
+
   const [editMode, setEditMode] = useState(false);
   const [contentAnswer, setContentAnswer] = useState(answerContent);
-
-  const dispatch = useDispatch();
 
   const handleAnswerEditButton = () => {
     setEditMode(true);
