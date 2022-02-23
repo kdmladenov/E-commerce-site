@@ -15,9 +15,9 @@ import {
   SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE,
   TAX_RATE
 } from '../constants/constants';
-import { checkoutBreadcrumbsSteps } from '../constants/inputMaps';
 import { ORDER_CREATE_RESET } from '../state/constants/orderConstants';
 import './styles/PlaceOrderScreen.css';
+import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();

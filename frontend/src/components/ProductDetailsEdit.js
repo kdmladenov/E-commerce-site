@@ -7,8 +7,8 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { createProduct, listProductDetails, updateProduct } from '../state/actions/productActions';
 import FormComponent from '../components/FormComponent';
-import { productDetailsInitialInputState } from '../constants/inputMaps';
 import validateInputProduct from '../validations/productValidator';
+import productDetailsInitialInputState from '../inputs/productDetailsInitialInputState';
 
 const ProductDetailsEdit = ({ productId }) => {
   const dispatch = useDispatch();

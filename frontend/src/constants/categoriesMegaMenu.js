@@ -1,14 +1,4 @@
-// const categories = {
-//   main: {
-//     mid: {
-//       sub: 'sub',
-//       sub2: 'sub2',
-//       .....
-//     }
-//   }
-// };
-
-export const categories = {
+const categoriesMegaMenu = {
   'Phones, Tablets & Laptops': {
     'Mobile Phones & Accessories': {},
     'Tablets & Accessories': {},
@@ -31,3 +21,15 @@ export const categories = {
   'Auto & DIY': {},
   'Books, Office & Food': {}
 };
+
+export default categoriesMegaMenu;
+
+// const categories = {
+//   main: {
+//     mid: {
+//       sub: 'sub',
+//       sub2: 'sub2',
+//       .....
+//     }
+//   }
+// };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getDate } from '../constants/utility-functions';
+import getDate from '../helpers/getDate';
 import './styles/Timeline.css';
 import Tooltip from './Tooltip';
 

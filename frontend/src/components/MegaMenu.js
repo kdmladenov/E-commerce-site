@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { categories } from '../constants/for-developing/categoriesMega';
-import { categoryIcons } from '../constants/for-developing/mainCategoryIcons';
-import { alphabeticalSort } from '../constants/utility-functions';
+import categoriesMegaMenu from '../constants/categoriesMegaMenu';
+import { megaMenuCategoriesIcons } from '../constants/megaMenuCategoriesIcons';
+import sortAlphabetically from '../helpers/sortAlphabetically';
 import useOutsideClick from '../hooks/useOutsideClick';
 import './styles/MegaMenu.css';
 
 const MegaMenu = () => {
-  const history = useHistory();const 
-  
-  menuLevels = ['main', 'mid', 'sub'];
+  const history = useHistory();
+  const menuLevels = ['main', 'mid', 'sub'];
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [activeMenu, setActiveMenu] = useState(menuLevels?.[0]);
@@ -26,22 +25,20 @@ const MegaMenu = () => {
   });
 
   const getCurrentCategories = () =>
-    alphabeticalSort(
+    sortAlphabetically(
       activeMenu === 'main'
-        ? Object.keys(categories)
+        ? Object.keys(categoriesMegaMenu)
         : activeMenu === 'mid'
-        ? Object.keys(categories[parentCategories[0]])
-        : Object.keys(categories[parentCategories[0]][parentCategories[1]])
+        ? Object.keys(categoriesMegaMenu[parentCategories[0]])
+        : Object.keys(categoriesMegaMenu[parentCategories[0]][parentCategories[1]])
     );
 
   const getSubCategories = (selectedCategory) =>
     activeMenu === 'main'
-      ? alphabeticalSort(Object.keys(categories[selectedCategory]))
+      ? sortAlphabetically(Object.keys(categoriesMegaMenu[selectedCategory]))
       : activeMenu === 'mid'
-      ? alphabeticalSort(Object.keys(categories[parentCategories[0]][selectedCategory]))
-      : categories[parentCategories[0]][parentCategories[1]][selectedCategory];
-
-
+      ? sortAlphabetically(Object.keys(categoriesMegaMenu[parentCategories[0]][selectedCategory]))
+      : categoriesMegaMenu[parentCategories[0]][parentCategories[1]][selectedCategory];
 
   const handleNextLinkClick = (category) => {
     if (getSubCategories(category).length > 0) {
@@ -65,7 +62,7 @@ const MegaMenu = () => {
         <h2>Categories</h2>
       ) : (
         <div className="menu_header">
-          <i className="fas fa-arrow-left" onClick={handlePreviousLinkClick}/>
+          <i className="fas fa-arrow-left" onClick={handlePreviousLinkClick} />
           <span>{`${parentCategories[parentCategories.length - 1]}`}</span>
         </div>
       )}
@@ -78,13 +75,13 @@ const MegaMenu = () => {
           >
             <i
               className={`${
-                level === 'main' ? categoryIcons[category] : 'fa fa-align-justify'
+                level === 'main' ? megaMenuCategoriesIcons[category] : 'fa fa-align-justify'
               } left`}
             />
             <span>{`${category} ${
               level !== 'sub' ? `(${getSubCategories(category).length})` : ''
             }`}</span>
-            {level !== 'sub' && <i className="fas fa-angle-right chevron"/>}
+            {level !== 'sub' && <i className="fas fa-angle-right chevron" />}
           </li>
         ))}
       </ul>

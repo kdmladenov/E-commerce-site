@@ -5,9 +5,9 @@ import { login } from '../state/actions/userActions';
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { userLoginInitialInputState } from '../constants/inputMaps';
 import validateInputUser from '../validations/userValidator';
 import './styles/LoginScreen.css';
+import userLoginInitialInputState from '../inputs/userLoginInitialInputState';
 
 const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);

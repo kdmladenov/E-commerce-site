@@ -7,15 +7,13 @@ import Accordion from './Accordion';
 import Loader from './Loader';
 import Message from './Message';
 import Profile from './Profile';
-import {
-  adminListPageSizeOptionsMap,
-  adminUserListSortOptionsMap,
-  defaultEndpoint
-} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import Avatar from './Avatar';
 import Tooltip from './Tooltip';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { adminUserListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const UserListAdmin = ({ history }) => {
   const dispatch = useDispatch();

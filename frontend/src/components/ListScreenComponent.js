@@ -5,13 +5,13 @@ import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Sidebar from '../components/Sidebar';
-import { sidebarInput } from '../constants/inputMaps';
 import './styles/ListScreenComponent.css';
 import HeaderControls from '../components/HeaderControls';
-import { getRibbonText } from '../constants/utility-functions';
 import Button from '../components/Button';
 import { deleteBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import Tooltip from './Tooltip';
+import getSidebarInput from '../helpers/getSidebarInput';
+import getRibbonText from '../helpers/getRibbonText';
 
 const ListScreenComponent = ({
   endpoint,
@@ -53,7 +53,7 @@ const ListScreenComponent = ({
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
-        inputMap={sidebarInputMap || sidebarInput(JSON.parse(localStorage.getItem(localStorageId)))}
+        inputMap={sidebarInputMap || getSidebarInput(JSON.parse(localStorage.getItem(localStorageId)))}
         defaultEndpoint={defaultEndpoint}
       />
       <HeaderControls

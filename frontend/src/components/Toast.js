@@ -1,9 +1,9 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { uniqueId } from '../constants/utility-functions';
 import useCreateDiv from '../hooks/useCreateDiv';
 import './styles/Toast.css';
 import Price from './Price';
+import getUniqueId from '../helpers/getUniqueId';
 
 const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod = 6000 }, ref) => {
   const { loaded, divId } = useCreateDiv(idDiv);
@@ -14,7 +14,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
 
   useImperativeHandle(ref, () => ({
     createToast(toast) {
-      setToasts([...toasts, { ...toast, id: uniqueId() }]);
+      setToasts([...toasts, { ...toast, id: getUniqueId() }]);
     }
   }));
 
@@ -41,7 +41,7 @@ const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod =
               <div className="image ">
                 <img src={toast.image} alt={toast.title} />
                 <div className="badge">
-                  <i className="fa fa-shopping-cart"/>
+                  <i className="fa fa-shopping-cart" />
                 </div>
               </div>
               <div className="content">

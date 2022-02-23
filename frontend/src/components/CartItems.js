@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { numberDecimalFix } from '../constants/utility-functions';
+import numberDecimalFix from '../helpers/numberDecimalFix';
 import Button from './Button';
 import Price from './Price';
 import './styles/CartItems.css';

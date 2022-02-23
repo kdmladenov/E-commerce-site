@@ -1,4 +1,4 @@
-export const categoryIcons = {
+export const megaMenuCategoriesIcons = {
   'Phones, Tablets & Laptops': 'fas fa-mobile-alt',
   'Computers & Peripherals': 'fas fa-laptop',
   'TV, Audio & Photo': 'fas fa-tv',
@@ -13,5 +13,5 @@ export const categoryIcons = {
   'Auto & DIY': 'fas fa-car',
   'Books, Office & Food': 'fas fa-book',
   categories: 'fa fa-align-justify',
-  'All': 'fa fa-align-justify'
+  All: 'fa fa-align-justify'
 };

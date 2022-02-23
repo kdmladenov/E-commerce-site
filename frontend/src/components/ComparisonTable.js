@@ -7,7 +7,7 @@ import specificationsInOrder from '../constants/specificationsInOrder';
 import Loader from './Loader';
 import Message from './Message';
 import './styles/ComparisonTable.css';
-import { getProductSpecificationItem } from '../constants/inputMaps';
+import getProductSpecificationItem from '../helpers/getProductSpecificationItem';
 
 const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
   const dispatch = useDispatch();

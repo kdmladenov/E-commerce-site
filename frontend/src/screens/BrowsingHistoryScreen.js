@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { listBrowsingHistory } from '../state/actions/browsingHistoryActions';
-import {
-  browsingHistorySortOptionsMap,
-  defaultEndpoint,
-  productListPageSizeOptionsMap,
-  sidebarInput
-} from '../constants/inputMaps';
 import ListScreenComponent from '../components/ListScreenComponent';
+import getSidebarInput from '../helpers/getSidebarInput';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { browsingHistorySortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const BrowsingHistoryScreen = () => {
   const [endpoint, setEndpoint] = useState(defaultEndpoint['browsingHistoryScreen']);
 
   const allMyHistory = JSON.parse(localStorage.getItem('allMyHistory'));
 
-  const [sidebarInputMap, setSidebarInputMap] = useState(sidebarInput(allMyHistory));
+  const [sidebarInputMap, setSidebarInputMap] = useState(getSidebarInput(allMyHistory));
 
   const { browsingHistory, loading, error } = useSelector((state) => state.browsingHistoryList);
 
   const { success: successDelete } = useSelector((state) => state.browsingHistoryDelete);
 
   useEffect(() => {
-    setSidebarInputMap(sidebarInput(allMyHistory));
+    setSidebarInputMap(getSidebarInput(allMyHistory));
   }, [successDelete]);
 
   return (

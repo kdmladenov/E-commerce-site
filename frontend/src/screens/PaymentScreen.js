@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { savePaymentMethod } from '../state/actions/cartActions';
 import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
-import { checkoutBreadcrumbsSteps } from '../constants/inputMaps';
 import './styles/PaymentScreen.css';
+import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
 
 const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);

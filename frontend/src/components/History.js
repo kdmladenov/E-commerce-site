@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { deleteBrowsingHistory, listBrowsingHistory } from '../state/actions/browsingHistoryActions';
 import {
-  browsingHistorySortOptionsMap,
-  defaultEndpoint,
-  productListPageSizeOptionsMap
-} from '../constants/inputMaps';
-import { getRibbonText } from '../constants/utility-functions';
+  deleteBrowsingHistory,
+  listBrowsingHistory
+} from '../state/actions/browsingHistoryActions';
 import Button from './Button';
 import HeaderControls from './HeaderControls';
 import Loader from './Loader';
@@ -15,6 +12,10 @@ import Message from './Message';
 import ProductCard from './ProductCard';
 import './styles/History.css';
 import Timeline from './Timeline';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { browsingHistorySortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+import getRibbonText from '../helpers/getRibbonText';
 
 const History = ({ horizontal }) => {
   const dispatch = useDispatch();

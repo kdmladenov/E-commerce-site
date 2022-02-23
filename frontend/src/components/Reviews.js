@@ -6,18 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../state/actions/userActions';
 import RatingWidget from './RatingWidget';
 import { useHistory } from 'react-router-dom';
-import {
-  defaultEndpoint,
-  productListPageSizeOptionsMap,
-  ratingFilterOptionsMap,
-  reviewsSortOptionsMap
-} from '../constants/inputMaps';
 import { listReviews } from '../state/actions/reviewActions';
 import { listProductDetails } from '../state/actions/productActions';
 import HeaderControls from './HeaderControls';
 import Loader from './Loader';
 import Message from './Message';
 import Pagination from './Pagination';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { reviewsSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import ratingFilterOptionsMap from '../inputs/ratingFilterOptionsMap';
 
 const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
   const dispatch = useDispatch();

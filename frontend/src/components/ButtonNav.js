@@ -1,12 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { buttonNavMap } from '../constants/inputMaps';
+import getButtonNavMap from '../helpers/getButtonNavMap';
 import './styles/ButtonNav.css';
 
-const ButtonNav = ({ activeTab, screen, productId, section }) => {
+const ButtonNav = ({ activeTab, screen, productId }) => {
   const history = useHistory();
 
-  const buttonNav = buttonNavMap(productId, section);
+  const buttonNav = getButtonNavMap(productId);
   return (
     <nav className={`button_nav_container card ${screen}`}>
       {buttonNav[screen].map((tab, index) => (

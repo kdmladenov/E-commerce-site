@@ -9,7 +9,8 @@ import Login from './Login';
 import CartItems from './CartItems';
 import DropDown from './Dropdown';
 import Avatar from './Avatar';
-import { adminMenuMap, userMenuMap } from '../constants/inputMaps';
+import { adminMenuMap, userMenuMap } from '../inputs/headerMenuMaps';
+
 
 const Header = () => {
   const dispatch = useDispatch();

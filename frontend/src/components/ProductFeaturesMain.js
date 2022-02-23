@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { PRODUCT_FEATURES_MAIN_COUNT } from '../constants/constants';
-import { scrollTo } from '../constants/utility-functions';
+import scrollTo from '../helpers/scrollTo';
 import Button from './Button';
 import Loader from './Loader';
 import Message from './Message';

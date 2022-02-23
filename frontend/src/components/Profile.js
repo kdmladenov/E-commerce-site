@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import {
-  profileAddressInitialInputState,
-  profileOverviewInitialInputState
-} from '../constants/inputMaps';
 import Button from './Button';
 import FormComponent from './FormComponent';
 import './styles/Profile.css';
@@ -10,6 +6,8 @@ import { getUserDetails, updateUserProfile } from '../state/actions/userActions'
 import { useSelector } from 'react-redux';
 import validateInputUser from '../validations/userValidator';
 import ProfileAvatar from './ProfileAvatar';
+import profileAddressInitialInputState from '../inputs/profileAddressInitialInputState';
+import profileOverviewInitialInputState from '../inputs/profileOverviewInitialInputState';
 
 const Profile = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');

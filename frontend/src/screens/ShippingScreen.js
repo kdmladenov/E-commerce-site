@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import FormComponent from '../components/FormComponent';
-import { checkoutBreadcrumbsSteps, profileAddressInitialInputState } from '../constants/inputMaps';
 import validateInputUser from '../validations/userValidator';
 import './styles/ShippingScreen.css';
+import profileAddressInitialInputState from '../inputs/profileAddressInitialInputState';
+import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
 
 const ShippingScreen = () => {
   const dispatch = useDispatch();

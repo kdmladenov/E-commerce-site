@@ -7,17 +7,15 @@ import { Link, useHistory } from 'react-router-dom';
 import './styles/OrderListAdmin.css';
 import { listOrders } from '../state/actions/orderActions';
 import Accordion from './Accordion';
-import { getDate } from '../constants/utility-functions';
-import {
-  adminListPageSizeOptionsMap,
-  adminOrderListSortOptionsMap,
-  defaultEndpoint
-} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import Price from './Price';
 import HeaderControls from './HeaderControls';
 import { DAYS_FOR_DELIVERY } from '../constants/constants';
 import Tooltip from './Tooltip';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { adminOrderListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+import getDate from '../helpers/getDate';
 
 const OrderListAdmin = () => {
   const dispatch = useDispatch();
@@ -55,7 +53,7 @@ const OrderListAdmin = () => {
       ) : orders?.length > 0 ? (
         <>
           <div className="order_title_header">
-            {['ID', 'Date', 'Total', 'Ship to', 'Status',''].map((column) => (
+            {['ID', 'Date', 'Total', 'Ship to', 'Status', ''].map((column) => (
               <div key={column}>
                 <span>{column}</span>
               </div>

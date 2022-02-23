@@ -1,5 +1,5 @@
 import React from 'react';
-import { numberDecimalFix } from '../constants/utility-functions';
+import numberDecimalFix from '../helpers/numberDecimalFix';
 import Rating from './Rating';
 import './styles/RatingWidget.css';
 

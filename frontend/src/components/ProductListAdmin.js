@@ -7,11 +7,6 @@ import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import './styles/ProductListAdmin.css';
 import Accordion from './Accordion';
-import {
-  adminListPageSizeOptionsMap,
-  adminProductListSortOptionsMap,
-  defaultEndpoint
-} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import { deleteProduct, listProducts, restoreProduct } from '../state/actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../state/constants/productConstants';
@@ -20,6 +15,9 @@ import Price from './Price';
 import ProductDetails from './ProductDetails';
 import Tooltip from './Tooltip';
 import Modal from './Modal';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { adminProductListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();

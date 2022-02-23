@@ -11,11 +11,11 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listProductDetails } from '../state/actions/productActions';
 import FormComponent from '../components/FormComponent';
-import { productSpecificationsInitialInputState } from '../constants/inputMaps';
 import {
   createProductSpecification,
   updateProductSpecification
 } from '../state/actions/productSpecificationsActions';
+import getProductSpecificationsInitialInputState from '../helpers/getProductSpecificationsInitialInputState';
 
 const ProductSpecificationsEdit = () => {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const ProductSpecificationsEdit = () => {
       ) : (
         <div className="product_specifications_edit_form card">
           <FormComponent
-            inputData={productSpecificationsInitialInputState(
+            inputData={getProductSpecificationsInitialInputState(
               JSON.parse(localStorage.getItem('allProductsList'))
             )}
             updateAction={updateProductSpecification}

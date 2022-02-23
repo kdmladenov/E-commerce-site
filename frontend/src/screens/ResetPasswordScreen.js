@@ -5,9 +5,9 @@ import { resetPassword } from '../state/actions/userActions';
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { userResetPasswordInitialInputState } from '../constants/inputMaps';
 import validateInputUser from '../validations/userValidator';
 import './styles/ResetPasswordScreen.css';
+import userResetPasswordInitialInputState from '../inputs/userResetPasswordInitialInputState';
 
 const ResetPasswordScreen = ({ history, match }) => {
   const { userId, token } = match.params;

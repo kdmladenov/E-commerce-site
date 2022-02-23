@@ -17,11 +17,11 @@ import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
-import { orderBreadcrumbsSteps } from '../constants/inputMaps';
 import Divider from '../components/Divider';
-import { getDate } from '../constants/utility-functions';
 import { addToCart } from '../state/actions/cartActions';
 import Tooltip from '../components/Tooltip';
+import orderBreadcrumbsSteps from '../inputs/orderBreadcrumbsSteps';
+import getDate from '../helpers/getDate';
 
 const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false);

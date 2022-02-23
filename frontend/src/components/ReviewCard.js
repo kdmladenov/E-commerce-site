@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 import { createReview, deleteReview, editReview, voteReview } from '../state/actions/reviewActions';
 import Votes from './Votes';
 import EditButtons from './EditButtons';
-import { getTimeDuration } from '../constants/utility-functions';
 import Avatar from './Avatar';
 import { REVIEW, PRODUCT } from '../constants/constants';
+import getTimeDuration from '../helpers/getTimeDuration';
 
 const ReviewCard = ({
   currentUser,

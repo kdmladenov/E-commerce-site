@@ -4,15 +4,13 @@ import { listWishedItems } from '../state/actions/wishListActions';
 import Loader from './Loader';
 import Message from './Message';
 import './styles/WishList.css';
-import {
-  defaultEndpoint,
-  productListPageSizeOptionsMap,
-  productListSortOptionsMap
-} from '../constants/inputMaps';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import ProductCard from './ProductCard';
-import { getRibbonText } from '../constants/utility-functions';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+import getRibbonText from '../helpers/getRibbonText';
 
 const WishList = ({ isCarousel = false }) => {
   const dispatch = useDispatch();

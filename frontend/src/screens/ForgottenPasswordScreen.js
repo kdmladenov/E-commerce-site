@@ -4,9 +4,9 @@ import { forgotPassword } from '../state/actions/userActions';
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { userForgottenPasswordInitialInputState } from '../constants/inputMaps';
 import validateInputUser from '../validations/userValidator';
 import './styles/ForgottenPasswordScreen.css';
+import userForgottenPasswordInitialInputState from '../inputs/userForgottenPasswordInitialInputState';
 
 const ForgottenPasswordScreen = () => {
   const forgottenPassword = useSelector((state) => state.forgottenPassword);

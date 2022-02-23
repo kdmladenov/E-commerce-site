@@ -6,12 +6,10 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
-import {
-  defaultEndpoint,
-  productListPageSizeOptionsMap,
-  productListSortOptionsMap
-} from '../constants/inputMaps';
 import './styles/BrandStoreScreen.css';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const BrandStoreScreen = ({ match }) => {
   const dispatch = useDispatch();

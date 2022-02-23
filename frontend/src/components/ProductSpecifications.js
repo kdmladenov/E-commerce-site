@@ -1,7 +1,7 @@
 import React from 'react';
-import { getProductSpecificationItem } from '../constants/inputMaps';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
+import getProductSpecificationItem from '../helpers/getProductSpecificationItem';
 import './styles/ProductSpecifications.css';
 
 const ProductSpecifications = ({ product }) => {

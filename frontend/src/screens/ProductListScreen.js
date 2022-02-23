@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  defaultEndpoint,
-  productListPageSizeOptionsMap,
-  productListSortOptionsMap
-} from '../constants/inputMaps';
 import ListScreenComponent from '../components/ListScreenComponent';
 import { listProducts } from '../state/actions/productActions';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const ProductListScreen = ({ match }) => {
   const searchTerm = match?.params?.searchTerm || '';

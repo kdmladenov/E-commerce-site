@@ -9,12 +9,12 @@ import {
   MAX_PRODUCT_QTY_FOR_PURCHASE,
   STORE_NAME
 } from '../constants/constants';
-import { getDate } from '../constants/utility-functions';
 import Button from './Button';
 import Popover from './Popover';
 import Price from './Price';
 import './styles/ProductScreenActionBox.css';
 import WishListBtn from './WishListBtn';
+import getDate from '../helpers/getDate';
 
 const ProductScreenActionBox = ({ product }) => {
   const dispatch = useDispatch();

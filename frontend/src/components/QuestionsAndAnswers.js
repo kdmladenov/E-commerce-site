@@ -8,16 +8,14 @@ import Message from './Message';
 import { askQuestion, listQuestionsAndAnswers } from '../state/actions/questionsAndAnswersActions';
 import Loader from './Loader';
 import HeaderControls from './HeaderControls';
-import {
-  defaultEndpoint,
-  questionsListPageSizeOptionsMap,
-  questionsSortOptionsMap
-} from '../constants/inputMaps';
 import { useHistory } from 'react-router-dom';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import { QUESTION } from '../constants/constants';
 import Pagination from './Pagination';
 import { listProductDetails } from '../state/actions/productActions';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { questionsSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+import { questionsListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 
 const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCount, isScreen }) => {
   const dispatch = useDispatch();

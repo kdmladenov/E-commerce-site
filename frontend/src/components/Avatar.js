@@ -1,6 +1,6 @@
 import React from 'react';
 import { BASE_URL } from '../constants/constants';
-import { randomNumber } from '../constants/utility-functions';
+import getRandomNumber from '../helpers/getRandomNumber';
 import './styles/Avatar.css';
 
 // classes: image_only, name_only, small
@@ -23,13 +23,15 @@ const Avatar = ({ classes, imageUrl, fullName }) => {
           <div
             className="initials"
             style={{
-              background: `var(--${backgroundColors[randomNumber(0, backgroundColors.length - 1)]})`
+              background: `var(--${
+                backgroundColors[getRandomNumber(0, backgroundColors.length - 1)]
+              })`
             }}
           >
             {firstInitials}
           </div>
         ) : (
-          <i className="fa fa-user"/>
+          <i className="fa fa-user" />
         )}
       </div>
       {fullName && !classes?.includes('large') && (
