@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listWishedItems } from '../state/actions/wishListActions';
-import Loader from './Loader';
-import Message from './Message';
+
 import './styles/WishList.css';
-import Pagination from './Pagination';
-import HeaderControls from './HeaderControls';
-import ProductCard from './ProductCard';
+import { listWishedItems } from '../state/actions/wishListActions';
 import defaultEndpoint from '../inputs/defaultEndpoint';
 import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 import getRibbonText from '../helpers/getRibbonText';
+
+import Loader from './Loader';
+import Message from './Message';
+import Pagination from './Pagination';
+import HeaderControls from './HeaderControls';
+import ProductCard from './ProductCard';
 
 const WishList = ({ isCarousel = false }) => {
   const dispatch = useDispatch();

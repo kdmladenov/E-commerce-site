@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import './styles/DropDown.css';
 import useOutsideClick from '../hooks/useOutsideClick';
+
 import Tooltip from './Tooltip';
 
 const DropDown = ({ button, tooltipText, userInfo, children }) => {

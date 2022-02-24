@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+
+import './styles/CartItems.css';
 import numberDecimalFix from '../helpers/numberDecimalFix';
+
 import Button from './Button';
 import Price from './Price';
-import './styles/CartItems.css';
 import Tooltip from './Tooltip';
 
 const CartItems = ({ cartItems }) => {

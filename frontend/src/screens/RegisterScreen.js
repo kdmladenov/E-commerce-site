@@ -1,9 +1,11 @@
 import React from 'react';
-import { register } from '../state/actions/userActions';
-import FormComponent from '../components/FormComponent';
-import validateInputUser from '../validations/userValidator';
+
 import './styles/RegisterScreen.css';
+import { register } from '../state/actions/userActions';
+import validateInputUser from '../validations/userValidator';
 import userRegisterInitialInputState from '../inputs/userRegisterInitialInputState';
+
+import FormComponent from '../components/FormComponent';
 
 const RegisterScreen = () => {
   return (

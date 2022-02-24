@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import './styles/ProductFeatureEditCard.css';
 import { useDispatch } from 'react-redux';
-import EditButtons from './EditButtons';
+
+import './styles/ProductFeatureEditCard.css';
 import {
   createProductFeature,
   deleteProductFeature,
   updateProductFeature
 } from '../state/actions/productFeaturesActions';
 import { FEATURE } from '../constants/constants';
+
+import EditButtons from './EditButtons';
 
 const ProductFeatureEditCard = ({
   productId,

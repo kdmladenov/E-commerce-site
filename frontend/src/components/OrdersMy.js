@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Accordion from './Accordion';
 import { useDispatch, useSelector } from 'react-redux';
-import { listMyOrders } from '../state/actions/orderActions';
-import Loader from './Loader';
-import Message from './Message';
-import './styles/OrdersMy.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import Button from './Button';
-import Price from './Price';
-import Pagination from './Pagination';
-import HeaderControls from './HeaderControls';
+
+import './styles/OrdersMy.css';
+import { listMyOrders } from '../state/actions/orderActions';
 import { DAYS_FOR_DELIVERY } from '../constants/constants';
-import Tooltip from './Tooltip';
 import defaultEndpoint from '../inputs/defaultEndpoint';
 import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import { adminOrderListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 import getDate from '../helpers/getDate';
+
+import Accordion from './Accordion';
+import Loader from './Loader';
+import Message from './Message';
+import Button from './Button';
+import Price from './Price';
+import Pagination from './Pagination';
+import HeaderControls from './HeaderControls';
+import Tooltip from './Tooltip';
 
 const OrdersMy = () => {
   const dispatch = useDispatch();

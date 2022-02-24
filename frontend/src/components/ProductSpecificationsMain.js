@@ -1,9 +1,11 @@
 import React from 'react';
+
+import './styles/ProductSpecificationsMain.css';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import getProductSpecificationItem from '../helpers/getProductSpecificationItem';
 import scrollTo from '../helpers/scrollTo';
+
 import Button from './Button';
-import './styles/ProductSpecificationsMain.css';
 
 const ProductSpecificationsMain = ({ product, specsRef }) => {
   const specificationList = [

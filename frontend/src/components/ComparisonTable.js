@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+
+import './styles/ComparisonTable.css';
 import { listProducts } from '../state/actions/productActions';
+import getProductSpecificationItem from '../helpers/getProductSpecificationItem';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
+
 import Loader from './Loader';
 import Message from './Message';
-import './styles/ComparisonTable.css';
-import getProductSpecificationItem from '../helpers/getProductSpecificationItem';
 
 const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
   const dispatch = useDispatch();

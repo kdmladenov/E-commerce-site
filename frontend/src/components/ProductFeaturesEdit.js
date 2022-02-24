@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './styles/ProductFeaturesEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+
+import './styles/ProductFeaturesEdit.css';
 import { listProductFeatures } from '../state/actions/productFeaturesActions';
+
+import Loader from './Loader';
+import Message from './Message';
 import Button from './Button';
 import ProductFeatureEditCard from './ProductFeatureEditCard';
 

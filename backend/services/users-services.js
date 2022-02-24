@@ -1,10 +1,12 @@
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
+
+import { DB_CONFIG, PRIVATE_KEY } from '../../config.js';
+
 import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 import { user as userConstants } from '../constants/constants.js';
-import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
-import { DB_CONFIG, PRIVATE_KEY } from '../../config.js';
 import { forgotPassword } from '../constants/constants.js';
 
 const getUser = (usersData) => async (userId, isProfileOwner, role) => {

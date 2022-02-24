@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import './styles/ProductDetailsEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+
+import './styles/ProductDetailsEdit.css';
 import { PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET } from '../state/constants/productConstants';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
 import { createProduct, listProductDetails, updateProduct } from '../state/actions/productActions';
-import FormComponent from '../components/FormComponent';
 import validateInputProduct from '../validations/productValidator';
 import productDetailsInitialInputState from '../inputs/productDetailsInitialInputState';
+
+import Message from './Message';
+import Loader from './Loader';
+import FormComponent from './FormComponent';
 
 const ProductDetailsEdit = ({ productId }) => {
   const dispatch = useDispatch();

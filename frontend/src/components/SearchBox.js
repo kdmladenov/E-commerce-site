@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Tooltip from './Tooltip';
+
 import './styles/SearchBox.css';
 import useThrottle from '../hooks/useThrottle';
+import { RESET_BTN_THRESHOLD_SHOW_CHAR_COUNT, THROTTLE_DELAY } from '../constants/constants';
 
-const THROTTLE_DELAY = 1000;
-const RESET_BTN_THRESHOLD = 3
+import Tooltip from './Tooltip';
 
 const SearchBox = ({ updateQuery, resource }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,10 +39,10 @@ const SearchBox = ({ updateQuery, resource }) => {
           onKeyUp={(e) => searchEnterKeyHandler(e)}
           placeholder={`Search in ${resource}`}
         />
-        {searchTerm.length >= RESET_BTN_THRESHOLD && (
+        {searchTerm.length >= RESET_BTN_THRESHOLD_SHOW_CHAR_COUNT && (
           <button type="button" className="reset_btn" onClick={resetInputButtonHandler}>
             <Tooltip text="Clear">
-              <i className="fa fa-times" aria-hidden="true"/>
+              <i className="fa fa-times" aria-hidden="true" />
             </Tooltip>
           </button>
         )}

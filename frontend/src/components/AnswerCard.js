@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import './styles/QuestionsAndAnswers.css';
 import getTimeDuration from '../helpers/getTimeDuration';
 import { deleteAnswer, editAnswer } from '../state/actions/questionsAndAnswersActions';
+
 import EditButtons from './EditButtons';
 import ShowMoreButton from './ShowMoreButton';
-import './styles/QuestionsAndAnswers.css';
 
 const AnswerCard = ({
   currentUser,

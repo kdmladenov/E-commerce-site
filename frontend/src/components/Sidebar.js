@@ -1,8 +1,10 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+
+import './styles/Sidebar.css';
+
 import Accordion from './Accordion';
 import Button from './Button';
-import './styles/Sidebar.css';
 
 const Sidebar = ({ endpoint, setEndpoint, inputMap, defaultEndpoint }) => {
   const location = useLocation();

@@ -1,11 +1,15 @@
 import express from 'express';
-import historyData from '../data/history-data.js';
-import errors from '../constants/service-errors.js';
+
 import historyServices from '../services/history-services.js';
-import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
-import rolesEnum from '../constants/roles.enum.js';
+
+import historyData from '../data/history-data.js';
+
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware } from '../authentication/auth.middleware.js';
+
+import errors from '../constants/service-errors.js';
 import { paging } from '../constants/constants.js';
 
 const historyController = express.Router();

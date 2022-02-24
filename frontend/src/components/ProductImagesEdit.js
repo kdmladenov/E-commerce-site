@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
+import './styles/ProductImagesEdit.css';
 import {
   deleteProductImage,
   listProductImages,
@@ -8,10 +10,10 @@ import {
   uploadProductImage
 } from '../state/actions/productActions';
 import { BASE_URL } from '../constants/constants';
+
 import Loader from './Loader';
 import Message from './Message';
 import Button from './Button';
-import './styles/ProductImagesEdit.css';
 import Tooltip from './Tooltip';
 
 const ProductImagesEdit = () => {

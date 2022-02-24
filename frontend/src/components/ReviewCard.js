@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import Rating from './Rating';
-import ShowMoreButton from './ShowMoreButton';
-import './styles/ReviewCard.css';
 import { useDispatch } from 'react-redux';
+
+import './styles/ReviewCard.css';
 import { createReview, deleteReview, editReview, voteReview } from '../state/actions/reviewActions';
-import Votes from './Votes';
-import EditButtons from './EditButtons';
-import Avatar from './Avatar';
 import { REVIEW, PRODUCT } from '../constants/constants';
 import getTimeDuration from '../helpers/getTimeDuration';
+
+import Votes from './Votes';
+import Rating from './Rating';
+import ShowMoreButton from './ShowMoreButton';
+import EditButtons from './EditButtons';
+import Avatar from './Avatar';
 
 const ReviewCard = ({
   currentUser,

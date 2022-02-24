@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import './styles/ProductDetails.css';
 import { useResize } from '../hooks/useResize';
+
 import Loader from './Loader';
 import Message from './Message';
 import ProductDetailsInfo from './ProductDetailsInfo';
 import ProductImageGallery from './ProductImageGallery';
 import ProductScreenActionBox from './ProductScreenActionBox';
 import ProductScreenImageSidebar from './ProductScreenImageSidebar';
-import './styles/ProductDetails.css';
 
 const ProductDetails = ({
   product,

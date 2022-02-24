@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   BROWSING_HISTORY_ADD_FAIL,
   BROWSING_HISTORY_ADD_REQUEST,

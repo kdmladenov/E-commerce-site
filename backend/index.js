@@ -2,8 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import passport from 'passport';
-import jwtStrategy from './authentication/strategy.js';
-import { PORT, PAYPAL_CLIENT_ID } from '../config.js';
+
 import usersController from './controllers/users-controller.js';
 import authController from './controllers/auth-controller.js';
 import productsController from './controllers/products-controller.js';
@@ -13,6 +12,9 @@ import historyController from './controllers/history-controller.js';
 import wishListController from './controllers/wish-list-controller.js';
 import questionsController from './controllers/questions-controller.js';
 import answersController from './controllers/answers-controller.js';
+
+import jwtStrategy from './authentication/strategy.js';
+import { PORT, PAYPAL_CLIENT_ID } from '../config.js';
 
 const app = express();
 

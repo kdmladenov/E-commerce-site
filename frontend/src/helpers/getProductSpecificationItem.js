@@ -1,6 +1,7 @@
+import convertPoundToKg from './convertPoundToKg';
+
 import Price from '../components/Price';
 import Rating from '../components/Rating';
-import convertPoundToKg from './convertPoundToKg';
 
 const getProductSpecificationItem = (spec, product) => {
   const {

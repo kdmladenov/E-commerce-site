@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import './styles/Votes.css';
-import Button from './Button';
 import { useDispatch } from 'react-redux';
+
+import './styles/Votes.css';
+
+import Button from './Button';
 
 const Votes = ({
   type,
@@ -61,9 +63,7 @@ const Votes = ({
 
   return (
     showButtons && (
-      <div
-        className={`votes ${type === 'vertical' ? 'vertical' : ''}`}
-      >
+      <div className={`votes ${type === 'vertical' ? 'vertical' : ''}`}>
         <Button
           className="vote_button_up"
           classes="icon"

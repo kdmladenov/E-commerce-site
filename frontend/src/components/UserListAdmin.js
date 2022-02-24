@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, listUsers, restoreUser } from '../state/actions/userActions';
-import Button from './Button';
+
 import './styles/UserListAdmin.css';
+import { deleteUser, listUsers, restoreUser } from '../state/actions/userActions';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { adminUserListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+
+import Button from './Button';
 import Accordion from './Accordion';
 import Loader from './Loader';
 import Message from './Message';
@@ -11,9 +16,6 @@ import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import Avatar from './Avatar';
 import Tooltip from './Tooltip';
-import defaultEndpoint from '../inputs/defaultEndpoint';
-import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
-import { adminUserListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const UserListAdmin = ({ history }) => {
   const dispatch = useDispatch();

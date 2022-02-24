@@ -1,12 +1,17 @@
 import express from 'express';
-import wishListData from '../data/wish-list-data.js';
-import errors from '../constants/service-errors.js';
+
 import wishListServices from '../services/wish-list-services.js';
-import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
-import rolesEnum from '../constants/roles.enum.js';
-import loggedUserGuard from '../middleware/loggedUserGuard.js';
+
+import wishListData from '../data/wish-list-data.js';
+
 import errorHandler from '../middleware/errorHandler.js';
+import loggedUserGuard from '../middleware/loggedUserGuard.js';
+
+import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
+
+import rolesEnum from '../constants/roles.enum.js';
 import { paging } from '../constants/constants.js';
+import errors from '../constants/service-errors.js';
 
 const wishListController = express.Router();
 

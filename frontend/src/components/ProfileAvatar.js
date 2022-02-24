@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import './styles/ProfileAvatar.css';
 import { deleteUserAvatar, updateUserAvatarReducer } from '../state/actions/userActions';
+
 import Avatar from './Avatar';
 import Button from './Button';
 import Divider from './Divider';
-import './styles/ProfileAvatar.css';
 
 const ProfileAvatar = ({ user }) => {
   const dispatch = useDispatch();

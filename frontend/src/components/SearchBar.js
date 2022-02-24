@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import './styles/SearchBar.css';
 import { useHistory } from 'react-router';
-import Tooltip from './Tooltip';
-import Button from './Button';
+
+import './styles/SearchBar.css';
 import useOutsideClick from '../hooks/useOutsideClick';
 import { PREVIOUS_SEARCHES_ARRAY_MAX_LENGTH } from '../constants/constants';
+
+import Tooltip from './Tooltip';
+import Button from './Button';
 
 const SearchBar = () => {
   const history = useHistory();

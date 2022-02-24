@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import './styles/MegaMenu.css';
 import categoriesMegaMenu from '../constants/categoriesMegaMenu';
 import { megaMenuCategoriesIcons } from '../constants/megaMenuCategoriesIcons';
 import sortAlphabetically from '../helpers/sortAlphabetically';
 import useOutsideClick from '../hooks/useOutsideClick';
-import './styles/MegaMenu.css';
 
 const MegaMenu = () => {
   const history = useHistory();

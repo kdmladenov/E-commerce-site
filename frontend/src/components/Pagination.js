@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Button from './Button';
+
 import './styles/Pagination.css';
+
+import Button from './Button';
 
 const Pagination = ({ updateQuery, currentPage, pageSize, totalItems }) => {
   const [rangePageNumber, setRangePageNumber] = useState([1]);

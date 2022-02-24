@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
-import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
-import FormComponent from '../components/FormComponent';
-import validateInputUser from '../validations/userValidator';
+
 import './styles/ShippingScreen.css';
+import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
+import validateInputUser from '../validations/userValidator';
 import profileAddressInitialInputState from '../inputs/profileAddressInitialInputState';
 import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
+
+import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
+import FormComponent from '../components/FormComponent';
 
 const ShippingScreen = () => {
   const dispatch = useDispatch();

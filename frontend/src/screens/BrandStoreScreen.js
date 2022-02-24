@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import './styles/BrandStoreScreen.css';
 import { listProducts } from '../state/actions/productActions';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+
 import HeaderControls from '../components/HeaderControls';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
-import './styles/BrandStoreScreen.css';
-import defaultEndpoint from '../inputs/defaultEndpoint';
-import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
-import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 const BrandStoreScreen = ({ match }) => {
   const dispatch = useDispatch();

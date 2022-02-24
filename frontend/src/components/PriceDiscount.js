@@ -1,9 +1,11 @@
-import React from 'react'
-import { FREE_SHIPPING_THRESHOLD } from '../constants/constants';
-import Price from './Price';
-import './styles/PriceDiscount.css';
+import React from 'react';
 
-const PriceDiscount = ({ price , discount}) => {
+import './styles/PriceDiscount.css';
+import { FREE_SHIPPING_THRESHOLD } from '../constants/constants';
+
+import Price from './Price';
+
+const PriceDiscount = ({ price, discount }) => {
   return (
     <table>
       <tbody>
@@ -35,4 +37,4 @@ const PriceDiscount = ({ price , discount}) => {
   );
 };
 
-export default PriceDiscount
+export default PriceDiscount;

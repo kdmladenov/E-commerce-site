@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './styles/FormComponent.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import Button from './Button';
+
+import './styles/FormComponent.css';
 import { saveShippingAddress } from '../state/actions/cartActions';
+
+import Button from './Button';
 
 const FormComponent = ({
   inputData,

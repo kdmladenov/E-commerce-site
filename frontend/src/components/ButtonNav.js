@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import getButtonNavMap from '../helpers/getButtonNavMap';
+
 import './styles/ButtonNav.css';
+import getButtonNavMap from '../helpers/getButtonNavMap';
 
 const ButtonNav = ({ activeTab, screen, productId }) => {
   const history = useHistory();

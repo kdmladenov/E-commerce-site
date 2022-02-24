@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import './styles/ProductScreen.css';
 import { listProductDetails, listProductImages } from '../state/actions/productActions';
+import { addBrowsingHistoryRecord } from '../state/actions/browsingHistoryActions';
+
+import QuestionsAndAnswers from '../components/QuestionsAndAnswers';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Reviews from '../components/Reviews';
-import { addBrowsingHistoryRecord, listBrowsingHistory } from '../state/actions/browsingHistoryActions';
-import QuestionsAndAnswers from '../components/QuestionsAndAnswers';
 import ComparisonTable from '../components/ComparisonTable';
 import ProductSpecifications from '../components/ProductSpecifications';
 import ScrollToTopButton from '../components/ScrollToTopButton';
@@ -15,7 +17,6 @@ import Carousel from '../components/Carousel';
 import History from '../components/History';
 import Divider from '../components/Divider';
 import ProductDetails from '../components/ProductDetails';
-import { MIN_HISTORY_LIST_COUNT } from '../constants/constants';
 
 const ProductScreen = ({ match }) => {
   const productId = match.params.productId;
@@ -25,9 +26,7 @@ const ProductScreen = ({ match }) => {
 
   const { product, loading, error } = useSelector((state) => state.productDetails);
 
-  const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
-
- const { userInfo: currentUser } = useSelector((state) => state.userLogin);
+  const { userInfo: currentUser } = useSelector((state) => state.userLogin);
 
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);

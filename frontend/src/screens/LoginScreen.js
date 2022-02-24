@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import './styles/LoginScreen.css';
 import { login } from '../state/actions/userActions';
+import validateInputUser from '../validations/userValidator';
+import userLoginInitialInputState from '../inputs/userLoginInitialInputState';
+
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import validateInputUser from '../validations/userValidator';
-import './styles/LoginScreen.css';
-import userLoginInitialInputState from '../inputs/userLoginInitialInputState';
 
 const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);

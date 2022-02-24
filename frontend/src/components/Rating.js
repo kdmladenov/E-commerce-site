@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './styles/Rating.css'
 
-const STAR_COUNT = 5;
+import './styles/Rating.css';
+import { RATING_STAR_COUNT } from '../constants/constants';
 
 const Rating = ({ rating, setRating, text, color, editMode }) => {
   return (
     <div className="star_rating">
-      {Array.from({ length: STAR_COUNT }).map((_, index) => (
+      {Array.from({ length: RATING_STAR_COUNT }).map((_, index) => (
         <span key={index}>
           <i
             onClick={() => editMode && setRating(index + 1)}

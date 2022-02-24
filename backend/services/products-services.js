@@ -1,5 +1,4 @@
 import errors from '../constants/service-errors.js';
-import { uploads } from '../constants/constants.js';
 
 const getAllProducts = (productsData) => async (search, filter, sort, pageSize, page, role) => {
   const result = await productsData.getAllProducts(search, filter, sort, pageSize, page, role);

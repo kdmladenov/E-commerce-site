@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './styles/Popover.css';
 
 const Popover = ({ header, direction = 'top', children }) => {

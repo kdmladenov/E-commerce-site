@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import './styles/PlaceOrderScreen.css';
 import { removeFromCart, updateCartItemQty } from '../state/actions/cartActions';
 import { createOrder } from '../state/actions/orderActions';
-import Button from '../components/Button';
-import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
-import Message from '../components/Message';
-import Price from '../components/Price';
-import Rating from '../components/Rating';
 import { CART_REMOVE_ALL_ITEMS } from '../state/constants/cartConstants';
 import {
   FREE_SHIPPING_THRESHOLD,
@@ -16,8 +13,13 @@ import {
   TAX_RATE
 } from '../constants/constants';
 import { ORDER_CREATE_RESET } from '../state/constants/orderConstants';
-import './styles/PlaceOrderScreen.css';
 import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
+
+import Button from '../components/Button';
+import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
+import Message from '../components/Message';
+import Price from '../components/Price';
+import Rating from '../components/Rating';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();

@@ -1,15 +1,20 @@
 import express from 'express';
-import ordersData from '../data/orders-data.js';
-import validateBody from '../middleware/validate-body.js';
-import validateFile from '../middleware/validate-file.js';
+
 import ordersServices from '../services/orders-services.js';
-import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
-import rolesEnum from '../constants/roles.enum.js';
+
+import ordersData from '../data/orders-data.js';
+
+import validateBody from '../middleware/validate-body.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
+
 import createOrderSchema from '../validator/create-order-schema.js';
-import errors from '../constants/service-errors.js';
 import updateOrderSchema from '../validator/update-order-schema.js';
+
+import rolesEnum from '../constants/roles.enum.js';
+import errors from '../constants/service-errors.js';
 import { paging } from '../constants/constants.js';
 
 const ordersController = express.Router();
@@ -96,7 +101,11 @@ ordersController
     errorHandler(async (req, res) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
-      const { error, order } = await ordersServices.getOrderById(ordersData)(+orderId, role, +userId);
+      const { error, order } = await ordersServices.getOrderById(ordersData)(
+        +orderId,
+        role,
+        +userId
+      );
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({

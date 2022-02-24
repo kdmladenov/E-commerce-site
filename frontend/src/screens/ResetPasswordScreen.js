@@ -1,13 +1,14 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+
+import './styles/ResetPasswordScreen.css';
 import { resetPassword } from '../state/actions/userActions';
+import validateInputUser from '../validations/userValidator';
+import userResetPasswordInitialInputState from '../inputs/userResetPasswordInitialInputState';
+
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import validateInputUser from '../validations/userValidator';
-import './styles/ResetPasswordScreen.css';
-import userResetPasswordInitialInputState from '../inputs/userResetPasswordInitialInputState';
 
 const ResetPasswordScreen = ({ history, match }) => {
   const { userId, token } = match.params;

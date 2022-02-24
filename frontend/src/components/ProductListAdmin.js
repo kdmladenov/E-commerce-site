@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import Button from '../components/Button';
 import { Link } from 'react-router-dom';
+
 import './styles/ProductListAdmin.css';
-import Accordion from './Accordion';
-import Pagination from './Pagination';
 import { deleteProduct, listProducts, restoreProduct } from '../state/actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../state/constants/productConstants';
+import defaultEndpoint from '../inputs/defaultEndpoint';
+import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
+import { adminProductListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+
 import HeaderControls from './HeaderControls';
 import Price from './Price';
 import ProductDetails from './ProductDetails';
 import Tooltip from './Tooltip';
 import Modal from './Modal';
-import defaultEndpoint from '../inputs/defaultEndpoint';
-import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
-import { adminProductListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+import Loader from './Loader';
+import Message from './Message';
+import Button from './Button';
+import Accordion from './Accordion';
+import Pagination from './Pagination';
 
 const ProductListAdmin = () => {
   const dispatch = useDispatch();

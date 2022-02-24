@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+
 const useThrottle = (callback, delay, dependencies) => {
   const callbackRef = useRef(callback);
   const timeoutRef = useRef();

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import Button from './Button';
-import FormComponent from './FormComponent';
+import { useSelector } from 'react-redux';
+
 import './styles/Profile.css';
 import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
-import { useSelector } from 'react-redux';
-import validateInputUser from '../validations/userValidator';
-import ProfileAvatar from './ProfileAvatar';
 import profileAddressInitialInputState from '../inputs/profileAddressInitialInputState';
 import profileOverviewInitialInputState from '../inputs/profileOverviewInitialInputState';
+import validateInputUser from '../validations/userValidator';
+
+import Button from './Button';
+import FormComponent from './FormComponent';
+import ProfileAvatar from './ProfileAvatar';
 
 const Profile = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');

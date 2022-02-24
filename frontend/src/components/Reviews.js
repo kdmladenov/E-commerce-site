@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import ReviewCard from './ReviewCard';
-import Button from './Button';
-import './styles/Reviews.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../state/actions/userActions';
-import RatingWidget from './RatingWidget';
 import { useHistory } from 'react-router-dom';
+
+import './styles/Reviews.css';
+import { getUserDetails } from '../state/actions/userActions';
 import { listReviews } from '../state/actions/reviewActions';
 import { listProductDetails } from '../state/actions/productActions';
-import HeaderControls from './HeaderControls';
-import Loader from './Loader';
-import Message from './Message';
-import Pagination from './Pagination';
 import defaultEndpoint from '../inputs/defaultEndpoint';
 import { reviewsSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import ratingFilterOptionsMap from '../inputs/ratingFilterOptionsMap';
+
+import RatingWidget from './RatingWidget';
+import ReviewCard from './ReviewCard';
+import Button from './Button';
+import HeaderControls from './HeaderControls';
+import Loader from './Loader';
+import Message from './Message';
+import Pagination from './Pagination';
 
 const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
   const dispatch = useDispatch();

@@ -1,9 +1,11 @@
 import React from 'react';
+
+import './styles/HeaderControls.css';
+
 import Breadcrumbs from './Breadcrumbs';
 import Button from './Button';
 import DropdownSelect from './DropdownSelect';
 import SearchBox from './SearchBox';
-import './styles/HeaderControls.css';
 
 const HeaderControls = ({
   updateQuery,

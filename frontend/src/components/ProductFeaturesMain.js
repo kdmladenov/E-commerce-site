@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
+import './styles/ProductFeaturesMain.css';
 import { PRODUCT_FEATURES_MAIN_COUNT } from '../constants/constants';
 import scrollTo from '../helpers/scrollTo';
+
 import Button from './Button';
 import Loader from './Loader';
 import Message from './Message';
-import './styles/ProductFeaturesMain.css';
 
 const ProductFeaturesMain = ({ featuresRef }) => {
   const { productFeatures, loading, error } = useSelector((state) => state.productFeaturesList);

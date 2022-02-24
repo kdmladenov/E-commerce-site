@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import Button from './Button'
+
 import './styles/ScrollToTopButton.css';
 import Tooltip from './Tooltip';
 

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import getDate from '../helpers/getDate';
+
 import './styles/Timeline.css';
+import getDate from '../helpers/getDate';
+
 import Tooltip from './Tooltip';
 
 const Timeline = ({ children, ...restProps }) => {
   return (
-    <ul className={`timeline_container ${restProps.horizontal ? 'horizontal' : ''}`}>
-      {children}
-    </ul>
+    <ul className={`timeline_container ${restProps.horizontal ? 'horizontal' : ''}`}>{children}</ul>
   );
 };
 
@@ -28,7 +28,7 @@ Timeline.Item = function TimelineItem({ children, ...restProps }) {
         {removeMode ? (
           <span className="remove_btn" onClick={() => deleteHistoryItem(historyRecord.historyId)}>
             <Tooltip text="Remove">
-              <i className="fa fa-times"/>
+              <i className="fa fa-times" />
             </Tooltip>
           </span>
         ) : (

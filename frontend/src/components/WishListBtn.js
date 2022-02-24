@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import './styles/WishListBtn.css';
 import { addWishToList, deleteWishFromList } from '../state/actions/wishListActions';
+
 import Button from './Button';
 import Tooltip from './Tooltip';
-import './styles/WishListBtn.css';
 
 const WishListBtn = ({ productId, isHeartIcon = true }) => {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
-import rolesEnum from '../constants/roles.enum.js';
 import db from './pool.js';
+import rolesEnum from '../constants/roles.enum.js';
 
 const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
   const sortArr = sort.split(' ');

@@ -1,8 +1,9 @@
 import React from 'react';
+
+import './styles/ProductSpecifications.css';
 import productSpecificationsEnum from '../constants/product-specifications.enum';
 import specificationsInOrder from '../constants/specificationsInOrder';
 import getProductSpecificationItem from '../helpers/getProductSpecificationItem';
-import './styles/ProductSpecifications.css';
 
 const ProductSpecifications = ({ product }) => {
   const specificationList = (specifications) =>

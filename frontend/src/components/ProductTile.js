@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+
+import './styles/ProductTile.css';
+
 import Button from './Button';
 import Price from './Price';
 import Rating from './Rating';
-import './styles/ProductTile.css';
 
 const ProductTile = ({
   products,

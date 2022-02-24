@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import './styles/ProductScreenActionBox.css';
 import { addToCart } from '../state/actions/cartActions';
 import {
   DAYS_FOR_DELIVERY,
@@ -9,12 +11,12 @@ import {
   MAX_PRODUCT_QTY_FOR_PURCHASE,
   STORE_NAME
 } from '../constants/constants';
+import getDate from '../helpers/getDate';
+
 import Button from './Button';
 import Popover from './Popover';
 import Price from './Price';
-import './styles/ProductScreenActionBox.css';
 import WishListBtn from './WishListBtn';
-import getDate from '../helpers/getDate';
 
 const ProductScreenActionBox = ({ product }) => {
   const dispatch = useDispatch();

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
@@ -30,7 +32,6 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS
 } from '../constants/productConstants';
-import axios from 'axios';
 import { BASE_URL } from '../../constants/constants';
 
 export const listProducts =

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import Pagination from '../components/Pagination';
-import ProductCard from '../components/ProductCard';
-import Sidebar from '../components/Sidebar';
+
 import './styles/ListScreenComponent.css';
-import HeaderControls from '../components/HeaderControls';
-import Button from '../components/Button';
 import { deleteBrowsingHistory } from '../state/actions/browsingHistoryActions';
-import Tooltip from './Tooltip';
 import getSidebarInput from '../helpers/getSidebarInput';
 import getRibbonText from '../helpers/getRibbonText';
+
+import Loader from './Loader';
+import Message from './Message';
+import Pagination from './Pagination';
+import ProductCard from './ProductCard';
+import Sidebar from './Sidebar';
+import HeaderControls from './HeaderControls';
+import Button from './Button';
+import Tooltip from './Tooltip';
 
 const ListScreenComponent = ({
   endpoint,
@@ -53,7 +55,9 @@ const ListScreenComponent = ({
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
-        inputMap={sidebarInputMap || getSidebarInput(JSON.parse(localStorage.getItem(localStorageId)))}
+        inputMap={
+          sidebarInputMap || getSidebarInput(JSON.parse(localStorage.getItem(localStorageId)))
+        }
         defaultEndpoint={defaultEndpoint}
       />
       <HeaderControls

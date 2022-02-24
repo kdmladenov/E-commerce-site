@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
+import './styles/AdminScreen.css';
+
 import ButtonNav from '../components/ButtonNav';
 import OrderListAdmin from '../components/OrderListAdmin';
 import ProductListAdmin from '../components/ProductListAdmin';
 import UserListAdmin from '../components/UserListAdmin';
-import './styles/AdminScreen.css';
 
 const AdminScreen = ({ match }) => {
   const section = match.params.section;

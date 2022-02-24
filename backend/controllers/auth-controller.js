@@ -1,12 +1,18 @@
 import express from 'express';
-import usersData from '../data/users-data.js';
-import errors from '../constants/service-errors.js';
+
 import usersServices from '../services/users-services.js';
-import createToken from '../authentication/create-token.js';
+
+import usersData from '../data/users-data.js';
+
 import validateBody from '../middleware/validate-body.js';
-import loginUserSchema from '../validator/login-user-schema.js';
-import { authMiddleware } from '../authentication/auth.middleware.js';
 import errorHandler from '../middleware/errorHandler.js';
+
+import createToken from '../authentication/create-token.js';
+import { authMiddleware } from '../authentication/auth.middleware.js';
+
+import loginUserSchema from '../validator/login-user-schema.js';
+
+import errors from '../constants/service-errors.js';
 
 const authController = express.Router();
 

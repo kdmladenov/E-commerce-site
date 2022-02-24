@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { BASE_URL } from '../constants/constants';
-import { useResize } from '../hooks/useResize';
-import Modal from './Modal';
-import './styles/ProductImageGallery.css';
 
-const ZOOM_RATIO = 0.3;
+import './styles/ProductImageGallery.css';
+import { BASE_URL, IMAGE_ZOOM_RATIO } from '../constants/constants';
+import { useResize } from '../hooks/useResize';
+
+import Modal from './Modal';
 
 const ProductImageGallery = ({
   selectedImage,
@@ -48,8 +48,10 @@ const ProductImageGallery = ({
     x = x <= minX ? minX : x >= maxX ? maxX : x;
     y = y <= minY ? minY : y >= maxY ? maxY : y;
 
-    setZoomBackgroundSize(`${imageRect.width / ZOOM_RATIO}px ${imageRect.height / ZOOM_RATIO}px`);
-    setZoomBackgroundPosition(`-${x / ZOOM_RATIO}px -${y / ZOOM_RATIO}px`);
+    setZoomBackgroundSize(
+      `${imageRect.width / IMAGE_ZOOM_RATIO}px ${imageRect.height / IMAGE_ZOOM_RATIO}px`
+    );
+    setZoomBackgroundPosition(`-${x / IMAGE_ZOOM_RATIO}px -${y / IMAGE_ZOOM_RATIO}px`);
     setMousePosition({ x, y });
   };
 
@@ -74,8 +76,8 @@ const ProductImageGallery = ({
           style={{
             top: `${mousePosition.y}px`,
             left: `${mousePosition.x}px`,
-            width: `${zoomedImageRect.width * ZOOM_RATIO}px`,
-            height: `${zoomedImageRect.height * ZOOM_RATIO}px`,
+            width: `${zoomedImageRect.width * IMAGE_ZOOM_RATIO}px`,
+            height: `${zoomedImageRect.height * IMAGE_ZOOM_RATIO}px`,
             background: showLens ? 'rgba(214, 214, 214, 0.4)' : 'none',
             border: showLens ? '1px solid rgb(75, 75, 75)' : 'none'
           }}

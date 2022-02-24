@@ -1,7 +1,9 @@
 import React from 'react';
+
+import './styles/EditButtons.css';
+
 import Button from './Button';
 import Tooltip from './Tooltip';
-import './styles/EditButtons.css';
 
 const EditButtons = ({
   createMode = false,

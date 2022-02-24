@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { login } from '../state/actions/userActions';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+
 import './styles/Login.css';
+import { login } from '../state/actions/userActions';
+
+import Loader from './Loader';
+import Message from './Message';
 import Button from './Button';
 import Tooltip from './Tooltip';
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import './styles/AccountScreen.css';
+import { getUserDetails } from '../state/actions/userActions';
+
 import Profile from '../components/Profile';
 import OrdersMy from '../components/OrdersMy';
-import './styles/AccountScreen.css';
 import History from '../components/History';
 import WishList from '../components/WishList';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../state/actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ButtonNav from '../components/ButtonNav';

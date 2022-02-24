@@ -1,16 +1,20 @@
 import express from 'express';
+
+import answersServices from '../services/answers-services.js';
+
 import answersData from '../data/answers-data.js';
 import questionsData from '../data/questions-data.js';
+
 import validateBody from '../middleware/validate-body.js';
-import answersServices from '../services/answers-services.js';
-import errors from '../constants/service-errors.js';
-import { authMiddleware } from '../authentication/auth.middleware.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
-// import rolesEnum from '../common/roles.enum.js';
 import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware } from '../authentication/auth.middleware.js';
+
 import createAnswerSchema from '../validator/create-answer-schema.js';
 import updateAnswerSchema from '../validator/update-answer-schema.js';
-import { paging } from '../constants/constants.js';
+
+import errors from '../constants/service-errors.js';
 
 const answersController = express.Router();
 

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import Avatar from './Avatar';
 import { useDispatch } from 'react-redux';
+
 import './styles/InputBoxWithAvatar.css';
+
+import Avatar from './Avatar';
 import Button from './Button';
 
 const InputBoxWithAvatar = ({

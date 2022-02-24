@@ -1,6 +1,6 @@
 import React from 'react';
-import Reviews from '../components/Reviews';
 import './styles/ReviewsScreen.css';
+import Reviews from '../components/Reviews';
 
 const ReviewsScreen = ({ match }) => {
   return (

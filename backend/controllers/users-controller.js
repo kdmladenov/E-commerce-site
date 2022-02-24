@@ -1,22 +1,27 @@
 import express from 'express';
-import usersData from '../data/users-data.js';
-import validateBody from '../middleware/validate-body.js';
-import errors from '../constants/service-errors.js';
+
 import usersServices from '../services/users-services.js';
+
+import usersData from '../data/users-data.js';
+
+import validateBody from '../middleware/validate-body.js';
+import loggedUserGuard from '../middleware/loggedUserGuard.js';
+import validateFile from '../middleware/validate-file.js';
+import uploadAvatar from '../middleware/upload-avatar.js';
+import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
+
 import createUserSchema from '../validator/create-user-schema.js';
 import updateUserSchema from '../validator/update-user-schema.js';
-// import deleteUserSchema from '../validator/delete-user-schema.js';
 import updatePasswordSchema from '../validator/update-password-schema.js';
 import forgottenPasswordSchema from '../validator/forgotten-password-schema.js';
 import resetPasswordSchema from '../validator/reset-password-schema.js';
-import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
-import rolesEnum from '../constants/roles.enum.js';
-import loggedUserGuard from '../middleware/loggedUserGuard.js';
-import { paging } from '../constants/constants.js';
-import validateFile from '../middleware/validate-file.js';
 import uploadFileSchema from '../validator/upload-file-schema.js';
-import uploadAvatar from '../middleware/upload-avatar.js';
-import errorHandler from '../middleware/errorHandler.js';
+
+import rolesEnum from '../constants/roles.enum.js';
+import { paging } from '../constants/constants.js';
+import errors from '../constants/service-errors.js';
 
 const usersController = express.Router();
 

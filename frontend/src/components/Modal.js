@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import useCreateDiv from '../hooks/useCreateDiv';
+
 import './styles/Modal.css';
+import useCreateDiv from '../hooks/useCreateDiv';
 
 const Modal = ({ classes, setIsOpenModal, children }) => {
   const { loaded, divId } = useCreateDiv('modal');

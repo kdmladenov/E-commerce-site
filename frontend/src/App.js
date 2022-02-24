@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
+import { useDispatch } from 'react-redux';
+
+import { addToPortalRefs } from './state/actions/portalActions';
+
 import Header from './components/Header';
-import ProductScreen from './screens/ProductScreen';
 import Footer from './components/Footer';
+import Toast from './components/Toast';
+
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import AccountScreen from './screens/AccountScreen';
@@ -16,9 +22,6 @@ import ProductListScreen from './screens/ProductListScreen';
 import BrowsingHistoryScreen from './screens/BrowsingHistoryScreen';
 import WishListScreen from './screens/WishListScreen';
 import AdminScreen from './screens/AdminScreen';
-import Toast from './components/Toast';
-import { useDispatch } from 'react-redux';
-import { addToPortalRefs } from './state/actions/portalActions';
 import ReviewsScreen from './screens/ReviewsScreen';
 import QuestionsAndAnswersScreen from './screens/QuestionsAndAnswersScreen';
 import BrandStoreScreen from './screens/BrandStoreScreen';

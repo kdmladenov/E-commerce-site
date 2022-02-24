@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { useResize } from '../hooks/useResize';
+
 import './styles/Carousel.css';
+import { useResize } from '../hooks/useResize';
 
 const Carousel = ({ title, children }) => {
   const [showControls, setShowControls] = useState(false);

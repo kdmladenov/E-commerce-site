@@ -1,4 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import './styles/ProductDetailsInfo.css';
+import scrollTo from '../helpers/scrollTo';
+
 import Button from './Button';
 import Divider from './Divider';
 import Popover from './Popover';
@@ -6,10 +11,7 @@ import ProductFeaturesMain from './ProductFeaturesMain';
 import ProductSpecificationsMain from './ProductSpecificationsMain';
 import Rating from './Rating';
 import RatingWidget from './RatingWidget';
-import './styles/ProductDetailsInfo.css';
-import { Link } from 'react-router-dom';
 import PriceDiscount from './PriceDiscount';
-import scrollTo from '../helpers/scrollTo';
 
 const ProductDetailsInfo = ({
   productListAdmin,

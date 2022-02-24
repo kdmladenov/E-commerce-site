@@ -1,7 +1,8 @@
 import React from 'react';
+
+import './styles/Avatar.css';
 import { BASE_URL } from '../constants/constants';
 import getRandomNumber from '../helpers/getRandomNumber';
-import './styles/Avatar.css';
 
 // classes: image_only, name_only, small
 

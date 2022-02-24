@@ -1,18 +1,22 @@
 import express from 'express';
-import questionsData from '../data/questions-data.js';
-import answersData from '../data/answers-data.js';
-import productsData from '../data/products-data.js';
-import validateBody from '../middleware/validate-body.js';
+
 import questionsServices from '../services/questions-services.js';
-import errors from '../constants/service-errors.js';
-import { authMiddleware } from '../authentication/auth.middleware.js';
+
+import questionsData from '../data/questions-data.js';
+import productsData from '../data/products-data.js';
+
+import validateBody from '../middleware/validate-body.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
-// import rolesEnum from '../common/roles.enum.js';
 import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware } from '../authentication/auth.middleware.js';
+
 import createQuestionSchema from '../validator/create-question-schema.js';
 import updateQuestionSchema from '../validator/update-question-schema.js';
-import { paging } from '../constants/constants.js';
 import voteQuestionSchema from '../validator/vote-question-schema.js';
+
+import errors from '../constants/service-errors.js';
+import { paging } from '../constants/constants.js';
 
 const questionsController = express.Router();
 

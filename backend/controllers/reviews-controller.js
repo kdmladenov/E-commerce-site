@@ -1,20 +1,22 @@
 import express from 'express';
+
+import reviewsServices from '../services/reviews-services.js';
+
 import reviewsData from '../data/reviews-data.js';
 import productsData from '../data/products-data.js';
-import usersData from '../data/users-data.js';
-// import ordersData from '../data/orders-data.js';
+
 import validateBody from '../middleware/validate-body.js';
-import reviewsServices from '../services/reviews-services.js';
-import errors from '../constants/service-errors.js';
-import { authMiddleware } from '../authentication/auth.middleware.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
-// import rolesEnum from '../common/roles.enum.js';
 import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware } from '../authentication/auth.middleware.js';
+
 import createReviewSchema from '../validator/create-review-schema.js';
 import updateReviewSchema from '../validator/update-review-schema.js';
-import { paging, review } from '../constants/constants.js';
 import voteReviewSchema from '../validator/vote-review-schema.js';
-import rolesEnum from '../constants/roles.enum.js';
+
+import { paging, review } from '../constants/constants.js';
+import errors from '../constants/service-errors.js';
 
 const reviewsController = express.Router();
 

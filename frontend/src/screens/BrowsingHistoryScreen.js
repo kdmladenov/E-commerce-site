@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { listBrowsingHistory } from '../state/actions/browsingHistoryActions';
-import ListScreenComponent from '../components/ListScreenComponent';
 import getSidebarInput from '../helpers/getSidebarInput';
 import defaultEndpoint from '../inputs/defaultEndpoint';
 import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import { browsingHistorySortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
+
+import ListScreenComponent from '../components/ListScreenComponent';
 
 const BrowsingHistoryScreen = () => {
   const [endpoint, setEndpoint] = useState(defaultEndpoint['browsingHistoryScreen']);

@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import ShowMoreButton from './ShowMoreButton';
-import './styles/QuestionsAndAnswers.css';
 import { useDispatch } from 'react-redux';
+
+import './styles/QuestionsAndAnswers.css';
 import {
   createAnswer,
   deleteQuestion,
   editQuestion,
   voteQuestion
 } from '../state/actions/questionsAndAnswersActions';
+import { ANSWER, ANSWERS_COUNT_AT_START } from '../constants/constants';
+
 import EditButtons from './EditButtons';
+import ShowMoreButton from './ShowMoreButton';
 import AnswerCard from './AnswerCard';
 import Votes from './Votes';
 import Button from './Button';
 import Divider from './Divider';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
-import { ANSWER } from '../constants/constants';
-
-const answerCountAtStart = 1;
 
 const QuestionsAndAnswersCard = ({
   currentUser,
@@ -104,7 +104,7 @@ const QuestionsAndAnswersCard = ({
         <div className="answers">
           {answerList?.length && (
             <ul className="answer_list">
-              {(showAllAnswers ? answerList : answerList?.slice(0, answerCountAtStart))?.map(
+              {(showAllAnswers ? answerList : answerList?.slice(0, ANSWERS_COUNT_AT_START))?.map(
                 (answer) => (
                   <AnswerCard
                     key={answer.answerId}
@@ -119,11 +119,11 @@ const QuestionsAndAnswersCard = ({
             </ul>
           )}
           <div className="answers_footer">
-            {answerList?.length > answerCountAtStart && (
+            {answerList?.length > ANSWERS_COUNT_AT_START && (
               <Button classes="text" onClick={() => setShowAllAnswers(!showAllAnswers)}>
                 <i className={`fa fa-chevron-${!showAllAnswers ? 'down' : 'up'}`} />
                 {!showAllAnswers
-                  ? `See more answers (${answerList?.length - answerCountAtStart})`
+                  ? `See more answers (${answerList?.length - ANSWERS_COUNT_AT_START})`
                   : 'Collapse answers'}
               </Button>
             )}

@@ -1,9 +1,11 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import ReactDOM from 'react-dom';
-import useCreateDiv from '../hooks/useCreateDiv';
+
 import './styles/Toast.css';
-import Price from './Price';
+import useCreateDiv from '../hooks/useCreateDiv';
 import getUniqueId from '../helpers/getUniqueId';
+
+import Price from './Price';
 
 const Toast = forwardRef(({ idDiv = 'toast', autoClose = true, autoClosePeriod = 6000 }, ref) => {
   const { loaded, divId } = useCreateDiv(idDiv);

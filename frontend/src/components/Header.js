@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import './styles/Header.css';
 import { getUserDetails, logout } from '../state/actions/userActions';
+import { adminMenuMap, userMenuMap } from '../inputs/headerMenuMaps';
+
 import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
 import Login from './Login';
 import CartItems from './CartItems';
 import DropDown from './Dropdown';
 import Avatar from './Avatar';
-import { adminMenuMap, userMenuMap } from '../inputs/headerMenuMaps';
 
 
 const Header = () => {

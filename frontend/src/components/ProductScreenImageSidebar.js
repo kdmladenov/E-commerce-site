@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './styles/ProductScreenImageSidebar.css';
 import { BASE_URL } from '../constants/constants';
 

@@ -1,23 +1,29 @@
 import express from 'express';
+
+import productsServices from '../services/products-services.js';
+
 import productsData from '../data/products-data.js';
 import productsImagesData from '../data/product-images-data.js';
 import featuresData from '../data/features-data.js';
 import specificationsData from '../data/specifications-data.js';
+
 import validateBody from '../middleware/validate-body.js';
 import validateFile from '../middleware/validate-file.js';
-import errors from '../constants/service-errors.js';
+import loggedUserGuard from '../middleware/loggedUserGuard.js';
+import uploadImage from '../middleware/upload-image.js';
+import errorHandler from '../middleware/errorHandler.js';
+
+import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
+
+import updateProductSchema from '../validator/update-product-schema.js';
 import uploadFileSchema from '../validator/upload-file-schema.js';
 import createProductSchema from '../validator/create-product-schema.js';
-import productsServices from '../services/products-services.js';
-import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
-import rolesEnum from '../constants/roles.enum.js';
-import loggedUserGuard from '../middleware/loggedUserGuard.js';
-import errorHandler from '../middleware/errorHandler.js';
-import { paging } from '../constants/constants.js';
-import updateProductSchema from '../validator/update-product-schema.js';
-import uploadImage from '../middleware/upload-image.js';
 import createFeatureSchema from '../validator/create-feature-schema.js';
 import updateFeatureSchema from '../validator/update-feature-schema.js';
+
+import errors from '../constants/service-errors.js';
+import { paging } from '../constants/constants.js';
+import rolesEnum from '../constants/roles.enum.js';
 
 const productsController = express.Router();
 

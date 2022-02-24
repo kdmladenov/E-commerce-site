@@ -1,13 +1,15 @@
 import React from 'react';
-import Rating from './Rating';
-import './styles/ProductCard.css';
 import { Link } from 'react-router-dom';
-import Button from './Button';
-import { BASE_URL } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
+
+import './styles/ProductCard.css';
 import { addToCart } from '../state/actions/cartActions';
+import { BASE_URL } from '../constants/constants';
+
 import Price from './Price';
 import Ribbon from './Ribbon';
+import Rating from './Rating';
+import Button from './Button';
 import Popover from './Popover';
 import RatingWidget from './RatingWidget';
 import WishListBtn from './WishListBtn';

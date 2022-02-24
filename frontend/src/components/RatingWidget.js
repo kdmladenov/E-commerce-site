@@ -1,7 +1,9 @@
 import React from 'react';
-import numberDecimalFix from '../helpers/numberDecimalFix';
-import Rating from './Rating';
+
 import './styles/RatingWidget.css';
+import numberDecimalFix from '../helpers/numberDecimalFix';
+
+import Rating from './Rating';
 
 const RatingWidget = ({ product, updateQuery, ratingQuery }) => {
   const { rating, reviewCount, starOne, starTwo, starThree, starFour, starFive } = product;

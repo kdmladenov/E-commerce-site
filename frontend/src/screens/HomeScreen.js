@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../state/actions/productActions';
+
 import './styles/HomeScreen.css';
+import { listWishedItems } from '../state/actions/wishListActions';
+import { listProducts } from '../state/actions/productActions';
+import { SLIDER_IMAGE_1 } from '../constants/constants';
+
 import Carousel from '../components/Carousel';
 import Slider from '../components/Slider';
-import { Link } from 'react-router-dom';
 import History from '../components/History';
 import ProductTile from '../components/ProductTile';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
-import { SLIDER_IMAGE_1 } from '../constants/constants';
-import { listWishedItems } from '../state/actions/wishListActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

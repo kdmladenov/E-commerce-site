@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+
+import './styles/ProductEditScreen.css';
+
 import ButtonNav from '../components/ButtonNav';
 import ProductDetailsEdit from '../components/ProductDetailsEdit';
 import ProductFeaturesEdit from '../components/ProductFeaturesEdit';
 import ProductImagesEdit from '../components/ProductImagesEdit';
 import ProductSpecificationsEdit from '../components/ProductSpecificationsEdit';
-import './styles/ProductEditScreen.css';
 
 const ProductEditScreen = ({ match }) => {
   const { productId, section } = match.params;
