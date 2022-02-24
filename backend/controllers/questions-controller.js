@@ -25,8 +25,7 @@ questionsController
     authMiddleware,
     loggedUserGuard,
     validateBody('question', createQuestionSchema),
-    // errorHandler(
-      async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { contentQuestion } = req.body;
       const { userId } = req.user;
@@ -45,22 +44,18 @@ questionsController
         res.status(201).send(result);
       }
     })
-  // )
+  )
 
   // @desc GET All Product questions
   // @route GET/questions/:productId
   // @access Public
   .get(
     '/:productId',
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { search = '', sort = 'date_created desc' } = req.query;
 
-      let {
-        pageSize = paging.DEFAULT_QUESTIONS_PAGESIZE,
-        page = paging.DEFAULT_PAGE
-      } = req.query;
+      let { pageSize = paging.DEFAULT_QUESTIONS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
       if (+pageSize > paging.MAX_QUESTIONS_PAGESIZE) pageSize = paging.MAX_QUESTIONS_PAGESIZE;
       if (+pageSize < paging.MIN_QUESTIONS_PAGESIZE) pageSize = paging.MIN_QUESTIONS_PAGESIZE;
@@ -78,9 +73,8 @@ questionsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
-  // )
 
   // @desc EDIT Product question
   // @route PUT/:questionId

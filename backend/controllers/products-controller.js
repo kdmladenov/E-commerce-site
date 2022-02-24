@@ -27,8 +27,7 @@ productsController
   // @access Public
   .get(
     '/',
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { search = '', filter = '', sort = 'sort=price asc', role = 'basic' } = req.query;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -47,16 +46,14 @@ productsController
       );
 
       res.status(200).send(product);
-    }
+    })
   )
-  // )
   // @desc GET Products by ID
   // @route GET /products/:productId
   // @access Public
   .get(
     '/:productId',
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
 
       const { error, product } = await productsServices.getProductById(productsData)(
@@ -71,9 +68,8 @@ productsController
       } else {
         res.status(200).send(product);
       }
-    }
+    })
   )
-  // )
   // @desc EDIT Products by ID
   // @route PUT /products/:productId
   // @access Private - Admin only
@@ -83,8 +79,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
       const { error, result } = await productsServices.updateProduct(productsData)(
@@ -103,9 +98,8 @@ productsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
-  // )
 
   // @desc CREATE Products by ID
   // @route POST /products/:productId
@@ -195,8 +189,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     // validateBody('productImage', addProductImageSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { imageUrl } = req.body;
       const { error, result } = await productsServices.addProductImage(
@@ -211,15 +204,14 @@ productsController
       } else {
         res.status(201).send(result);
       }
-    }
+    })
   )
   // @desc GET ALL product's images
   // @route GET /products/:productId/image
   // @access Public
   .get(
     '/:productId/images',
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
 
       const { error, result } = await productsServices.getAllProductImages(
@@ -234,7 +226,7 @@ productsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
   // @desc DELETE product image
   // @route DELETE /products/:productImageId/images
@@ -267,8 +259,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productImageId } = req.params;
 
       const { error, newMainImage } = await productsServices.setProductImageAsMain(
@@ -282,9 +273,8 @@ productsController
       } else {
         res.status(200).send(newMainImage);
       }
-    }
+    })
   )
-  // )
   // @desc GET All Products Features by productId
   // @route GET /products/:productId/features
   // @access Public
@@ -394,8 +384,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     // TO DO: createSpecificationsSchema
     // validateBody('specification', createSpecificationsSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -411,9 +400,8 @@ productsController
       } else {
         res.status(201).send(productSpecification);
       }
-    }
+    })
   )
-  // )
   // @desc EDIT Product Specifications by specificationId
   // @route PUT /products/:specificationId/specifications
   // @access Private - Admin only

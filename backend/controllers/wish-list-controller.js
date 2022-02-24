@@ -18,8 +18,7 @@ wishListController
     '/',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const userId = req.user.userId;
 
       const { search = '', filter = '', sort = 'dateCreated desc' } = req.query;
@@ -39,9 +38,8 @@ wishListController
       );
 
       res.status(200).send(wishList);
-    }
+    })
   )
-  // )
 
   // @desc CREATE wishlist by ID
   // @route POST /wishlist/:wishlistId

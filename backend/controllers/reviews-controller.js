@@ -65,8 +65,7 @@ reviewsController
   // @access Public
   .get(
     '/:productId',
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { productId } = req.params;
       const { search = '', sort = 'date_created desc' } = req.query;
 
@@ -100,9 +99,8 @@ reviewsController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   )
-  // )
 
   // @desc GET Single Product review by ID
   // @route GET/reviews/:reviewId

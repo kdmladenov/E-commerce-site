@@ -52,8 +52,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const { search = '', sort = 'sort=user_id asc' } = req.query;
       let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -71,9 +70,8 @@ usersController
       );
 
       res.status(200).send(result);
-    }
+    })
   )
-  // )
 
   // @desc Get user by ID
   // @route GET /users/:userId
@@ -288,8 +286,7 @@ usersController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     // validateBody('userImage', addUserImageSchema),
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const { imageUrl } = req.body;
 
@@ -304,7 +301,7 @@ usersController
       } else {
         res.status(201).send(result);
       }
-    }
+    })
   )
   // @desc DELETE user's avatar
   // @route DELETE /users/:userId/avatar
@@ -313,8 +310,7 @@ usersController
     '/:userId/avatars',
     authMiddleware,
     loggedUserGuard,
-    // errorHandler(
-    async (req, res) => {
+    errorHandler(async (req, res) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
 
@@ -327,8 +323,7 @@ usersController
       } else {
         res.status(200).send(result);
       }
-    }
+    })
   );
-// )
 
 export default usersController;
