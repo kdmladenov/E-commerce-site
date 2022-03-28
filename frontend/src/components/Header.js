@@ -12,7 +12,7 @@ import Login from './Login';
 import CartItems from './CartItems';
 import DropDown from './Dropdown';
 import Avatar from './Avatar';
-
+import { BASE_URL } from '../constants/constants';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -35,12 +35,8 @@ const Header = () => {
         <div className="mega_menu">
           <MegaMenu />
         </div>
-        <NavLink to="/">
-          <img
-            src="https://clipartart.com/images/clipart-logo-maker-online-free-9.png"
-            alt="logo"
-            className="header_logo"
-          />
+        <NavLink to="/" className="header_logo">
+          <img src={`${BASE_URL}/storage/images/logo.png`} alt="logo" />
         </NavLink>
       </div>
       <div className="search">
