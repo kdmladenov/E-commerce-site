@@ -72,9 +72,13 @@
   text-decoration: none;
 }
 .cart_items_menu li .tooltip_body {
-  bottom: 0
+  bottom: 0;
 }
 
 .cart_items_menu li .tooltip_body .price_qty {
   gap: 5px;
+}
+
+.cart_items_menu li .tooltip a {
+  z-index: -1;
 }
