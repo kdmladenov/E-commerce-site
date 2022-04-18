@@ -132,7 +132,7 @@ ordersController
     validateBody('order', updateOrderSchema), // TO DO
     errorHandler(async (req: Request, res: Response) => {
       const { orderId } = req.params;
-      const { error, order } = await ordersServices.updateOrderToDelivered(ordersData)(orderId);
+      const { error, order } = await ordersServices.updateOrderToDelivered(ordersData)(+orderId);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
@@ -158,7 +158,7 @@ ordersController
       const { orderId } = req.params;
       const paymentData = req.body;
       const { error, order } = await ordersServices.updateOrderToPaid(ordersData)(
-        orderId,
+        +orderId,
         role,
         userId,
         paymentData

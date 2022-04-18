@@ -55,7 +55,7 @@ historyController
       const { productId } = req.params;
       const userId = req.user.userId;
 
-      const { history } = await historyServices.createHistory(historyData)(productId, userId);
+      const { history } = await historyServices.createHistory(historyData)(+productId, +userId);
 
       res.status(201).send(history);
     })
@@ -71,8 +71,8 @@ historyController
       const { historyId } = req.params;
       const userId = req.user.userId;
       const { error, historyRecord } = await historyServices.deleteHistoryRecord(historyData)(
-        historyId,
-        userId
+        +historyId,
+        +userId
       );
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({

@@ -8,30 +8,35 @@ import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 import { user as userConstants } from '../constants/constants.js';
 import { forgotPassword } from '../constants/constants.js';
+import UserData from '../models/UsersData.js';
+import User from '../models/User.js';
 
-const getUser = (usersData) => async (userId, isProfileOwner, role) => {
-  const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
-  if (!user) {
+const getUser =
+  (usersData: UserData) => async (userId: number, isProfileOwner: boolean, role: string) => {
+    const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
+    if (!user) {
+      return {
+        error: errors.RECORD_NOT_FOUND,
+        result: null
+      };
+    }
+
     return {
-      error: errors.RECORD_NOT_FOUND,
-      result: null
+      error: null,
+      result: user
     };
-  }
-
-  return {
-    error: null,
-    result: user
   };
-};
 
-const getAllUsers = (usersData) => async (search, sort, page, pageSize, role) => {
-  const result = await usersData.getAll(search, sort, page, pageSize, role);
+const getAllUsers =
+  (usersData: UserData) =>
+  async (search: string, sort: string, page: number, pageSize: number, role: string) => {
+    const result = await usersData.getAll(search, sort, page, pageSize, role);
 
-  return result;
-};
+    return result;
+  };
 
 // register
-const createUser = (usersData) => async (user) => {
+const createUser = (usersData: UserData) => async (user: User) => {
   if (user.password !== user.reenteredPassword) {
     return {
       error: errors.BAD_REQUEST,
@@ -57,7 +62,7 @@ const createUser = (usersData) => async (user) => {
 };
 
 // login
-const login = (usersData) => async (email, password) => {
+const login = (usersData: UserData) => async (email: string, password: string) => {
   const user = await usersData.loginUser(email);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -74,38 +79,44 @@ const login = (usersData) => async (email, password) => {
 };
 
 // change password
-const changePassword = (usersData) => async (passwordData, userId, role) => {
-  const existingUser = await usersData.getBy('user_id', userId);
-  if (!existingUser) {
-    return {
-      error: errors.RECORD_NOT_FOUND,
-      result: null
-    };
-  }
+const changePassword =
+  (usersData: UserData) =>
+  async (
+    passwordData: { password: string; reenteredPassword: string; currentPassword: string },
+    userId: number,
+    role: string
+  ) => {
+    const existingUser = await usersData.getBy('user_id', userId);
+    if (!existingUser) {
+      return {
+        error: errors.RECORD_NOT_FOUND,
+        result: null
+      };
+    }
 
-  const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
-  const { password, reenteredPassword, currentPassword } = passwordData;
-  // not matching passwords or the user is not admin
-  if (
-    password !== reenteredPassword ||
-    (!(await bcrypt.compare(currentPassword, savedPassword)) && role !== rolesEnum.admin)
-  ) {
-    return {
-      error: errors.BAD_REQUEST,
-      result: null
-    };
-  }
+    const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
+    const { password, reenteredPassword, currentPassword } = passwordData;
+    // not matching passwords or the user is not admin
+    if (
+      password !== reenteredPassword ||
+      (!(await bcrypt.compare(currentPassword, savedPassword)) && role !== rolesEnum.admin)
+    ) {
+      return {
+        error: errors.BAD_REQUEST,
+        result: null
+      };
+    }
 
-  const update = await bcrypt.hash(password, 10);
-  await usersData.updatePassword(userId, update);
-  return {
-    error: null,
-    result: { message: 'The password was successfully changed' }
+    const update = await bcrypt.hash(password, 10);
+    await usersData.updatePassword(userId, update);
+    return {
+      error: null,
+      result: { message: 'The password was successfully changed' }
+    };
   };
-};
 
 // update profile
-const update = (usersData) => async (userUpdate, userId) => {
+const update = (usersData: UserData) => async (userUpdate: User, userId: number) => {
   // const { email, reenteredEmail } = userUpdate;
   // if (email && email !== reenteredEmail) {
   //   return {
@@ -142,7 +153,7 @@ const update = (usersData) => async (userUpdate, userId) => {
 };
 
 // delete user
-const deleteUser = (usersData) => async (userId) => {
+const deleteUser = (usersData: UserData) => async (userId: number) => {
   const existingUser = await usersData.getBy('user_id', userId);
   if (!existingUser) {
     return {
@@ -159,12 +170,12 @@ const deleteUser = (usersData) => async (userId) => {
   };
 };
 
-const logout = (usersData) => async (token) => {
+const logout = (usersData: UserData) => async (token:string) => {
   await usersData.logoutUser(token);
 };
 
 // restore deleted user
-const restoreUser = (usersData) => async (deletedUserId) => {
+const restoreUser = (usersData: UserData) => async (deletedUserId: number) => {
   const existingDeletedUser = await usersData.getBy('user_id', +deletedUserId, false, 'admin');
   if (!existingDeletedUser) {
     return {
@@ -182,7 +193,7 @@ const restoreUser = (usersData) => async (deletedUserId) => {
 };
 
 // forgotten password
-const forgottenPassword = (usersData) => async (email) => {
+const forgottenPassword = (usersData: UserData) => async (email: string) => {
   const existingUser = await usersData.getBy('email', email, true);
   if (!existingUser) {
     return {
@@ -215,7 +226,12 @@ const forgottenPassword = (usersData) => async (email) => {
     from: DB_CONFIG.adminEmail,
     to: `${existingUser.email}`,
     subject: 'Password reset link.',
-    text: `Dear ${existingUser.fullName},\nA request has been received to reset yor password. You can do that by clicking on the below link (valid for ${forgotPassword.tokenExpiration.slice(0,-1)} minutes).\n
+    text: `Dear ${
+      existingUser.fullName
+    },\nA request has been received to reset yor password. You can do that by clicking on the below link (valid for ${forgotPassword.tokenExpiration.slice(
+      0,
+      -1
+    )} minutes).\n
 ${link}\nIf you did not initiate the request, just ignore this email - your password will not be changed.`
   };
   transporter.sendMail(options, (err, info) => {
@@ -232,59 +248,61 @@ ${link}\nIf you did not initiate the request, just ignore this email - your pass
 };
 
 // reset password
-const resetPassword = (usersData) => async (password, reenteredPassword, userId, token) => {
-  const existingUser = await usersData.getBy('user_id', userId, true);
-  if (!existingUser) {
-    return {
-      error: errors.RECORD_NOT_FOUND,
-      result: null
-    };
-  }
-
-  const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
-  const newPrivateKey = PRIVATE_KEY + savedPassword;
-  const payload = jwt.verify(token, newPrivateKey);
-
-  if (password !== reenteredPassword || !payload) {
-    return {
-      error: errors.BAD_REQUEST,
-      result: null
-    };
-  }
-
-  const updated = await bcrypt.hash(password, 10);
-  await usersData.updatePassword(userId, updated);
-
-  // Sending confirmation mail for the reset password
-  const transporter = nodemailer.createTransport({
-    service: forgotPassword.emailService,
-    auth: {
-      user: DB_CONFIG.adminEmail,
-      pass: DB_CONFIG.adminEmailPassword
+const resetPassword =
+  (usersData: UserData) =>
+  async (password: string, reenteredPassword: string, userId: number, token: string) => {
+    const existingUser = await usersData.getBy('user_id', userId, true);
+    if (!existingUser) {
+      return {
+        error: errors.RECORD_NOT_FOUND,
+        result: null
+      };
     }
-  });
 
-  const options = {
-    from: DB_CONFIG.adminEmail,
-    to: `${existingUser.email}`,
-    subject: 'Your password has been reset.',
-    text: `Dear ${existingUser.fullName},\nYour password has been reset.\nThank you!`
+    const { password: savedPassword } = await usersData.getPasswordBy('user_id', userId);
+    const newPrivateKey = PRIVATE_KEY + savedPassword;
+    const payload = jwt.verify(token, newPrivateKey);
+
+    if (password !== reenteredPassword || !payload) {
+      return {
+        error: errors.BAD_REQUEST,
+        result: null
+      };
+    }
+
+    const updated = await bcrypt.hash(password, 10);
+    await usersData.updatePassword(userId, updated);
+
+    // Sending confirmation mail for the reset password
+    const transporter = nodemailer.createTransport({
+      service: forgotPassword.emailService,
+      auth: {
+        user: DB_CONFIG.adminEmail,
+        pass: DB_CONFIG.adminEmailPassword
+      }
+    });
+
+    const options = {
+      from: DB_CONFIG.adminEmail,
+      to: `${existingUser.email}`,
+      subject: 'Your password has been reset.',
+      text: `Dear ${existingUser.fullName},\nYour password has been reset.\nThank you!`
+    };
+
+    transporter.sendMail(options, (err, info) => {
+      if (err) {
+        return;
+      }
+      console.log(`Sent: + ${info.response}`);
+    });
+
+    return {
+      error: null,
+      result: { email: existingUser.email, message: 'The password was successfully reset' }
+    };
   };
 
-  transporter.sendMail(options, (err, info) => {
-    if (err) {
-      return;
-    }
-    console.log(`Sent: + ${info.response}`);
-  });
-
-  return {
-    error: null,
-    result: { email: existingUser.email, message: 'The password was successfully reset' }
-  };
-};
-
-const addUserAvatar = (usersData) => async (userId, imageUrl) => {
+const addUserAvatar = (usersData: UserData) => async (userId: number, imageUrl: string) => {
   const existingUser = await usersData.getBy('user_id', userId, 'admin');
 
   if (!existingUser) {
@@ -303,7 +321,7 @@ const addUserAvatar = (usersData) => async (userId, imageUrl) => {
   };
 };
 
-const deleteUserAvatar = (usersData) => async (userId) => {
+const deleteUserAvatar = (usersData: UserData) => async (userId: number) => {
   const existingUser = await usersData.getBy('user_id', userId, 'admin');
 
   if (!existingUser) {

@@ -1,26 +1,12 @@
 interface OrderDetails {
   orderId: number;
-  userId: number;
-  fullName: string;
-  email: string;
-  shippingAddress: string;
-  shippingAddress2: string;
-  shippingCity: string;
-  shippingZip: string;
-  shippingState: string;
-  shippingCountry: string;
+  orderItems: { title; qty; image; price; productId }[];
+  shippingAddress: { address; address2; city; zip; state; country };
   paymentMethod: string;
-  paymentResultId: number;
   itemsPrice: number;
-  shippingPrice: number;
   taxPrice: number;
+  shippingPrice: number;
   totalPrice: number;
-  isPaid: number;
-  paymentDate: number;
-  isDelivered: number;
-  orderDate: string;
-  deliveryDate: string;
-  totalDBItems: number;
 }
 
 export default OrderDetails;

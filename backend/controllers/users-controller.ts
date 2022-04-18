@@ -92,7 +92,7 @@ usersController
       const { role } = req.user;
       const isProfileOwner = +userId === req.user.userId;
       const { error, result } = await usersServices.getUser(usersData)(
-        userId,
+        +userId,
         isProfileOwner,
         role
       );
@@ -204,7 +204,7 @@ usersController
 
       const { error, result } = await usersServices.changePassword(usersData)(
         passwordData,
-        id,
+        +id,
         role
       );
 

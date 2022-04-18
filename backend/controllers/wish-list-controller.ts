@@ -57,7 +57,7 @@ wishListController
       const { productId } = req.params;
       const userId = req.user.userId;
       const { error, wishList } = await wishListServices.createWishListRecord(wishListData)(
-        productId,
+        +productId,
         userId
       );
 

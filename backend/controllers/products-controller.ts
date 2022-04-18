@@ -63,7 +63,7 @@ productsController
       const { productId } = req.params;
 
       const { error, product } = await productsServices.getProductById(productsData)(
-        productId,
+        +productId,
         'admin' // TO BE FIXED
       );
 
@@ -140,7 +140,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
-      const { error, product } = await productsServices.deleteProduct(productsData)(productId);
+      const { error, product } = await productsServices.deleteProduct(productsData)(+productId);
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
           message: 'A product with this id is not found!'
@@ -292,7 +292,7 @@ productsController
       const { error, productFeatures } = await productsServices.getProductFeaturesById(
         productsData,
         featuresData
-      )(productId);
+      )(+productId);
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
