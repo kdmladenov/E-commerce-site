@@ -1,7 +1,8 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
+import User from '../models/User.js';
 
-const getBy = async (column, value, isProfileOwner, role) => {
+const getBy = async (column: string, value: string, isProfileOwner: boolean, role: string) => {
   const sql = `
     SELECT 
       user_id as userId, 
@@ -29,7 +30,13 @@ const getBy = async (column, value, isProfileOwner, role) => {
   return result[0];
 };
 
-const getAll = async (search, sort, page, pageSize, role) => {
+const getAll = async (
+  search: string,
+  sort: string,
+  page: number,
+  pageSize: number,
+  role: string
+) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['user_id', 'full_name', 'email'].includes(sortArr[0])
@@ -72,7 +79,7 @@ const getAll = async (search, sort, page, pageSize, role) => {
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const create = async (user) => {
+const create = async (user: User) => {
   const sql = `
     INSERT INTO users (
       password, 
@@ -106,10 +113,10 @@ const create = async (user) => {
     user?.role || rolesEnum.basic
   ]);
 
-  return getBy('user_id', result.insertId, true);
+  return getBy('user_id', result.insertId, true, 'basic');
 };
 
-const updateData = async (user) => {
+const updateData = async (user: User) => {
   const sql = `
     UPDATE users SET
       full_name = ?,
@@ -142,7 +149,7 @@ const updateData = async (user) => {
   ]);
 };
 
-const getPasswordBy = async (column, value) => {
+const getPasswordBy = async (column: string, value: string | number) => {
   const sql = `
     SELECT password
     FROM users
@@ -152,7 +159,7 @@ const getPasswordBy = async (column, value) => {
   return result[0];
 };
 
-const updatePassword = async (userId, password) => {
+const updatePassword = async (userId: number, password: string) => {
   const sql = `
   UPDATE users SET  
     password = ?
@@ -161,7 +168,7 @@ const updatePassword = async (userId, password) => {
   return db.query(sql, [password, userId]);
 };
 
-const remove = async (userId) => {
+const remove = async (userId: number) => {
   const sql = `
     UPDATE users SET
       is_deleted = 1
@@ -171,7 +178,7 @@ const remove = async (userId) => {
   return db.query(sql, [userId]);
 };
 
-const restore = async (userId) => {
+const restore = async (userId: number) => {
   const sql = `
     UPDATE users SET
       is_deleted = 0
@@ -181,7 +188,7 @@ const restore = async (userId) => {
   return db.query(sql, [userId]);
 };
 
-const loginUser = async (email) => {
+const loginUser = async (email: string) => {
   const sql = `
     SELECT 
       email, 
@@ -197,7 +204,7 @@ const loginUser = async (email) => {
 };
 
 // tokens table includes blacklisted tokens only
-const logoutUser = async (token) => {
+const logoutUser = async (token: string) => {
   const sql = `
     INSERT INTO tokens (
       token
@@ -206,7 +213,6 @@ const logoutUser = async (token) => {
   `;
   return db.query(sql, [token]);
 };
-
 
 export default {
   getBy,

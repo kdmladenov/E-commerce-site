@@ -1,7 +1,8 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
+import Feature from '../models/Feature.js';
 
-const getFeatures = async (productId) => {
+const getFeatures = async (productId: number) => {
   const sql = `
     SELECT 
       feature_id as featureId,
@@ -15,7 +16,7 @@ const getFeatures = async (productId) => {
   return db.query(sql, [productId]);
 };
 
-const getBy = async (column, value, role = 'basic') => {
+const getBy = async (column: string, value: string | number, role: string = 'basic') => {
   const sql = `
     SELECT 
       feature_id as featureId,
@@ -30,7 +31,7 @@ const getBy = async (column, value, role = 'basic') => {
   return result[0];
 };
 
-const create = async (productId, data) => {
+const create = async (productId: number, data: Feature) => {
   const sql = `
     INSERT INTO features (
       product_id,
@@ -39,16 +40,12 @@ const create = async (productId, data) => {
     )
     VALUES (?, ?, ?)
   `;
-  const result = await db.query(sql, [
-    +productId,
-    data.featureTitle,
-    data.featureContent
-  ]);
+  const result = await db.query(sql, [+productId, data.featureTitle, data.featureContent]);
 
   return getBy('feature_id', result.insertId);
 };
 
-const update = async (updatedFeature) => {
+const update = async (updatedFeature: Feature) => {
   const sql = `
         UPDATE features
         SET
@@ -68,7 +65,7 @@ const update = async (updatedFeature) => {
   return getBy('feature_id', updatedFeature.featureId);
 };
 
-const remove = async (featuresData) => {
+const remove = async (featuresData: Feature) => {
   const sql = `
         UPDATE features 
         SET is_deleted = true
@@ -83,5 +80,5 @@ export default {
   getBy,
   create,
   update,
-  remove  
+  remove
 };

@@ -1,6 +1,13 @@
 import db from './pool.js';
 
-const getAllHistory = async (userId, search, filter, sort, pageSize, page) => {
+const getAllHistory = async (
+  userId: number,
+  search: string,
+  filter: string | string[],
+  sort: string,
+  pageSize: number,
+  page: number
+) => {
   const sortArr = sort?.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
   const sortColumn = [
@@ -15,7 +22,7 @@ const getAllHistory = async (userId, search, filter, sort, pageSize, page) => {
     : 'dateVisited';
   const offset = page ? (page - 1) * pageSize : 0;
 
-  const whereClause = (filter) => {
+  const whereClause = (filter: string | string[]) => {
     const queryMap = {};
     const filterLength = Array.isArray(filter) ? filter.length : 1;
 
@@ -126,7 +133,7 @@ const getAllHistory = async (userId, search, filter, sort, pageSize, page) => {
   return db.query(sql, [+userId, +pageSize, +offset]);
 };
 
-const getBy = async (column, value, userId) => {
+const getBy = async (column: string, value: string | number, userId: number) => {
   const sql = `
     SELECT 
       browsing_history_id as historyId,
@@ -141,7 +148,7 @@ const getBy = async (column, value, userId) => {
   return result[0];
 };
 
-const getById = async (historyId) => {
+const getById = async (historyId: number) => {
   const sql = `
     SELECT 
       browsing_history_id as historyId,
@@ -156,7 +163,7 @@ const getById = async (historyId) => {
   return result[0];
 };
 
-const create = async (productId, userId) => {
+const create = async (productId: number, userId: number) => {
   const sql = `
     INSERT INTO browsing_history (
       product_id,
@@ -169,7 +176,7 @@ const create = async (productId, userId) => {
   return getById(result.insertId);
 };
 
-const remove = async (historyId) => {
+const remove = async (historyId: number) => {
   const sql = `
         UPDATE browsing_history
         SET is_deleted = true
@@ -179,7 +186,7 @@ const remove = async (historyId) => {
   return db.query(sql, [+historyId]);
 };
 
-const updateDate = async (historyId) => {
+const updateDate = async (historyId: number) => {
   const sql = `
         UPDATE browsing_history
         SET date_visited = CURRENT_TIMESTAMP()

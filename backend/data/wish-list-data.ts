@@ -1,6 +1,13 @@
 import db from './pool.js';
 
-const getAllWishListRecords = async (userId, search, filter, sort, pageSize, page) => {
+const getAllWishListRecords = async (
+  userId: number,
+  search: string,
+  filter: string,
+  sort: string,
+  pageSize: number,
+  page: number
+) => {
   const sortArr = sort?.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
   const sortColumn = [
@@ -125,7 +132,7 @@ const getAllWishListRecords = async (userId, search, filter, sort, pageSize, pag
   return db.query(sql, [+userId, +pageSize, +offset]);
 };
 
-const getBy = async (column, value, userId) => {
+const getBy = async (column: string, value: string | number, userId: number) => {
   const sql = `
     SELECT 
       wishlist_id as wishListId,
@@ -140,7 +147,7 @@ const getBy = async (column, value, userId) => {
   return result[0];
 };
 
-const getById = async (wishListId) => {
+const getById = async (wishListId: number) => {
   const sql = `
     SELECT 
       wishlist_id as wishListId,
@@ -155,7 +162,7 @@ const getById = async (wishListId) => {
   return result[0];
 };
 
-const create = async (productId, userId) => {
+const create = async (productId: number, userId: number) => {
   const sql = `
     INSERT INTO wishlist (
       product_id,
@@ -168,7 +175,7 @@ const create = async (productId, userId) => {
   return getById(result.insertId);
 };
 
-const remove = async (wishListId) => {
+const remove = async (wishListId: number) => {
   const sql = `
         UPDATE wishlist
         SET is_deleted = true

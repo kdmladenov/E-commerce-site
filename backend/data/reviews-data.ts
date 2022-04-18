@@ -1,7 +1,15 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 
-const getAll = async (productId, search, sort, page, pageSize, ratingMin, ratingMax) => {
+const getAll = async (
+  productId: number,
+  search: string,
+  sort: string,
+  page: number,
+  pageSize: number,
+  ratingMin: number,
+  ratingMax: number
+) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['dateCreated', 'rating', 'thumbsUp', 'thumbsDown'].includes(sortArr[0])
@@ -43,7 +51,7 @@ const getAll = async (productId, search, sort, page, pageSize, ratingMin, rating
   return db.query(sql, [+productId, ratingMin, ratingMax, pageSize, offset]);
 };
 
-const getBy = async (column, value, role) => {
+const getBy = async (column: string, value: string | number, role: string) => {
   const sql = `
   SELECT
     r.product_id as productId,
@@ -96,7 +104,13 @@ const getBy = async (column, value, role) => {
 //   return result[0];
 // };
 
-const create = async (content, userId, productId, rating, title) => {
+const create = async (
+  content: string,
+  userId: number,
+  productId: number,
+  rating: number,
+  title: string
+) => {
   const sql = `
     INSERT INTO reviews (
       content,
@@ -109,10 +123,17 @@ const create = async (content, userId, productId, rating, title) => {
   `;
   const result = await db.query(sql, [content, +userId, +productId, +rating, title]);
 
-  return getBy('review_id', result.insertId);
+  return getBy('review_id', result.insertId, 'basic');
 };
 
-const update = async (content, reviewId, userId, role, rating, title) => {
+const update = async (
+  content: string,
+  reviewId: number,
+  userId: number,
+  role: string,
+  rating: number,
+  title: string
+) => {
   const sql = `
     UPDATE reviews SET
       title = ?,
@@ -124,7 +145,7 @@ const update = async (content, reviewId, userId, role, rating, title) => {
   return db.query(sql, [title, content, rating, reviewId, userId]);
 };
 
-const remove = async (reviewId, userId, role) => {
+const remove = async (reviewId: number, userId: number, role: string) => {
   const sql = `
     UPDATE reviews
     SET is_deleted = true
@@ -133,7 +154,7 @@ const remove = async (reviewId, userId, role) => {
   return db.query(sql, [reviewId, userId, role]);
 };
 
-const getReviewByUserAndProduct = async (userId, productId) => {
+const getReviewByUserAndProduct = async (userId: number, productId: number) => {
   const sql = `
     SELECT
       review_id as reviewId,
@@ -153,7 +174,7 @@ const getReviewByUserAndProduct = async (userId, productId) => {
 
 // Reviews Votes(Likes)
 
-const getVoteBy = async (column, value, userId) => {
+const getVoteBy = async (column: string, value: string | number, userId: number) => {
   const sql = `
   SELECT 
     rl.user_id as userId,
@@ -173,7 +194,7 @@ const getVoteBy = async (column, value, userId) => {
   return result[0];
 };
 
-const createVote = async (reactionName, reviewId, userId) => {
+const createVote = async (reactionName: string, reviewId: number, userId: number) => {
   const sql = `
     INSERT INTO review_likes (
       reaction_id,
@@ -188,7 +209,7 @@ const createVote = async (reactionName, reviewId, userId) => {
   return getVoteBy('review_id', reviewId, userId);
 };
 
-const updateVote = async (reactionName, reviewId, userId) => {
+const updateVote = async (reactionName: string, reviewId: number, userId: number) => {
   const sql = `
         UPDATE review_likes 
         SET reaction_id  = (SELECT reaction_id FROM reactions WHERE reaction_name = ?)
@@ -200,7 +221,7 @@ const updateVote = async (reactionName, reviewId, userId) => {
   return getVoteBy('review_id', reviewId, userId);
 };
 
-const removeVote = async (reviewId, userId) => {
+const removeVote = async (reviewId: number, userId: number) => {
   const sql = `
         UPDATE review_likes 
         SET is_deleted  = 1

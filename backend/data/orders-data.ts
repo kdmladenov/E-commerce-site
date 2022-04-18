@@ -1,14 +1,22 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
+import Payment from '../models/Payment.js';
 
-const getAllByUser = async (userId, role, search, sort, page, pageSize) => {
-const sortArr = sort.split(' ');
-const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
-const sortColumn = ['order_id', 'order_date', 'total_price'].includes(sortArr[0])
-  ? sortArr[0]
-  : 'order_date';
+const getAllByUser = async (
+  userId: number,
+  role: string,
+  search: string,
+  sort: string,
+  page: number,
+  pageSize: number
+) => {
+  const sortArr = sort.split(' ');
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
+  const sortColumn = ['order_id', 'order_date', 'total_price'].includes(sortArr[0])
+    ? sortArr[0]
+    : 'order_date';
 
-const offset = page ? (page - 1) * pageSize : 0;
+  const offset = page ? (page - 1) * pageSize : 0;
 
   const sql = `
   SELECT
@@ -52,14 +60,14 @@ const offset = page ? (page - 1) * pageSize : 0;
   return db.query(sql, [+userId, +pageSize, +offset]);
 };
 
-const getAll = async (search, sort, page, pageSize) => {
-const sortArr = sort.split(' ');
-const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
-const sortColumn = ['order_id', 'order_date', 'total_price'].includes(sortArr[0])
-  ? sortArr[0]
-  : 'order_date';
+const getAll = async (search: string, sort: string, page: number, pageSize: number) => {
+  const sortArr = sort.split(' ');
+  const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'desc';
+  const sortColumn = ['order_id', 'order_date', 'total_price'].includes(sortArr[0])
+    ? sortArr[0]
+    : 'order_date';
 
-const offset = page ? (page - 1) * pageSize : 0;
+  const offset = page ? (page - 1) * pageSize : 0;
 
   const sql = `
   SELECT
@@ -103,7 +111,7 @@ const offset = page ? (page - 1) * pageSize : 0;
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const getOrderBy = async (column, value, role) => {
+const getOrderBy = async (column: string, value: string | number, role: string) => {
   const sql = `
     SELECT
     o.order_id as orderId,
@@ -141,18 +149,18 @@ const getOrderBy = async (column, value, role) => {
 };
 
 const createOrderWithoutItems = async (
-  userId,
-  address,
-  address2,
-  city,
-  zip,
-  state,
-  country,
-  paymentMethod,
-  itemsPrice,
-  taxPrice,
-  shippingPrice,
-  totalPrice
+  userId: number,
+  address: string,
+  address2: string,
+  city: string,
+  zip: string,
+  state: string,
+  country: string,
+  paymentMethod: string,
+  itemsPrice: number,
+  taxPrice: number,
+  shippingPrice: number,
+  totalPrice: number
 ) => {
   const sql = `
     INSERT INTO orders (
@@ -186,10 +194,17 @@ const createOrderWithoutItems = async (
     +totalPrice
   ]);
 
-  return getOrderBy('order_id', result.insertId);
+  return getOrderBy('order_id', result.insertId, 'basic');
 };
 
-const createOrderItem = async (title, qty, image, price, id, orderId) => {
+const createOrderItem = async (
+  title: string,
+  qty: number,
+  image: string,
+  price: number,
+  id: number,
+  orderId: number
+) => {
   const sql = `
     INSERT INTO order_items (
     title, 
@@ -206,7 +221,7 @@ const createOrderItem = async (title, qty, image, price, id, orderId) => {
   return { order_item_id: result.insertId, title, qty, image, price, id, orderId };
 };
 
-const getAllOrderItemsByOrder = async (orderId) => {
+const getAllOrderItemsByOrder = async (orderId: number) => {
   const sql = `
   SELECT
     oi.order_item_id as orderItemId,
@@ -240,7 +255,13 @@ const getAllOrderItemsByOrder = async (orderId) => {
   return db.query(sql, [+orderId]);
 };
 
-const createOrderPaymentResult = async ({ orderId, id, status, update_time, email_address }) => {
+const createOrderPaymentResult = async ({
+  orderId,
+  id,
+  status,
+  update_time,
+  email_address
+}: Payment) => {
   const sql = `
     INSERT INTO payment_result (
       order_id, 
@@ -263,7 +284,7 @@ const createOrderPaymentResult = async ({ orderId, id, status, update_time, emai
   };
 };
 
-const updateOrderPayment = async (orderId, paymentResultId) => {
+const updateOrderPayment = async (orderId: number, paymentResultId: number) => {
   const sql = `
     UPDATE orders SET
       payment_result_id = ?,
@@ -275,7 +296,7 @@ const updateOrderPayment = async (orderId, paymentResultId) => {
   return db.query(sql, [+paymentResultId, new Date(), +orderId]);
 };
 
-const updateOrderDelivered = async (orderId) => {
+const updateOrderDelivered = async (orderId: number) => {
   const sql = `
     UPDATE orders SET
       is_delivered = 1,

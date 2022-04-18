@@ -1,8 +1,7 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 
-const getAll = async (questionId) => {
-
+const getAll = async (questionId: number) => {
   const sql = `
     SELECT
     a.question_id as questionId,
@@ -21,7 +20,7 @@ const getAll = async (questionId) => {
   return db.query(sql, [+questionId]);
 };
 
-const getBy = async (column, value, role) => {
+const getBy = async (column: string, value: string | number, role: string) => {
   const sql = `
   SELECT
     a.question_id as questionId,
@@ -41,7 +40,7 @@ const getBy = async (column, value, role) => {
   return result[0];
 };
 
-const create = async (answerContent, userId, questionId) => {
+const create = async (answerContent: string, userId: number, questionId: number) => {
   const sql = `
     INSERT INTO answers (
       answer_content,
@@ -52,10 +51,10 @@ const create = async (answerContent, userId, questionId) => {
   `;
   const result = await db.query(sql, [answerContent, +userId, +questionId]);
 
-  return getBy('answer_id', result.insertId);
+  return getBy('answer_id', result.insertId, 'basic');
 };
 
-const update = async (answerContent, answerId, userId, role) => {
+const update = async (answerContent: string, answerId: number, userId: number, role: string) => {
   const sql = `
     UPDATE answers SET
       answer_content = ?,
@@ -65,7 +64,7 @@ const update = async (answerContent, answerId, userId, role) => {
   return db.query(sql, [answerContent, answerId, userId]);
 };
 
-const remove = async (answerId, userId, role) => {
+const remove = async (answerId: number, userId: number, role: string) => {
   const sql = `
     UPDATE answers
     SET is_deleted = true

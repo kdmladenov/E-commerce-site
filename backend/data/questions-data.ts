@@ -1,7 +1,13 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 
-const getAll = async (productId, search, sort, page, pageSize) => {
+const getAll = async (
+  productId: number,
+  search: string,
+  sort: string,
+  page: number,
+  pageSize: number
+) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = ['dateCreated', 'rating', 'thumbsUp', 'thumbsDown'].includes(sortArr[0])
@@ -61,7 +67,7 @@ const getAll = async (productId, search, sort, page, pageSize) => {
   return db.query(sql, [+productId, +pageSize, +offset]);
 };
 
-const getBy = async (column, value, role) => {
+const getBy = async (column: string, value: string | number, role: string) => {
   const sql = `
   SELECT
     q.product_id as productId,
@@ -93,7 +99,7 @@ const getBy = async (column, value, role) => {
   return result[0];
 };
 
-const create = async (questionContent, userId, productId) => {
+const create = async (questionContent: string, userId: number, productId: number) => {
   const sql = `
     INSERT INTO questions (
       question_content,
@@ -104,10 +110,15 @@ const create = async (questionContent, userId, productId) => {
   `;
   const result = await db.query(sql, [questionContent, +userId, +productId]);
 
-  return getBy('question_id', result.insertId);
+  return getBy('question_id', result.insertId, 'basic');
 };
 
-const update = async (questionContent, questionId, userId, role) => {
+const update = async (
+  questionContent: string,
+  questionId: number,
+  userId: number,
+  role: string
+) => {
   const sql = `
     UPDATE questions SET
       question_content = ?,
@@ -117,7 +128,7 @@ const update = async (questionContent, questionId, userId, role) => {
   return db.query(sql, [questionContent, questionId, userId]);
 };
 
-const remove = async (questionId, userId, role) => {
+const remove = async (questionId: number, userId: number, role: string) => {
   const sql = `
     UPDATE questions
     SET is_deleted = true
@@ -128,7 +139,7 @@ const remove = async (questionId, userId, role) => {
 
 // Questions Votes(Likes)
 
-const getVoteBy = async (column, value, userId) => {
+const getVoteBy = async (column: string, value: string | number, userId: number) => {
   const sql = `
   SELECT 
     ql.user_id as userId,
@@ -148,7 +159,7 @@ const getVoteBy = async (column, value, userId) => {
   return result[0];
 };
 
-const createVote = async (reactionName, questionId, userId) => {
+const createVote = async (reactionName: string, questionId: number, userId: number) => {
   const sql = `
     INSERT INTO questions_likes (
       reaction_id,
@@ -163,7 +174,7 @@ const createVote = async (reactionName, questionId, userId) => {
   return getVoteBy('question_id', questionId, userId);
 };
 
-const updateVote = async (reactionName, questionId, userId) => {
+const updateVote = async (reactionName: string, questionId: number, userId: number) => {
   const sql = `
         UPDATE questions_likes 
         SET reaction_id  = (SELECT reaction_id FROM reactions WHERE reaction_name = ?)
@@ -175,7 +186,7 @@ const updateVote = async (reactionName, questionId, userId) => {
   return getVoteBy('question_id', questionId, userId);
 };
 
-const removeVote = async (questionId, userId) => {
+const removeVote = async (questionId: number, userId: number) => {
   const sql = `
         UPDATE questions_likes 
         SET is_deleted  = 1

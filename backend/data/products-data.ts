@@ -1,7 +1,15 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
+import Product from '../models/Product.js';
 
-const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
+const getAllProducts = async (
+  search: string,
+  filter: string,
+  sort: string,
+  pageSize: number,
+  page: number,
+  role: string
+) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
   const sortColumn = [
@@ -129,7 +137,7 @@ const getAllProducts = async (search, filter, sort, pageSize, page, role) => {
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const getBy = async (column, value, role = 'basic') => {
+const getBy = async (column: string, value: string | number, role: string = 'basic') => {
   const sql = `
     SELECT 
       p.product_id as productId,
@@ -214,7 +222,7 @@ const getBy = async (column, value, role = 'basic') => {
   return result[0];
 };
 
-const create = async (product) => {
+const create = async (product: Product) => {
   const sql = `
     INSERT INTO products (
       title,
@@ -256,7 +264,7 @@ const create = async (product) => {
   return getBy('product_id', result.insertId);
 };
 
-const update = async (updatedProduct) => {
+const update = async (updatedProduct: Product) => {
   const sql = `
         UPDATE products
         SET
@@ -298,7 +306,7 @@ const update = async (updatedProduct) => {
   return getBy('product_id', updatedProduct.productId);
 };
 
-const remove = async (productToDelete) => {
+const remove = async (productToDelete: Product) => {
   const sql = `
         UPDATE products 
         SET is_deleted = true
@@ -308,7 +316,7 @@ const remove = async (productToDelete) => {
   return db.query(sql, [productToDelete.productId]);
 };
 
-const restore = async (productToRestore) => {
+const restore = async (productToRestore: Product) => {
   const sql = `
         UPDATE products 
         SET is_deleted = false
@@ -318,7 +326,7 @@ const restore = async (productToRestore) => {
   return db.query(sql, [productToRestore.productId]);
 };
 
-const addAProductImage = async (productId, imageUrl, isMain = 0) => {
+const addAProductImage = async (productId: number, imageUrl: string, isMain: number = 0) => {
   const sql = `
     INSERT INTO product_images (
       product_id,
@@ -332,7 +340,7 @@ const addAProductImage = async (productId, imageUrl, isMain = 0) => {
   return { productId, productImageId: result.insertId, image: imageUrl, isMain };
 };
 
-const getAllProductImages = async (productId) => {
+const getAllProductImages = async (productId: number) => {
   const sql = `
       SELECT 
         product_image_id as productImageId,

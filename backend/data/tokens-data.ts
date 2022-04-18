@@ -1,6 +1,6 @@
 import db from './pool.js';
 
-const tokenLoggedOut = async (token) => {
+const tokenLoggedOut = async (token: string) => {
   const sql = `
     SELECT *
     FROM tokens
