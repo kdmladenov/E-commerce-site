@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import passport from 'passport';
@@ -15,6 +15,7 @@ import answersController from './controllers/answers-controller.js';
 
 import jwtStrategy from './authentication/strategy.js';
 import { PORT, PAYPAL_CLIENT_ID } from '../config.js';
+import HttpException from './models/HttpException.js';
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.get('/config/paypal', (req, res) => res.send(PAYPAL_CLIENT_ID));
 
 app.all('*', (req, res) => res.status(404).send({ message: 'Resource not found!' }));
 
-app.use((err, req, res, next) => {
+app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send({
     message: err.message
   });

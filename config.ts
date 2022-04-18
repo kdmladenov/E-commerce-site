@@ -1,10 +1,11 @@
 import dotenv from 'dotenv';
+import PoolConfigCustom from './backend/models/PoolConfigCustom';
 
-const config = dotenv.config().parsed;
+const config = dotenv.config().parsed!;
 
-export const DB_CONFIG = {
+export const DB_CONFIG: PoolConfigCustom = {
   host: config.HOST,
-  port: config.DBPORT,
+  port: +config.DBPORT,
   user: config.USER,
   password: config.PASSWORD,
   database: config.DATABASE,
