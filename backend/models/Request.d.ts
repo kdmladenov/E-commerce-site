@@ -5,8 +5,6 @@ declare namespace Express {
       email: string;
       role: string;
     };
-    file: {
-      path: string;
-    };
+    file: { [key: string]: string };
   }
 }
