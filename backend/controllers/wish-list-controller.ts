@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import wishListServices from '../services/wish-list-services.js';
 
@@ -23,7 +23,7 @@ wishListController
     '/',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const userId = req.user.userId;
 
       const { search = '', filter = '', sort = 'dateCreated desc' } = req.query;
@@ -53,7 +53,7 @@ wishListController
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const userId = req.user.userId;
       const { error, wishList } = await wishListServices.createWishListRecord(wishListData)(
@@ -78,7 +78,7 @@ wishListController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { userId } = req.user;
       const { error, wishListRecord } = await wishListServices.deleteWishListRecord(wishListData)(

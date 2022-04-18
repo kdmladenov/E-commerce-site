@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import usersServices from '../services/users-services.js';
 
@@ -20,7 +20,7 @@ authController
   .post(
     '/login',
     validateBody('user', loginUserSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { email, password } = req.body;
       const { error, result } = await usersServices.login(usersData)(email, password);
 
@@ -45,8 +45,8 @@ authController
   .delete(
     '/logout',
     authMiddleware,
-    errorHandler(async (req, res) => {
-      const token = req.headers.authorization.replace('Bearer ', '');
+    errorHandler(async (req: Request, res: Response) => {
+      const token = req.headers.authorization!.replace('Bearer ', '');
       await usersServices.logout(usersData)(token);
 
       res.status(200).send({

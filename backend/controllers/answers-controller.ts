@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import answersServices from '../services/answers-services.js';
 
@@ -27,7 +27,7 @@ answersController
     authMiddleware,
     loggedUserGuard,
     validateBody('answer', createAnswerSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { questionId } = req.params;
       const { contentAnswer } = req.body;
       const { userId } = req.user;
@@ -53,7 +53,7 @@ answersController
   // @access Public
   .get(
     '/:questionId',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { questionId } = req.params;
 
       const { error, result } = await answersServices.getAllAnswers(
@@ -79,7 +79,7 @@ answersController
     authMiddleware,
     loggedUserGuard,
     validateBody('answer', updateAnswerSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { contentAnswer } = req.body;
       const { answerId } = req.params;
       const { userId, role } = req.user;
@@ -112,7 +112,7 @@ answersController
     '/:answerId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { userId, role } = req.user;
       const { answerId } = req.params;
 

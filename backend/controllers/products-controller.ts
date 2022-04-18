@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import productsServices from '../services/products-services.js';
 
@@ -33,7 +33,7 @@ productsController
   // @access Public
   .get(
     '/',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { search = '', filter = '', sort = 'sort=price asc', role = 'basic' } = req.query;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -59,7 +59,7 @@ productsController
   // @access Public
   .get(
     '/:productId',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
 
       const { error, product } = await productsServices.getProductById(productsData)(
@@ -85,7 +85,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', updateProductSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const data = req.body;
       const { error, result } = await productsServices.updateProduct(productsData)(
@@ -116,7 +116,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('product', createProductSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const data = req.body;
       const { error, product } = await productsServices.createProduct(productsData)(data);
 
@@ -138,7 +138,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { error, product } = await productsServices.deleteProduct(productsData)(productId);
       if (error === errors.RECORD_NOT_FOUND) {
@@ -158,7 +158,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { error, product } = await productsServices.restoreProduct(productsData)(+productId);
       if (error === errors.RECORD_NOT_FOUND) {
@@ -180,7 +180,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     uploadImage.single('image'),
     validateFile('uploads', uploadFileSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { path } = req.file;
 
       res.status(201).send(path.replace(/\\/g, '/'));
@@ -195,7 +195,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     // validateBody('productImage', addProductImageSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { imageUrl } = req.body;
       const { error, result } = await productsServices.addProductImage(
@@ -217,7 +217,7 @@ productsController
   // @access Public
   .get(
     '/:productId/images',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
 
       const { error, result } = await productsServices.getAllProductImages(
@@ -242,7 +242,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productImageId } = req.params;
       const { error, deletedImage } = await productsServices.deleteProductImage(productsImagesData)(
         +productImageId
@@ -265,7 +265,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productImageId } = req.params;
 
       const { error, newMainImage } = await productsServices.setProductImageAsMain(
@@ -286,7 +286,7 @@ productsController
   // @access Public
   .get(
     '/:productId/features',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
 
       const { error, productFeatures } = await productsServices.getProductFeaturesById(
@@ -312,7 +312,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('feature', createFeatureSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -339,7 +339,7 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('feature', updateFeatureSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { featureId } = req.params;
       const data = req.body;
 
@@ -364,7 +364,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { featureId } = req.params;
 
       const { error, productFeature } = await productsServices.deleteProductFeature(featuresData)(
@@ -390,7 +390,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     // TO DO: createSpecificationsSchema
     // validateBody('specification', createSpecificationsSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const data = req.body;
 
@@ -418,7 +418,7 @@ productsController
     roleMiddleware(rolesEnum.admin),
     // TO DO: updateSpecificationsSchema
     // validateBody('specification', updateSpecificationsSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { specificationId } = req.params;
       const data = req.body;
 
@@ -443,7 +443,7 @@ productsController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { specificationId } = req.params;
 
       const { error, deletedProductSpecification } =

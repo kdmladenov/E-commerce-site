@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import questionsServices from '../services/questions-services.js';
 
@@ -29,7 +29,7 @@ questionsController
     authMiddleware,
     loggedUserGuard,
     validateBody('question', createQuestionSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { contentQuestion } = req.body;
       const { userId } = req.user;
@@ -55,7 +55,7 @@ questionsController
   // @access Public
   .get(
     '/:productId',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { search = '', sort = 'date_created desc' } = req.query;
 
@@ -88,7 +88,7 @@ questionsController
     authMiddleware,
     loggedUserGuard,
     validateBody('question', updateQuestionSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { contentQuestion } = req.body;
       const { questionId } = req.params;
       const { userId, role } = req.user;
@@ -121,7 +121,7 @@ questionsController
     '/:questionId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { userId, role } = req.user;
       const { questionId } = req.params;
 
@@ -152,7 +152,7 @@ questionsController
     authMiddleware,
     loggedUserGuard,
     validateBody('vote', voteQuestionSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { reactionName } = req.body;
       const { questionId } = req.params;
       const { userId, role } = req.user;
@@ -160,8 +160,7 @@ questionsController
       const { result } = await questionsServices.voteQuestion(questionsData)(
         reactionName,
         +questionId,
-        +userId,
-        role
+        +userId
       );
       res.status(201).send(result);
     })
@@ -173,7 +172,7 @@ questionsController
     '/:questionId/votes',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { questionId } = req.params;
       const { role } = req.user;
       const userId = req.user.userId;

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import historyServices from '../services/history-services.js';
 
@@ -22,7 +22,7 @@ historyController
     '/',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const userId = req.user.userId;
       const { search = '', filter = '', sort = 'sort=dateVisited desc' } = req.query;
 
@@ -51,7 +51,7 @@ historyController
     '/:productId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const userId = req.user.userId;
 
@@ -67,7 +67,7 @@ historyController
     '/:historyId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { historyId } = req.params;
       const userId = req.user.userId;
       const { error, historyRecord } = await historyServices.deleteHistoryRecord(historyData)(

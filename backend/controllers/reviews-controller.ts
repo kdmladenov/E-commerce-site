@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import reviewsServices from '../services/reviews-services.js';
 
@@ -30,7 +30,7 @@ reviewsController
     authMiddleware,
     loggedUserGuard,
     validateBody('review', createReviewSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { content, rating, title } = req.body;
       const { userId } = req.user;
@@ -67,7 +67,7 @@ reviewsController
   // @access Public
   .get(
     '/:productId',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { productId } = req.params;
       const { search = '', sort = 'date_created desc' } = req.query;
 
@@ -109,7 +109,7 @@ reviewsController
   // @access Public
   .get(
     '/:reviewId/review',
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { reviewId } = req.params;
 
       const { error, result } = await reviewsServices.getReviewById(reviewsData)(+reviewId);
@@ -132,7 +132,7 @@ reviewsController
     authMiddleware,
     loggedUserGuard,
     validateBody('review', updateReviewSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { content, rating, title } = req.body;
       const { reviewId } = req.params;
       const { userId, role } = req.user;
@@ -167,7 +167,7 @@ reviewsController
     '/:reviewId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { userId, role } = req.user;
       const { reviewId } = req.params;
 
@@ -198,7 +198,7 @@ reviewsController
     authMiddleware,
     loggedUserGuard,
     validateBody('vote', voteReviewSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { reactionName } = req.body;
       const { reviewId } = req.params;
       const { userId, role } = req.user;
@@ -206,8 +206,7 @@ reviewsController
       const { result } = await reviewsServices.voteReview(reviewsData)(
         reactionName,
         +reviewId,
-        +userId,
-        role
+        +userId
       );
       res.status(201).send(result);
     })
@@ -219,7 +218,7 @@ reviewsController
     '/:reviewId/votes',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { reviewId } = req.params;
       const { role } = req.user;
       // const userId = role === rolesEnum.admin ? req.body.userId : req.user.userId;

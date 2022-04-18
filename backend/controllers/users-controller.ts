@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import usersServices from '../services/users-services.js';
 
@@ -33,7 +33,7 @@ usersController
   .post(
     '/',
     validateBody('user', createUserSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const user = req.body;
       // user.role = rolesEnum.basic;
 
@@ -57,7 +57,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role } = req.user;
       const { search = '', sort = 'sort=user_id asc' } = req.query;
       let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -87,7 +87,7 @@ usersController
     '/:userId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { userId } = req.params;
       const { role } = req.user;
       const isProfileOwner = +userId === req.user.userId;
@@ -115,7 +115,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     validateBody('user', updateUserSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const update = req.body;
@@ -148,7 +148,7 @@ usersController
     '/:userId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role } = req.user;
       // case admin-delete every user, case: basic user - delete only itself
       const deletedUserId = role === rolesEnum.admin ? req.params.userId : req.user.userId;
@@ -157,7 +157,7 @@ usersController
 
       if (error === errors.RECORD_NOT_FOUND) {
         res.status(404).send({
-          message: `User ${id} is not found.`
+          message: `User ${deletedUserId} is not found.`
         });
       } else {
         res.status(200).send(result);
@@ -174,7 +174,7 @@ usersController
     loggedUserGuard,
     // Admins only
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { userId } = req.params;
 
       const { error, result } = await usersServices.restoreUser(usersData)(+userId);
@@ -197,7 +197,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     validateBody('user', updatePasswordSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
       const passwordData = req.body;
@@ -226,7 +226,7 @@ usersController
   .post(
     '/forgotten-password',
     validateBody('user', forgottenPasswordSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { email } = req.body;
 
       const { error, result } = await usersServices.forgottenPassword(usersData)(email);
@@ -243,7 +243,7 @@ usersController
   .post(
     '/reset-password/:userId/:token',
     validateBody('user', resetPasswordSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { password, reenteredPassword } = req.body;
       const { userId, token } = req.params;
 
@@ -276,7 +276,7 @@ usersController
     roleMiddleware(rolesEnum.admin),
     uploadAvatar.single('avatar'),
     validateFile('uploads', uploadFileSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { path } = req.file;
 
       res.status(201).send(path.replace(/\\/g, '/'));
@@ -291,7 +291,7 @@ usersController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     // validateBody('userImage', addUserImageSchema),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role } = req.user;
       const { imageUrl } = req.body;
 
@@ -315,7 +315,7 @@ usersController
     '/:userId/avatars',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role } = req.user;
       const id = role === rolesEnum.admin ? req.params.userId : req.user.userId;
 

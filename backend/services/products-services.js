@@ -111,7 +111,7 @@ const getProductFeaturesById = (productsData, featuresData) => async (productId)
   if (!product) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      product: null
+      productFeatures: null
     };
   }
 
@@ -129,13 +129,13 @@ const createProductFeature = (productsData, featuresData) => async (productId, d
   if (!existingProduct) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      product: null
+      productFeature: null
     };
   }
 
   return {
     error: null,
-    product: await featuresData.create(+productId, data)
+    productFeature: await featuresData.create(+productId, data)
   };
 };
 
@@ -145,7 +145,7 @@ const updateProductFeature = (featuresData) => async (featureId, updatedData) =>
   if (!existingFeature) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      product: null
+      updatedProductFeature: null
     };
   }
 
@@ -164,7 +164,7 @@ const deleteProductFeature = (featuresData) => async (featureId) => {
   if (!featureToDelete) {
     return {
       error: errors.RECORD_NOT_FOUND,
-      product: null
+      productFeature: null
     };
   }
 
@@ -172,7 +172,7 @@ const deleteProductFeature = (featuresData) => async (featureId) => {
 
   return {
     error: null,
-    product: { ...featureToDelete, isDeleted: 1 }
+    productFeature: { ...featureToDelete, isDeleted: 1 }
   };
 };
 

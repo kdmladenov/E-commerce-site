@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import ordersServices from '../services/orders-services.js';
 
@@ -29,7 +29,7 @@ ordersController
     loggedUserGuard,
     // roleMiddleware(rolesEnum.admin),
     validateBody('order', createOrderSchema), //TO BE FINISHED
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const data = req.body;
       const userId = req.user.userId;
       const { error, order } = await ordersServices.addOrderItems(ordersData)(data, userId);
@@ -46,7 +46,7 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { search = '', sort = 'sort=order_date desc' } = req.query;
       let { pageSize = paging.DEFAULT_ORDER_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -70,7 +70,7 @@ ordersController
     '/myorders',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { userId, role } = req.user;
       const { search = '', sort = 'sort=order_date desc' } = req.query;
       let { pageSize = paging.DEFAULT_ORDER_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
@@ -98,7 +98,7 @@ ordersController
     '/:orderId',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
       const { error, order } = await ordersServices.getOrderById(ordersData)(
@@ -130,7 +130,7 @@ ordersController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     validateBody('order', updateOrderSchema), // TO DO
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { orderId } = req.params;
       const { error, order } = await ordersServices.updateOrderToDelivered(ordersData)(orderId);
 
@@ -153,7 +153,7 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     validateBody('order', updateOrderSchema), // TO DO
-    errorHandler(async (req, res) => {
+    errorHandler(async (req: Request, res: Response) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;
       const paymentData = req.body;
