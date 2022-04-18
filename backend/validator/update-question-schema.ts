@@ -1,7 +1,7 @@
 import { questions } from '../constants/constants.js';
 
 export default {
-  contentQuestion: (value) =>
+  contentQuestion: (value: string) =>
     !value ||
     (typeof value === 'string' &&
       value.length >= questions.MIN_CONTENT_LENGTH &&
