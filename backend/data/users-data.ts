@@ -107,7 +107,7 @@ const create = async (user: User) => {
     user.address,
     user?.address2 || null,
     user.city,
-    user.zip,
+    +user.zip,
     user.state,
     user.country,
     user?.role || rolesEnum.basic
@@ -141,7 +141,7 @@ const updateData = async (user: User) => {
     user.address,
     user.address2,
     user.city,
-    user.zip,
+    +user.zip,
     user.state,
     user.country,
     user.role,
