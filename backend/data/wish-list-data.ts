@@ -22,15 +22,17 @@ const getAllWishListRecords = async (
     : 'dateCreated';
   const offset = page ? (page - 1) * pageSize : 0;
 
-  const whereClause = (filter) => {
-    const queryMap = {};
+  const whereClause = (filter: string[] | string) => {
+    const queryMap: { [key: string]: string[] } = {};
     const filterLength = Array.isArray(filter) ? filter.length : 1;
 
     for (let i = 0; i < filterLength; i++) {
       const currQuery = Array.isArray(filter) ? filter[i] : filter;
       const currQueryKey = currQuery.split(' ')[0];
-      if (!queryMap[currQueryKey]) queryMap[currQueryKey] = [];
-      queryMap[currQueryKey].push(currQuery);
+
+      let currentQueryGroup = queryMap[currQueryKey];
+
+      !currentQueryGroup ? (currentQueryGroup = []) : currentQueryGroup.push(currQuery);
     }
     const resultString = Object.values(queryMap)
       .map((queryGroup) => (queryGroup.length > 1 ? `(${queryGroup.join(' OR ')})` : queryGroup[0]))
