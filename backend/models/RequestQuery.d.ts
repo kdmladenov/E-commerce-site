@@ -1,7 +1,7 @@
 interface RequestQuery {
   productId: number;
   search: string;
-  filter: string;
+  filter: string | string[];
   sort: string;
   page: number;
   pageSize: number;

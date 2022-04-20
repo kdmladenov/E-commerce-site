@@ -6,12 +6,12 @@ const getAllUserHistory =
   async (
     userId: number,
     search: string,
-    filter: string,
+    filter: string | string[],
     sort: string,
     pageSize: number,
     page: number
   ) => {
-    const result = await historyData.getAllHistory(userId, search, filter, pageSize, page, sort);
+    const result = await historyData.getAllHistory(userId, search, filter, sort, pageSize, page);
 
     return result;
   };

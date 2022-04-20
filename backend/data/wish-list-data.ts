@@ -1,9 +1,10 @@
+import filterQueryHandler from '../helpers/filterQueryHandler.js';
 import db from './pool.js';
 
 const getAllWishListRecords = async (
   userId: number,
   search: string,
-  filter: string,
+  filter: string | string[],
   sort: string,
   pageSize: number,
   page: number
@@ -21,25 +22,6 @@ const getAllWishListRecords = async (
     ? sortArr[0]
     : 'dateCreated';
   const offset = page ? (page - 1) * pageSize : 0;
-
-  const whereClause = (filter: string[] | string) => {
-    const queryMap: { [key: string]: string[] } = {};
-    const filterLength = Array.isArray(filter) ? filter.length : 1;
-
-    for (let i = 0; i < filterLength; i++) {
-      const currQuery = Array.isArray(filter) ? filter[i] : filter;
-      const currQueryKey = currQuery.split(' ')[0];
-
-      let currentQueryGroup = queryMap[currQueryKey];
-
-      !currentQueryGroup ? (currentQueryGroup = []) : currentQueryGroup.push(currQuery);
-    }
-    const resultString = Object.values(queryMap)
-      .map((queryGroup) => (queryGroup.length > 1 ? `(${queryGroup.join(' OR ')})` : queryGroup[0]))
-      .join(' AND ');
-
-    return resultString;
-  };
 
   const sql = `
   SELECT
@@ -126,7 +108,7 @@ const getAllWishListRecords = async (
       s.processor_model, s.processor_model_number, s.storage_type, s.graphics_type, s.graphics_brand, s.graphics_model, s.operating_system, s.voice_assistant, 
       s.battery_type) Like '%${search}%'`
       : ''
-  } ${filter && search && ' AND '}${Array.isArray(filter) ? whereClause(filter) : filter}
+  } ${filter && search && ' AND '}${Array.isArray(filter) ? filterQueryHandler(filter) : filter}
     ORDER BY ${sortColumn} ${direction}
     LIMIT ? OFFSET ?
   `;

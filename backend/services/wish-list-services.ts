@@ -6,7 +6,7 @@ const getAllUserWishList =
   async (
     userId: number,
     search: string,
-    filter: string,
+    filter: string | string[],
     sort: string,
     pageSize: number,
     page: number

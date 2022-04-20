@@ -12,7 +12,7 @@ const getAllProducts =
   (productsData: ProductsData) =>
   async (
     search: string,
-    filter: string,
+    filter: string | string[],
     sort: string,
     pageSize: number,
     page: number,
