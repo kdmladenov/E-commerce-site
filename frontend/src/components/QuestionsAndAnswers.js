@@ -18,8 +18,15 @@ import HeaderControls from './HeaderControls';
 import InputBoxWithAvatar from './InputBoxWithAvatar';
 import Pagination from './Pagination';
 import QuestionsAndAnswersCard from './QuestionsAndAnswersCard';
+import scrollTo from '../helpers/scrollTo';
 
-const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCount, isScreen }) => {
+const QuestionsAndAnswers = ({
+  match,
+  productId: productIdProp,
+  setQuestionsCount,
+  isScreen,
+  questionsAndAnswersRef
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -118,14 +125,15 @@ const QuestionsAndAnswers = ({ match, productId: productIdProp, setQuestionsCoun
               {!isScreen && questions?.length > 0 && (
                 <Button
                   classes="text"
-                  onClick={() =>
+                  onClick={() => {
                     setEndpoint({
                       ...endpoint,
                       pageSize: `${
                         endpoint.pageSize === 'pageSize=3&' ? 'pageSize=8&' : 'pageSize=3&'
                       }`
-                    })
-                  }
+                    });
+                    scrollTo(questionsAndAnswersRef);
+                  }}
                 >
                   {endpoint.pageSize === 'pageSize=3&' ? (
                     <>

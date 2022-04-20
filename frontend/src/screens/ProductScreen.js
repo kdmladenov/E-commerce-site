@@ -92,7 +92,7 @@ const ProductScreen = ({ match }) => {
         <Divider>
           <h2>Customer Reviews</h2>
         </Divider>
-        <Reviews productId={productId} />
+        <Reviews productId={productId} reviewsRef={reviewsRef}/>
       </section>
 
       <section className="questions_and_answers_container" ref={questionsAndAnswersRef}>
@@ -104,6 +104,7 @@ const ProductScreen = ({ match }) => {
           productId={productId}
           setQuestionsCount={setQuestionsCount}
           isScreen={false}
+          questionsAndAnswersRef={questionsAndAnswersRef}
         />
       </section>
 

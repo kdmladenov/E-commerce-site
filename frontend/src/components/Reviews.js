@@ -18,8 +18,9 @@ import HeaderControls from './HeaderControls';
 import Loader from './Loader';
 import Message from './Message';
 import Pagination from './Pagination';
+import scrollTo from '../helpers/scrollTo';
 
-const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
+const Reviews = ({ match, productId: productIdProp, isScreen = false, reviewsRef }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productId = productIdProp || match.params.productId;
@@ -130,14 +131,15 @@ const Reviews = ({ match, productId: productIdProp, isScreen = false }) => {
           {!isScreen && reviews?.length > 0 && (
             <Button
               classes="text"
-              onClick={() =>
+              onClick={() => {
                 setEndpoint({
                   ...endpoint,
                   pageSize: `${
                     endpoint.pageSize === 'pageSize=3&' ? 'pageSize=13&' : 'pageSize=3&'
                   }`
-                })
-              }
+                });
+                scrollTo(reviewsRef);
+              }}
             >
               {endpoint.pageSize === 'pageSize=3&' ? (
                 <>
