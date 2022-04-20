@@ -7,9 +7,9 @@ const getAllUserHistory =
     userId: number,
     search: string,
     filter: string,
+    sort: string,
     pageSize: number,
-    page: number,
-    sort: string
+    page: number
   ) => {
     const result = await historyData.getAllHistory(userId, search, filter, pageSize, page, sort);
 

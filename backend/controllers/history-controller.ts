@@ -11,6 +11,7 @@ import { authMiddleware } from '../authentication/auth.middleware.js';
 
 import errors from '../constants/service-errors.js';
 import { paging } from '../constants/constants.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const historyController = express.Router();
 
@@ -22,7 +23,7 @@ historyController
     '/',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{}, {}, {}, RequestQuery>, res: Response) => {
       const userId = req.user.userId;
       const { search = '', filter = '', sort = 'sort=dateVisited desc' } = req.query;
 

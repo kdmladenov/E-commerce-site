@@ -17,6 +17,7 @@ import voteQuestionSchema from '../validator/vote-question-schema.js';
 
 import errors from '../constants/service-errors.js';
 import { paging } from '../constants/constants.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const questionsController = express.Router();
 
@@ -55,7 +56,7 @@ questionsController
   // @access Public
   .get(
     '/:productId',
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{ productId: number }, {}, {}, RequestQuery>, res: Response) => {
       const { productId } = req.params;
       const { search = '', sort = 'date_created desc' } = req.query;
 

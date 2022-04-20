@@ -12,6 +12,7 @@ import { authMiddleware, roleMiddleware } from '../authentication/auth.middlewar
 import rolesEnum from '../constants/roles.enum.js';
 import { paging } from '../constants/constants.js';
 import errors from '../constants/service-errors.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const wishListController = express.Router();
 
@@ -23,7 +24,7 @@ wishListController
     '/',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{}, {}, {}, RequestQuery>, res: Response) => {
       const userId = req.user.userId;
 
       const { search = '', filter = '', sort = 'dateCreated desc' } = req.query;

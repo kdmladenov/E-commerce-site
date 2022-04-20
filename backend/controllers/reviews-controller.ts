@@ -17,6 +17,7 @@ import voteReviewSchema from '../validator/vote-review-schema.js';
 
 import { paging, review } from '../constants/constants.js';
 import errors from '../constants/service-errors.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const reviewsController = express.Router();
 
@@ -67,7 +68,7 @@ reviewsController
   // @access Public
   .get(
     '/:productId',
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{ productId: number }, {}, {}, RequestQuery>, res: Response) => {
       const { productId } = req.params;
       const { search = '', sort = 'date_created desc' } = req.query;
 

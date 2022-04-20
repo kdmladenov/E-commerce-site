@@ -16,6 +16,7 @@ import updateOrderSchema from '../validator/update-order-schema.js';
 import rolesEnum from '../constants/roles.enum.js';
 import errors from '../constants/service-errors.js';
 import { paging } from '../constants/constants.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const ordersController = express.Router();
 
@@ -46,7 +47,7 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{}, {}, {}, RequestQuery>, res: Response) => {
       const { search = '', sort = 'sort=order_date desc' } = req.query;
       let { pageSize = paging.DEFAULT_ORDER_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;
 
@@ -70,7 +71,7 @@ ordersController
     '/myorders',
     authMiddleware,
     loggedUserGuard,
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{}, {}, {}, RequestQuery>, res: Response) => {
       const { userId, role } = req.user;
       const { search = '', sort = 'sort=order_date desc' } = req.query;
       let { pageSize = paging.DEFAULT_ORDER_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;

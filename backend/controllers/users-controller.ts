@@ -22,6 +22,7 @@ import uploadFileSchema from '../validator/upload-file-schema.js';
 import rolesEnum from '../constants/roles.enum.js';
 import { paging } from '../constants/constants.js';
 import errors from '../constants/service-errors.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const usersController = express.Router();
 
@@ -57,7 +58,7 @@ usersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{}, {}, {}, RequestQuery>, res: Response) => {
       const { role } = req.user;
       const { search = '', sort = 'sort=user_id asc' } = req.query;
       let { pageSize = paging.DEFAULT_USERS_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;

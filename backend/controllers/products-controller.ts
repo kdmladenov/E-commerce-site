@@ -24,6 +24,7 @@ import updateFeatureSchema from '../validator/update-feature-schema.js';
 import errors from '../constants/service-errors.js';
 import { paging } from '../constants/constants.js';
 import rolesEnum from '../constants/roles.enum.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const productsController = express.Router();
 
@@ -33,7 +34,7 @@ productsController
   // @access Public
   .get(
     '/',
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{}, {}, {}, RequestQuery>, res: Response) => {
       const { search = '', filter = '', sort = 'sort=price asc', role = 'basic' } = req.query;
 
       let { pageSize = paging.DEFAULT_PRODUCT_PAGESIZE, page = paging.DEFAULT_PAGE } = req.query;

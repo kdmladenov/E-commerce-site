@@ -15,6 +15,7 @@ import createAnswerSchema from '../validator/create-answer-schema.js';
 import updateAnswerSchema from '../validator/update-answer-schema.js';
 
 import errors from '../constants/service-errors.js';
+import RequestQuery from '../models/RequestQuery.js';
 
 const answersController = express.Router();
 
@@ -53,7 +54,7 @@ answersController
   // @access Public
   .get(
     '/:questionId',
-    errorHandler(async (req: Request, res: Response) => {
+    errorHandler(async (req: Request<{ questionId: number }, {}, {}, RequestQuery>, res: Response) => {
       const { questionId } = req.params;
 
       const { error, result } = await answersServices.getAllAnswers(
