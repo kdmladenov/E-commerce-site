@@ -1,8 +1,14 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 import User from '../models/User.js';
+import RolesType from '../models/RolesType.js';
 
-const getBy = async (column: string, value: string, isProfileOwner: boolean, role: string) => {
+const getBy = async (
+  column: string,
+  value: string,
+  isProfileOwner: boolean,
+  role: RolesType
+) => {
   const sql = `
     SELECT 
       user_id as userId, 
@@ -35,7 +41,7 @@ const getAll = async (
   sort: string,
   page: number,
   pageSize: number,
-  role: string
+  role: RolesType
 ) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';

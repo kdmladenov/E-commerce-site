@@ -1,10 +1,11 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 import Payment from '../models/Payment.js';
+import RolesType from '../models/RolesType.js';
 
 const getAllByUser = async (
   userId: number,
-  role: string,
+  role: RolesType,
   search: string,
   sort: string,
   page: number,
@@ -111,7 +112,7 @@ const getAll = async (search: string, sort: string, page: number, pageSize: numb
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const getOrderBy = async (column: string, value: string | number, role: string) => {
+const getOrderBy = async (column: string, value: string | number, role: RolesType) => {
   const sql = `
     SELECT
     o.order_id as orderId,

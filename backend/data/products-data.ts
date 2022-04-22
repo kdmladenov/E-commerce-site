@@ -2,6 +2,7 @@ import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 import Product from '../models/Product.js';
 import filterQueryHandler from '../helpers/filterQueryHandler.js';
+import RolesType from '../models/RolesType.js';
 
 const getAllProducts = async (
   search: string,
@@ -9,7 +10,7 @@ const getAllProducts = async (
   sort: string,
   pageSize: number,
   page: number,
-  role: string
+  role: RolesType
 ) => {
   const sortArr = sort.split(' ');
   const direction = ['ASC', 'asc', 'DESC', 'desc'].includes(sortArr[1]) ? sortArr[1] : 'asc';
@@ -121,7 +122,7 @@ const getAllProducts = async (
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const getBy = async (column: string, value: string | number, role: string = 'basic') => {
+const getBy = async (column: string, value: string | number, role: RolesType = 'basic') => {
   const sql = `
     SELECT 
       p.product_id as productId,

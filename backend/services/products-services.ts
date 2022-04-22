@@ -5,6 +5,7 @@ import Image from '../models/Image.js';
 import Product from '../models/Product.js';
 import ProductImagesData from '../models/ProductImagesData.js';
 import ProductsData from '../models/ProductsData.js';
+import RolesType from '../models/RolesType.js';
 import Specification from '../models/Specification.js';
 import SpecificationsData from '../models/SpecificationsData.js';
 
@@ -16,28 +17,29 @@ const getAllProducts =
     sort: string,
     pageSize: number,
     page: number,
-    role: string
+    role: RolesType
   ) => {
     const result = await productsData.getAllProducts(search, filter, sort, pageSize, page, role);
 
     return result;
   };
 
-const getProductById = (productsData: ProductsData) => async (productId: number, role: string) => {
-  const product = await productsData.getBy('product_id', productId, role);
+const getProductById =
+  (productsData: ProductsData) => async (productId: number, role: RolesType) => {
+    const product = await productsData.getBy('product_id', productId, role);
 
-  if (!product) {
+    if (!product) {
+      return {
+        error: errors.RECORD_NOT_FOUND,
+        product: null
+      };
+    }
+
     return {
-      error: errors.RECORD_NOT_FOUND,
-      product: null
+      error: null,
+      product
     };
-  }
-
-  return {
-    error: null,
-    product
   };
-};
 
 const createProduct = (productsData: ProductsData) => async (data: Product) => {
   // const { title } = data;

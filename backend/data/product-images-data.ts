@@ -1,11 +1,12 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 import Image from '../models/Image.js';
+import RolesType from '../models/RolesType.js';
 
 const getProductImageBy = async (
   column: string,
   value: string | number,
-  role: string = 'basic'
+  role: RolesType = 'basic'
 ) => {
   const sql = `
       SELECT 

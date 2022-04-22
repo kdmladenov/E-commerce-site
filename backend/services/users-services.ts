@@ -10,9 +10,11 @@ import { user as userConstants } from '../constants/constants.js';
 import { forgotPassword } from '../constants/constants.js';
 import UserData from '../models/UsersData.js';
 import User from '../models/User.js';
+import RolesType from '../models/RolesType.js';
 
 const getUser =
-  (usersData: UserData) => async (userId: number, isProfileOwner: boolean, role: string) => {
+  (usersData: UserData) =>
+  async (userId: number, isProfileOwner: boolean, role: RolesType) => {
     const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
     if (!user) {
       return {
@@ -29,7 +31,7 @@ const getUser =
 
 const getAllUsers =
   (usersData: UserData) =>
-  async (search: string, sort: string, page: number, pageSize: number, role: string) => {
+  async (search: string, sort: string, page: number, pageSize: number, role: RolesType) => {
     const result = await usersData.getAll(search, sort, page, pageSize, role);
 
     return result;
@@ -84,7 +86,7 @@ const changePassword =
   async (
     passwordData: { password: string; reenteredPassword: string; currentPassword: string },
     userId: number,
-    role: string
+    role: RolesType
   ) => {
     const existingUser = await usersData.getBy('user_id', userId);
     if (!existingUser) {

@@ -7,7 +7,7 @@ interface RequestQuery {
   pageSize: number;
   ratingMin: number;
   ratingMax: number;
-  role: string;
+  role: RolesType;
 }
 
 export default RequestQuery;

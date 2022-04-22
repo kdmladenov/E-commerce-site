@@ -1,5 +1,6 @@
-export default {
-  basic: 'basic',
-  admin: 'admin',
-  guest: 'guest',
-};
+enum rolesEnum {
+  basic = 'basic',
+  admin = 'admin'
+}
+
+export default rolesEnum;

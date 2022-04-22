@@ -1,6 +1,7 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 import Feature from '../models/Feature.js';
+import RolesType from '../models/RolesType.js';
 
 const getFeatures = async (productId: number) => {
   const sql = `
@@ -16,7 +17,7 @@ const getFeatures = async (productId: number) => {
   return db.query(sql, [productId]);
 };
 
-const getBy = async (column: string, value: string | number, role: string = 'basic') => {
+const getBy = async (column: string, value: string | number, role: RolesType = 'basic') => {
   const sql = `
     SELECT 
       feature_id as featureId,

@@ -4,6 +4,7 @@ import OrdersData from '../models/OrdersData.js';
 import Payment from '../models/Payment.js';
 import Order from '../models/Order.js';
 import OrderDetails from '../models/OrderDetails.js';
+import RolesType from '../models/RolesType.js';
 
 const addOrderItems = (ordersData: OrdersData) => async (data: OrderDetails, userId: number) => {
   const {
@@ -57,7 +58,7 @@ const addOrderItems = (ordersData: OrdersData) => async (data: OrderDetails, use
 };
 
 const getOrderById =
-  (ordersData: OrdersData) => async (orderId: number, role: string, userId: number) => {
+  (ordersData: OrdersData) => async (orderId: number, role: RolesType, userId: number) => {
     const orderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role);
 
     if (!orderWithoutItems) {
@@ -84,7 +85,7 @@ const getOrderById =
 
 const updateOrderToPaid =
   (ordersData: OrdersData) =>
-  async (orderId: number, role: string, userId: number, paymentData: Payment) => {
+  async (orderId: number, role: RolesType, userId: number, paymentData: Payment) => {
     const orderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role, paymentData);
 
     if (!orderWithoutItems) {
@@ -151,7 +152,7 @@ const getALLOrdersByUser =
   (ordersData: OrdersData) =>
   async (
     userId: number,
-    role: string,
+    role: RolesType,
     search: string,
     sort: string,
     page: number,

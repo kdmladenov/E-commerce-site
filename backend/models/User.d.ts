@@ -12,7 +12,7 @@ export interface User {
   state: string;
   zip: number;
   country: string;
-  role: string;
+  role: RolesType;
   isDeleted: number;
 }
 export default User;

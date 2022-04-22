@@ -2,6 +2,7 @@ import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 import ProductsData from '../models/ProductsData.js';
 import QuestionsData from '../models/QuestionsData.js';
+import RolesType from '../models/RolesType.js';
 
 const getAllQuestions =
   (questionsData: QuestionsData, productsData: ProductsData) =>
@@ -57,7 +58,7 @@ const createQuestion =
 
 const updateQuestion =
   (questionsData: QuestionsData) =>
-  async (questionContent: string, questionId: number, userId: number, role: string) => {
+  async (questionContent: string, questionId: number, userId: number, role: RolesType) => {
     const existingQuestion = await questionsData.getBy('question_id', questionId, userId, role);
 
     if (!existingQuestion) {
@@ -94,7 +95,8 @@ const updateQuestion =
   };
 
 const deleteQuestion =
-  (questionsData: QuestionsData) => async (questionId: number, userId: number, role: string) => {
+  (questionsData: QuestionsData) =>
+  async (questionId: number, userId: number, role: RolesType) => {
     const existingQuestion = await questionsData.getBy('question_id', questionId);
 
     if (!existingQuestion) {
@@ -133,7 +135,8 @@ const voteQuestion =
   };
 
 const unVoteQuestion =
-  (questionsData: QuestionsData) => async (questionId: number, userId: number, role: string) => {
+  (questionsData: QuestionsData) =>
+  async (questionId: number, userId: number, role: RolesType) => {
     const existingQuestionVote = await questionsData.getVoteBy('question_id', questionId, userId);
 
     if (!existingQuestionVote) {

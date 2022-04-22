@@ -1,5 +1,6 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
+import RolesType from '../models/RolesType.js';
 
 const getAll = async (questionId: number) => {
   const sql = `
@@ -20,7 +21,7 @@ const getAll = async (questionId: number) => {
   return db.query(sql, [+questionId]);
 };
 
-const getBy = async (column: string, value: string | number, role: string) => {
+const getBy = async (column: string, value: string | number, role: RolesType) => {
   const sql = `
   SELECT
     a.question_id as questionId,
@@ -54,7 +55,12 @@ const create = async (answerContent: string, userId: number, questionId: number)
   return getBy('answer_id', result.insertId, 'basic');
 };
 
-const update = async (answerContent: string, answerId: number, userId: number, role: string) => {
+const update = async (
+  answerContent: string,
+  answerId: number,
+  userId: number,
+  role: RolesType
+) => {
   const sql = `
     UPDATE answers SET
       answer_content = ?,
@@ -64,7 +70,7 @@ const update = async (answerContent: string, answerId: number, userId: number, r
   return db.query(sql, [answerContent, answerId, userId]);
 };
 
-const remove = async (answerId: number, userId: number, role: string) => {
+const remove = async (answerId: number, userId: number, role: RolesType) => {
   const sql = `
     UPDATE answers
     SET is_deleted = true

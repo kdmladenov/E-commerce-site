@@ -3,6 +3,7 @@ import rolesEnum from '../constants/roles.enum.js';
 import errors from '../constants/service-errors.js';
 import ProductsData from '../models/ProductsData.js';
 import ReviewsData from '../models/ReviewsData.js';
+import RolesType from '../models/RolesType.js';
 
 const getAllReviews =
   (reviewsData: ReviewsData, productsData: ProductsData) =>
@@ -104,7 +105,7 @@ const updateReview =
     content: string,
     reviewId: number,
     userId: number,
-    role: string,
+    role: RolesType,
     rating: number,
     title: string
   ) => {
@@ -152,7 +153,8 @@ const updateReview =
   };
 
 const deleteReview =
-  (reviewsData: ReviewsData) => async (reviewId: number, userId: number, role: string) => {
+  (reviewsData: ReviewsData) =>
+  async (reviewId: number, userId: number, role: RolesType) => {
     const existingReview = await reviewsData.getBy('review_id', reviewId);
 
     if (!existingReview) {
@@ -198,7 +200,7 @@ const voteReview =
   };
 
 const unVoteReview =
-  (reviewsData: ReviewsData) => async (reviewId: number, userId: number, role: string) => {
+  (reviewsData: ReviewsData) => async (reviewId: number, userId: number, role: RolesType) => {
     const existingReviewVote = await reviewsData.getVoteBy('review_id', reviewId, userId);
 
     if (!existingReviewVote) {

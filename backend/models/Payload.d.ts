@@ -1,7 +1,7 @@
 interface Payload {
   userId: string;
   email: string;
-  role: string;
+  role: RolesType;
 }
 
 export default Payload;

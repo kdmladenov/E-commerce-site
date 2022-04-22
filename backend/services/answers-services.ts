@@ -2,6 +2,7 @@ import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 import AnswersData from '../models/AnswersData.js';
 import QuestionsData from '../models/QuestionsData.js';
+import RolesType from '../models/RolesType.js';
 
 const getAllAnswers =
   (answersData: AnswersData, questionsData: QuestionsData) => async (questionId: number) => {
@@ -59,7 +60,7 @@ const createAnswer =
 
 const updateAnswer =
   (answersData: AnswersData) =>
-  async (answerContent: string, answerId: number, userId: number, role: string) => {
+  async (answerContent: string, answerId: number, userId: number, role: RolesType) => {
     const existingAnswer = await answersData.getBy('answer_id', answerId, userId, role);
 
     if (!existingAnswer) {
@@ -96,7 +97,8 @@ const updateAnswer =
   };
 
 const deleteAnswer =
-  (answersData: AnswersData) => async (answerId: number, userId: number, role: string) => {
+  (answersData: AnswersData) =>
+  async (answerId: number, userId: number, role: RolesType) => {
     const existingAnswer = await answersData.getBy('answer_id', answerId);
 
     if (!existingAnswer) {

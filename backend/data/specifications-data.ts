@@ -1,8 +1,9 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
 import Specification from '../models/Specification.js';
+import RolesType from '../models/RolesType.js';
 
-const getBy = async (column: string, value: string | number, role: string = 'basic') => {
+const getBy = async (column: string, value: string | number, role: RolesType = 'basic') => {
   const sql = `
     SELECT 
       screen_size as screenSize,
