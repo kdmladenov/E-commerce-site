@@ -1,0 +1,2 @@
+interface QuestionsAndAnswersCardProps {}
+export default QuestionsAndAnswersCardProps 

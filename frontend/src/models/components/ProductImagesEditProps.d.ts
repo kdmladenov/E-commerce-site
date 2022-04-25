@@ -1,0 +1,2 @@
+interface ProductImagesEditProps{}
+export default ProductImagesEditProps 

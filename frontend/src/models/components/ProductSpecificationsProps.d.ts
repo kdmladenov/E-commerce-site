@@ -1,0 +1,2 @@
+interface ProductSpecificationsProps {}
+export default ProductSpecificationsProps 
