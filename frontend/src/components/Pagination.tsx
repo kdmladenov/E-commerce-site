@@ -3,13 +3,19 @@ import React, { useEffect, useState } from 'react';
 import './styles/Pagination.css';
 
 import Button from './Button';
+import PaginationProps from '../models/components/PaginationProps';
 
-const Pagination = ({ updateQuery, currentPage, pageSize, totalItems }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  updateQuery,
+  currentPage,
+  pageSize,
+  totalItems = 0
+}) => {
   const [rangePageNumber, setRangePageNumber] = useState([1]);
 
   useEffect(() => {
     totalItems > 0
-      ? setRangePageNumber([...Array(Math.ceil(totalItems / pageSize))].map((_, i) => i + 1))
+      ? setRangePageNumber([...Array(Math.ceil(totalItems! / pageSize))].map((_, i) => i + 1))
       : setRangePageNumber([1]);
   }, [totalItems, pageSize]);
 
@@ -99,18 +105,18 @@ const Pagination = ({ updateQuery, currentPage, pageSize, totalItems }) => {
     );
   };
 
-  return (
-    rangePageNumber.length > 1 && (
-      <nav className="pagination">
-        <ul className="card">
-          <FirstPageBtn />
-          <DotsBtnLeft />
-          {PageButtonsList}
-          <DotsBtnRight />
-          <LastPageBtn />
-        </ul>
-      </nav>
-    )
+  return rangePageNumber.length > 1 ? (
+    <nav className="pagination">
+      <ul className="card">
+        <FirstPageBtn />
+        <DotsBtnLeft />
+        {PageButtonsList}
+        <DotsBtnRight />
+        <LastPageBtn />
+      </ul>
+    </nav>
+  ) : (
+    <></>
   );
 };
 

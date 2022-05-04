@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
@@ -10,6 +10,7 @@ import defaultEndpoint from '../inputs/defaultEndpoint';
 import { adminListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import { adminOrderListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 import getDate from '../helpers/getDate';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import Accordion from './Accordion';
 import Loader from './Loader';
@@ -19,18 +20,19 @@ import Price from './Price';
 import Pagination from './Pagination';
 import HeaderControls from './HeaderControls';
 import Tooltip from './Tooltip';
+import OrderType from '../models/OrderType';
 
-const OrdersMy = () => {
+const OrdersMy: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['ordersMy']);
 
-  const { orders, loading, error } = useSelector((state) => state.orderMyList);
+  const { orders, loading, error } = useTypedSelector((state) => state.orderMyList);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
-  const addToCartHandler = (id) => {
+  const addToCartHandler = (id: number) => {
     history.push(`/cart/${id}?qty=1`);
   };
 
@@ -65,7 +67,7 @@ const OrdersMy = () => {
                 ))}
               </div>
               <Accordion>
-                {orders?.map((order) => (
+                {orders?.map((order: OrderType) => (
                   <Accordion.Item key={order.orderId}>
                     <Accordion.Header>
                       <Accordion.Title>
@@ -159,8 +161,7 @@ const OrdersMy = () => {
                                 </div>
                                 <Button
                                   onClick={() => addToCartHandler(item.productId)}
-                                  classes="rounded small"
-                                  className="order_item_btn"
+                                  classes="order_item_btn rounded small"
                                   disabled={item.stockCount === 0}
                                 >
                                   {item.stockCount === 0 ? 'Out of Stock' : 'Add to Cart'}
