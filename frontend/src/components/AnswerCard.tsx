@@ -7,8 +7,9 @@ import { deleteAnswer, editAnswer } from '../state/actions/questionsAndAnswersAc
 
 import EditButtons from './EditButtons';
 import ShowMoreButton from './ShowMoreButton';
+import AnswerCardProps from '../models/components/AnswerCardProps';
 
-const AnswerCard = ({
+const AnswerCard: React.FC<AnswerCardProps> = ({
   currentUser,
   userId: authorId,
   answerId,
@@ -37,7 +38,7 @@ const AnswerCard = ({
   };
 
   const handleAnswerSaveButton = () => {
-    dispatch(editAnswer(answerId, { contentAnswer }));
+    dispatch(editAnswer(answerId, contentAnswer));
     setEditMode(false);
   };
 
