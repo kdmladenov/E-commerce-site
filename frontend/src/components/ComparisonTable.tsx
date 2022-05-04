@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 
 import './styles/ComparisonTable.css';
 import { listProducts } from '../state/actions/productActions';
@@ -11,34 +10,48 @@ import specificationsInOrder from '../constants/specificationsInOrder';
 
 import Loader from './Loader';
 import Message from './Message';
+import ComparisonTableProps from '../models/components/ComparisonTableProps';
+import ProductType from '../models/ProductType';
+import useTypedSelector from '../hooks/useTypedSelector';
+import e from 'cors';
 
-const ComparisonTable = ({ currentProductId, sortBy, brand }) => {
+const ComparisonTable: React.FC<ComparisonTableProps> = ({
+  currentProductId,
+  sortBy = 'price',
+  brand
+}) => {
   const dispatch = useDispatch();
 
-  const { loading, products, error } = useSelector((state) => state.productList);
+  const { loading, products, error } = useTypedSelector((state) => state.productList);
 
   const sortedProducts = products && [
     ...products.filter((product) => product.productId === currentProductId),
     ...products
       .filter((product) => product.productId !== currentProductId)
-      .sort((a, b) => a[sortBy || 'price'] - b[sortBy || 'price'])
+      .sort((a, b) => {
+        const x = a[sortBy];
+        const y = b[sortBy];
+        return typeof x === 'string' && typeof y === 'string' ? x.localeCompare(y) : +x - +y;
+      })
   ];
 
-  const specificationList = specificationsInOrder?.map((spec, index) => (
-    <tr key={index}>
-      <td>{productSpecificationsEnum[spec]}</td>
-      {sortedProducts?.map((product) => (
-        <td key={product.productId}>{getProductSpecificationItem(spec, product)}</td>
-      ))}
-    </tr>
-  ));
+  const specificationList = specificationsInOrder?.map(
+    (spec, index) => (
+      <tr key={index}>
+        <td>{productSpecificationsEnum[spec]}</td>
+        {sortedProducts?.map((product) => (
+          <td key={product.productId}>{getProductSpecificationItem(spec, product)}</td>
+        ))}
+      </tr>
+    )
+  );
 
-  const headerImage = sortedProducts?.map((product) => (
+  const headerImage = sortedProducts?.map((product: ProductType) => (
     <th key={product.productId}>
       <img src={product.image} alt={product.modelNumber} className="product_image" />
     </th>
   ));
-  const headerInfo = sortedProducts?.map((product) => (
+  const headerInfo = sortedProducts?.map((product: ProductType) => (
     <th key={product.productId}>
       <Link to={`/products/${product.productId}`}>
         <th key={product.productId}>{product.title}</th>

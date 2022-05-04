@@ -7,8 +7,9 @@ import numberDecimalFix from '../helpers/numberDecimalFix';
 import Button from './Button';
 import Price from './Price';
 import Tooltip from './Tooltip';
+import CartItemsProps from '../models/components/CartItemsProps';
 
-const CartItems = ({ cartItems }) => {
+const CartItems: React.FC<CartItemsProps> = ({ cartItems }) => {
   const history = useHistory();
   return (
     <div className="cart_items_menu">
