@@ -3,10 +3,11 @@ import React from 'react';
 import './styles/Avatar.css';
 import { BASE_URL } from '../constants/constants';
 import getRandomNumber from '../helpers/getRandomNumber';
+import AvatarProps from '../models/components/AvatarProps';
 
 // classes: image_only, name_only, small
 
-const Avatar = ({ classes, imageUrl, fullName }) => {
+const Avatar: React.FC<AvatarProps> = ({ classes, imageUrl, fullName }) => {
   const firstName = fullName?.split(' ')[0];
   const firstInitials = `${fullName?.split(' ')[0][0]}${fullName?.split(' ')[1][0]}`;
 
