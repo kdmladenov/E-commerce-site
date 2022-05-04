@@ -6,8 +6,9 @@ import Breadcrumbs from './Breadcrumbs';
 import Button from './Button';
 import DropdownSelect from './DropdownSelect';
 import SearchBox from './SearchBox';
+import HeaderControlsProps from '../models/components/HeaderControlsProps';
 
-const HeaderControls = ({
+const HeaderControls: React.FC<HeaderControlsProps> = ({
   updateQuery,
   query,
   resource,
@@ -58,9 +59,9 @@ const HeaderControls = ({
         {setHorizontalCards && (
           <Button classes="icon" onClick={() => setHorizontalCards(!horizontalCards)}>
             {horizontalCards ? (
-              <i className="fa fa-th-large"/>
+              <i className="fa fa-th-large" />
             ) : (
-              <i className="fa fa-align-justify"/>
+              <i className="fa fa-align-justify" />
             )}
           </Button>
         )}

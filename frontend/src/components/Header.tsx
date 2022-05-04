@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './styles/Header.css';
 import { getUserDetails, logout } from '../state/actions/userActions';
 import { adminMenuMap, userMenuMap } from '../inputs/headerMenuMaps';
 import { BASE_URL } from '../constants/constants';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import SearchBar from './SearchBar';
 import MegaMenu from './MegaMenu';
@@ -14,19 +15,18 @@ import CartItems from './CartItems';
 import DropDown from './Dropdown';
 import Avatar from './Avatar';
 
-
-const Header = () => {
+const Header: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useTypedSelector((state) => state.cart);
 
-  const { loading, error, user } = useSelector((state) => state.userDetails);
+  const { loading, error, user } = useTypedSelector((state) => state.userDetails);
 
   useEffect(() => {
     if (!user?.email) {
-      dispatch(getUserDetails(userInfo?.userId));
+      dispatch(getUserDetails(userInfo?.userId!));
     }
   }, [dispatch, user, userInfo]);
 
