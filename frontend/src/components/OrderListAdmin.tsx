@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 import './styles/OrderListAdmin.css';
@@ -18,14 +18,16 @@ import Pagination from './Pagination';
 import Price from './Price';
 import HeaderControls from './HeaderControls';
 import Tooltip from './Tooltip';
+import OrderType from '../models/OrderType';
+import useTypedSelector from '../hooks/useTypedSelector';
 
-const OrderListAdmin = () => {
+const OrderListAdmin: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { loading, error, orders } = useSelector((state) => state.orderList);
+  const { loading, error, orders } = useTypedSelector((state) => state.orderList);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['orderListAdmin']);
 
@@ -62,7 +64,7 @@ const OrderListAdmin = () => {
             ))}
           </div>
           <Accordion>
-            {orders?.map((order) => (
+            {orders?.map((order: OrderType) => (
               <Accordion.Item key={order.orderId}>
                 <Accordion.Header>
                   <Accordion.Title>

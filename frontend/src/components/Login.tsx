@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import './styles/Login.css';
 import { login } from '../state/actions/userActions';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import Loader from './Loader';
 import Message from './Message';
 import Button from './Button';
 import Tooltip from './Tooltip';
 
-const Login = ({ match }) => {
+const Login: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,7 +21,7 @@ const Login = ({ match }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { userInfo, loading, error } = useSelector((state) => state.userLogin);
+  const { userInfo, loading, error } = useTypedSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (!error && userInfo?.token) {
@@ -28,12 +29,12 @@ const Login = ({ match }) => {
     }
   }, [history, userInfo, error]);
 
-  const loginHandler = (e) => {
+  const loginHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
 
-  const showPasswordHandler = (e) => {
+  const showPasswordHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
