@@ -14,8 +14,9 @@ import Sidebar from './Sidebar';
 import HeaderControls from './HeaderControls';
 import Button from './Button';
 import Tooltip from './Tooltip';
+import ListScreenComponentProps from '../models/components/ListScreenComponentProps';
 
-const ListScreenComponent = ({
+const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
   endpoint,
   setEndpoint,
   listAction,
@@ -36,7 +37,7 @@ const ListScreenComponent = ({
   const [horizontalCards, setHorizontalCards] = useState(false);
   const [hiddenSidebar, setHiddenSidebar] = useState(false);
 
-  const deleteHistoryBtn = (historyId) => (
+  const deleteHistoryBtn = (historyId: number) => (
     <Button classes="icon" onClick={() => dispatch(deleteBrowsingHistory(historyId))}>
       <Tooltip text="Remove">
         <i className="fa fa-times" />
@@ -56,7 +57,7 @@ const ListScreenComponent = ({
         endpoint={endpoint}
         setEndpoint={setEndpoint}
         inputMap={
-          sidebarInputMap || getSidebarInput(JSON.parse(localStorage.getItem(localStorageId)))
+          sidebarInputMap || getSidebarInput(JSON.parse(localStorage.getItem(localStorageId)!))
         }
         defaultEndpoint={defaultEndpoint}
       />

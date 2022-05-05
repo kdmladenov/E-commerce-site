@@ -5,8 +5,9 @@ import './styles/InputBoxWithAvatar.css';
 
 import Avatar from './Avatar';
 import Button from './Button';
+import InputBoxWithAvatarProps from '../models/components/InputBoxWithAvatarProps';
 
-const InputBoxWithAvatar = ({
+const InputBoxWithAvatar: React.FC<InputBoxWithAvatarProps> = ({
   resourceId,
   currentUserDetails,
   createAction,
@@ -23,13 +24,13 @@ const InputBoxWithAvatar = ({
 
   const isValid = content.length >= validationMin && content.length < validationMax;
 
-  const inputHandler = (e) => {
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     setContent(e.target.value);
   };
 
-  const keyPressHandler = (e) => {
+  const keyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     if (e.key === 'Enter' && isValid) {
@@ -56,7 +57,9 @@ const InputBoxWithAvatar = ({
           onKeyUp={keyPressHandler}
         />
       )}
-      {showForm && <p className={content.length > 0 && !isValid && 'show_message'}>{errorMessage}</p>}
+      {showForm && (
+        <p className={content.length > 0 && !isValid ? 'show_message' : ''}>{errorMessage}</p>
+      )}
       <Button classes={`${showForm ? 'icon' : 'text'}`} onClick={() => setShowForm(!showForm)}>
         {showForm ? <i className="fa fa-times" /> : closedButtonText}
       </Button>
