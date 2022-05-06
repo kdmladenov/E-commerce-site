@@ -1,8 +1,9 @@
 import React from 'react';
+import PopoverProps from '../models/components/PopoverProps';
 
 import './styles/Popover.css';
 
-const Popover = ({ header, direction = 'top', children }) => {
+const Popover: React.FC<PopoverProps> = ({ header, direction = 'top', children }) => {
   return (
     <div className="popover">
       {header}

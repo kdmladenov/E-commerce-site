@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import './styles/History.css';
@@ -11,6 +11,7 @@ import defaultEndpoint from '../inputs/defaultEndpoint';
 import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import { browsingHistorySortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 import getRibbonText from '../helpers/getRibbonText';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import Button from './Button';
 import HeaderControls from './HeaderControls';
@@ -19,22 +20,24 @@ import Message from './Message';
 import ProductCard from './ProductCard';
 import Timeline from './Timeline';
 
-const History = ({ horizontal }) => {
+const History: React.FC<{ horizontal?: boolean }> = ({ horizontal = true }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['history']);
 
-  const { loading, browsingHistory, error } = useSelector((state) => state.browsingHistoryList);
+  const { loading, browsingHistory, error } = useTypedSelector(
+    (state) => state.browsingHistoryList
+  );
 
-  const { success: successDeleteHistoryRecord } = useSelector(
+  const { success: successDeleteHistoryRecord } = useTypedSelector(
     (state) => state.browsingHistoryDelete
   );
 
   const historyRecordsPagesize = +endpoint.pageSize.replace('pageSize=', '').replace('&', '');
   const historyRecordsCount = browsingHistory?.[0]?.totalDBItems;
 
-  const deleteHistoryItemHandler = (id) => {
+  const deleteHistoryItemHandler = (id: number) => {
     dispatch(deleteBrowsingHistory(id));
   };
 
