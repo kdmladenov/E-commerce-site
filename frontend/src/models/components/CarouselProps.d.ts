@@ -1,5 +1,5 @@
 interface CarouselProps {
-  title: string;
+  title?: string;
   children?: React.ReactNode;
 }
 export default CarouselProps 

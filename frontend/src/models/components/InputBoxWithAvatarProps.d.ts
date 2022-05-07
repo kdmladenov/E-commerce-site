@@ -6,6 +6,6 @@ interface InputBoxWithAvatarProps {
   validationMax: number;
   placeholder: string;
   errorMessage: string;
-  closedButtonText: string;
+  closedButtonText?: string;
 }
 export default InputBoxWithAvatarProps;

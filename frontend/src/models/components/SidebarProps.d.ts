@@ -1,21 +1,13 @@
+import EndpointType from '../EndpointType';
+// import FormInputDataType from '../FormInputDataType';
+
 interface SidebarProps {
-  endpoint: {
-    page: string;
-    pageSize?: string;
-    sort: string;
-    search: string;
-    filter?: string | string[];
-    role?: string;
-  };
-  setEndpoint: Dispatch<SetStateAction<endpoint>>;
-  inputMap: TODO;
-  defaultEndpoint: {
-    page: string;
-    pageSize?: string;
-    sort: string;
-    search: string;
-    filter?: string | string[];
-    role?: string;
-  };
+  endpoint: EndpointType;
+  setEndpoint: Dispatch<SetStateAction<EndpointType>>;
+  resourceName:string;
+  // inputMap: {
+  //   [key: string]: { label: string; value: string; type: string; accordionOpen?: boolean }[];
+  // };
+  defaultEndpoint: EndpointType;
 }
 export default SidebarProps;

@@ -1,5 +1,4 @@
 interface DropdownSelectProps {
-  name: string;
   updateQuery: (prop: string, value: string) => void;
   query: {
     page: string;
@@ -9,6 +8,7 @@ interface DropdownSelectProps {
     filter?: string | string[];
     role?: string;
   };
+  name?: string;
   labelStart: string;
   optionsMap: { label: number | string; value: string }[];
 }

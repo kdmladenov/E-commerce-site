@@ -1,6 +1,8 @@
+import ProductType from '../ProductType';
+
 interface ProductCardProps {
-  product:TODO;
-  horizontal: boolean;
+  product:ProductType;
+  horizontal?: boolean;
   ribbonText?: string | null;
   deleteBtn?: JSX.Element;
   isCard?: boolean;

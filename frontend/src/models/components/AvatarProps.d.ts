@@ -1,7 +1,7 @@
 interface AvatarProps {
-  classes: string;
-  imageUrl: string;
-  fullName: string;
+  classes?: string;
+  imageUrl?: string;
+  fullName?: string;
 }
 
 export default AvatarProps;

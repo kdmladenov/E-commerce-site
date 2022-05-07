@@ -1,5 +1,5 @@
 interface RibbonProps {
   children: React.ReactNode;
-  color: string;
+  color?: string;
 }
 export default RibbonProps;

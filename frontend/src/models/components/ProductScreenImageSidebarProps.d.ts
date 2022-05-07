@@ -1,11 +1,7 @@
+import ProductImageType from '../ProductImageType';
+
 interface ProductScreenImageSidebarProps {
-  images: {
-    productImageId: number;
-    productId: number;
-    image: string;
-    isMain: boolean;
-    isDeleted: boolean;
-  }[];
+  images: ProductImageType[];
   setSelectedImage: Dispatch<SetStateAction<images>>;
 }
 export default ProductScreenImageSidebarProps;

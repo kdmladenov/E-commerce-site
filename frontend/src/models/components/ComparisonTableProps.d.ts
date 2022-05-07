@@ -1,6 +1,8 @@
+import ProductType from '../ProductType';
+
 interface ComparisonTableProps {
   currentProductId: number;
-  sortBy: string;
-  brand: string;
+  sortBy?: keyof ProductType;
+  brand?: string;
 }
 export default ComparisonTableProps;

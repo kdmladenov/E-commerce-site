@@ -1,12 +1,15 @@
+import { RefObject } from 'react';
+import ProductType from '../ProductType';
+
 interface ProductDetailsInfoProps {
   productListAdmin: boolean;
   showZoomedImage: boolean;
-  product: TODO;
-  questionsCount: number;
-  comparisonRef: TODO;
-  reviewsRef: TODO;
-  questionsAndAnswersRef: TODO;
-  specsRef: TODO;
-  featuresRef: TODO;
+  product: ProductType;
+  questionsCount?: number;
+  comparisonRef: RefObject<HTMLElement>;
+  reviewsRef: RefObject<HTMLElement>;
+  questionsAndAnswersRef: RefObject<HTMLElement>;
+  specsRef: RefObject<HTMLElement>;
+  featuresRef: RefObject<HTMLElement>;
 }
 export default ProductDetailsInfoProps;

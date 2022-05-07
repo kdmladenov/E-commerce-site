@@ -1,13 +1,6 @@
+import CartItemType from '../CartItemType';
+
 interface CartItemsProps {
-  cartItems: {
-    qty: number;
-    productId: number;
-    title: string;
-    image: string;
-    price: number;
-    stockCount: number;
-    rating: number;
-    reviewCount: number;
-  }[];
+  cartItems: CartItemType[];
 }
 export default CartItemsProps;
