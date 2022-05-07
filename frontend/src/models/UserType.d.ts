@@ -1,5 +1,4 @@
 interface UserType {
-  user: {
     userId: number;
     fullName: string;
     role: string;
@@ -16,7 +15,6 @@ interface UserType {
     password: string;
     token: string;
     totalDBItems: number;
-  };
 }
 
 export default UserType;

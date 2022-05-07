@@ -1,4 +1,8 @@
-interface ProductType {
+interface WishType {
+  wishListId: number;
+  dateCreated: string;
+  userId: number;
+  isDeleted: number | boolean;
   productId: number;
   title: string;
   image: string;
@@ -7,11 +11,9 @@ interface ProductType {
   productCategory: string;
   price: number;
   stockCount: number;
-  isDeleted: number | boolean;
   modelNumber: string;
   sku: string;
   releaseYear: number;
-  dateCreated: string;
   color: string;
   colorFamily: string;
   weight: number;
@@ -47,5 +49,4 @@ interface ProductType {
   starFive: number;
   totalDBItems: number;
 }
-
-export default ProductType;
+export default WishType;

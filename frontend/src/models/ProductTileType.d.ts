@@ -1,4 +1,4 @@
-interface ProductType {
+interface ProductTileType {
   productId: number;
   title: string;
   image: string;
@@ -35,17 +35,7 @@ interface ProductType {
   voiceAssistant: string;
   batteryType: string;
   backlitKeyboard: number | boolean;
-  salesCount: number;
-  visitedCount: number;
-  wishedCount: number;
-  reviewCount: number;
   rating: number;
-  starOne: number;
-  starTwo: number;
-  starThree: number;
-  starFour: number;
-  starFive: number;
-  totalDBItems: number;
-}
 
-export default ProductType;
+}
+export default ProductTileType

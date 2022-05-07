@@ -1,4 +1,7 @@
-interface ProductType {
+interface HistoryType {
+  historyId: number;
+  dateVisited: string;
+  userId: number;
   productId: number;
   title: string;
   image: string;
@@ -47,5 +50,4 @@ interface ProductType {
   starFive: number;
   totalDBItems: number;
 }
-
-export default ProductType;
+export default HistoryType;
