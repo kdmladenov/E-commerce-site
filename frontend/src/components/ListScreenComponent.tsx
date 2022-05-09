@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import './styles/ListScreenComponent.css';
 import { deleteBrowsingHistory } from '../state/actions/browsingHistoryActions';
-import getSidebarInput from '../helpers/getSidebarInput';
+// import getSidebarInput from '../helpers/getSidebarInput';
 import getRibbonText from '../helpers/getRibbonText';
 
 import Loader from './Loader';
@@ -23,8 +23,6 @@ const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
   loading,
   resource,
   error,
-  localStorageId,
-  sidebarInputMap,
   defaultEndpoint,
   resourceName,
   pageSizeOptionsMap,
@@ -37,8 +35,8 @@ const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
   const [horizontalCards, setHorizontalCards] = useState(false);
   const [hiddenSidebar, setHiddenSidebar] = useState(false);
 
-  const deleteHistoryBtn = (historyId: number) => (
-    <Button classes="icon" onClick={() => dispatch(deleteBrowsingHistory(historyId))}>
+  const deleteHistoryBtn = (productId: number) => (
+    <Button classes="icon" onClick={() => dispatch(deleteBrowsingHistory(productId))}>
       <Tooltip text="Remove">
         <i className="fa fa-times" />
       </Tooltip>
@@ -48,7 +46,7 @@ const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
   useEffect(() => {
     const { page, pageSize, sort, search, filter } = endpoint;
 
-    dispatch(listAction(`${page}${pageSize}${sort}${search}${filter.join('&')}`));
+    dispatch(listAction(`${page}${pageSize}${sort}${search}${filter?.join('&')}`));
   }, [dispatch, endpoint, successDelete]);
 
   return (
@@ -56,10 +54,8 @@ const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
       <Sidebar
         endpoint={endpoint}
         setEndpoint={setEndpoint}
-        inputMap={
-          sidebarInputMap || getSidebarInput(JSON.parse(localStorage.getItem(localStorageId)!))
-        }
         defaultEndpoint={defaultEndpoint}
+        resourceName={resourceName}
       />
       <HeaderControls
         updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
@@ -90,7 +86,11 @@ const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
                     horizontal={horizontalCards}
                     ribbonText={getRibbonText(listItem.productId)}
                     deleteBtn={
-                      resourceName === 'browsing history' && deleteHistoryBtn(listItem.historyId)
+                      resourceName === 'browsing history' ? (
+                        deleteHistoryBtn(listItem.productId)
+                      ) : (
+                        <></>
+                      )
                     }
                   />
                 ))}

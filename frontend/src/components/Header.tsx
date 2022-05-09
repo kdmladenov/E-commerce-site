@@ -26,7 +26,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     if (!user?.email) {
-      dispatch(getUserDetails(userInfo?.userId!));
+      dispatch(getUserDetails(userInfo?.userId));
     }
   }, [dispatch, user, userInfo]);
 

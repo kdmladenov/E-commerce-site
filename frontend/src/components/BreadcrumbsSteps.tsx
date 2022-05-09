@@ -7,7 +7,7 @@ import './styles/BreadcrumbsSteps.css';
 const BreadcrumbsSteps: React.FC<BreadcrumbsStepsProps> = ({ currentStep = 'Cart', steps }) => {
   // disable Link for next steps
   const linkHandler = (e: React.MouseEvent<HTMLAnchorElement>, index: number, path: string) => {
-    if (index > steps.indexOf(steps.find((step) => step.label === currentStep)!) && path.length) {
+    if (index > steps.findIndex((step) => step.label === currentStep) && path.length) {
       e.preventDefault();
     }
   };
@@ -17,9 +17,9 @@ const BreadcrumbsSteps: React.FC<BreadcrumbsStepsProps> = ({ currentStep = 'Cart
       {steps.map((step, index) => (
         <li
           className={`step ${
-            index < steps.indexOf(steps.find((step) => step.label === currentStep)!)
+            index < steps.findIndex((step) => step.label === currentStep)
               ? 'complete'
-              : index > steps.indexOf(steps.find((step) => step.label === currentStep)!)
+              : index > steps.findIndex((step) => step.label === currentStep)
               ? ''
               : 'current'
           }`}
@@ -27,7 +27,7 @@ const BreadcrumbsSteps: React.FC<BreadcrumbsStepsProps> = ({ currentStep = 'Cart
           {step?.path.length && (
             <Link to={step.path} onClick={(e) => linkHandler(e, index, step.path)}>
               <div className="label">
-                {index < steps.indexOf(steps.find((step) => step.label === currentStep)!)
+                {index < steps.findIndex((step) => step.label === currentStep)
                   ? step?.success || step?.label
                   : step?.label}
               </div>
