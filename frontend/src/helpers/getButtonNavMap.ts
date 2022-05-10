@@ -1,4 +1,4 @@
-const getButtonNavMap = (productId) => {
+const getButtonNavMap = (productId?: number) => {
   return {
     account: [
       { tabName: 'profile', path: '/account/profile', label: 'Profile' },

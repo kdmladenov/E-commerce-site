@@ -1,4 +1,6 @@
-const getSidebarInput = (database) => {
+import ProductType from '../models/ProductType';
+
+const getSidebarInput = (database: ProductType[]) => {
   return {
     Brand: Array.from(new Set(Object.values(database).map((product) => product.brand)))
       .sort()
@@ -164,7 +166,7 @@ const getSidebarInput = (database) => {
     'Hard Disk Type': Array.from(
       new Set(Object.values(database).map((product) => product.storageType))
     )
-      .sort((a, b) => a - b)
+      .sort((a, b) => a.localeCompare(b))
       .map((storageType) => ({
         label: `${storageType} (${
           Object.values(database).filter((product) => product.storageType === storageType).length

@@ -2,8 +2,9 @@ import convertPoundToKg from './convertPoundToKg';
 
 import Price from '../components/Price';
 import Rating from '../components/Rating';
+import ProductType from '../models/ProductType';
 
-const getProductSpecificationItem = (spec, product) => {
+const getProductSpecificationItem = (spec: keyof ProductType, product: ProductType) => {
   const {
     screenSize,
     displayType,

@@ -1,4 +1,6 @@
-const getProductSpecificationsInitialInputState = (database) => {
+import ProductType from '../models/ProductType';
+
+const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
   return {
     screenSize: {
       formElement: 'select',

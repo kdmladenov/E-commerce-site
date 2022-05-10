@@ -1,4 +1,4 @@
-const getTimeDuration = (start, end) => {
+const getTimeDuration = (start: string, end: Date) => {
   const startDate = new Date(start);
   const endDate = new Date(end);
 

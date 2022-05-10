@@ -1,4 +1,4 @@
-const getDate = (date, additionalDays = 0, isPrefix = true, isWeekDay = true) => {
+const getDate = (date: string | Date, additionalDays = 0, isPrefix = true, isWeekDay = true) => {
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'Jan',
