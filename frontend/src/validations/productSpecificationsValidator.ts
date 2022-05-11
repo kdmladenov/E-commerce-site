@@ -1,58 +1,58 @@
-import { PRODUCT } from '../constants/constants.js';
-import productCategoriesEnum from '../constants/product-categories.enum.js';
+import { PRODUCT } from '../constants/constants';
+import productCategoriesEnum from '../constants/product-categories.enum';
 
 const validate = {
-  title: (value) =>
+  title: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_NAME_LENGTH &&
     value.length <= PRODUCT.MAX_NAME_LENGTH,
-  brand: (value) =>
+  brand: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_BRAND_LENGTH &&
     value.length <= PRODUCT.MAX_BRAND_LENGTH,
-  description: (value) =>
+  description: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
     value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
-  image: (value) => typeof value === 'string',
-  productCategory: (value) =>
+  image: (value: string) => typeof value === 'string',
+  productCategory: (value: string) =>
     typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value),
-  price: (value) =>
+  price: (value: number) =>
     typeof value === 'number' &&
     value >= PRODUCT.MIN_PRICE_VALUE &&
     value <= PRODUCT.MAX_PRICE_VALUE,
-  stockCount: (value) =>
+  stockCount: (value: number) =>
     typeof value === 'number' &&
     value >= PRODUCT.MIN_STOCK_COUNT &&
     value <= PRODUCT.MAX_STOCK_COUNT,
-  discount: (value) =>
+  discount: (value: number) =>
     typeof value === 'number' &&
     value >= PRODUCT.MIN_DISCOUNT_VALUE &&
     value <= PRODUCT.MAX_DISCOUNT_VALUE,
-  isDeleted: (value) => typeof value === 'boolean',
-  modelNumber: (value) =>
+  isDeleted: (value: boolean) => typeof value === 'boolean',
+  modelNumber: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
     value.length <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
-  sku: (value) =>
-    typeof value === 'string' && value >= PRODUCT.MIN_SKU_LENGTH && value <= PRODUCT.MAX_SKU_LENGTH,
-  releaseYear: (value) =>
+  sku: (value: string) =>
+    typeof value === 'string' && value.length >= PRODUCT.MIN_SKU_LENGTH && value.length <= PRODUCT.MAX_SKU_LENGTH,
+  releaseYear: (value: number) =>
     typeof value === 'number' &&
     value >= PRODUCT.MIN_RELEASE_YEAR &&
     value <= PRODUCT.MAX_RELEASE_YEAR,
-  color: (value) =>
+  color: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_LENGTH,
-  colorFamily: (value) =>
+  colorFamily: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_FAMILY_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_FAMILY_LENGTH,
-  dimensions: (value) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value)
+  dimensions: (value:string) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value)
 };
 
 const validateInputProduct = {
-  title: (value) => {
+  title: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -61,7 +61,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  brand: (value) => {
+  brand: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -70,7 +70,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  description: (value) => {
+  description: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -79,7 +79,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  image: (value) => {
+  image: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -88,7 +88,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  productCategory: (value) => {
+  productCategory: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -97,7 +97,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  price: (value) => {
+  price: (value: number) => {
     if (!value) {
       return ' is required!';
     }
@@ -106,7 +106,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  stockCount: (value) => {
+  stockCount: (value: number) => {
     if (!value) {
       return ' is required!';
     }
@@ -115,7 +115,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  discount: (value) => {
+  discount: (value: number) => {
     if (!value) {
       return ' is required!';
     }
@@ -124,7 +124,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  isDeleted: (value) => {
+  isDeleted: (value: boolean) => {
     if (!value) {
       return ' is required!';
     }
@@ -133,7 +133,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  modelNumber: (value) => {
+  modelNumber: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -142,7 +142,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  sku: (value) => {
+  sku: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -151,7 +151,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  releaseYear: (value) => {
+  releaseYear: (value: number) => {
     if (!value) {
       return ' is required!';
     }
@@ -160,7 +160,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  color: (value) => {
+  color: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -169,7 +169,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  colorFamily: (value) => {
+  colorFamily: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -178,11 +178,11 @@ const validateInputProduct = {
     }
     return '';
   },
-  dimensions: (value, match) => {
+  dimensions: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.dimensions(value, match)) {
+    if (!validate.dimensions(value)) {
       return ' must be in the format H x W x D inches';
     }
     return '';

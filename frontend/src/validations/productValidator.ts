@@ -1,62 +1,62 @@
-import { PRODUCT } from '../constants/constants.js';
-import productCategoriesEnum from '../constants/product-categories.enum.js';
+import { PRODUCT } from '../constants/constants';
+import productCategoriesEnum from '../constants/product-categories.enum';
 
 const validate = {
-  title: (value) =>
+  title: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_NAME_LENGTH &&
     value.length <= PRODUCT.MAX_NAME_LENGTH,
-  brand: (value) =>
+  brand: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_BRAND_LENGTH &&
     value.length <= PRODUCT.MAX_BRAND_LENGTH,
-  description: (value) =>
+  description: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
     value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
-  image: (value) => typeof value === 'string',
-  productCategory: (value) =>
+  image: (value: string) => typeof value === 'string',
+  productCategory: (value: string) =>
     typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value),
-  price: (value) =>
+  price: (value: number) =>
     typeof +value === 'number' &&
     value >= PRODUCT.MIN_PRICE_VALUE &&
     value <= PRODUCT.MAX_PRICE_VALUE,
-  stockCount: (value) =>
+  stockCount: (value: number) =>
     typeof +value === 'number' &&
     value >= PRODUCT.MIN_STOCK_COUNT &&
     value <= PRODUCT.MAX_STOCK_COUNT,
-  discount: (value) =>
+  discount: (value: number) =>
     typeof +value === 'number' &&
     value >= PRODUCT.MIN_DISCOUNT_VALUE &&
     value <= PRODUCT.MAX_DISCOUNT_VALUE,
-  isDeleted: (value) => typeof value === 'boolean',
-  modelNumber: (value) =>
+  isDeleted: (value: boolean) => typeof value === 'boolean',
+  modelNumber: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_MODEL_NUMBER_LENGTH &&
     value.length <= PRODUCT.MAX_MODEL_NUMBER_LENGTH,
-  sku: (value) =>
+  sku: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_SKU_LENGTH &&
     value.length <= PRODUCT.MAX_SKU_LENGTH,
-  releaseYear: (value) =>
+  releaseYear: (value: number) =>
     typeof +value === 'number' &&
     value >= PRODUCT.MIN_RELEASE_YEAR &&
     value <= PRODUCT.MAX_RELEASE_YEAR,
-  color: (value) =>
+  color: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_LENGTH,
-  colorFamily: (value) =>
+  colorFamily: (value: string) =>
     typeof value === 'string' &&
     value.length >= PRODUCT.MIN_COLOR_FAMILY_LENGTH &&
     value.length <= PRODUCT.MAX_COLOR_FAMILY_LENGTH,
-  dimensions: (value) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value),
-  weight: (value) =>
+  dimensions: (value: string) => typeof value === 'string' && PRODUCT.DIMENSIONS_REGEX.test(value),
+  weight: (value: number) =>
     typeof +value === 'number' && value >= PRODUCT.MIN_WEIGHT && value <= PRODUCT.MAX_WEIGHT
 };
 
 const validateInputProduct = {
-  title: (value) => {
+  title: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -65,7 +65,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  brand: (value) => {
+  brand: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -74,7 +74,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  description: (value) => {
+  description: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -83,7 +83,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  image: (value) => {
+  image: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -92,7 +92,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  productCategory: (value) => {
+  productCategory: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -101,43 +101,43 @@ const validateInputProduct = {
     }
     return '';
   },
-  price: (value) => {
+  price: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.price(value)) {
+    if (!validate.price(+value)) {
       return ` must be a number between ${PRODUCT.MIN_PRICE_VALUE} and ${PRODUCT.MAX_PRICE_VALUE}`;
     }
     return '';
   },
-  stockCount: (value) => {
+  stockCount: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.stockCount(value)) {
+    if (!validate.stockCount(+value)) {
       return ` must be a number between ${PRODUCT.MIN_STOCK_COUNT} and ${PRODUCT.MAX_STOCK_COUNT}`;
     }
     return '';
   },
-  discount: (value) => {
+  discount: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.discount(value)) {
+    if (!validate.discount(+value)) {
       return ` must be a number between ${PRODUCT.MIN_DISCOUNT_VALUE} and ${PRODUCT.MAX_DISCOUNT_VALUE}`;
     }
     return '';
   },
-  isDeleted: (value) => {
-    if (!value) {
-      return ' is required!';
-    }
-    if (!validate.isDeleted(value)) {
-      return ` must be true or false`;
-    }
-    return '';
-  },
-  modelNumber: (value) => {
+  // isDeleted: (value: boolean) => {
+  //   if (!value) {
+  //     return ' is required!';
+  //   }
+  //   if (!validate.isDeleted(value)) {
+  //     return ` must be true or false`;
+  //   }
+  //   return '';
+  // },
+  modelNumber: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -146,7 +146,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  sku: (value) => {
+  sku: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -155,16 +155,16 @@ const validateInputProduct = {
     }
     return '';
   },
-  releaseYear: (value) => {
+  releaseYear: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.releaseYear(value)) {
+    if (!validate.releaseYear(+value)) {
       return ` must be a number between ${PRODUCT.MIN_RELEASE_YEAR} and ${PRODUCT.MAX_RELEASE_YEAR}`;
     }
     return '';
   },
-  color: (value) => {
+  color: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -173,7 +173,7 @@ const validateInputProduct = {
     }
     return '';
   },
-  colorFamily: (value) => {
+  colorFamily: (value: string) => {
     if (!value) {
       return ' is required!';
     }
@@ -182,20 +182,20 @@ const validateInputProduct = {
     }
     return '';
   },
-  dimensions: (value, match) => {
+  dimensions: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.dimensions(value, match)) {
+    if (!validate.dimensions(value)) {
       return ' must be in the format H x W x D inches';
     }
     return '';
   },
-  weight: (value) => {
+  weight: (value: string) => {
     if (!value) {
       return ' is required!';
     }
-    if (!validate.weight(value)) {
+    if (!validate.weight(+value)) {
       return ` must be between ${PRODUCT.MIN_WEIGHT} and ${PRODUCT.MAX_WEIGHT} pounds`;
     }
     return '';
