@@ -1,6 +1,10 @@
+import AddToPortalRefsActionType from '../../models/state/actions/AddToPortalRefsActionType.d copy';
 import { ADD_TO_PORTAL_REFS } from '../constants/portalsConstants';
 
-export const portalRefsReducer = (state = { portalRefsMap: {} }, action) => {
+export const portalRefsReducer = (
+  state = { portalRefsMap: {} },
+  action: AddToPortalRefsActionType
+) => {
   switch (action.type) {
     case ADD_TO_PORTAL_REFS:
       const portalRef = action.payload;

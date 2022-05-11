@@ -1,3 +1,5 @@
+import CartType from '../../models/CartType';
+import CartActionType from '../../models/state/actions/CartActionType';
 import {
   CART_ADD_ITEM,
   CART_ITEM_UPDATE_QTY,
@@ -7,7 +9,10 @@ import {
   CART_SAVE_SHIPPING_ADDRESS
 } from '../constants/cartConstants';
 
-export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
+export const cartReducer = (
+  state: CartType = { cartItems: [], paymentMethod: '' },
+  action: CartActionType
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const cartItem = action.payload;
@@ -46,9 +51,10 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
         cartItems: state.cartItems.filter((item) => item.productId !== action.payload)
       };
     case CART_SAVE_SHIPPING_ADDRESS:
+      const cartWithUpdatedAddress = action.payload;
       return {
         ...state,
-        shippingAddress: action.payload
+        ...cartWithUpdatedAddress
       };
     case CART_SAVE_PAYMENT_METHOD:
       return {

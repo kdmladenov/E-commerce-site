@@ -1,3 +1,9 @@
+import OrderCreateActionType from '../../models/state/actions/OrderCreateActionType';
+import OrderDeliverActionType from '../../models/state/actions/OrderDeliverActionType';
+import OrderDetailsActionType from '../../models/state/actions/OrderDetailActionType';
+import OrderListActionType from '../../models/state/actions/OrderListActionType';
+import OrderMyListActionType from '../../models/state/actions/OrderMyListActionType';
+import OrderPayActionType from '../../models/state/actions/OrderPayActionType';
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
@@ -23,7 +29,7 @@ import {
   ORDER_PAY_SUCCESS
 } from '../constants/orderConstants';
 
-export const orderCreateReducer = (state = {}, action) => {
+export const orderCreateReducer = (state = {}, action: OrderCreateActionType) => {
   switch (action.type) {
     case ORDER_CREATE_REQUEST:
       return { loading: true };
@@ -39,8 +45,8 @@ export const orderCreateReducer = (state = {}, action) => {
 };
 
 export const orderDetailsReducer = (
-  state = { loading: true, orderItems: [], shippingAddress: {} },
-  action
+  state = { loading: true, orderItems: [] },
+  action: OrderDetailsActionType
 ) => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
@@ -54,7 +60,7 @@ export const orderDetailsReducer = (
   }
 };
 
-export const orderPayReducer = (state = {}, action) => {
+export const orderPayReducer = (state = {}, action: OrderPayActionType) => {
   switch (action.type) {
     case ORDER_PAY_REQUEST:
       return { loading: true };
@@ -69,7 +75,7 @@ export const orderPayReducer = (state = {}, action) => {
   }
 };
 
-export const orderDeliverReducer = (state = {}, action) => {
+export const orderDeliverReducer = (state = {}, action: OrderDeliverActionType) => {
   switch (action.type) {
     case ORDER_DELIVER_REQUEST:
       return { loading: true };
@@ -84,7 +90,7 @@ export const orderDeliverReducer = (state = {}, action) => {
   }
 };
 
-export const orderMyListReducer = (state = { orders: [] }, action) => {
+export const orderMyListReducer = (state = { orders: [] }, action: OrderMyListActionType) => {
   switch (action.type) {
     case ORDER_MY_LIST_REQUEST:
       return { loading: true };
@@ -99,7 +105,7 @@ export const orderMyListReducer = (state = { orders: [] }, action) => {
   }
 };
 
-export const orderListReducer = (state = { orders: [] }, action) => {
+export const orderListReducer = (state = { orders: [] }, action: OrderListActionType) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
       return { loading: true };

@@ -135,25 +135,30 @@ const reducer = combineReducers({
 });
 
 const cartItemsFromLocalStorage = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cartItems'))
+  ? JSON.parse(localStorage.getItem('cartItems')!)
   : [];
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('userInfo'))
+  ? JSON.parse(localStorage.getItem('userInfo')!)
   : [];
 
 const shippingAddressFromLocalStorage = localStorage.getItem('shippingAddress')
-  ? JSON.parse(localStorage.getItem('shippingAddress'))
+  ? JSON.parse(localStorage.getItem('shippingAddress')!)
   : [];
 
 const paymentMethodFromLocalStorage = localStorage.getItem('paymentMethod')
-  ? JSON.parse(localStorage.getItem('paymentMethod'))
+  ? JSON.parse(localStorage.getItem('paymentMethod')!)
   : [];
 
 const initialState = {
   cart: {
+    shippingAddress: shippingAddressFromLocalStorage.shippingAddress,
+    shippingAddress2: shippingAddressFromLocalStorage.shippingAddress2,
+    shippingCity: shippingAddressFromLocalStorage.shippingCity,
+    shippingState: shippingAddressFromLocalStorage.shippingState,
+    shippingZip: shippingAddressFromLocalStorage.shippingZip,
+    shippingCountry: shippingAddressFromLocalStorage.shippingCountry,
     cartItems: cartItemsFromLocalStorage,
-    shippingAddress: shippingAddressFromLocalStorage,
     paymentMethod: paymentMethodFromLocalStorage
   },
   userLogin: { userInfo: userInfoFromLocalStorage }

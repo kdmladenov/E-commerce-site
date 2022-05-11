@@ -1,3 +1,14 @@
+import ForgottenPasswordActionType from '../../models/state/actions/ForgottenPasswordActionType';
+import PasswordResetActionType from '../../models/state/actions/PasswordResetActionType';
+import UserAvatarDeleteActionType from '../../models/state/actions/UserAvatarDeleteActionType';
+import UserAvatarUpdateActionType from '../../models/state/actions/UserAvatarUpdateActionType';
+import UserDeleteActionType from '../../models/state/actions/UserDeleteActionType';
+import UserDetailsActionType from '../../models/state/actions/UserDetailsActionType';
+import UserListActionType from '../../models/state/actions/UserListActionType';
+import UserLoginActionType from '../../models/state/actions/UserLoginActionType';
+import UserRegisterActionType from '../../models/state/actions/UserRegisterActionType';
+import UserRestoreActionType from '../../models/state/actions/UserRestoreActionType';
+import UserUpdateProfileActionType from '../../models/state/actions/UserUpdateProfileActionType';
 import {
   FORGOTTEN_PASSWORD_FAIL,
   FORGOTTEN_PASSWORD_REQUEST,
@@ -36,10 +47,10 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_SUCCESS
 } from '../constants/userConstants';
 
-export const userLoginReducer = (state = {}, action) => {
+export const userLoginReducer = (state = {}, action: UserLoginActionType) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -54,7 +65,7 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-export const userRegisterReducer = (state = {}, action) => {
+export const userRegisterReducer = (state = {}, action: UserRegisterActionType) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };
@@ -67,7 +78,7 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
-export const userDetailsReducer = (state = { user: {} }, action) => {
+export const userDetailsReducer = (state = { user: {} }, action: UserDetailsActionType) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return { ...state, loading: true };
@@ -82,12 +93,12 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
   }
 };
 
-export const userUpdateProfileReducer = (state = {}, action) => {
+export const userUpdateProfileReducer = (state = {}, action: UserUpdateProfileActionType) => {
   switch (action.type) {
     case USER_UPDATE_PROFILE_REQUEST:
       return { loading: true };
     case USER_UPDATE_PROFILE_SUCCESS:
-      return { loading: false, userInfo: action.payload, success: true };
+      return { loading: false, user: action.payload, success: true };
     case USER_UPDATE_PROFILE_FAIL:
       return { loading: false, error: action.payload };
     case USER_UPDATE_PROFILE_RESET:
@@ -97,7 +108,7 @@ export const userUpdateProfileReducer = (state = {}, action) => {
   }
 };
 
-export const userListReducer = (state = { users: [] }, action) => {
+export const userListReducer = (state = { users: [] }, action: UserListActionType) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return { loading: true };
@@ -112,7 +123,7 @@ export const userListReducer = (state = { users: [] }, action) => {
   }
 };
 
-export const userDeleteReducer = (state = {}, action) => {
+export const userDeleteReducer = (state = {}, action: UserDeleteActionType) => {
   switch (action.type) {
     case USER_DELETE_REQUEST:
       return { loading: true };
@@ -125,7 +136,7 @@ export const userDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const userRestoreReducer = (state = {}, action) => {
+export const userRestoreReducer = (state = {}, action: UserRestoreActionType) => {
   switch (action.type) {
     case USER_RESTORE_REQUEST:
       return { loading: true };
@@ -138,12 +149,12 @@ export const userRestoreReducer = (state = {}, action) => {
   }
 };
 
-export const userAvatarUpdateReducer = (state = {}, action) => {
+export const userAvatarUpdateReducer = (state = {}, action: UserAvatarUpdateActionType) => {
   switch (action.type) {
     case USER_UPDATE_AVATAR_REQUEST:
       return { loading: true };
     case USER_UPDATE_AVATAR_SUCCESS:
-      return { loading: false, avatar: action.payload, success: true };
+      return { loading: false, user: action.payload, success: true };
     case USER_UPDATE_AVATAR_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -151,8 +162,7 @@ export const userAvatarUpdateReducer = (state = {}, action) => {
   }
 };
 
-
-export const userAvatarDeleteReducer = (state = {}, action) => {
+export const userAvatarDeleteReducer = (state = {}, action: UserAvatarDeleteActionType) => {
   switch (action.type) {
     case USER_DELETE_AVATAR_REQUEST:
       return { loading: true };
@@ -165,7 +175,7 @@ export const userAvatarDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const forgottenPasswordReducer = (state = {}, action) => {
+export const forgottenPasswordReducer = (state = {}, action: ForgottenPasswordActionType) => {
   switch (action.type) {
     case FORGOTTEN_PASSWORD_REQUEST:
       return { loading: true };
@@ -178,8 +188,7 @@ export const forgottenPasswordReducer = (state = {}, action) => {
   }
 };
 
-
-export const passwordResetReducer = (state = {}, action) => {
+export const passwordResetReducer = (state = {}, action: PasswordResetActionType) => {
   switch (action.type) {
     case PASSWORD_RESET_REQUEST:
       return { loading: true };

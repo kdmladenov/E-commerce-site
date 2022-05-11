@@ -1,3 +1,7 @@
+import ProductFeaturesCreateActionType from '../../models/state/actions/ProductFeaturesCreateActionType';
+import ProductFeaturesDeleteActionType from '../../models/state/actions/ProductFeaturesDeleteActionType';
+import ProductFeaturesListActionType from '../../models/state/actions/ProductFeaturesListActionType';
+import ProductFeaturesUpdateActionType from '../../models/state/actions/ProductFeaturesUpdateActionType';
 import {
   PRODUCT_FEATURES_LIST_FAIL,
   PRODUCT_FEATURES_LIST_REQUEST,
@@ -15,7 +19,10 @@ import {
   PRODUCT_FEATURE_UPDATE_SUCCESS
 } from '../constants/productConstants';
 
-export const productFeaturesListReducer = (state = { productFeatures: [] }, action) => {
+export const productFeaturesListReducer = (
+  state = { productFeatures: [] },
+  action: ProductFeaturesListActionType
+) => {
   switch (action.type) {
     case PRODUCT_FEATURES_LIST_REQUEST:
       return { loading: true, productFeatures: [] };
@@ -28,7 +35,10 @@ export const productFeaturesListReducer = (state = { productFeatures: [] }, acti
   }
 };
 
-export const productFeaturesCreateReducer = (state = {}, action) => {
+export const productFeaturesCreateReducer = (
+  state = {},
+  action: ProductFeaturesCreateActionType
+) => {
   switch (action.type) {
     case PRODUCT_FEATURE_CREATE_REQUEST:
       return { loading: true };
@@ -43,12 +53,15 @@ export const productFeaturesCreateReducer = (state = {}, action) => {
   }
 };
 
-export const productFeaturesUpdateReducer = (state = { productFeature: {} }, action) => {
+export const productFeaturesUpdateReducer = (
+  state = { productFeature: {} },
+  action: ProductFeaturesUpdateActionType
+) => {
   switch (action.type) {
     case PRODUCT_FEATURE_UPDATE_REQUEST:
       return { loading: true };
     case PRODUCT_FEATURE_UPDATE_SUCCESS:
-      return { loading: false, success: true, productFeature: action.payload };
+      return { loading: false, success: true };
     case PRODUCT_FEATURE_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_FEATURE_UPDATE_RESET:
@@ -58,7 +71,10 @@ export const productFeaturesUpdateReducer = (state = { productFeature: {} }, act
   }
 };
 
-export const productFeaturesDeleteReducer = (state = {}, action) => {
+export const productFeaturesDeleteReducer = (
+  state = {},
+  action: ProductFeaturesDeleteActionType
+) => {
   switch (action.type) {
     case PRODUCT_FEATURE_DELETE_REQUEST:
       return { loading: true };

@@ -1,3 +1,6 @@
+import WishListDeleteActionType from '../../models/state/actions/WishLisDeleteActionType';
+import WishListItemsActionType from '../../models/state/actions/WishLisItemsActionType';
+import WishListAddActionType from '../../models/state/actions/WishListAddActionType';
 import {
   WISH_ITEMS_LIST_FAIL,
   WISH_ITEMS_LIST_REQUEST,
@@ -11,7 +14,7 @@ import {
   WISH_LIST_DELETE_SUCCESS
 } from '../constants/wishListConstants';
 
-export const wishListAddReducer = (state = {}, action) => {
+export const wishListAddReducer = (state = {}, action: WishListAddActionType) => {
   switch (action.type) {
     case WISH_LIST_ADD_REQUEST:
       return { loading: true };
@@ -26,7 +29,7 @@ export const wishListAddReducer = (state = {}, action) => {
   }
 };
 
-export const wishListItemsReducer = (state = { wishList: [] }, action) => {
+export const wishListItemsReducer = (state = { wishList: [] }, action: WishListItemsActionType) => {
   switch (action.type) {
     case WISH_ITEMS_LIST_REQUEST:
       return { loading: true, wishList: [] };
@@ -39,7 +42,7 @@ export const wishListItemsReducer = (state = { wishList: [] }, action) => {
   }
 };
 
-export const wishListDeleteReducer = (state = {}, action) => {
+export const wishListDeleteReducer = (state = {}, action: WishListDeleteActionType) => {
   switch (action.type) {
     case WISH_LIST_DELETE_REQUEST:
       return { loading: true };

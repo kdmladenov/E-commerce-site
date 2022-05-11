@@ -1,3 +1,11 @@
+import AnswerCreateActionType from '../../models/state/actions/AnswerCreateActionType';
+import AnswerDeleteActionType from '../../models/state/actions/AnswerDeleteActionType';
+import AnswerEditActionType from '../../models/state/actions/AnswerEditActionType';
+import QuestionAskActionType from '../../models/state/actions/QuestionAskActionType';
+import QuestionDeleteActionType from '../../models/state/actions/QuestionDeleteActionType';
+import QuestionEditActionType from '../../models/state/actions/QuestionEditActionType';
+import QuestionsAndAnswersListActionType from '../../models/state/actions/QuestionsAndAnswersListActionType';
+import QuestionVoteActionType from '../../models/state/actions/QuestionVoteActionType';
 import {
   ANSWER_CREATE_FAIL,
   ANSWER_CREATE_REQUEST,
@@ -29,7 +37,7 @@ import {
   QUESTION_VOTE_SUCCESS
 } from '../constants/questionsAndAnswersConstants';
 
-export const questionAskReducer = (state = { question: {} }, action) => {
+export const questionAskReducer = (state = { question: {} }, action: QuestionAskActionType) => {
   switch (action.type) {
     case QUESTION_ASK_REQUEST:
       return { loading: true };
@@ -44,7 +52,10 @@ export const questionAskReducer = (state = { question: {} }, action) => {
   }
 };
 
-export const questionsAndAnswersListReducer = (state = { questions: [] }, action) => {
+export const questionsAndAnswersListReducer = (
+  state = { questions: [] },
+  action: QuestionsAndAnswersListActionType
+) => {
   switch (action.type) {
     case QUESTION_AND_ANSWERS_LIST_REQUEST:
       return { loading: true };
@@ -57,7 +68,7 @@ export const questionsAndAnswersListReducer = (state = { questions: [] }, action
   }
 };
 
-export const questionEditReducer = (state = { question: {} }, action) => {
+export const questionEditReducer = (state = { question: {} }, action: QuestionEditActionType) => {
   switch (action.type) {
     case QUESTION_EDIT_REQUEST:
       return { loading: true };
@@ -72,7 +83,7 @@ export const questionEditReducer = (state = { question: {} }, action) => {
   }
 };
 
-export const questionDeleteReducer = (state = {}, action) => {
+export const questionDeleteReducer = (state = {}, action: QuestionDeleteActionType) => {
   switch (action.type) {
     case QUESTION_DELETE_REQUEST:
       return { loading: true };
@@ -85,7 +96,7 @@ export const questionDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const answerCreateReducer = (state = { answer: {} }, action) => {
+export const answerCreateReducer = (state = { answer: {} }, action: AnswerCreateActionType) => {
   switch (action.type) {
     case ANSWER_CREATE_REQUEST:
       return { loading: true };
@@ -100,7 +111,7 @@ export const answerCreateReducer = (state = { answer: {} }, action) => {
   }
 };
 
-export const answerEditReducer = (state = { answer: {} }, action) => {
+export const answerEditReducer = (state = { answer: {} }, action: AnswerEditActionType) => {
   switch (action.type) {
     case ANSWER_EDIT_REQUEST:
       return { loading: true };
@@ -115,7 +126,7 @@ export const answerEditReducer = (state = { answer: {} }, action) => {
   }
 };
 
-export const answerDeleteReducer = (state = {}, action) => {
+export const answerDeleteReducer = (state = {}, action: AnswerDeleteActionType) => {
   switch (action.type) {
     case ANSWER_DELETE_REQUEST:
       return { loading: true };
@@ -128,7 +139,7 @@ export const answerDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const questionVoteReducer = (state = {}, action) => {
+export const questionVoteReducer = (state = {}, action: QuestionVoteActionType) => {
   switch (action.type) {
     case QUESTION_VOTE_REQUEST:
       return { loading: true };

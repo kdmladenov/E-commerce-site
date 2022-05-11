@@ -1,3 +1,6 @@
+import ProductSpecificationCreateActionType from '../../models/state/actions/ProductSpecificationCreateActionType';
+import ProductSpecificationDeleteActionType from '../../models/state/actions/ProductSpecificationDeleteActionType';
+import ProductSpecificationUpdateActionType from '../../models/state/actions/ProductSpecificationUpdateActionType';
 import {
   PRODUCT_SPECIFICATION_CREATE_FAIL,
   PRODUCT_SPECIFICATION_CREATE_REQUEST,
@@ -12,7 +15,10 @@ import {
   PRODUCT_SPECIFICATION_UPDATE_SUCCESS
 } from '../constants/productConstants';
 
-export const productSpecificationCreateReducer = (state = {}, action) => {
+export const productSpecificationCreateReducer = (
+  state = {},
+  action: ProductSpecificationCreateActionType
+) => {
   switch (action.type) {
     case PRODUCT_SPECIFICATION_CREATE_REQUEST:
       return { loading: true };
@@ -27,7 +33,10 @@ export const productSpecificationCreateReducer = (state = {}, action) => {
   }
 };
 
-export const productSpecificationUpdateReducer = (state = { productSpecification: {} }, action) => {
+export const productSpecificationUpdateReducer = (
+  state = { productSpecification: {} },
+  action: ProductSpecificationUpdateActionType
+) => {
   switch (action.type) {
     case PRODUCT_SPECIFICATION_UPDATE_REQUEST:
       return { loading: true };
@@ -42,7 +51,10 @@ export const productSpecificationUpdateReducer = (state = { productSpecification
   }
 };
 
-export const productSpecificationDeleteReducer = (state = {}, action) => {
+export const productSpecificationDeleteReducer = (
+  state = {},
+  action: ProductSpecificationDeleteActionType
+) => {
   switch (action.type) {
     case PRODUCT_SPECIFICATION_DELETE_REQUEST:
       return { loading: true };

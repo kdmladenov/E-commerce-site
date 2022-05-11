@@ -1,3 +1,6 @@
+import BrowsingHistoryAddActionType from '../../models/state/actions/BrowsingHistoryAddActionType';
+import BrowsingHistoryDeleteActionType from '../../models/state/actions/BrowsingHistoryDeleteActionType';
+import BrowsingHistoryListActionType from '../../models/state/actions/BrowsingHistoryListActionType';
 import {
   BROWSING_HISTORY_ADD_FAIL,
   BROWSING_HISTORY_ADD_REQUEST,
@@ -11,7 +14,7 @@ import {
   BROWSING_HISTORY_LIST_SUCCESS
 } from '../constants/browsingHistoryConstants';
 
-export const browsingHistoryAddReducer = (state = {}, action) => {
+export const browsingHistoryAddReducer = (state = {}, action: BrowsingHistoryAddActionType) => {
   switch (action.type) {
     case BROWSING_HISTORY_ADD_REQUEST:
       return { loading: true };
@@ -26,7 +29,10 @@ export const browsingHistoryAddReducer = (state = {}, action) => {
   }
 };
 
-export const browsingHistoryListReducer = (state = { browsingHistory: [] }, action) => {
+export const browsingHistoryListReducer = (
+  state = { browsingHistory: [] },
+  action: BrowsingHistoryListActionType
+) => {
   switch (action.type) {
     case BROWSING_HISTORY_LIST_REQUEST:
       return { loading: true, browsingHistory: [] };
@@ -39,7 +45,10 @@ export const browsingHistoryListReducer = (state = { browsingHistory: [] }, acti
   }
 };
 
-export const browsingHistoryDeleteReducer = (state = {}, action) => {
+export const browsingHistoryDeleteReducer = (
+  state = {},
+  action: BrowsingHistoryDeleteActionType
+) => {
   switch (action.type) {
     case BROWSING_HISTORY_DELETE_REQUEST:
       return { loading: true };

@@ -32,8 +32,18 @@ import {
   PRODUCT_UPDATE_RESET,
   PRODUCT_UPDATE_SUCCESS
 } from '../constants/productConstants';
+import ProductCreateActionType from '../../models/state/actions/ProductCreateActionType';
+import ProductUpdateActionType from '../../models/state/actions/ProductUpdateActionType';
+import ProductImageUploadActionType from '../../models/state/actions/ProductImageUploadActionType';
+import ProductImagesListActionType from '../../models/state/actions/ProductImagesListActionType';
+import ProductImageDeleteActionType from '../../models/state/actions/ProductImageDeleteActionType';
+import ProductImageSetMainActionType from '../../models/state/actions/ProductImageSetMainActionType';
+import ProductDetailsActionType from '../../models/state/actions/ProductDetailsActionType';
+import ProductRestoreActionType from '../../models/state/actions/ProductRestoreActionType';
+import ProductDeleteActionType from '../../models/state/actions/ProductDeleteActionType';
+import ProductsListActionType from '../../models/state/actions/ProductsListActionType';
 
-export const productListReducer = (state = { products: [] }, action) => {
+export const productListReducer = (state = { products: [] }, action: ProductsListActionType) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
@@ -46,7 +56,10 @@ export const productListReducer = (state = { products: [] }, action) => {
   }
 };
 
-export const productDetailsReducer = (state = { product: {} }, action) => {
+export const productDetailsReducer = (
+  state = { product: {} },
+  action: ProductDetailsActionType
+) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
       return { loading: true, product: {} };
@@ -59,7 +72,7 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productDeleteReducer = (state = {}, action) => {
+export const productDeleteReducer = (state = {}, action: ProductDeleteActionType) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
       return { loading: true };
@@ -72,7 +85,7 @@ export const productDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const productRestoreReducer = (state = {}, action) => {
+export const productRestoreReducer = (state = {}, action: ProductRestoreActionType) => {
   switch (action.type) {
     case PRODUCT_RESTORE_REQUEST:
       return { loading: true };
@@ -85,7 +98,7 @@ export const productRestoreReducer = (state = {}, action) => {
   }
 };
 
-export const productCreateReducer = (state = {}, action) => {
+export const productCreateReducer = (state = {}, action: ProductCreateActionType) => {
   switch (action.type) {
     case PRODUCT_CREATE_REQUEST:
       return { loading: true };
@@ -100,7 +113,7 @@ export const productCreateReducer = (state = {}, action) => {
   }
 };
 
-export const productUpdateReducer = (state = { product: {} }, action) => {
+export const productUpdateReducer = (state = { product: {} }, action: ProductUpdateActionType) => {
   switch (action.type) {
     case PRODUCT_UPDATE_REQUEST:
       return { loading: true };
@@ -115,7 +128,7 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productImageUploadReducer = (state = {}, action) => {
+export const productImageUploadReducer = (state = {}, action: ProductImageUploadActionType) => {
   switch (action.type) {
     case PRODUCT_IMAGE_UPLOAD_REQUEST:
       return { loading: true };
@@ -128,7 +141,10 @@ export const productImageUploadReducer = (state = {}, action) => {
   }
 };
 
-export const productImagesListReducer = (state = { productImages: [] }, action) => {
+export const productImagesListReducer = (
+  state = { productImages: [] },
+  action: ProductImagesListActionType
+) => {
   switch (action.type) {
     case PRODUCT_IMAGES_LIST_REQUEST:
       return { loading: true, productImages: [] };
@@ -141,7 +157,7 @@ export const productImagesListReducer = (state = { productImages: [] }, action) 
   }
 };
 
-export const productImageDeleteReducer = (state = {}, action) => {
+export const productImageDeleteReducer = (state = {}, action: ProductImageDeleteActionType) => {
   switch (action.type) {
     case PRODUCT_IMAGE_DELETE_REQUEST:
       return { loading: true };
@@ -154,8 +170,7 @@ export const productImageDeleteReducer = (state = {}, action) => {
   }
 };
 
-
-export const productImageSetMainReducer = (state = {}, action) => {
+export const productImageSetMainReducer = (state = {}, action: ProductImageSetMainActionType) => {
   switch (action.type) {
     case PRODUCT_IMAGE_SET_MAIN_REQUEST:
       return { loading: true };

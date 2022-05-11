@@ -1,3 +1,8 @@
+import ReviewCreateActionType from '../../models/state/actions/ReviewCreateActionType';
+import ReviewDeleteActionType from '../../models/state/actions/ReviewDeleteActionType';
+import ReviewEditActionType from '../../models/state/actions/ReviewEditActionType';
+import ReviewListActionType from '../../models/state/actions/ReviewListActionType';
+import ReviewVoteActionType from '../../models/state/actions/ReviewVoteActionType';
 import {
   REVIEW_CREATE_FAIL,
   REVIEW_CREATE_REQUEST,
@@ -18,12 +23,12 @@ import {
   REVIEW_VOTE_SUCCESS
 } from '../constants/reviewConstants';
 
-export const reviewCreateReducer = (state = { }, action) => {
+export const reviewCreateReducer = (state = {}, action: ReviewCreateActionType) => {
   switch (action.type) {
     case REVIEW_CREATE_REQUEST:
       return { loading: true };
     case REVIEW_CREATE_SUCCESS:
-      return { loading: false, success: true};
+      return { loading: false, success: true };
     case REVIEW_CREATE_FAIL:
       return { loading: false, error: action.payload };
     case REVIEW_CREATE_RESET:
@@ -33,7 +38,7 @@ export const reviewCreateReducer = (state = { }, action) => {
   }
 };
 
-export const reviewDeleteReducer = (state = {}, action) => {
+export const reviewDeleteReducer = (state = {}, action: ReviewDeleteActionType) => {
   switch (action.type) {
     case REVIEW_DELETE_REQUEST:
       return { loading: true };
@@ -46,7 +51,7 @@ export const reviewDeleteReducer = (state = {}, action) => {
   }
 };
 
-export const reviewListReducer = (state = { reviews: {} }, action) => {
+export const reviewListReducer = (state = { reviews: {} }, action: ReviewListActionType) => {
   switch (action.type) {
     case REVIEW_LIST_REQUEST:
       return { loading: true };
@@ -59,7 +64,7 @@ export const reviewListReducer = (state = { reviews: {} }, action) => {
   }
 };
 
-export const reviewEditReducer = (state = { review: {} }, action) => {
+export const reviewEditReducer = (state = { review: {} }, action: ReviewEditActionType) => {
   switch (action.type) {
     case REVIEW_EDIT_REQUEST:
       return { loading: true };
@@ -68,13 +73,13 @@ export const reviewEditReducer = (state = { review: {} }, action) => {
     case REVIEW_EDIT_FAIL:
       return { loading: false, error: action.payload };
     case REVIEW_EDIT_RESET:
-      return { product: {} };
+      return { review: {} };
     default:
       return state;
   }
 };
 
-export const reviewVoteReducer = (state = {}, action) => {
+export const reviewVoteReducer = (state = {}, action: ReviewVoteActionType) => {
   switch (action.type) {
     case REVIEW_VOTE_REQUEST:
       return { loading: true };
