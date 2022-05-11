@@ -9,6 +9,6 @@ interface OrderItemType {
   brand?: string;
   stockCount?: number;
   reviewCount?: number;
-  rating?: number;
+  rating: number;
 }
 export default OrderItemType;

@@ -1,5 +1,5 @@
 interface PriceProps {
-  price?: number;
+  price: number;
   currencySign?: string;
   superscript?: boolean;
   strikeThrough?: boolean;

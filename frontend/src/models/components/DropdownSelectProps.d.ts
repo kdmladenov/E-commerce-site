@@ -1,14 +1,9 @@
+import EndpointType from '../EndpointType';
+
 interface DropdownSelectProps {
   updateQuery: (prop: string, value: string) => void;
-  query: {
-    page: string;
-    pageSize?: string;
-    sort: string;
-    search: string;
-    filter?: string | string[];
-    role?: string;
-  };
-  name?: string;
+  query: EndpointType;
+  name: keyof EndpointType;
   labelStart: string;
   optionsMap: { label: number | string; value: string }[];
 }

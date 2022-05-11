@@ -7,7 +7,7 @@ import UserType from '../UserType';
 interface FormComponentProps {
   inputData: FormInputDataType;
   screen?: string;
-  resource?: UserType | ProductType;
+  resource?: UserType | ProductType ;
   resourceId?: number;
   subResourceId?: number;
   updateAction?: TODO;

@@ -1,5 +1,5 @@
 interface RatingProps {
-  rating: number | undefined;
+  rating: number;
   setRating?: Dispatch<SetStateAction<number>>;
   text?: string;
   color?: string;
