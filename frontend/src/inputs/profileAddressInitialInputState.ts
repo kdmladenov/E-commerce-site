@@ -60,8 +60,8 @@ const profileAddressInitialInputState = {
     value: '',
     validations: {
       required: true,
-      minLength: USER.MIN_ZIP_VALUE,
-      maxLength: USER.MAX_ZIP_VALUE
+      minLength: USER.MIN_ZIP_LENGTH,
+      maxLength: USER.MAX_ZIP_LENGTH
     },
     valid: true,
     touched: false

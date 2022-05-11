@@ -27,30 +27,6 @@ export const productDetailsInitialInputState = {
     valid: true,
     touched: false
   },
-  // image: {
-  //   url: {
-  //     label: 'Product image',
-  //     type: 'text',
-  //     placeholder: 'Enter Image URL...',
-  //     value: '',
-  //     validations: {
-  //       required: true
-  //     },
-  //     valid: true,
-  //     touched: false
-  //   },
-  //   file: {
-  //     label: 'Product image',
-  //     type: 'file',
-  //     placeholder: 'Upload image file ...',
-  //     value: '',
-  //     validations: {
-  //       required: true
-  //     },
-  //     valid: true,
-  //     touched: false
-  //   }
-  // },
   description: {
     label: 'Product Description',
     type: 'text',
@@ -68,7 +44,7 @@ export const productDetailsInitialInputState = {
   productCategory: {
     label: 'Product Category',
     type: 'select',
-    options: [<option value="Electronics">{'Electronics'}</option>],
+    // options: [<option value="Electronics">{'Electronics'}</option>], TODO
     placeholder: 'Select category ...',
     value: '',
     validations: {
