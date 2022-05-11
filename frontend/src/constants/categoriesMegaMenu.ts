@@ -1,4 +1,4 @@
-const categoriesMegaMenu = {
+const categoriesMegaMenu: { [key: string]: { [key: string]: { [key: string]: string } } } = {
   'Phones, Tablets & Laptops': {
     'Mobile Phones & Accessories': {},
     'Tablets & Accessories': {},

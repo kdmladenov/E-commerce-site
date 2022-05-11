@@ -1,4 +1,7 @@
-const specificationsInOrder = [
+import ProductType from '../models/ProductType';
+import SpecificationType from '../models/SpecificationType';
+
+const specificationsInOrder: (keyof (ProductType & SpecificationType))[] = [
   'price',
   'rating',
   'brand',

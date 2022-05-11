@@ -1,4 +1,4 @@
-export const megaMenuCategoriesIcons = {
+export const megaMenuCategoriesIcons: { [key: string]: string } = {
   'Phones, Tablets & Laptops': 'fas fa-mobile-alt',
   'Computers & Peripherals': 'fas fa-laptop',
   'TV, Audio & Photo': 'fas fa-tv',

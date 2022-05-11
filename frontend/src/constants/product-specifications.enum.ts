@@ -1,4 +1,4 @@
-const productSpecificationsEnum = {
+const productSpecificationsEnum: { [key: string]: string } = {
   productId: 'Product Id',
   title: 'Title',
   image: 'Image',
