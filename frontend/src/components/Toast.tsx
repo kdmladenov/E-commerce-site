@@ -7,10 +7,10 @@ import getUniqueId from '../helpers/getUniqueId';
 
 import Price from './Price';
 import ToastProps from '../models/components/ToastProps';
-import ToastType from '../models/ToastType';
+import ToastType, { ToastRefType } from '../models/ToastType';
 
-const Toast: React.FC<ToastProps> = forwardRef(
-  ({ idDiv = 'toast', autoClose = true, autoClosePeriod = 6000 }, ref) => {
+const Toast = React.forwardRef<ToastRefType, ToastProps>(
+  ({ idDiv = 'toast_message', autoClose = true, autoClosePeriod = 6000 }, forwardedRef) => {
     const { loaded, divId } = useCreateDiv(idDiv);
 
     const [toasts, setToasts] = useState<ToastType[]>([]);
@@ -18,8 +18,8 @@ const Toast: React.FC<ToastProps> = forwardRef(
 
     const deleteToast = (id: number) => setToasts(toasts.filter((toast) => toast.id !== id));
 
-    useImperativeHandle(ref, () => ({
-      createToast(toast: ToastType) {
+    useImperativeHandle(forwardedRef, () => ({
+      createToast(toast) {
         setToasts([...toasts, { ...toast, id: getUniqueId() }]);
       }
     }));

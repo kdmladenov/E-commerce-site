@@ -34,7 +34,7 @@ const History: React.FC<{ horizontal?: boolean }> = ({ horizontal = true }) => {
     (state) => state.browsingHistoryDelete
   );
 
-  const historyRecordsPagesize = +endpoint.pageSize.replace('pageSize=', '').replace('&', '');
+  const historyRecordsPageSize = +endpoint.pageSize.replace('pageSize=', '').replace('&', '');
   const historyRecordsCount = browsingHistory?.[0]?.totalDBItems;
 
   const deleteHistoryItemHandler = (id: number) => {
@@ -90,7 +90,7 @@ const History: React.FC<{ horizontal?: boolean }> = ({ horizontal = true }) => {
           </Timeline>
         )}
       </div>
-      {historyRecordsCount > historyRecordsPagesize && !horizontal && (
+      {historyRecordsCount > historyRecordsPageSize && !horizontal && (
         <div className="full_history_btn">
           <Button classes="rounded" onClick={() => history.push('/history')}>
             View full history

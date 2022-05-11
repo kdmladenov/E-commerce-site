@@ -7,6 +7,7 @@ import Accordion from './Accordion';
 import Button from './Button';
 import SidebarProps from '../models/components/SidebarProps';
 import getSidebarInput from '../helpers/getSidebarInput';
+import SidebarInputMap from '../models/SidebarInputMap';
 
 const Sidebar: React.FC<SidebarProps> = ({
   endpoint,
@@ -24,22 +25,17 @@ const Sidebar: React.FC<SidebarProps> = ({
       ? 'allMyHistory'
       : 'allProductsList';
 
-  const inputMap: {
-    [key: string]: { label: string; value: string; type: string; accordionOpen?: boolean }[];
-  } = getSidebarInput(JSON.parse(localStorage.getItem(localStorageKey)!));
+  const inputMap: SidebarInputMap = getSidebarInput(
+    JSON.parse(localStorage.getItem(localStorageKey)!)
+  );
 
   const filterHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setEndpoint({
-        ...endpoint,
-        filter: [...(endpoint[`filter`] || []), e.target.value]
-      });
-    } else if (!e.target.checked) {
-      setEndpoint({
-        ...endpoint,
-        filter: [...(endpoint[`filter`] || []).filter((query) => query !== e.target.value)]
-      });
-    }
+    setEndpoint({
+      ...endpoint,
+      filter: e.target.checked
+        ? [...(endpoint[`filter`] || []), e.target.value]
+        : [...(endpoint[`filter`] || []).filter((query) => query !== e.target.value)]
+    });
   };
 
   const clearAllFiltersHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
