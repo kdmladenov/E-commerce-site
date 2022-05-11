@@ -1,8 +1,8 @@
-import { useLayoutEffect, useCallback, useState } from 'react';
+import { useLayoutEffect, useCallback, useState, RefObject } from 'react';
 
 // https://gist.github.com/morajabi/523d7a642d8c0a2f71fcfa0d8b3d2846
 
-const getRect = (element) =>
+const getRect = (element: HTMLElement | null) =>
   element
     ? element.getBoundingClientRect()
     : {
@@ -14,7 +14,7 @@ const getRect = (element) =>
         width: 0
       };
 
-export const useResize = (ref) => {
+export const useResize = (ref: RefObject<HTMLElement>) => {
   const [rect, setRect] = useState(getRect(ref ? ref.current : null));
 
   const handleResize = useCallback(() => {
@@ -38,7 +38,7 @@ export const useResize = (ref) => {
         if (!resizeObserver) return;
 
         resizeObserver.disconnect();
-        resizeObserver = null;
+        // resizeObserver = null;
       };
     } else {
       window.addEventListener('resize', handleResize);

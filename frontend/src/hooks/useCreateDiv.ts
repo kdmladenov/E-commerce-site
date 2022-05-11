@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useCreateDiv = (idDiv) => {
+const useCreateDiv = (idDiv: string) => {
   const [loaded, setLoaded] = useState(false);
   const [divId] = useState(idDiv);
 
@@ -12,7 +12,9 @@ const useCreateDiv = (idDiv) => {
 
     setLoaded(true);
 
-    return () => document.getElementsByTagName('body')[0].removeChild(newDiv);
+    return () => {
+      document.getElementsByTagName('body')[0].removeChild(newDiv);
+    };
   }, [divId]);
 
   return { loaded, divId };

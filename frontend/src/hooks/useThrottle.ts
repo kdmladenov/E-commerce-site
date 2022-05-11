@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-const useThrottle = (callback, delay, dependencies) => {
+const useThrottle = (callback: () => void, delay: number, dependencies: string[]) => {
   const callbackRef = useRef(callback);
-  const timeoutRef = useRef();
+  const timeoutRef = useRef<number>();
 
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
   const set = useCallback(() => {
-    timeoutRef.current = setTimeout(() => callbackRef.current(), delay);
+    timeoutRef.current = window.setTimeout(() => callbackRef.current(), delay);
   }, [delay]);
 
   const clear = useCallback(() => {
@@ -27,7 +27,7 @@ const useThrottle = (callback, delay, dependencies) => {
   }, [clear, set]);
 
   useEffect(reset, [...dependencies, reset]);
-  
+
   useEffect(clear, []);
 };
 
