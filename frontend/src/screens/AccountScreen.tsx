@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './styles/AccountScreen.css';
 import { getUserDetails } from '../state/actions/userActions';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import Profile from '../components/Profile';
 import OrdersMy from '../components/OrdersMy';
@@ -11,24 +12,29 @@ import WishList from '../components/WishList';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ButtonNav from '../components/ButtonNav';
+import { RouteComponentProps } from 'react-router-dom';
 
-const AccountScreen = ({ match }) => {
+const AccountScreen: React.FC<
+  RouteComponentProps<{
+    section: string;
+  }>
+> = ({ match }) => {
   const dispatch = useDispatch();
 
-  const section = match.params.section;
+  const { section } = match.params;
   const [activeTab, setActiveTab] = useState(section);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
   const {
     user,
     loading: loadingUser,
     error: errorUser
-  } = useSelector((state) => state.userDetails);
+  } = useTypedSelector((state) => state.userDetails);
 
-  const { success: successUpdateAvatar } = useSelector((state) => state.userAvatarUpdate);
+  const { success: successUpdateAvatar } = useTypedSelector((state) => state.userAvatarUpdate);
 
-  const { success: successDeleteAvatar } = useSelector((state) => state.userAvatarDelete);
+  const { success: successDeleteAvatar } = useTypedSelector((state) => state.userAvatarDelete);
 
   useEffect(() => {
     if (!user?.email) {

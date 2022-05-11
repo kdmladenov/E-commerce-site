@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import './styles/ResetPasswordScreen.css';
 import { resetPassword } from '../state/actions/userActions';
 import validateInputUser from '../validations/userValidator';
 import userResetPasswordInitialInputState from '../inputs/userResetPasswordInitialInputState';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { RouteComponentProps } from 'react-router-dom';
 
-const ResetPasswordScreen = ({ history, match }) => {
+const ResetPasswordScreen: React.FC<
+  RouteComponentProps<{
+    userId: string;
+    token: string;
+  }>
+> = ({ history, match }) => {
   const { userId, token } = match.params;
 
   const {
@@ -18,9 +24,9 @@ const ResetPasswordScreen = ({ history, match }) => {
     success: successResetPassword,
     message: successResetMessage,
     error: errorMessage
-  } = useSelector((state) => state.passwordReset);
+  } = useTypedSelector((state) => state.passwordReset);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (!errorMessage && userInfo?.token) {

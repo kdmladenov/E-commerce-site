@@ -1,17 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import './styles/ForgottenPasswordScreen.css';
 import { forgotPassword } from '../state/actions/userActions';
 import validateInputUser from '../validations/userValidator';
 import userForgottenPasswordInitialInputState from '../inputs/userForgottenPasswordInitialInputState';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
 const ForgottenPasswordScreen = () => {
-  const forgottenPassword = useSelector((state) => state.forgottenPassword);
+  const forgottenPassword = useTypedSelector((state) => state.forgottenPassword);
   const { loading, success: successSubmitEmail, error } = forgottenPassword;
 
   return (

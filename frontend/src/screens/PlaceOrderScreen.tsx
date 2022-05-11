@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import './styles/PlaceOrderScreen.css';
 import { removeFromCart, updateCartItemQty } from '../state/actions/cartActions';
@@ -14,6 +14,7 @@ import {
 } from '../constants/constants';
 import { ORDER_CREATE_RESET } from '../state/constants/orderConstants';
 import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
@@ -21,31 +22,35 @@ import Message from '../components/Message';
 import Price from '../components/Price';
 import Rating from '../components/Rating';
 
-const PlaceOrderScreen = ({ history }) => {
+const PlaceOrderScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
   const {
     shippingAddress,
-    paymentMethod: { paymentMethod },
+    shippingAddress2,
+    shippingCity,
+    shippingState,
+    shippingZip,
+    shippingCountry,
+    paymentMethod,
     cartItems
-  } = cart;
+  } = useTypedSelector((state) => state.cart);
 
-  cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-  cart.shippingPrice =
-    cart.itemsPrice >= FREE_SHIPPING_THRESHOLD
-      ? 0
-      : cart.itemsPrice * SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE;
-  cart.taxPrice = (cart.itemsPrice + cart.shippingPrice) * TAX_RATE;
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const shippingPrice =
+    itemsPrice <= FREE_SHIPPING_THRESHOLD
+      ? itemsPrice * SHIPPING_PRICE_AS_PERCENT_FROM_ITEMS_PRICE
+      : 0;
+  const taxPrice = (itemsPrice + shippingPrice) * TAX_RATE;
+  const cartItemsCount = cartItems.reduce((acc, item) => acc + item.qty, 0);
 
-  const { user } = useSelector((state) => state.userDetails);
+  const { user } = useTypedSelector((state) => state.userDetails);
 
-  const { order, success, error } = useSelector((state) => state.orderCreate);
+  const { order, success, error } = useTypedSelector((state) => state.orderCreate);
 
   useEffect(() => {
     if (success) {
-      history.push(`/order/${order.orderId}`);
+      history.push(`/order/${order?.orderId}`);
     }
     // eslint-disable-next-line
   }, [history, success]);
@@ -55,19 +60,24 @@ const PlaceOrderScreen = ({ history }) => {
       createOrder({
         orderItems: cartItems,
         shippingAddress,
+        shippingAddress2,
+        shippingCity,
+        shippingState,
+        shippingZip,
+        shippingCountry,
         paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice: itemsPrice + shippingPrice + taxPrice
       })
     );
     dispatch({ type: ORDER_CREATE_RESET });
     dispatch({ type: CART_REMOVE_ALL_ITEMS });
   };
 
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+  const removeFromCartHandler = (productId: number) => {
+    dispatch(removeFromCart(productId));
   };
 
   return (
@@ -82,13 +92,9 @@ const PlaceOrderScreen = ({ history }) => {
               <h3>Shipping Address:</h3>
               <ul>
                 <li>{`${user?.fullName}`}</li>
-                <address>
-                  {`${shippingAddress?.address} ${shippingAddress?.address2}`.toUpperCase()}
-                </address>
-                <address>
-                  {`${shippingAddress?.city},${shippingAddress?.state} ${shippingAddress?.zip}`.toUpperCase()}
-                </address>
-                <address>{`${shippingAddress?.country}`.toUpperCase()}</address>
+                <address>{`${shippingAddress} ${shippingAddress2}`.toUpperCase()}</address>
+                <address>{`${shippingCity},${shippingState} ${shippingZip}`.toUpperCase()}</address>
+                <address>{`${shippingCountry}`.toUpperCase()}</address>
                 <li>{`Phone: ${user?.phone}`}</li>
                 <li>{`Email: ${user?.email}`}</li>
               </ul>
@@ -103,37 +109,33 @@ const PlaceOrderScreen = ({ history }) => {
               <h2>Order summary:</h2>
               <table>
                 <tr>
-                  <td>{`Items (${cartItems.reduce((acc, item) => acc + item.qty, 0)}):`}</td>
+                  <td>{`Items (${cartItemsCount}):`}</td>
                   <td>
-                    <Price price={cart.itemsPrice} size="small" color="black" />
+                    <Price price={itemsPrice} size="small" color="black" />
                   </td>
                 </tr>
                 <tr>
                   <td>Shipping & handling:</td>
                   <td>
-                    <Price price={cart.shippingPrice} size="small" color="black" />
+                    <Price price={shippingPrice} size="small" color="black" />
                   </td>
                 </tr>
                 <tr>
                   <td>Total before tax:</td>
                   <td>
-                    <Price
-                      price={cart.itemsPrice + cart.shippingPrice}
-                      size="small"
-                      color="black"
-                    />
+                    <Price price={itemsPrice + shippingPrice} size="small" color="black" />
                   </td>
                 </tr>
                 <tr>
                   <td>Estimated tax:</td>
                   <td>
-                    <Price price={cart.taxPrice} size="small" color="black" />
+                    <Price price={taxPrice} size="small" color="black" />
                   </td>
                 </tr>
                 <tr>
                   <td>Order total:</td>
                   <td>
-                    <Price price={cart.totalPrice} />
+                    <Price price={itemsPrice + shippingPrice + taxPrice} />
                   </td>
                 </tr>
               </table>
@@ -150,13 +152,13 @@ const PlaceOrderScreen = ({ history }) => {
             {cartItems?.length > 0 ? (
               <ul>
                 {cartItems?.map((item) => (
-                  <li key={item.id}>
+                  <li key={item.productId}>
                     <div className="order_item">
-                      <Link className="image" to={`/products/${item.id}`}>
+                      <Link className="image" to={`/products/${item.productId}`}>
                         <img src={item.image} alt={item.title} />
                       </Link>
                       <div className="content">
-                        <Link className="title" to={`/products/${item.id}`}>
+                        <Link className="title" to={`/products/${item.productId}`}>
                           {item.title}
                         </Link>
                         <div className="rating_review">
@@ -186,9 +188,8 @@ const PlaceOrderScreen = ({ history }) => {
                               ))}
                           </select>
                           <Button
-                            className="delete_btn"
-                            onClick={() => removeFromCartHandler(item.id)}
-                            classes="text"
+                            onClick={() => removeFromCartHandler(item.productId)}
+                            classes="delete_btn text"
                           >
                             Delete
                           </Button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import './styles/CartScreen.css';
 import { addToCart, removeFromCart, updateCartItemQty } from '../state/actions/cartActions';
@@ -15,20 +15,25 @@ import Button from '../components/Button';
 import Carousel from '../components/Carousel';
 import WishList from '../components/WishList';
 import WishListBtn from '../components/WishListBtn';
+import useTypedSelector from '../hooks/useTypedSelector';
 
-const CartScreen = ({ match, location, history }) => {
+const CartScreen: React.FC<RouteComponentProps<{ productId: string }>> = ({
+  match,
+  location,
+  history
+}) => {
   const dispatch = useDispatch();
 
-  const productId = match.params.productId;
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
+  const { productId } = match.params;
+  const qty = location.search ? +location.search.split('=')[1] : 1;
 
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useTypedSelector((state) => state.cart);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
-  const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
+  const { browsingHistory } = useTypedSelector((state) => state.browsingHistoryList);
 
-  const removeFromCartHandler = (productId) => {
+  const removeFromCartHandler = (productId: number) => {
     dispatch(removeFromCart(productId));
   };
 
@@ -38,9 +43,9 @@ const CartScreen = ({ match, location, history }) => {
 
   const {
     portalRefsMap: { toast_cart: toastCartRef }
-  } = useSelector((state) => state.portalRefs);
+  } = useTypedSelector((state) => state.portalRefs);
 
-  const addToCartHandler = (productId, title, image, price) => {
+  const addToCartHandler = (productId: number, title: string, image: string, price: number) => {
     dispatch(addToCart(productId, 1));
     toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
@@ -74,7 +79,7 @@ const CartScreen = ({ match, location, history }) => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(+productId, qty));
     }
   }, [dispatch, cartItems, productId, qty]);
 
@@ -129,9 +134,8 @@ const CartScreen = ({ match, location, history }) => {
                             ))}
                         </select>
                         <Button
-                          className="delete_btn"
                           onClick={() => removeFromCartHandler(item.productId)}
-                          classes="text"
+                          classes=" delete_btn text"
                         >
                           Delete
                         </Button>

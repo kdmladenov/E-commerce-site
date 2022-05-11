@@ -7,8 +7,14 @@ import ProductDetailsEdit from '../components/ProductDetailsEdit';
 import ProductFeaturesEdit from '../components/ProductFeaturesEdit';
 import ProductImagesEdit from '../components/ProductImagesEdit';
 import ProductSpecificationsEdit from '../components/ProductSpecificationsEdit';
+import { RouteComponentProps } from 'react-router-dom';
 
-const ProductEditScreen = ({ match }) => {
+const ProductEditScreen: React.FC<
+  RouteComponentProps<{
+    productId: string;
+    section: string;
+  }>
+> = ({ match }) => {
   const { productId, section } = match.params;
 
   const [activeTab, setActiveTab] = useState(section);
@@ -18,13 +24,13 @@ const ProductEditScreen = ({ match }) => {
   return (
     <main className="product_edit_screen">
       <div className="product_edit_container">
-        <ButtonNav activeTab={activeTab} screen="product_edit" productId={productId} />
+        <ButtonNav activeTab={activeTab} screen="product_edit" productId={+productId} />
         <section
           className={`product_details_edit_container content ${
             activeTab === 'details' && 'active'
           }`}
         >
-          <ProductDetailsEdit productId={productId} />
+          <ProductDetailsEdit productId={+productId} />
         </section>
         {productId && (
           <section
@@ -50,7 +56,7 @@ const ProductEditScreen = ({ match }) => {
               activeTab === 'features' && 'active'
             }`}
           >
-            <ProductFeaturesEdit productId={productId} />
+            <ProductFeaturesEdit productId={+productId} />
           </section>
         )}
       </div>

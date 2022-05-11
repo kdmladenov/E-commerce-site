@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
-
 
 import './styles/OrderScreen.css';
 import { deliverOrder, getOrderDetails, payOrder } from '../state/actions/orderActions';
@@ -25,40 +24,42 @@ import Rating from '../components/Rating';
 import Price from '../components/Price';
 import Divider from '../components/Divider';
 import Tooltip from '../components/Tooltip';
+import useTypedSelector from '../hooks/useTypedSelector';
+import PaymentResultType from '../models/PaymentResultType';
 
-const OrderScreen = ({ match, history }) => {
+const OrderScreen: React.FC<RouteComponentProps<{ orderId: string }>> = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false);
 
   const dispatch = useDispatch();
 
-  const orderId = match.params.orderId;
+  const { orderId } = match.params;
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
-  const { user } = useSelector((state) => state.userDetails);
+  const { user } = useTypedSelector((state) => state.userDetails);
 
-  const { order, loading, error } = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = useTypedSelector((state) => state.orderDetails);
 
-  const { loading: loadingPay, success: successPay } = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = useTypedSelector((state) => state.orderPay);
 
-  const { loading: loadingDeliver, success: successDeliver } = useSelector(
+  const { loading: loadingDeliver, success: successDeliver } = useTypedSelector(
     (state) => state.orderDeliver
   );
 
-  const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(orderId, paymentResult));
+  const successPaymentHandler = (paymentResult: PaymentResultType) => {
+    dispatch(payOrder(+orderId, paymentResult));
   };
 
   const deliverHandler = () => {
-    dispatch(deliverOrder(order));
+    dispatch(deliverOrder(order!));
   };
 
-  const portalRefs = useSelector((state) => state.portalRefs);
+  const portalRefs = useTypedSelector((state) => state.portalRefs);
   const {
     portalRefsMap: { toast_cart: toastCartRef }
   } = portalRefs;
 
-  const addToCartHandler = (productId, title, image, price) => {
+  const addToCartHandler = (productId: number, title: string, image: string, price: number) => {
     dispatch(addToCart(productId, 1));
     toastCartRef.current.createToast({ title, image, price, qty: 1 });
   };
@@ -74,7 +75,7 @@ const OrderScreen = ({ match, history }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
+    dispatch(getOrderDetails(+orderId));
   }, [dispatch, orderId]);
 
   useEffect(() => {
@@ -94,13 +95,9 @@ const OrderScreen = ({ match, history }) => {
       // if there is no order or it is paid
       dispatch({ type: ORDER_PAY_RESET }); // prevents infinite loop
       dispatch({ type: ORDER_DELIVER_RESET }); // prevents infinite loop
-      dispatch(getOrderDetails(orderId));
+      dispatch(getOrderDetails(+orderId));
     } else if (!order.isPaid) {
-      if (!window.paypal) {
-        addPaypalScript();
-      } else {
-        setSdkReady(true);
-      }
+      !window.paypal ? addPaypalScript() : setSdkReady(true);
     }
   }, [dispatch, orderId, order, successPay, successDeliver]);
 
@@ -118,7 +115,7 @@ const OrderScreen = ({ match, history }) => {
           <div className="order_header">
             <h1>Order Details</h1>
             <p className="subtitles flex">
-              <span>{`Ordered on ${getDate(order?.orderDate)}`}</span>
+              <span>{`Ordered on ${getDate(order.orderDate)}`}</span>
               <Divider vertical />
               <span>{`Order# ${orderId}`}</span>
             </p>
@@ -151,7 +148,7 @@ const OrderScreen = ({ match, history }) => {
               <h3>Order total:</h3>
               <table>
                 <tr>
-                  <td>{`Items (${order?.orderItemsCreated.reduce(
+                  <td>{`Items (${order?.orderItems.reduce(
                     (acc, item) => acc + item.qty,
                     0
                   )}):`}</td>
@@ -169,7 +166,7 @@ const OrderScreen = ({ match, history }) => {
                   <td>Total before tax:</td>
                   <td>
                     <Price
-                      price={order?.itemsPrice + order?.shippingPrice}
+                      price={order?.itemsPrice + order?.shippingPrice!}
                       size="small"
                       color="black"
                     />
@@ -209,17 +206,17 @@ const OrderScreen = ({ match, history }) => {
               </Tooltip>
             )}
           </div>
-          {order.isPaid === 1 && (
+          {order?.isPaid === 1 && (
             <div className="delivery">
               <Divider>
                 <h2>Delivery</h2>
               </Divider>
-              {userInfo?.role === 'admin' && !order.isDelivered ? (
+              {userInfo?.role === 'admin' && !order?.isDelivered ? (
                 <Button onClick={deliverHandler} classes="large">
                   Mark as Delivered
                 </Button>
               ) : (
-                <Tooltip direction="top" text={`Delivered ${getDate(order?.deliveryDate)}`}>
+                <Tooltip direction="top" text={`Delivered ${getDate(order.deliveryDate)}`}>
                   Delivered <i className="fa fa-check" />
                 </Tooltip>
               )}
@@ -229,14 +226,14 @@ const OrderScreen = ({ match, history }) => {
         <section className="order_items card">
           <h1>Order Items</h1>
           <ul>
-            {order?.orderItemsCreated?.map((item) => (
-              <li key={item.id}>
+            {order?.orderItems?.map((item) => (
+              <li key={item.productId}>
                 <div className="order_item">
-                  <Link className="image" to={`/products/${item.id}`}>
+                  <Link className="image" to={`/products/${item.productId}`}>
                     <img src={item.image} alt={item?.title} />
                   </Link>
                   <div className="content">
-                    <Link className="title" to={`/products/${item.id}`}>
+                    <Link className="title" to={`/products/${item.productId}`}>
                       {item.title}
                     </Link>
                     <div className="rating_review">

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './styles/HomeScreen.css';
 import { listWishedItems } from '../state/actions/wishListActions';
@@ -13,19 +13,20 @@ import History from '../components/History';
 import ProductTile from '../components/ProductTile';
 import Rating from '../components/Rating';
 import Price from '../components/Price';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.productList);
+  const { products } = useTypedSelector((state) => state.productList);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
-  const { browsingHistory } = useSelector((state) => state.browsingHistoryList);
+  const { browsingHistory } = useTypedSelector((state) => state.browsingHistoryList);
 
-  const { wishList } = useSelector((state) => state.wishListItems);
+  const { wishList } = useTypedSelector((state) => state.wishListItems);
 
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useTypedSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(listProducts(`pageSize=${localStorage.getItem('totalProductCount') || 30}`));
@@ -103,7 +104,7 @@ const HomeScreen = () => {
             )}
           </div>
           <div className="tile_4">
-            {userInfo?.token && products && wishList?.length > 0 ? (
+            {userInfo?.token && wishList && wishList.length > 0 ? (
               <ProductTile
                 header="Your wish list"
                 products={wishList?.slice(0, wishList?.length >= 4 ? 4 : 1)}
@@ -126,7 +127,6 @@ const HomeScreen = () => {
             <ProductTile
               header="Deal of the day"
               products={products.sort((a, b) => b.discount - a.discount).slice(0, 1)}
-              itemSubtitleLine1="Today only: up to 30% off"
               itemSubtitleLine2="price"
             />
           </div>
@@ -210,7 +210,7 @@ const HomeScreen = () => {
           </div>
           <div className="tile_12">
             <ProductTile
-              products={[products.find((product) => product.brand === 'Apple')]}
+              products={[products.find((product) => product.brand === 'Apple')!]}
               itemSubtitleLine1="title"
               header="Mac OS laptops"
               footer="View all Mac OS laptops"

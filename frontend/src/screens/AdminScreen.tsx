@@ -6,9 +6,14 @@ import ButtonNav from '../components/ButtonNav';
 import OrderListAdmin from '../components/OrderListAdmin';
 import ProductListAdmin from '../components/ProductListAdmin';
 import UserListAdmin from '../components/UserListAdmin';
+import { RouteComponentProps } from 'react-router-dom';
 
-const AdminScreen = ({ match }) => {
-  const section = match.params.section;
+const AdminScreen: React.FC<
+  RouteComponentProps<{
+    section: string;
+  }>
+> = ({ match }) => {
+  const { section } = match.params;
   const [activeTab, setActiveTab] = useState(section);
 
   useEffect(() => setActiveTab(section), [section]);

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import './styles/LoginScreen.css';
 import { login } from '../state/actions/userActions';
@@ -10,9 +9,10 @@ import userLoginInitialInputState from '../inputs/userLoginInitialInputState';
 import FormComponent from '../components/FormComponent';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import useTypedSelector from '../hooks/useTypedSelector';
 
-const LoginScreen = ({ location, history }) => {
-  const userLogin = useSelector((state) => state.userLogin);
+const LoginScreen: React.FC<RouteComponentProps> = ({ location, history }) => {
+  const userLogin = useTypedSelector((state) => state.userLogin);
   const { userInfo, loading, error } = userLogin;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';

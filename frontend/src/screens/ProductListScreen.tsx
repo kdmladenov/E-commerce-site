@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 import { listProducts } from '../state/actions/productActions';
 import defaultEndpoint from '../inputs/defaultEndpoint';
@@ -7,13 +6,19 @@ import { productListPageSizeOptionsMap } from '../inputs/pageSizeOptionsMap';
 import { productListSortOptionsMap } from '../inputs/sortDropdownOptionsMaps';
 
 import ListScreenComponent from '../components/ListScreenComponent';
+import useTypedSelector from '../hooks/useTypedSelector';
+import { RouteComponentProps } from 'react-router-dom';
 
-const ProductListScreen = ({ match }) => {
-  const searchTerm = match?.params?.searchTerm || '';
+const ProductListScreen: React.FC<
+  RouteComponentProps<{
+    searchTerm: string;
+  }>
+> = ({ match }) => {
+  const { searchTerm } = match?.params || '';
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['productListScreen']);
 
-  const { loading, products, error } = useSelector((state) => state.productList);
+  const { loading, products, error } = useTypedSelector((state) => state.productList);
 
   useEffect(() => {
     setEndpoint({
@@ -30,7 +35,7 @@ const ProductListScreen = ({ match }) => {
       loading={loading}
       resource={products}
       error={error}
-      localStorageId={'allProductsList'}
+      // localStorageId="allProductsList"
       defaultEndpoint={defaultEndpoint['productListScreen']}
       resourceName={'products'}
       pageSizeOptionsMap={productListPageSizeOptionsMap}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './styles/ProductScreen.css';
 import { listProductDetails, listProductImages } from '../state/actions/productActions';
@@ -17,16 +17,22 @@ import Carousel from '../components/Carousel';
 import History from '../components/History';
 import Divider from '../components/Divider';
 import ProductDetails from '../components/ProductDetails';
+import useTypedSelector from '../hooks/useTypedSelector';
+import { RouteComponentProps } from 'react-router-dom';
 
-const ProductScreen = ({ match }) => {
-  const productId = match.params.productId;
+const ProductScreen: React.FC<
+  RouteComponentProps<{
+    productId: string;
+  }>
+> = ({ match }) => {
+  const { productId } = match.params;
   const dispatch = useDispatch();
 
   const [questionsCount, setQuestionsCount] = useState(0);
 
-  const { product, loading, error } = useSelector((state) => state.productDetails);
+  const { product, loading, error } = useTypedSelector((state) => state.productDetails);
 
-  const { userInfo: currentUser } = useSelector((state) => state.userLogin);
+  const { userInfo: currentUser } = useTypedSelector((state) => state.userLogin);
 
   const reviewsRef = useRef(null);
   const comparisonRef = useRef(null);
@@ -35,9 +41,9 @@ const ProductScreen = ({ match }) => {
   const specsRef = useRef(null);
 
   useEffect(() => {
-    dispatch(listProductDetails(productId));
-    dispatch(listProductImages(productId));
-    dispatch(addBrowsingHistoryRecord(productId));
+    dispatch(listProductDetails(+productId));
+    dispatch(listProductImages(+productId));
+    dispatch(addBrowsingHistoryRecord(+productId));
   }, [dispatch, match, productId]);
 
   return (
@@ -64,7 +70,7 @@ const ProductScreen = ({ match }) => {
         <Divider>
           <h2>Product Features</h2>
         </Divider>
-        <ProductFeatures productId={productId} />
+        <ProductFeatures productId={+productId} />
       </section>
 
       <section className="product_specifications" ref={specsRef}>
@@ -92,7 +98,7 @@ const ProductScreen = ({ match }) => {
         <Divider>
           <h2>Customer Reviews</h2>
         </Divider>
-        <Reviews productId={productId} />
+        <Reviews productId={+productId} />
       </section>
 
       <section className="questions_and_answers_container" ref={questionsAndAnswersRef}>
@@ -100,8 +106,7 @@ const ProductScreen = ({ match }) => {
           <h2>Questions & Answers</h2>
         </Divider>
         <QuestionsAndAnswers
-          currentUser={currentUser}
-          productId={productId}
+          productId={+productId}
           setQuestionsCount={setQuestionsCount}
           isScreen={false}
         />
@@ -113,7 +118,7 @@ const ProductScreen = ({ match }) => {
             <h2>Your Browsing History</h2>
           </Divider>
 
-          <Carousel isPageVisible={true}>
+          <Carousel>
             <History horizontal={true} />
           </Carousel>
         </section>

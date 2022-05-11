@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './styles/ShippingScreen.css';
 import { getUserDetails, updateUserProfile } from '../state/actions/userActions';
@@ -9,13 +9,14 @@ import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
 
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
 import FormComponent from '../components/FormComponent';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 const ShippingScreen = () => {
   const dispatch = useDispatch();
 
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
 
-  const { user } = useSelector((state) => state.userDetails);
+  const { user } = useTypedSelector((state) => state.userDetails);
 
   useEffect(() => {
     if (!user?.email) {

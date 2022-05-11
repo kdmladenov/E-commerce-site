@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './styles/PaymentScreen.css';
 import { savePaymentMethod } from '../state/actions/cartActions';
@@ -7,9 +7,11 @@ import checkoutBreadcrumbsSteps from '../inputs/checkoutBreadcrumbsSteps';
 
 import Button from '../components/Button';
 import BreadcrumbsSteps from '../components/BreadcrumbsSteps';
+import useTypedSelector from '../hooks/useTypedSelector';
+import { RouteComponentProps } from 'react-router-dom';
 
-const PaymentScreen = ({ history }) => {
-  const cart = useSelector((state) => state.cart);
+const PaymentScreen: React.FC<RouteComponentProps> = ({ history }) => {
+  const cart = useTypedSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
   if (!shippingAddress) {
@@ -19,9 +21,9 @@ const PaymentScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(savePaymentMethod({ paymentMethod }));
+    dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeorder');
   };
 
