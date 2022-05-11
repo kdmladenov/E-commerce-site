@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { addToPortalRefs } from './state/actions/portalActions';
@@ -28,19 +28,18 @@ import BrandStoreScreen from './screens/BrandStoreScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import ForgottenPasswordScreen from './screens/ForgottenPasswordScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import { ToastRefType } from './models/ToastType';
 
-const App = () => {
+const App: React.FC = () => {
   const dispatch = useDispatch();
-  const toastRef = useRef();
-  const toastCartRef = useRef();
+  const toastCartRef = useRef<ToastRefType>(null);
 
   useEffect(() => {
-    dispatch(addToPortalRefs({ toast: toastRef }));
     dispatch(addToPortalRefs({ toast_cart: toastCartRef }));
-  }, [dispatch, toastRef, toastCartRef]);
+  }, [dispatch, toastCartRef]);
 
   return (
-    <Router>
+    <BrowserRouter>
       <Header />
       <Route path="/cart/:productId?" component={CartScreen} />
       <Route path="/shipping" component={ShippingScreen} />
@@ -65,9 +64,8 @@ const App = () => {
       <Route path="/store/:brand" component={BrandStoreScreen} />
       <Route exact path="/" component={HomeScreen} />
       {/* <Footer /> */}
-      <Toast ref={toastRef} />
       <Toast ref={toastCartRef} idDiv="toast_cart" />
-    </Router>
+    </BrowserRouter>
   );
 };
 
