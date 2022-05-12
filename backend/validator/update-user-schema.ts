@@ -51,9 +51,11 @@ export default {
     (typeof value === 'string' &&
       value.length >= user.MIN_STATE_LENGTH &&
       value.length <= user.MAX_STATE_LENGTH),
-  zip: (value: number) =>
+  zip: (value: string) =>
     !value ||
-    (typeof +value === 'number' && value >= user.MIN_ZIP_VALUE && value <= user.MAX_ZIP_VALUE),
+    (typeof value === 'string' &&
+      value.length >= user.MIN_ZIP_LENGTH &&
+      value.length <= user.MAX_ZIP_LENGTH),
   country: (value: string) =>
     !value ||
     (typeof value === 'string' &&

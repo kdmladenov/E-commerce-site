@@ -55,11 +55,11 @@ const createUser = (usersData: UserData) => async (user: User) => {
     };
   }
 
-  const password = await bcrypt.hash(user.password, 10);
+  const hashedPassword = await bcrypt.hash(user.password, 10);
 
   return {
     error: null,
-    result: await usersData.create({ ...user, password })
+    result: await usersData.create({ ...user, password: hashedPassword })
   };
 };
 

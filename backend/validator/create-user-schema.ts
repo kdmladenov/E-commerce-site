@@ -25,31 +25,39 @@ export default {
     typeof value === 'string' &&
     value.length >= user.MIN_FULL_NAME_LENGTH &&
     value.length <= user.MAX_FULL_NAME_LENGTH,
+    // TODO - REGEX for space between names
   phone: (value: string) => !value || (typeof value === 'string' && user.PHONE_REGEX.test(value)),
   avatar: (value: string) => !value || typeof value === 'string',
   address: (value: string) =>
-    typeof value === 'string' &&
-    value.length >= user.MIN_ADDRESS_LENGTH &&
-    value.length <= user.MAX_ADDRESS_LENGTH,
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= user.MIN_ADDRESS_LENGTH &&
+      value.length <= user.MAX_ADDRESS_LENGTH),
   address2: (value: string) =>
     !value ||
     (typeof value === 'string' &&
       value.length >= user.MIN_ADDRESS_LENGTH &&
       value.length <= user.MAX_ADDRESS_LENGTH),
   city: (value: string) =>
-    typeof value === 'string' &&
-    value.length >= user.MIN_CITY_LENGTH &&
-    value.length <= user.MAX_CITY_LENGTH,
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= user.MIN_CITY_LENGTH &&
+      value.length <= user.MAX_CITY_LENGTH),
   state: (value: string) =>
-    typeof value === 'string' &&
-    value.length >= user.MIN_STATE_LENGTH &&
-    value.length <= user.MAX_STATE_LENGTH,
-  zip: (value: number) =>
-    typeof +value === 'number' && value >= user.MIN_ZIP_VALUE && value <= user.MAX_ZIP_VALUE,
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= user.MIN_STATE_LENGTH &&
+      value.length <= user.MAX_STATE_LENGTH),
+  zip: (value: string) =>
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= user.MIN_ZIP_LENGTH &&
+      value.length <= user.MAX_ZIP_LENGTH),
   country: (value: string) =>
-    typeof value === 'string' &&
-    value.length >= user.MIN_COUNTRY_LENGTH &&
-    value.length <= user.MAX_COUNTRY_LENGTH,
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= user.MIN_COUNTRY_LENGTH &&
+      value.length <= user.MAX_COUNTRY_LENGTH),
   role: (value: string) => !value || Object.keys(rolesEnum).includes(value),
   isDeleted: (value: boolean) => !value || typeof value === 'boolean'
 };

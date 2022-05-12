@@ -11,7 +11,7 @@ export default {
     address: `Expected string`,
     address2: `Expected string`,
     city: `Expected string`,
-    zip: `Expected a number in the range [${USER.MIN_ZIP_VALUE}-${USER.MAX_ZIP_VALUE}]`,
+    zip: `Expected a string in the range [${USER.MIN_ZIP_LENGTH}-${USER.MAX_ZIP_LENGTH}]`,
     state: `Expected string`,
     country: `Expected string`,
     role: `Expected "admin" or "basic" string`,

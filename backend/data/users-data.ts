@@ -110,12 +110,12 @@ const create = async (user: User) => {
     user.fullName,
     user?.avatar || null,
     user?.phone || null,
-    user.address,
+    user?.address || null,
     user?.address2 || null,
-    user.city,
-    +user.zip,
-    user.state,
-    user.country,
+    user?.city || null,
+    user?.zip || null,
+    user?.state || null,
+    user?.country || null,
     user?.role || rolesEnum.basic
   ]);
 
@@ -147,7 +147,7 @@ const updateData = async (user: User) => {
     user.address,
     user.address2,
     user.city,
-    +user.zip,
+    user.zip,
     user.state,
     user.country,
     user.role,

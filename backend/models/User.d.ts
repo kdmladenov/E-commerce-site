@@ -10,7 +10,7 @@ export interface User {
   address2: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
   country: string;
   role: RolesType;
   isDeleted: number;
