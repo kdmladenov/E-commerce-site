@@ -148,7 +148,7 @@ const OrderScreen: React.FC<RouteComponentProps<{ orderId: string }>> = ({ match
               <h3>Order total:</h3>
               <table>
                 <tr>
-                  <td>{`Items (${order?.orderItems.reduce(
+                  <td>{`Items (${order?.orderItems?.reduce(
                     (acc, item) => acc + item.qty,
                     0
                   )}):`}</td>

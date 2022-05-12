@@ -9,7 +9,7 @@ import AvatarProps from '../models/components/AvatarProps';
 
 const Avatar: React.FC<AvatarProps> = ({ classes, imageUrl, fullName }) => {
   const firstName = fullName?.split(' ')[0];
-  const firstInitials = `${fullName?.split(' ')[0][0]}${fullName?.split(' ')[1][0]}`;
+  const firstInitials = `${fullName?.split(' ')?.[0]?.[0]}${fullName?.split(' ')?.[1]?.[0] || ''}`;
 
   const backgroundColors = ['peeps', 'watermelon', 'mimosa', 'kiwi', 'hendrix', 'thanos'];
 

@@ -22,7 +22,7 @@ const HeaderControls: React.FC<HeaderControlsProps> = ({
 }) => {
   return (
     <nav className={`header_controls ${isGrayBackground ? 'gray' : ''}`}>
-      {breadcrumbsPaths?.length && (
+      {!!breadcrumbsPaths?.length && (
         <div className="breadcrumbs_container">
           <Breadcrumbs paths={breadcrumbsPaths} />
         </div>

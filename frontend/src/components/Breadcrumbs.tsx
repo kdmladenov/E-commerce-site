@@ -5,12 +5,12 @@ import BreadcrumbsProps from '../models/components/BreadcrumbsProps';
 import './styles/Breadcrumbs.css';
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ paths }) => {
-  return paths.length >= 1 ? (
+  return (
     <div className="breadcrumbs">
       <ul>
         <li>
           <Link to={`/`}>
-            <i className="fa fa-homxe" />
+            <i className="fa fa-home" />
           </Link>
         </li>
         {paths.map((item, index) => (
@@ -25,8 +25,6 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ paths }) => {
         ))}
       </ul>
     </div>
-  ) : (
-    <></>
   );
 };
 

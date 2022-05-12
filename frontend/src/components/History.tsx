@@ -20,7 +20,7 @@ import Message from './Message';
 import ProductCard from './ProductCard';
 import Timeline from './Timeline';
 
-const History: React.FC<{ horizontal?: boolean }> = ({ horizontal = true }) => {
+const History: React.FC<{ horizontal?: boolean }> = ({ horizontal = false }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
