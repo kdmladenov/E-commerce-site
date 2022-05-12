@@ -32,7 +32,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   } = useTypedSelector((state) => state.productImagesList);
 
   const [selectedImage, setSelectedImage] = useState(
-    productImages?.filter((img) => img.isMain === 0)[0].image
+    productImages?.filter((img) => img.isMain === 0)[0]?.image
   );
   const [zoomBackgroundSize, setZoomBackgroundSize] = useState();
   const [zoomBackgroundPosition, setZoomBackgroundPosition] = useState();

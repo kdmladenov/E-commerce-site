@@ -18,8 +18,8 @@ const RatingWidget: React.FC<RatingWidgetProps> = ({ product, updateQuery, ratin
   };
 
   const selectedRating = () => {
-    const minRating = +ratingQuery?.split('=')[1][0];
-    const maxRating = +ratingQuery?.split('=')[2][0];
+    const minRating = +ratingQuery?.split('=')?.[1]?.[0];
+    const maxRating = +ratingQuery?.split('=')?.[2]?.[0];
     return minRating === maxRating ? minRating : null;
   };
 
