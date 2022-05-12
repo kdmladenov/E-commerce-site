@@ -1,7 +1,14 @@
 interface OrderDetails {
   orderId: number;
-  orderItems: { title; qty; image; price; productId }[];
-  shippingAddress: { address; address2; city; zip; state; country };
+  orderItems: { title: string; qty: number; image: string; price: number; productId: number }[];
+  shippingAddress: {
+    address: string;
+    address2: string;
+    city: string;
+    zip: string;
+    state: string;
+    country: string;
+  };
   paymentMethod: string;
   itemsPrice: number;
   taxPrice: number;

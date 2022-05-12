@@ -65,14 +65,14 @@ historyController
   // @route DELETE /history/:id
   // @access Private - logged user and only the original creator
   .delete(
-    '/:historyId',
+    '/:productId',
     authMiddleware,
     loggedUserGuard,
     errorHandler(async (req: Request, res: Response) => {
-      const { historyId } = req.params;
-      const userId = req.user.userId;
+      const { productId } = req.params;
+      const { userId } = req.user;
       const { error, historyRecord } = await historyServices.deleteHistoryRecord(historyData)(
-        +historyId,
+        +productId,
         +userId
       );
       if (error === errors.RECORD_NOT_FOUND) {

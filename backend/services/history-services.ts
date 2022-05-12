@@ -35,8 +35,8 @@ const createHistory = (historyData: HistoryData) => async (productId: number, us
 };
 
 const deleteHistoryRecord =
-  (historyData: HistoryData) => async (historyId: number, userId: number) => {
-    const existingRecord = await historyData.getById(historyId);
+  (historyData: HistoryData) => async (productId: number, userId: number) => {
+    const existingRecord = await historyData.getBy('product_id', +productId, +userId);
 
     if (!existingRecord) {
       return {
@@ -53,7 +53,7 @@ const deleteHistoryRecord =
       };
     }
 
-    await historyData.remove(historyId);
+    await historyData.remove(+existingRecord.historyId);
 
     return {
       error: null,

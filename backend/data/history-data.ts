@@ -118,6 +118,7 @@ const getAllHistory = async (
 };
 
 const getBy = async (column: string, value: string | number, userId: number) => {
+  
   const sql = `
     SELECT 
       browsing_history_id as historyId,
@@ -128,7 +129,7 @@ const getBy = async (column: string, value: string | number, userId: number) => 
     WHERE ${column} = ? AND user_id = ? AND is_deleted = 0
   `;
 
-  const result = await db.query(sql, [value, +userId]);
+  const result = await db.query(sql, [+value, +userId]);
   return result[0];
 };
 
