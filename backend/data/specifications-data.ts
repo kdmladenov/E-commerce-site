@@ -6,6 +6,8 @@ import RolesType from '../models/RolesType.js';
 const getBy = async (column: string, value: string | number, role: RolesType = 'basic') => {
   const sql = `
     SELECT 
+      product_id as productId,
+      specification_id as specificationId,
       screen_size as screenSize,
       screen_resolution as screenResolution,
       display_type as displayType,
@@ -80,6 +82,8 @@ const create = async (productId: number, data: Specification) => {
 };
 
 const update = async (specificationId: number, updatedSpecification: Specification) => {
+  console.log(updatedSpecification, 'updatedSpecificationb');
+  console.log(+specificationId, 'specificationId');
   const sql = `
         UPDATE specifications
         SET
@@ -103,16 +107,16 @@ const update = async (specificationId: number, updatedSpecification: Specificati
         WHERE specification_id = ?
     `;
 
-  const _ = await db.query(sql, [
-    updatedSpecification.screenSize,
+  await db.query(sql, [
+    +updatedSpecification.screenSize,
     updatedSpecification.screenResolution,
     updatedSpecification.displayType,
-    updatedSpecification.touchScreen,
+    +updatedSpecification.touchScreen,
     updatedSpecification.processorBrand,
     updatedSpecification.processorModel,
     updatedSpecification.processorModelNumber,
     updatedSpecification.storageType,
-    updatedSpecification.storageCapacity,
+    +updatedSpecification.storageCapacity,
     +updatedSpecification.systemMemory,
     updatedSpecification.graphicsType,
     updatedSpecification.graphicsBrand,
@@ -120,7 +124,7 @@ const update = async (specificationId: number, updatedSpecification: Specificati
     updatedSpecification.operatingSystem,
     updatedSpecification.voiceAssistant,
     updatedSpecification.batteryType,
-    updatedSpecification.backlitKeyboard,
+    +updatedSpecification.backlitKeyboard,
     +specificationId
   ]);
 

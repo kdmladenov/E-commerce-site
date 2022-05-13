@@ -216,7 +216,7 @@ const createProductSpecification =
 
     if (existingSpecification) {
       const updated = { ...existingSpecification, ...updatedData };
-      const productSpecification = await specificationsData.update(+productId, updated);
+      const productSpecification = await specificationsData.update(+existingSpecification.specificationId, updated);
 
       return {
         error: null,
@@ -241,12 +241,12 @@ const updateProductSpecification =
     if (!existingSpecification) {
       return {
         error: errors.RECORD_NOT_FOUND,
-        product: null
+        productSpecification: null
       };
     }
 
     const updated = { ...existingSpecification, ...updatedData };
-    const productSpecification = await specificationsData.update(specificationId, updated);
+    const productSpecification = await specificationsData.update(+specificationId, updated);
 
     return {
       error: null,

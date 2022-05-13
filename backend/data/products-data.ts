@@ -270,7 +270,7 @@ const update = async (updatedProduct: Product) => {
         WHERE product_id = ?
     `;
 
-  const _ = await db.query(sql, [
+  await db.query(sql, [
     updatedProduct.title || null,
     updatedProduct.brand || null,
     updatedProduct.description || null,
