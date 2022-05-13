@@ -22,7 +22,7 @@ const Item: TimelineItemType = ({ historyRecord, deleteHistoryItem, children }) 
       <div className="timeline_item_content">
         {children}
         {removeMode ? (
-          <span className="remove_btn" onClick={() => deleteHistoryItem(historyRecord.historyId)}>
+          <span className="remove_btn" onClick={() => deleteHistoryItem(historyRecord.productId)}>
             <Tooltip text="Remove">
               <i className="fa fa-times" />
             </Tooltip>

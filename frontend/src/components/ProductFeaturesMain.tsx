@@ -32,7 +32,7 @@ const ProductFeaturesMain: React.FC<{ featuresRef: RefObject<HTMLElement> }> = (
       </Button>
     </>
   ) : (
-    <></>
+    <span>There are no product features yet</span>
   );
 };
 

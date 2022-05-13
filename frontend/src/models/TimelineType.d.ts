@@ -1,4 +1,5 @@
 import React from 'react';
+import HistoryType from './HistoryType';
 
 export type TimelineItemType = React.FC<{
   historyRecord: HistoryType;

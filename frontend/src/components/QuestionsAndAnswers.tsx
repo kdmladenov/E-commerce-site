@@ -82,21 +82,23 @@ const QuestionsAndAnswers: React.FC<QuestionsAndAnswersProps> = ({
 
   return (
     <div className="questions_and_answers">
-      <HeaderControls
-        updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-        query={endpoint}
-        resource="questions and answers"
-        sortOptionsMap={questionsSortOptionsMap}
-        pageSizeOptionsMap={isScreen ? questionsListPageSizeOptionsMap : []}
-        breadcrumbsPaths={
-          isScreen && product
-            ? [
-                { label: product?.title, path: `/products/${productId}` },
-                { label: 'Q&A', path: '' }
-              ]
-            : []
-        }
-      />
+      {questions?.length > 0 && (
+        <HeaderControls
+          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+          query={endpoint}
+          resource="questions and answers"
+          sortOptionsMap={questionsSortOptionsMap}
+          pageSizeOptionsMap={isScreen ? questionsListPageSizeOptionsMap : undefined}
+          breadcrumbsPaths={
+            isScreen && product
+              ? [
+                  { label: product?.title, path: `/products/${productId}` },
+                  { label: 'Q&A', path: '' }
+                ]
+              : undefined
+          }
+        />
+      )}
       <InputBoxWithAvatar
         resourceId={productId}
         currentUserDetails={currentUserDetails}
@@ -110,61 +112,61 @@ const QuestionsAndAnswers: React.FC<QuestionsAndAnswersProps> = ({
         <Loader />
       ) : error ? (
         <Message type="error">{error}</Message>
-      ) : (
-        questions?.length > 0 && (
-          <div className="questions_list">
-            {questions?.map((question) => {
-              return (
-                <QuestionsAndAnswersCard
-                  key={question.questionId}
-                  {...question}
-                  currentUser={currentUserDetails}
-                  avatar={question.avatar}
-                  answers={question.answers}
-                />
-              );
-            })}
-            <div className="footer">
-              {!isScreen && questions?.length > 0 && (
-                <Button
-                  classes="text"
-                  onClick={() => {
-                    setEndpoint({
-                      ...endpoint,
-                      pageSize: `${
-                        endpoint.pageSize === 'pageSize=3&' ? 'pageSize=8&' : 'pageSize=3&'
-                      }`
-                    });
-                    scrollTo(questionsAndAnswersRef);
-                  }}
-                >
-                  {endpoint.pageSize === 'pageSize=3&' ? (
-                    <>
-                      <i className="fa fa-chevron-down" /> See more questions
-                    </>
-                  ) : (
-                    <>
-                      <i className="fa fa-chevron-up" /> Collapse questions
-                    </>
-                  )}
-                </Button>
-              )}
-              {!isScreen && (
-                <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
-                  See all questions
-                </Button>
-              )}
-              {isScreen && (
-                <Pagination
-                  updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-                  currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
-                  pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
-                  totalItems={questions?.[0]?.totalDBItems}
-                />
-              )}
-            </div>
+      ) : questions?.length > 0 ? (
+        <div className="questions_list">
+          {questions?.map((question) => {
+            return (
+              <QuestionsAndAnswersCard
+                key={question.questionId}
+                {...question}
+                currentUser={currentUserDetails}
+                avatar={question.avatar}
+                answers={question.answers}
+              />
+            );
+          })}
+          <div className="footer">
+            {!isScreen && questions?.length > 0 && (
+              <Button
+                classes="text"
+                onClick={() => {
+                  setEndpoint({
+                    ...endpoint,
+                    pageSize: `${
+                      endpoint.pageSize === 'pageSize=3&' ? 'pageSize=8&' : 'pageSize=3&'
+                    }`
+                  });
+                  scrollTo(questionsAndAnswersRef);
+                }}
+              >
+                {endpoint.pageSize === 'pageSize=3&' ? (
+                  <>
+                    <i className="fa fa-chevron-down" /> See more questions
+                  </>
+                ) : (
+                  <>
+                    <i className="fa fa-chevron-up" /> Collapse questions
+                  </>
+                )}
+              </Button>
+            )}
+            {!isScreen && (
+              <Button classes="text" onClick={() => history.push(`/questions/${productId}`)}>
+                See all questions
+              </Button>
+            )}
+            {isScreen && (
+              <Pagination
+                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
+                pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
+                totalItems={questions?.[0]?.totalDBItems}
+              />
+            )}
           </div>
-        )
+        </div>
+      ) : (
+        <Message type="info">There are no questions asked yet</Message>
       )}
     </div>
   );

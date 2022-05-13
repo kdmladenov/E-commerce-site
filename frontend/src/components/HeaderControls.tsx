@@ -29,7 +29,7 @@ const HeaderControls: React.FC<HeaderControlsProps> = ({
       )}
       <SearchBox updateQuery={updateQuery} resource={resource} />
       <div className="dropdown_group_container">
-        {pageSizeOptionsMap && (
+        {!!pageSizeOptionsMap && (
           <DropdownSelect
             name="pageSize"
             updateQuery={updateQuery}

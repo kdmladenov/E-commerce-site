@@ -13,7 +13,6 @@ import Message from './Message';
 import ComparisonTableProps from '../models/components/ComparisonTableProps';
 import ProductType from '../models/ProductType';
 import useTypedSelector from '../hooks/useTypedSelector';
-import e from 'cors';
 
 const ComparisonTable: React.FC<ComparisonTableProps> = ({
   currentProductId,

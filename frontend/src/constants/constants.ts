@@ -33,7 +33,7 @@ export const ANSWERS_COUNT_AT_START = 1;
 //Rating
 export const RATING_STAR_COUNT = 5;
 
-//Searchbox
+//Search box
 export const THROTTLE_DELAY = 1000;
 export const RESET_BTN_THRESHOLD_SHOW_CHAR_COUNT = 3;
 

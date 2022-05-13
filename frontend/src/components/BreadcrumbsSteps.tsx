@@ -24,15 +24,14 @@ const BreadcrumbsSteps: React.FC<BreadcrumbsStepsProps> = ({ currentStep = 'Cart
               : 'current'
           }`}
         >
-          {step?.path.length && (
-            <Link to={step.path} onClick={(e) => linkHandler(e, index, step.path)}>
-              <div className="label">
-                {index < steps.findIndex((step) => step.label === currentStep)
-                  ? step?.success || step?.label
-                  : step?.label}
-              </div>
-            </Link>
-          )}
+          <Link to={step?.path} onClick={(e) => linkHandler(e, index, step.path)}>
+            <div className="label">
+              {index < steps.findIndex((step) => step.label === currentStep)
+                ? step?.success || step?.label
+                : step?.label}
+            </div>
+          </Link>
+
           <div className="progress">
             <div className="progress-bar"></div>
           </div>

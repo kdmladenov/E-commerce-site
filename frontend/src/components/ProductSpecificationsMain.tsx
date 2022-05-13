@@ -23,7 +23,7 @@ const ProductSpecificationsMain: React.FC<ProductSpecificationsMainProps> = ({
       )
   );
 
-  return (
+  return specificationList.length ? (
     <div>
       <table>
         <tbody>{specificationList}</tbody>
@@ -32,6 +32,8 @@ const ProductSpecificationsMain: React.FC<ProductSpecificationsMainProps> = ({
         See full specifications
       </Button>
     </div>
+  ) : (
+    <span>There are no product specifications yet</span>
   );
 };
 

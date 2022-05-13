@@ -37,7 +37,7 @@ const ProductFeatures: React.FC<{ productId: number }> = ({ productId }) => {
       ))}
     </Accordion>
   ) : (
-    <Message type="success">No features</Message>
+    <Message type="info">There are no product features yet</Message>
   );
 };
 

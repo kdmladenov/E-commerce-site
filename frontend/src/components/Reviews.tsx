@@ -22,7 +22,12 @@ import Pagination from './Pagination';
 import scrollTo from '../helpers/scrollTo';
 import ReviewsProps from '../models/components/ReviewsProps';
 
-const Reviews: React.FC<ReviewsProps> = ({ match, productId: productIdProp, isScreen = false, reviewsRef }) => {
+const Reviews: React.FC<ReviewsProps> = ({
+  match,
+  productId: productIdProp,
+  isScreen = false,
+  reviewsRef
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productId = productIdProp || match.params.productId;
@@ -76,11 +81,13 @@ const Reviews: React.FC<ReviewsProps> = ({ match, productId: productIdProp, isSc
           <Message type="error">{errorProduct}</Message>
         ) : (
           <div className="sidebar_wrapper">
-            <RatingWidget
-              product={product}
-              updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-              ratingQuery={endpoint.rating}
-            />
+            {reviews?.length > 0 && (
+              <RatingWidget
+                product={product}
+                updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+                ratingQuery={endpoint.rating}
+              />
+            )}
             {!hasUserLeftReview && !createMode && (
               <Button classes="white rounded" onClick={() => setCreateMode(true)}>
                 Leave a review
@@ -90,25 +97,27 @@ const Reviews: React.FC<ReviewsProps> = ({ match, productId: productIdProp, isSc
         )}
       </aside>
       <div className="reviews_list">
-        <HeaderControls
-          updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
-          query={endpoint}
-          resource="reviews"
-          sortOptionsMap={reviewsSortOptionsMap}
-          pageSizeOptionsMap={isScreen ? productListPageSizeOptionsMap : []}
-          ratingFilterOptionsMap={ratingFilterOptionsMap}
-          isGrayBackground={isScreen}
-          breadcrumbsPaths={
-            isScreen && product
-              ? [
-                  { label: product?.title, path: `/products/${productId}` },
-                  { label: 'Reviews', path: '' }
-                ]
-              : []
-          }
-        />
+        {reviews?.length > 0 && (
+          <HeaderControls
+            updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
+            query={endpoint}
+            resource="reviews"
+            sortOptionsMap={reviewsSortOptionsMap}
+            pageSizeOptionsMap={isScreen ? productListPageSizeOptionsMap : undefined}
+            ratingFilterOptionsMap={ratingFilterOptionsMap}
+            isGrayBackground={isScreen}
+            breadcrumbsPaths={
+              isScreen && product
+                ? [
+                    { label: product?.title, path: `/products/${productId}` },
+                    { label: 'Reviews', path: '' }
+                  ]
+                : []
+            }
+          />
+        )}
         <div className="create_form">
-          {createMode ? (
+          {createMode && (
             <ReviewCard
               createMode={createMode}
               setCreateMode={setCreateMode}
@@ -118,22 +127,23 @@ const Reviews: React.FC<ReviewsProps> = ({ match, productId: productIdProp, isSc
               userId={user.userId}
               avatar={user.avatar}
             />
-          ) : (
-            <></>
           )}
         </div>
         <ul className="reviews_list_wrapper">
-          {reviews?.length > 0 &&
+          {reviews?.length > 0 ? (
             reviews?.map((review) => {
               return (
                 <li key={review.reviewId}>
                   <ReviewCard {...review} currentUser={user} />
                 </li>
               );
-            })}
+            })
+          ) : (
+            <Message type="info">{`There are no reviews yet.`}</Message>
+          )}
         </ul>
-        <div className="footer">
-          {!isScreen && reviews?.length > 0 && (
+        {reviews?.length > 0 && !isScreen && (
+          <div className="footer">
             <Button
               classes="text"
               onClick={() => {
@@ -156,21 +166,19 @@ const Reviews: React.FC<ReviewsProps> = ({ match, productId: productIdProp, isSc
                 </>
               )}
             </Button>
-          )}
-          {!isScreen && (
+
             <Button classes="text" onClick={() => history.push(`/reviews/${productId}`)}>
               See all reviews
             </Button>
-          )}
-          {isScreen && (
+
             <Pagination
               updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
               currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
               pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
               totalItems={reviews?.[0]?.totalDBItems}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
