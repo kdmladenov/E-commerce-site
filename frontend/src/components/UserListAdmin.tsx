@@ -18,6 +18,8 @@ import HeaderControls from './HeaderControls';
 import Avatar from './Avatar';
 import Tooltip from './Tooltip';
 import { useHistory } from 'react-router-dom';
+import ModalConfirmContent from './ModalConfirmContent';
+import Modal from './Modal';
 
 const UserListAdmin: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,8 @@ const UserListAdmin: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState('profile');
   const [endpoint, setEndpoint] = useState(defaultEndpoint['userListAdmin']);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(<></>);
 
   const { users, loading, error } = useTypedSelector((state) => state.userList);
 
@@ -58,16 +62,29 @@ const UserListAdmin: React.FC = () => {
     endpoint
   ]);
 
-  // // TO DO implement restore user
   const deleteUserHandler = (userId: number) => {
-    // window.confirm('Are your sure you want to delete this user?');
-    dispatch(deleteUser(userId));
+    setIsModalOpen(true);
+    setModalContent(
+      <ModalConfirmContent
+        setIsModalOpen={setIsModalOpen}
+        message="Are your sure you want to delete this user?"
+        resourceId={userId}
+        action={deleteUser}
+      />
+    );
   };
+    const restoreUserHandler = (userId: number) => {
+      setIsModalOpen(true);
+      setModalContent(
+        <ModalConfirmContent
+          setIsModalOpen={setIsModalOpen}
+          message="Are your sure you want to restore this user?"
+          resourceId={userId}
+          action={restoreUser}
+        />
+      );
+    };
 
-  const restoreUserHandler = (userId: number) => {
-    // window.confirm('Are your sure you want to restore this user?');
-    dispatch(restoreUser(userId));
-  };
 
   return (
     <div className="user_list_admin">
@@ -130,7 +147,7 @@ const UserListAdmin: React.FC = () => {
                           onClick={() => setActiveTab('orders')}
                         >
                           <i className="fa fa-list" />
-                          <span>Orders</span>
+                          <span>Orders TODO</span>
                         </Button>
                       </Tooltip>
                       <Tooltip direction="top" text={!user.isDeleted ? 'Delete' : 'Restore'}>
@@ -169,6 +186,11 @@ const UserListAdmin: React.FC = () => {
           totalItems={users?.[0]?.totalDBItems}
         />
       </div>
+      {isModalOpen && (
+        <Modal classes="confirm" setIsOpenModal={setIsModalOpen}>
+          {modalContent}
+        </Modal>
+      )}
     </div>
   );
 };

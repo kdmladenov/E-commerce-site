@@ -21,6 +21,7 @@ import Message from './Message';
 import Button from './Button';
 import Accordion from './Accordion';
 import Pagination from './Pagination';
+import ModalConfirmContent from './ModalConfirmContent';
 
 const ProductListAdmin: React.FC = () => {
   const dispatch = useDispatch();
@@ -58,26 +59,25 @@ const ProductListAdmin: React.FC = () => {
   const deleteProductHandler = (productId: number) => {
     setIsModalOpen(true);
     setModalContent(
-      <div className="confirm">
-        <span className="message">'Are your sure you want to delete this product?'</span>
-        <div className="button_group">
-          <Button
-            onClick={() => {
-              dispatch(deleteProduct(productId));
-              setIsModalOpen(false);
-            }}
-          >
-            Yes
-          </Button>
-          <Button onClick={() => setIsModalOpen(false)}>No</Button>
-        </div>
-      </div>
+      <ModalConfirmContent
+        setIsModalOpen={setIsModalOpen}
+        message="Are your sure you want to delete this product?"
+        resourceId={productId}
+        action={deleteProduct}
+      />
     );
   };
 
   const restoreProductHandler = (productId: number) => {
-    window.confirm('Are your sure you want to restore this product?');
-    dispatch(restoreProduct(productId));
+    setIsModalOpen(true);
+    setModalContent(
+      <ModalConfirmContent
+        setIsModalOpen={setIsModalOpen}
+        message="Are your sure you want to restore this product?"
+        resourceId={productId}
+        action={restoreProduct}
+      />
+    );
   };
 
   const createProductHandler = () => {
@@ -157,9 +157,12 @@ const ProductListAdmin: React.FC = () => {
                   </Accordion.Title>
                   <Accordion.ButtonGroup>
                     <div className="button_group">
-                      <Link to={`/products/${product.productId}`}>
+                      <Link
+                        to={`/products/${product.productId}`}
+                        onClick={(e) => !!product.isDeleted && e.preventDefault()}
+                      >
                         <Tooltip direction="top" text="Details">
-                          <Button classes="white rounded">
+                          <Button classes="white rounded" disabled={!!product.isDeleted}>
                             <i className="fa fa-share" />
                             <span>Details</span>
                           </Button>
