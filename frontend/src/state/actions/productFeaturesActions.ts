@@ -2,7 +2,6 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import { BASE_URL } from '../../constants/constants';
-import FeatureType from '../../models/FeatureType';
 import ProductFeaturesCreateActionType from '../../models/state/actions/ProductFeaturesCreateActionType';
 import ProductFeaturesDeleteActionType from '../../models/state/actions/ProductFeaturesDeleteActionType';
 import ProductFeaturesListActionType from '../../models/state/actions/ProductFeaturesListActionType';

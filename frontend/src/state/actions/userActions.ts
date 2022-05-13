@@ -101,15 +101,18 @@ export const logout =
 
 export const register =
   (
-    email: string,
-    password: string,
-    reenteredPassword: string,
-    fullName: string,
-    address: string,
-    city: string,
-    zip: string,
-    state: string,
-    country: string
+    _: number,
+    registerData: {
+      email: string;
+      password: string;
+      reenteredPassword: string;
+      fullName: string;
+      address: string;
+      city: string;
+      zip: string;
+      state: string;
+      country: string;
+    }
   ) =>
   async (dispatch: Dispatch<UserRegisterActionType | UserLoginActionType>) => {
     try {
@@ -121,24 +124,30 @@ export const register =
         }
       };
 
-      const { data } = await axios.post(
+      const { data: registrationData } = await axios.post(
         `${BASE_URL}/users`,
-        { email, password, reenteredPassword, fullName, address, city, zip, state, country },
+        registerData,
         config
       );
 
       dispatch({
         type: USER_REGISTER_SUCCESS,
-        payload: data
+        payload: registrationData
       });
 
       // Auto login after the registration
+      const { data: loginData } = await axios.post(
+        `${BASE_URL}/auth/login`,
+        { email: registerData.email, password: registerData.password },
+        config
+      );
+
       dispatch({
         type: USER_LOGIN_SUCCESS,
-        payload: data
+        payload: loginData
       });
 
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('userInfo', JSON.stringify(loginData));
     } catch (error) {
       axios.isAxiosError(error) &&
         dispatch({
@@ -186,7 +195,7 @@ export const getUserDetails =
   };
 
 export const updateUserProfile =
-  (user: UserType) =>
+  (userId: number, updatedUserData: UserType) =>
   async (dispatch: Dispatch<UserUpdateProfileActionType>, getState: () => StateType) => {
     try {
       dispatch({
@@ -204,7 +213,7 @@ export const updateUserProfile =
         }
       };
 
-      const { data } = await axios.put(`${BASE_URL}/users/${user.userId}`, user, config);
+      const { data } = await axios.put(`${BASE_URL}/users/${userId}`, updatedUserData, config);
 
       dispatch({
         type: USER_UPDATE_PROFILE_SUCCESS,

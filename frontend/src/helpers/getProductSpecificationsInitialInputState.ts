@@ -5,10 +5,16 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     screenSize: {
       formElement: 'select',
       label: 'Screen size',
-      options: Array.from(new Set(Object.values(database).map((item) => item.screenSize)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.screenSize)
+            .map((item) => +item?.screenSize)
+        )!
+      )
         .sort()
         .map((itemValue) => ({
-          label: `${itemValue.toFixed(1)}"`,
+          label: `${itemValue.toFixed(1)}''`,
           value: `${itemValue}`
         })),
       placeholder: 'Screen size ...',
@@ -22,7 +28,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     screenResolution: {
       formElement: 'select',
       label: 'Screen resolution',
-      options: Array.from(new Set(Object.values(database).map((item) => item.screenResolution)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.screenResolution)
+            .map((item) => item.screenResolution)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -39,7 +51,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     displayType: {
       formElement: 'select',
       label: 'Display type',
-      options: Array.from(new Set(Object.values(database).map((item) => item.displayType)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.displayType)
+            .map((item) => item.displayType)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -56,7 +74,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     processorBrand: {
       formElement: 'select',
       label: 'Processor brand',
-      options: Array.from(new Set(Object.values(database).map((item) => item.processorBrand)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.processorBrand)
+            .map((item) => item.processorBrand)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -73,7 +97,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     processorModel: {
       formElement: 'select',
       label: 'Processor model',
-      options: Array.from(new Set(Object.values(database).map((item) => item.processorModel)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.processorModel)
+            .map((item) => item.processorModel)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -90,7 +120,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     processorModelNumber: {
       formElement: 'select',
       label: 'Processor number',
-      options: Array.from(new Set(Object.values(database).map((item) => item.processorModelNumber)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.processorModelNumber)
+            .map((item) => item.processorModelNumber)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -107,7 +143,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     storageType: {
       formElement: 'select',
       label: 'Storage type',
-      options: Array.from(new Set(Object.values(database).map((item) => item.storageType)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.storageType)
+            .map((item) => item.storageType)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -124,7 +166,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     storageCapacity: {
       formElement: 'select',
       label: 'Storage capacity',
-      options: Array.from(new Set(Object.values(database).map((item) => item.storageCapacity)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.storageCapacity)
+            .map((item) => item.storageCapacity)
+        )
+      )
         .sort((a, b) => a - b)
         .map((itemValue) => ({
           label: `${itemValue} GB`,
@@ -141,7 +189,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     systemMemory: {
       formElement: 'select',
       label: 'System memory',
-      options: Array.from(new Set(Object.values(database).map((item) => item.systemMemory)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.systemMemory)
+            .map((item) => item.systemMemory)
+        )
+      )
         .sort((a, b) => a - b)
         .map((itemValue) => ({
           label: `${itemValue} GB`,
@@ -158,7 +212,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     operatingSystem: {
       formElement: 'select',
       label: 'Operating system',
-      options: Array.from(new Set(Object.values(database).map((item) => item.operatingSystem)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.operatingSystem)
+            .map((item) => item.operatingSystem)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -175,7 +235,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     graphicsType: {
       formElement: 'select',
       label: 'Graphics type',
-      options: Array.from(new Set(Object.values(database).map((item) => item.graphicsType)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.graphicsType)
+            .map((item) => item.graphicsType)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -192,7 +258,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     graphicsBrand: {
       formElement: 'select',
       label: 'Graphics brand',
-      options: Array.from(new Set(Object.values(database).map((item) => item.graphicsBrand)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.graphicsBrand)
+            .map((item) => item.graphicsBrand)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -209,7 +281,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     graphicsModel: {
       formElement: 'select',
       label: 'Graphics model',
-      options: Array.from(new Set(Object.values(database).map((item) => item.graphicsModel)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.graphicsModel)
+            .map((item) => item.graphicsModel)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -226,7 +304,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     voiceAssistant: {
       formElement: 'select',
       label: 'Voice Assistant',
-      options: Array.from(new Set(Object.values(database).map((item) => item.voiceAssistant)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.voiceAssistant)
+            .map((item) => item.voiceAssistant)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -243,7 +327,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     batteryType: {
       formElement: 'select',
       label: 'Battery type',
-      options: Array.from(new Set(Object.values(database).map((item) => item.batteryType)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.batteryType)
+            .map((item) => item.batteryType)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue}`,
@@ -260,7 +350,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     touchScreen: {
       formElement: 'select',
       label: 'Touch screen',
-      options: Array.from(new Set(Object.values(database).map((item) => item.touchScreen)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.touchScreen)
+            .map((item) => item.touchScreen)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue === 1 ? 'true' : 'false'}`,
@@ -277,7 +373,13 @@ const getProductSpecificationsInitialInputState = (database: ProductType[]) => {
     backlitKeyboard: {
       formElement: 'select',
       label: 'Backlit keyboard',
-      options: Array.from(new Set(Object.values(database).map((item) => item.backlitKeyboard)))
+      options: Array.from(
+        new Set(
+          Object.values(database)
+            .filter((item) => item.backlitKeyboard)
+            .map((item) => item.backlitKeyboard)
+        )
+      )
         .sort()
         .map((itemValue) => ({
           label: `${itemValue === 1 ? 'true' : 'false'}`,

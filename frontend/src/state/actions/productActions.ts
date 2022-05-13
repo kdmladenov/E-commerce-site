@@ -181,7 +181,7 @@ export const restoreProduct =
   };
 
 export const createProduct =
-  (productData: ProductType) =>
+  (_: number, productData: ProductType) =>
   async (dispatch: Dispatch<ProductCreateActionType>, getState: () => StateType) => {
     try {
       dispatch({
@@ -222,7 +222,7 @@ export const createProduct =
   };
 
 export const updateProduct =
-  (updatedProduct: ProductType) =>
+  (productId: number, updatedProduct: ProductType) =>
   async (
     dispatch: Dispatch<ProductUpdateActionType | ProductDetailsActionType>,
     getState: () => StateType
@@ -243,11 +243,7 @@ export const updateProduct =
         }
       };
 
-      const { data } = await axios.put(
-        `${BASE_URL}/products/${updatedProduct.productId}`,
-        updatedProduct,
-        config
-      );
+      const { data } = await axios.put(`${BASE_URL}/products/${productId}`, updatedProduct, config);
 
       dispatch({
         type: PRODUCT_UPDATE_SUCCESS,
@@ -283,8 +279,8 @@ export const uploadProductImage =
       | React.ChangeEvent<HTMLInputElement>
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLInputElement>,
-      
-    imageAddress: string = ''
+
+    imageAddress?: string
   ) =>
   async (dispatch: Dispatch<ProductImageUploadActionType>, getState: () => StateType) => {
     // mode: 'file_upload' or 'add_image_url'

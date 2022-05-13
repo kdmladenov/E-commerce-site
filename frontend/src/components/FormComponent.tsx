@@ -168,12 +168,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
         : screen === 'resetPassword'
         ? authorizationAction({ ...data, userId: resourceId, token: resetPasswordToken })
         : mode === 'create'
-        ? createAction({
-            id: resourceId || subResourceId,
+        ? createAction(resourceId || subResourceId, {
             ...data
           })
-        : updateAction({
-            id: subResourceId || resourceId,
+        : updateAction(subResourceId || resourceId, {
             ...data
           })
     );

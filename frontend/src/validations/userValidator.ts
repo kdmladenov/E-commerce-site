@@ -37,7 +37,7 @@ const validate = {
     value.length >= USER.MIN_STATE_LENGTH &&
     value.length <= USER.MAX_STATE_LENGTH,
   zip: (value: string) =>
-    typeof +value === 'string' && value.length >= USER.MIN_ZIP_LENGTH && value.length <= USER.MAX_ZIP_LENGTH,
+    typeof value === 'string' && value.length >= USER.MIN_ZIP_LENGTH && value.length <= USER.MAX_ZIP_LENGTH,
   country: (value: string) =>
     typeof value === 'string' &&
     value.length >= USER.MIN_COUNTRY_LENGTH &&

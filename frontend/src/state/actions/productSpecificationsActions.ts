@@ -20,7 +20,7 @@ import {
 } from '../constants/productConstants';
 
 export const createProductSpecification =
-  (productSpecificationData: SpecificationType) =>
+  (productId: number, productSpecificationData: SpecificationType) =>
   async (dispatch: Dispatch<ProductSpecificationCreateActionType>, getState: () => StateType) => {
     try {
       dispatch({
@@ -38,7 +38,7 @@ export const createProductSpecification =
         }
       };
       const { data } = await axios.post(
-        `${BASE_URL}/products/${productSpecificationData.specificationId}/specifications`,
+        `${BASE_URL}/products/${productId}/specifications`,
         productSpecificationData,
         config
       );
@@ -66,7 +66,7 @@ export const createProductSpecification =
   };
 
 export const updateProductSpecification =
-  (updatedProductSpecification: SpecificationType) =>
+  (specificationId: number, updatedProductSpecification: SpecificationType) =>
   async (dispatch: Dispatch<ProductSpecificationUpdateActionType>, getState: () => StateType) => {
     try {
       dispatch({
@@ -84,7 +84,7 @@ export const updateProductSpecification =
         }
       };
       const { data } = await axios.put(
-        `${BASE_URL}/products/${updatedProductSpecification.specificationId}/specifications`,
+        `${BASE_URL}/products/${specificationId}/specifications`,
         updatedProductSpecification,
         config
       );

@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 
 import { BASE_URL } from '../../constants/constants';
 import AnswerType from '../../models/AnswerType';
-import QuestionType from '../../models/QuestionType';
 import AnswerCreateActionType from '../../models/state/actions/AnswerCreateActionType';
 import AnswerDeleteActionType from '../../models/state/actions/AnswerDeleteActionType';
 import AnswerEditActionType from '../../models/state/actions/AnswerEditActionType';
