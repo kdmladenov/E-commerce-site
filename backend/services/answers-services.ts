@@ -3,6 +3,7 @@ import rolesEnum from '../constants/roles.enum.js';
 import AnswersData from '../models/AnswersData.js';
 import QuestionsData from '../models/QuestionsData.js';
 import RolesType from '../models/RolesType.js';
+import AnswerType from '../models/AnswerType.js';
 
 const getAllAnswers =
   (answersData: AnswersData, questionsData: QuestionsData) => async (questionId: number) => {
@@ -46,7 +47,7 @@ const createAnswer =
     if (!existingQuestion) {
       return {
         error: errors.RECORD_NOT_FOUND,
-        result: null
+        answer: null
       };
     }
 
@@ -54,14 +55,14 @@ const createAnswer =
 
     return {
       error: null,
-      result: answer
+      answer
     };
   };
 
 const updateAnswer =
   (answersData: AnswersData) =>
   async (answerContent: string, answerId: number, userId: number, role: RolesType) => {
-    const existingAnswer = await answersData.getBy('answer_id', answerId, userId, role);
+    const existingAnswer = await answersData.getBy('answer_id', answerId);
 
     if (!existingAnswer) {
       return {
@@ -82,7 +83,7 @@ const updateAnswer =
       };
     }
 
-    const updated = {
+    const updated: AnswerType = {
       ...existingAnswer,
       answerContent,
       dateEdited: new Date()

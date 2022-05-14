@@ -2,7 +2,7 @@ import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 import OrdersData from '../models/OrdersData.js';
 import Payment from '../models/Payment.js';
-import Order from '../models/Order.js';
+import OrderType from '../models/OrderType.js';
 import OrderDetails from '../models/OrderDetails.js';
 import RolesType from '../models/RolesType.js';
 
@@ -35,7 +35,7 @@ const addOrderItems = (ordersData: OrdersData) => async (data: OrderDetails, use
   );
 
   orderItems.forEach(async (item) => {
-    const { title, qty, image, price, productId } = item;
+    const { title, qty, image, price, productId, rating } = item;
 
     await ordersData.createOrderItem(
       title,
@@ -43,7 +43,8 @@ const addOrderItems = (ordersData: OrdersData) => async (data: OrderDetails, use
       image,
       price,
       productId,
-      createdOrderWithoutItems.orderId
+      createdOrderWithoutItems.orderId,
+      rating
     );
   });
 
@@ -86,7 +87,7 @@ const getOrderById =
 const updateOrderToPaid =
   (ordersData: OrdersData) =>
   async (orderId: number, role: RolesType, userId: number, paymentData: Payment) => {
-    const orderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role, paymentData);
+    const orderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role);
 
     if (!orderWithoutItems) {
       return {
@@ -113,12 +114,7 @@ const updateOrderToPaid =
     });
     await ordersData.updateOrderPayment(orderId, paymentResult.paymentResultId);
 
-    const updatedOrderWithoutItems = await ordersData.getOrderBy(
-      'order_id',
-      orderId,
-      role,
-      paymentData
-    );
+    const updatedOrderWithoutItems = await ordersData.getOrderBy('order_id', orderId, role);
 
     return {
       error: null,
@@ -144,7 +140,7 @@ const updateOrderToDelivered = (ordersData: OrdersData) => async (orderId: numbe
 
   return {
     error: null,
-    order: { orderItems, ...updatedOrderWithoutItems }
+    order: { ...updatedOrderWithoutItems, orderItems }
   };
 };
 
@@ -168,7 +164,7 @@ const getALLOrdersByUser =
     );
 
     const ordersWithItems = await Promise.all(
-      await ordersWithoutItems.map(async (order: Order) => {
+      await ordersWithoutItems.map(async (order: OrderType) => {
         const orderItems = await Promise.all(
           await ordersData.getAllOrderItemsByOrder(order.orderId)
         );
@@ -186,7 +182,7 @@ const getALLOrders =
   async (search: string, sort: string, page: number, pageSize: number) => {
     const ordersWithoutItems = await ordersData.getAll(search, sort, page, pageSize);
     const ordersWithItems = await Promise.all(
-      await ordersWithoutItems.map(async (order: Order) => {
+      await ordersWithoutItems.map(async (order: OrderType) => {
         const orderItems = await Promise.all(
           await ordersData.getAllOrderItemsByOrder(order.orderId)
         );

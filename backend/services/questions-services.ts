@@ -59,7 +59,7 @@ const createQuestion =
 const updateQuestion =
   (questionsData: QuestionsData) =>
   async (questionContent: string, questionId: number, userId: number, role: RolesType) => {
-    const existingQuestion = await questionsData.getBy('question_id', questionId, userId, role);
+    const existingQuestion = await questionsData.getBy('question_id', questionId);
 
     if (!existingQuestion) {
       return {
@@ -95,8 +95,7 @@ const updateQuestion =
   };
 
 const deleteQuestion =
-  (questionsData: QuestionsData) =>
-  async (questionId: number, userId: number, role: RolesType) => {
+  (questionsData: QuestionsData) => async (questionId: number, userId: number, role: RolesType) => {
     const existingQuestion = await questionsData.getBy('question_id', questionId);
 
     if (!existingQuestion) {
@@ -117,9 +116,9 @@ const deleteQuestion =
 const voteQuestion =
   (questionsData: QuestionsData) =>
   async (reactionName: string, questionId: number, userId: number) => {
-    const existingQuestion = await questionsData.getVoteBy('question_id', questionId, userId);
+    const existingQuestionVote = await questionsData.getVoteBy('question_id', questionId, userId);
 
-    if (existingQuestion) {
+    if (existingQuestionVote) {
       const result = await questionsData.updateVote(reactionName, questionId, userId);
       return {
         error: null,
@@ -135,8 +134,7 @@ const voteQuestion =
   };
 
 const unVoteQuestion =
-  (questionsData: QuestionsData) =>
-  async (questionId: number, userId: number, role: RolesType) => {
+  (questionsData: QuestionsData) => async (questionId: number, userId: number, role: RolesType) => {
     const existingQuestionVote = await questionsData.getVoteBy('question_id', questionId, userId);
 
     if (!existingQuestionVote) {

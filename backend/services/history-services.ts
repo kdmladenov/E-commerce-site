@@ -49,7 +49,7 @@ const deleteHistoryRecord =
     if (existingRecord.userId !== userId) {
       return {
         error: errors.OPERATION_NOT_PERMITTED,
-        product: null
+        historyRecord: null
       };
     }
 

@@ -8,13 +8,12 @@ import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
 import { user as userConstants } from '../constants/constants.js';
 import { forgotPassword } from '../constants/constants.js';
-import UserData from '../models/UsersData.js';
-import User from '../models/User.js';
+import UsersData from '../models/UsersData.js';
+import UserType from '../models/UserType.js';
 import RolesType from '../models/RolesType.js';
 
 const getUser =
-  (usersData: UserData) =>
-  async (userId: number, isProfileOwner: boolean, role: RolesType) => {
+  (usersData: UsersData) => async (userId: number, isProfileOwner: boolean, role: RolesType) => {
     const user = await usersData.getBy('user_id', userId, isProfileOwner, role);
     if (!user) {
       return {
@@ -30,7 +29,7 @@ const getUser =
   };
 
 const getAllUsers =
-  (usersData: UserData) =>
+  (usersData: UsersData) =>
   async (search: string, sort: string, page: number, pageSize: number, role: RolesType) => {
     const result = await usersData.getAll(search, sort, page, pageSize, role);
 
@@ -38,7 +37,7 @@ const getAllUsers =
   };
 
 // register
-const createUser = (usersData: UserData) => async (user: User) => {
+const createUser = (usersData: UsersData) => async (user: UserType) => {
   if (user.password !== user.reenteredPassword) {
     return {
       error: errors.BAD_REQUEST,
@@ -64,7 +63,7 @@ const createUser = (usersData: UserData) => async (user: User) => {
 };
 
 // login
-const login = (usersData: UserData) => async (email: string, password: string) => {
+const login = (usersData: UsersData) => async (email: string, password: string) => {
   const user = await usersData.loginUser(email);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -82,7 +81,7 @@ const login = (usersData: UserData) => async (email: string, password: string) =
 
 // change password
 const changePassword =
-  (usersData: UserData) =>
+  (usersData: UsersData) =>
   async (
     passwordData: { password: string; reenteredPassword: string; currentPassword: string },
     userId: number,
@@ -118,7 +117,7 @@ const changePassword =
   };
 
 // update profile
-const update = (usersData: UserData) => async (userUpdate: User, userId: number) => {
+const update = (usersData: UsersData) => async (userUpdate: UserType, userId: number) => {
   // const { email, reenteredEmail } = userUpdate;
   // if (email && email !== reenteredEmail) {
   //   return {
@@ -155,7 +154,7 @@ const update = (usersData: UserData) => async (userUpdate: User, userId: number)
 };
 
 // delete user
-const deleteUser = (usersData: UserData) => async (userId: number) => {
+const deleteUser = (usersData: UsersData) => async (userId: number) => {
   const existingUser = await usersData.getBy('user_id', userId);
   if (!existingUser) {
     return {
@@ -172,12 +171,12 @@ const deleteUser = (usersData: UserData) => async (userId: number) => {
   };
 };
 
-const logout = (usersData: UserData) => async (token:string) => {
+const logout = (usersData: UsersData) => async (token: string) => {
   await usersData.logoutUser(token);
 };
 
 // restore deleted user
-const restoreUser = (usersData: UserData) => async (deletedUserId: number) => {
+const restoreUser = (usersData: UsersData) => async (deletedUserId: number) => {
   const existingDeletedUser = await usersData.getBy('user_id', +deletedUserId, false, 'admin');
   if (!existingDeletedUser) {
     return {
@@ -195,7 +194,7 @@ const restoreUser = (usersData: UserData) => async (deletedUserId: number) => {
 };
 
 // forgotten password
-const forgottenPassword = (usersData: UserData) => async (email: string) => {
+const forgottenPassword = (usersData: UsersData) => async (email: string) => {
   const existingUser = await usersData.getBy('email', email, true);
   if (!existingUser) {
     return {
@@ -251,7 +250,7 @@ ${link}\nIf you did not initiate the request, just ignore this email - your pass
 
 // reset password
 const resetPassword =
-  (usersData: UserData) =>
+  (usersData: UsersData) =>
   async (password: string, reenteredPassword: string, userId: number, token: string) => {
     const existingUser = await usersData.getBy('user_id', userId, true);
     if (!existingUser) {
@@ -304,8 +303,8 @@ const resetPassword =
     };
   };
 
-const addUserAvatar = (usersData: UserData) => async (userId: number, imageUrl: string) => {
-  const existingUser = await usersData.getBy('user_id', userId, 'admin');
+const addUserAvatar = (usersData: UsersData) => async (userId: number, imageUrl: string) => {
+  const existingUser = await usersData.getBy('user_id', userId, false, 'admin');
 
   if (!existingUser) {
     return {
@@ -323,8 +322,8 @@ const addUserAvatar = (usersData: UserData) => async (userId: number, imageUrl: 
   };
 };
 
-const deleteUserAvatar = (usersData: UserData) => async (userId: number) => {
-  const existingUser = await usersData.getBy('user_id', userId, 'admin');
+const deleteUserAvatar = (usersData: UsersData) => async (userId: number) => {
+  const existingUser = await usersData.getBy('user_id', userId, false, 'admin');
 
   if (!existingUser) {
     return {

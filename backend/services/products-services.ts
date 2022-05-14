@@ -1,12 +1,12 @@
 import errors from '../constants/service-errors.js';
-import Feature from '../models/Feature.js';
+import FeatureType from '../models/FeatureType.js';
 import FeaturesData from '../models/FeaturesData.js';
 import Image from '../models/Image.js';
-import Product from '../models/Product.js';
+import ProductType from '../models/ProductType.js';
 import ProductImagesData from '../models/ProductImagesData.js';
 import ProductsData from '../models/ProductsData.js';
 import RolesType from '../models/RolesType.js';
-import Specification from '../models/Specification.js';
+import SpecificationType from '../models/SpecificationType.js';
 import SpecificationsData from '../models/SpecificationsData.js';
 
 const getAllProducts =
@@ -41,7 +41,7 @@ const getProductById =
     };
   };
 
-const createProduct = (productsData: ProductsData) => async (data: Product) => {
+const createProduct = (productsData: ProductsData) => async (data: ProductType) => {
   // const { title } = data;
 
   // const existingProduct = await productsData.getBy('title', title, 'admin');
@@ -59,7 +59,7 @@ const createProduct = (productsData: ProductsData) => async (data: Product) => {
 };
 
 const updateProduct =
-  (productsData: ProductsData) => async (productId: number, updatedData: Product) => {
+  (productsData: ProductsData) => async (productId: number, updatedData: ProductType) => {
     const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
 
     if (!existingProduct) {
@@ -146,7 +146,7 @@ const getProductFeaturesById =
 
 const createProductFeature =
   (productsData: ProductsData, featuresData: FeaturesData) =>
-  async (productId: number, data: Feature) => {
+  async (productId: number, data: FeatureType) => {
     const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
 
     if (!existingProduct) {
@@ -163,7 +163,7 @@ const createProductFeature =
   };
 
 const updateProductFeature =
-  (featuresData: FeaturesData) => async (featureId: number, updatedData: Feature) => {
+  (featuresData: FeaturesData) => async (featureId: number, updatedData: FeatureType) => {
     const existingFeature = await featuresData.getBy('feature_id', +featureId, 'admin');
 
     if (!existingFeature) {
@@ -202,7 +202,7 @@ const deleteProductFeature = (featuresData: FeaturesData) => async (featureId: n
 
 const createProductSpecification =
   (productsData: ProductsData, specificationsData: SpecificationsData) =>
-  async (productId: number, updatedData: Specification) => {
+  async (productId: number, updatedData: SpecificationType) => {
     const existingProduct = await productsData.getBy('product_id', +productId, 'admin');
 
     if (!existingProduct) {
@@ -216,7 +216,11 @@ const createProductSpecification =
 
     if (existingSpecification) {
       const updated = { ...existingSpecification, ...updatedData };
-      const productSpecification = await specificationsData.update(+existingSpecification.specificationId, updated);
+
+      const productSpecification = await specificationsData.update(
+        +existingSpecification.specificationId,
+        updated
+      );
 
       return {
         error: null,
@@ -231,7 +235,7 @@ const createProductSpecification =
 
 const updateProductSpecification =
   (specificationsData: SpecificationsData) =>
-  async (specificationId: number, updatedData: Specification) => {
+  async (specificationId: number, updatedData: SpecificationType) => {
     const existingSpecification = await specificationsData.getBy(
       'specification_id',
       +specificationId,
@@ -246,6 +250,7 @@ const updateProductSpecification =
     }
 
     const updated = { ...existingSpecification, ...updatedData };
+    
     const productSpecification = await specificationsData.update(+specificationId, updated);
 
     return {

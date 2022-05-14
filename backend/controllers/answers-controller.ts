@@ -20,8 +20,8 @@ import RequestQuery from '../models/RequestQuery.js';
 const answersController = express.Router();
 
 answersController
-  // @desc EDIT answer of question
-  // @route PUT/answers/:questionId
+  // @desc Create answer of question
+  // @route P/answers/:questionId
   // @access Private - logged users
   .post(
     '/:questionId',
@@ -33,7 +33,7 @@ answersController
       const { contentAnswer } = req.body;
       const { userId } = req.user;
 
-      const { error, result } = await answersServices.createAnswer(questionsData, answersData)(
+      const { error, answer } = await answersServices.createAnswer(questionsData, answersData)(
         contentAnswer,
         +userId,
         +questionId
@@ -44,7 +44,7 @@ answersController
           message: 'The question is not found.'
         });
       } else {
-        res.status(201).send(result);
+        res.status(201).send(answer);
       }
     })
   )

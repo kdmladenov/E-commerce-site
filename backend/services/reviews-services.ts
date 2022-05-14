@@ -58,11 +58,7 @@ const getReviewById = (reviewsData: ReviewsData) => async (reviewId: number) => 
 };
 
 const createReview =
-  (
-    productsData: ProductsData,
-    reviewsData: ReviewsData
-    // , ordersData, usersData
-  ) =>
+  (productsData: ProductsData, reviewsData: ReviewsData) =>
   async (content: string, userId: number, productId: number, rating: number, title: string) => {
     // checks if the product exists
     const existingProduct = await productsData.getBy('product_id', productId);
@@ -82,15 +78,6 @@ const createReview =
       };
     }
 
-    // // checks if the user has purchased and received the product
-    // const isProductReceived = await ordersData.getAllByUser(userId).filter(order => order.);
-    // if (!isProductReceived || isProductReceived.dateReturned === null) {
-    //   return {
-    //     error: errors.OPERATION_NOT_PERMITTED,
-    //     result: null,
-    //   };
-    // }
-
     const review = await reviewsData.create(content, userId, productId, rating, title);
 
     return {
@@ -109,7 +96,7 @@ const updateReview =
     rating: number,
     title: string
   ) => {
-    const existingReview = await reviewsData.getBy('review_id', reviewId, userId, role);
+    const existingReview = await reviewsData.getBy('review_id', reviewId, role);
 
     if (!existingReview) {
       return {
@@ -153,8 +140,7 @@ const updateReview =
   };
 
 const deleteReview =
-  (reviewsData: ReviewsData) =>
-  async (reviewId: number, userId: number, role: RolesType) => {
+  (reviewsData: ReviewsData) => async (reviewId: number, userId: number, role: RolesType) => {
     const existingReview = await reviewsData.getBy('review_id', reviewId);
 
     if (!existingReview) {
@@ -182,9 +168,9 @@ const deleteReview =
 
 const voteReview =
   (reviewsData: ReviewsData) => async (reactionName: string, reviewId: number, userId: number) => {
-    const existingReview = await reviewsData.getVoteBy('review_id', reviewId, userId);
+    const existingReviewVote = await reviewsData.getVoteBy('review_id', reviewId, userId);
 
-    if (existingReview) {
+    if (existingReviewVote) {
       const result = await reviewsData.updateVote(reactionName, reviewId, userId);
       return {
         error: null,
