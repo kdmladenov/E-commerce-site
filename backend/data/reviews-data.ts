@@ -52,7 +52,7 @@ const getAll = async (
   return db.query(sql, [+productId, ratingMin, ratingMax, pageSize, offset]);
 };
 
-const getBy = async (column: string, value: string | number, role: RolesType) => {
+const getBy = async (column: string, value: string | number, role: RolesType = rolesEnum.basic) => {
   const sql = `
   SELECT
     r.product_id as productId,

@@ -1,6 +1,6 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
-import Product from '../models/Product.js';
+import ProductType from '../models/ProductType.js';
 import filterQueryHandler from '../helpers/filterQueryHandler.js';
 import RolesType from '../models/RolesType.js';
 
@@ -207,7 +207,7 @@ const getBy = async (column: string, value: string | number, role: RolesType = '
   return result[0];
 };
 
-const create = async (product: Product) => {
+const create = async (product: ProductType) => {
   const sql = `
     INSERT INTO products (
       title,
@@ -246,10 +246,10 @@ const create = async (product: Product) => {
     +product.weight
   ]);
 
-  return getBy('product_id', result.insertId);
+  return getBy('product_id', +result.insertId);
 };
 
-const update = async (updatedProduct: Product) => {
+const update = async (updatedProduct: ProductType) => {
   const sql = `
         UPDATE products
         SET
@@ -291,7 +291,7 @@ const update = async (updatedProduct: Product) => {
   return getBy('product_id', updatedProduct.productId);
 };
 
-const remove = async (productToDelete: Product) => {
+const remove = async (productToDelete: ProductType) => {
   const sql = `
         UPDATE products 
         SET is_deleted = true
@@ -301,7 +301,7 @@ const remove = async (productToDelete: Product) => {
   return db.query(sql, [productToDelete.productId]);
 };
 
-const restore = async (productToRestore: Product) => {
+const restore = async (productToRestore: ProductType) => {
   const sql = `
         UPDATE products 
         SET is_deleted = false
@@ -311,41 +311,11 @@ const restore = async (productToRestore: Product) => {
   return db.query(sql, [productToRestore.productId]);
 };
 
-const addAProductImage = async (productId: number, imageUrl: string, isMain: number = 0) => {
-  const sql = `
-    INSERT INTO product_images (
-      product_id,
-      image,
-      is_main
-    )
-    VALUES (?, ?, ?)
-  `;
-  const result = await db.query(sql, [+productId, imageUrl, +isMain]);
-
-  return { productId, productImageId: result.insertId, image: imageUrl, isMain };
-};
-
-const getAllProductImages = async (productId: number) => {
-  const sql = `
-      SELECT 
-        product_image_id as productImageId,
-        product_id as productId,
-        image,
-        is_main as isMain
-      FROM product_images 
-      WHERE product_id = ?
-      `;
-
-  return db.query(sql, [+productId]);
-};
-
 export default {
   getAllProducts,
   getBy,
   create,
   update,
   remove,
-  restore,
-  addAProductImage,
-  getAllProductImages
+  restore
 };

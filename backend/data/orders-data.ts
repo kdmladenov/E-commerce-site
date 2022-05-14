@@ -112,7 +112,11 @@ const getAll = async (search: string, sort: string, page: number, pageSize: numb
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const getOrderBy = async (column: string, value: string | number, role: RolesType) => {
+const getOrderBy = async (
+  column: string,
+  value: string | number,
+  role: RolesType = rolesEnum.basic
+) => {
   const sql = `
     SELECT
     o.order_id as orderId,
@@ -204,7 +208,8 @@ const createOrderItem = async (
   image: string,
   price: number,
   id: number,
-  orderId: number
+  orderId: number,
+  rating: number
 ) => {
   const sql = `
     INSERT INTO order_items (
@@ -219,7 +224,16 @@ const createOrderItem = async (
   `;
   const result = await db.query(sql, [title, +qty, image, +price, +id, +orderId]);
 
-  return { order_item_id: result.insertId, title, qty, image, price, id, orderId };
+  return {
+    orderItemId: +result.insertId,
+    title,
+    qty,
+    image,
+    price,
+    productId: id,
+    orderId,
+    rating
+  };
 };
 
 const getAllOrderItemsByOrder = async (orderId: number) => {

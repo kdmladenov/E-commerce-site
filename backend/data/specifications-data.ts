@@ -1,6 +1,6 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
-import Specification from '../models/Specification.js';
+import SpecificationType from '../models/SpecificationType.js';
 import RolesType from '../models/RolesType.js';
 
 const getBy = async (column: string, value: string | number, role: RolesType = 'basic') => {
@@ -33,7 +33,7 @@ const getBy = async (column: string, value: string | number, role: RolesType = '
   return result[0];
 };
 
-const create = async (productId: number, data: Specification) => {
+const create = async (productId: number, data: SpecificationType) => {
   const sql = `
     INSERT INTO specifications (
       product_id,
@@ -81,7 +81,7 @@ const create = async (productId: number, data: Specification) => {
   return getBy('specification_id', result.insertId, 'admin');
 };
 
-const update = async (specificationId: number, updatedSpecification: Specification) => {
+const update = async (specificationId: number, updatedSpecification: SpecificationType) => {
   console.log(updatedSpecification, 'updatedSpecificationb');
   console.log(+specificationId, 'specificationId');
   const sql = `
@@ -131,7 +131,7 @@ const update = async (specificationId: number, updatedSpecification: Specificati
   return getBy('specification_id', +specificationId, 'admin');
 };
 
-const remove = async (specificationData: Specification) => {
+const remove = async (specificationData: SpecificationType) => {
   const sql = `
         UPDATE specifications 
         SET is_deleted = true

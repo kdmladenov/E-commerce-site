@@ -1,6 +1,6 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
-import Feature from '../models/Feature.js';
+import FeatureType from '../models/FeatureType.js';
 import RolesType from '../models/RolesType.js';
 
 const getFeatures = async (productId: number) => {
@@ -32,7 +32,7 @@ const getBy = async (column: string, value: string | number, role: RolesType = '
   return result[0];
 };
 
-const create = async (productId: number, data: Feature) => {
+const create = async (productId: number, data: FeatureType) => {
   const sql = `
     INSERT INTO features (
       product_id,
@@ -46,7 +46,7 @@ const create = async (productId: number, data: Feature) => {
   return getBy('feature_id', result.insertId);
 };
 
-const update = async (updatedFeature: Feature) => {
+const update = async (updatedFeature: FeatureType) => {
   const sql = `
         UPDATE features
         SET
@@ -66,7 +66,7 @@ const update = async (updatedFeature: Feature) => {
   return getBy('feature_id', updatedFeature.featureId);
 };
 
-const remove = async (featuresData: Feature) => {
+const remove = async (featuresData: FeatureType) => {
   const sql = `
         UPDATE features 
         SET is_deleted = true

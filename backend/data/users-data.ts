@@ -1,13 +1,13 @@
 import db from './pool.js';
 import rolesEnum from '../constants/roles.enum.js';
-import User from '../models/User.js';
+import UserType from '../models/UserType.js';
 import RolesType from '../models/RolesType.js';
 
 const getBy = async (
   column: string,
-  value: string,
-  isProfileOwner: boolean,
-  role: RolesType
+  value: string | number,
+  isProfileOwner: boolean = false,
+  role: RolesType = rolesEnum.basic
 ) => {
   const sql = `
     SELECT 
@@ -85,7 +85,7 @@ const getAll = async (
   return db.query(sql, [+pageSize, +offset]);
 };
 
-const create = async (user: User) => {
+const create = async (user: UserType) => {
   const sql = `
     INSERT INTO users (
       password, 
@@ -122,7 +122,7 @@ const create = async (user: User) => {
   return getBy('user_id', result.insertId, true, 'basic');
 };
 
-const updateData = async (user: User) => {
+const updateData = async (user: UserType) => {
   const sql = `
     UPDATE users SET
       full_name = ?,

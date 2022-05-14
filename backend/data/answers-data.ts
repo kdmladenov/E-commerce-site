@@ -21,7 +21,7 @@ const getAll = async (questionId: number) => {
   return db.query(sql, [+questionId]);
 };
 
-const getBy = async (column: string, value: string | number, role: RolesType) => {
+const getBy = async (column: string, value: string | number) => {
   const sql = `
   SELECT
     a.question_id as questionId,
@@ -52,7 +52,7 @@ const create = async (answerContent: string, userId: number, questionId: number)
   `;
   const result = await db.query(sql, [answerContent, +userId, +questionId]);
 
-  return getBy('answer_id', result.insertId, 'basic');
+  return getBy('answer_id', result.insertId);
 };
 
 const update = async (
