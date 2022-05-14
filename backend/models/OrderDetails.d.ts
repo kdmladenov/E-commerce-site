@@ -1,6 +1,9 @@
+import OrderItemType from './OrderItemType';
+import ShippingAddressFullType from './ShippingAddressFullType';
+
 interface OrderDetails {
   orderId: number;
-  orderItems: { title: string; qty: number; image: string; price: number; productId: number }[];
+  orderItems: OrderItemType[];
   shippingAddress: {
     address: string;
     address2: string;

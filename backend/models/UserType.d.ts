@@ -1,4 +1,4 @@
-export interface User {
+export interface UserType {
   userId: number;
   password: string;
   reenteredPassword: string;
@@ -15,4 +15,5 @@ export interface User {
   role: RolesType;
   isDeleted: number;
 }
-export default User;
+
+export default UserType;

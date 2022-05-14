@@ -1,9 +1,12 @@
-interface Order {
+import OrderItemType from './OrderItemType';
+import ShippingAddressFullType from './ShippingAddressFullType';
+
+interface OrderType {
   orderId: number;
   userId: number;
   fullName: string;
   email: string;
-  shippingAddress: string | { address; address2; city; zip; state; country };
+  shippingAddress: string | ShippingAddressFullType;
   shippingAddress2: string;
   shippingCity: string;
   shippingZip: string;
@@ -21,7 +24,7 @@ interface Order {
   orderDate: string;
   deliveryDate: string;
   totalDBItems: number;
-  orderItems: { title; qty; image; price; productId }[];
+  orderItems: OrderItemType[];
 }
 
-export default Order;
+export default OrderType;

@@ -1,4 +1,4 @@
-interface Product {
+interface ProductType {
   productId: number;
   title: string;
   brand: string;
@@ -18,4 +18,4 @@ interface Product {
   weight: number;
 }
 
-export default Product;
+export default ProductType;

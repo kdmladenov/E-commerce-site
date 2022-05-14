@@ -1,4 +1,4 @@
-interface Specification {
+interface SpecificationType {
   specificationId: number;
   screenSize: number;
   screenResolution: string;
@@ -19,4 +19,4 @@ interface Specification {
   backlitKeyboard: number;
 }
 
-export default Specification;
+export default SpecificationType;
