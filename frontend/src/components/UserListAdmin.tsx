@@ -62,29 +62,17 @@ const UserListAdmin: React.FC = () => {
     endpoint
   ]);
 
-  const deleteUserHandler = (userId: number) => {
+  const deleteUserHandler = (userId: number, isDeleted: boolean) => {
     setIsModalOpen(true);
     setModalContent(
       <ModalConfirmContent
         setIsModalOpen={setIsModalOpen}
-        message="Are your sure you want to delete this user?"
+        message={`Are your sure you want to ${!isDeleted ? 'delete' : 'restore'} this user?`}
         resourceId={userId}
-        action={deleteUser}
+        action={!isDeleted ? deleteUser : restoreUser}
       />
     );
   };
-    const restoreUserHandler = (userId: number) => {
-      setIsModalOpen(true);
-      setModalContent(
-        <ModalConfirmContent
-          setIsModalOpen={setIsModalOpen}
-          message="Are your sure you want to restore this user?"
-          resourceId={userId}
-          action={restoreUser}
-        />
-      );
-    };
-
 
   return (
     <div className="user_list_admin">
@@ -154,11 +142,7 @@ const UserListAdmin: React.FC = () => {
                         <Button
                           classes="white rounded"
                           disabled={user.userId === userInfo?.userId}
-                          onClick={() =>
-                            !user.isDeleted
-                              ? deleteUserHandler(user.userId)
-                              : restoreUserHandler(user.userId)
-                          }
+                          onClick={() => deleteUserHandler(user.userId, !!user.isDeleted)}
                         >
                           <i className={`fa fa-${!user.isDeleted ? 'trash' : 'undo'}`} />
                           <span>{!user.isDeleted ? 'Delete' : 'Restore'}</span>

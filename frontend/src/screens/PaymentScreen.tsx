@@ -11,12 +11,12 @@ import useTypedSelector from '../hooks/useTypedSelector';
 import { RouteComponentProps } from 'react-router-dom';
 
 const PaymentScreen: React.FC<RouteComponentProps> = ({ history }) => {
-  const cart = useTypedSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { shippingAddress } = useTypedSelector((state) => state.cart);
 
   if (!shippingAddress) {
     history.push('/shipping');
   }
+  
   const [paymentMethod, setPaymentMethod] = useState('Paypal');
 
   const dispatch = useDispatch();

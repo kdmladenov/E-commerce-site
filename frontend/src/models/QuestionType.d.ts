@@ -1,3 +1,5 @@
+import AnswerType from './AnswerType';
+
 interface QuestionType {
   productId: number;
   userId: number;
@@ -11,7 +13,8 @@ interface QuestionType {
   thumbsDown: number;
   userThumbsUpList: string;
   userThumbsDownList: string;
-  totalDBItems:number;
+  answers:AnswerType[];
+  totalDBItems: number;
 }
 
 export default QuestionType;

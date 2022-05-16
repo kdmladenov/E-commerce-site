@@ -56,26 +56,14 @@ const ProductListAdmin: React.FC = () => {
     error: errorRestore
   } = useTypedSelector((state) => state.productRestore);
 
-  const deleteProductHandler = (productId: number) => {
+  const deleteProductHandler = (productId: number, isDeleted: boolean) => {
     setIsModalOpen(true);
     setModalContent(
       <ModalConfirmContent
         setIsModalOpen={setIsModalOpen}
-        message="Are your sure you want to delete this product?"
+        message={`Are your sure you want to ${!isDeleted ? 'delete' : 'restore'} this product?`}
         resourceId={productId}
-        action={deleteProduct}
-      />
-    );
-  };
-
-  const restoreProductHandler = (productId: number) => {
-    setIsModalOpen(true);
-    setModalContent(
-      <ModalConfirmContent
-        setIsModalOpen={setIsModalOpen}
-        message="Are your sure you want to restore this product?"
-        resourceId={productId}
-        action={restoreProduct}
+        action={!isDeleted ? deleteProduct : restoreProduct}
       />
     );
   };
@@ -180,9 +168,7 @@ const ProductListAdmin: React.FC = () => {
                         <Button
                           classes="white rounded"
                           onClick={() =>
-                            !product.isDeleted
-                              ? deleteProductHandler(product.productId)
-                              : restoreProductHandler(product.productId)
+                            deleteProductHandler(product.productId, !!product.isDeleted)
                           }
                         >
                           <i className={`fa fa-${!product.isDeleted ? 'trash' : 'undo'}`} />
@@ -202,7 +188,7 @@ const ProductListAdmin: React.FC = () => {
           </Accordion>
         </>
       ) : (
-        <h2>You have no product</h2>
+        <h2>You have no products listed</h2>
       )}
       <div className="footer">
         <Pagination
