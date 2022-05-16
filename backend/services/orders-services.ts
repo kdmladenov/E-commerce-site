@@ -6,18 +6,21 @@ import OrderType from '../models/OrderType.js';
 import OrderDetails from '../models/OrderDetails.js';
 import RolesType from '../models/RolesType.js';
 
-const addOrderItems = (ordersData: OrdersData) => async (data: OrderDetails, userId: number) => {
+const addOrderItems = (ordersData: OrdersData) => async (order: OrderDetails, userId: number) => {
   const {
+    address,
+    address2,
+    city,
+    zip,
+    state,
+    country,
     orderItems,
-    shippingAddress,
     paymentMethod,
     itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice
-  } = data;
-
-  const { address, address2, city, zip, state, country } = shippingAddress;
+  } = order;
 
   const createdOrderWithoutItems = await ordersData.createOrderWithoutItems(
     userId,
@@ -54,7 +57,7 @@ const addOrderItems = (ordersData: OrdersData) => async (data: OrderDetails, use
 
   return {
     error: null,
-    order: { orderItemsCreated, ...createdOrderWithoutItems }
+    order: { ...createdOrderWithoutItems, orderItems: orderItemsCreated }
   };
 };
 
@@ -80,7 +83,7 @@ const getOrderById =
 
     return {
       error: null,
-      order: { orderItemsCreated, ...orderWithoutItems }
+      order: { ...orderWithoutItems, orderItems: orderItemsCreated }
     };
   };
 
@@ -118,7 +121,7 @@ const updateOrderToPaid =
 
     return {
       error: null,
-      order: { orderItemsCreated, paymentResult, ...updatedOrderWithoutItems }
+      order: { ...updatedOrderWithoutItems, orderItems: orderItemsCreated, paymentResult }
     };
   };
 

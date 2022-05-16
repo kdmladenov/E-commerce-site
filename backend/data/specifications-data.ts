@@ -82,8 +82,7 @@ const create = async (productId: number, data: SpecificationType) => {
 };
 
 const update = async (specificationId: number, updatedSpecification: SpecificationType) => {
-  console.log(updatedSpecification, 'updatedSpecificationb');
-  console.log(+specificationId, 'specificationId');
+
   const sql = `
         UPDATE specifications
         SET
