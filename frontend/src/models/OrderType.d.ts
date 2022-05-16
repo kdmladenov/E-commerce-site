@@ -5,12 +5,12 @@ interface OrderType {
   userId: number;
   fullName: string;
   email: string;
-  shippingAddress?: string;
-  shippingAddress2?: string;
-  shippingCity?: string;
-  shippingZip?: string;
-  shippingState?: string;
-  shippingCountry?: string;
+  address?: string;
+  address2?: string;
+  city?: string;
+  zip?: string;
+  state?: string;
+  country?: string;
   paymentMethod: string;
   paymentResultId: number;
   itemsPrice: number;

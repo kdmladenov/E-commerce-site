@@ -79,11 +79,9 @@ const OrderListAdmin: React.FC = () => {
                         <Price price={order.totalPrice} size="small" />
                       </div>
                       <div>
-                        <span>{`${order.shippingAddress} ${
-                          order.shippingAddress2 !== null ? order.shippingAddress2 : ''
-                        }, ${order.shippingCity}, ${order.shippingState}, ${
-                          order.shippingCountry
-                        }`}</span>
+                        <span>{`${order.address} ${
+                          order.address2 !== null ? order.address2 : ''
+                        }, ${order.city}, ${order.state} ${order.zip}, ${order.country}`}</span>
                       </div>
                       <div>
                         <Tooltip

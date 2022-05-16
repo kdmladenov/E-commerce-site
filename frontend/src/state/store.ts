@@ -152,12 +152,7 @@ const paymentMethodFromLocalStorage = localStorage.getItem('paymentMethod')
 
 const initialState = {
   cart: {
-    shippingAddress: shippingAddressFromLocalStorage.shippingAddress,
-    shippingAddress2: shippingAddressFromLocalStorage.shippingAddress2,
-    shippingCity: shippingAddressFromLocalStorage.shippingCity,
-    shippingState: shippingAddressFromLocalStorage.shippingState,
-    shippingZip: shippingAddressFromLocalStorage.shippingZip,
-    shippingCountry: shippingAddressFromLocalStorage.shippingCountry,
+    ...shippingAddressFromLocalStorage,
     cartItems: cartItemsFromLocalStorage,
     paymentMethod: paymentMethodFromLocalStorage
   },

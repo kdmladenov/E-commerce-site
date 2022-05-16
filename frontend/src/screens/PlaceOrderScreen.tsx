@@ -25,16 +25,8 @@ import Rating from '../components/Rating';
 const PlaceOrderScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch();
 
-  const {
-    shippingAddress,
-    shippingAddress2,
-    shippingCity,
-    shippingState,
-    shippingZip,
-    shippingCountry,
-    paymentMethod,
-    cartItems
-  } = useTypedSelector((state) => state.cart);
+  const { address, address2, city, state, zip, country, paymentMethod, cartItems } =
+    useTypedSelector((state) => state.cart);
 
   const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   const shippingPrice =
@@ -59,12 +51,12 @@ const PlaceOrderScreen: React.FC<RouteComponentProps> = ({ history }) => {
     dispatch(
       createOrder({
         orderItems: cartItems,
-        shippingAddress,
-        shippingAddress2,
-        shippingCity,
-        shippingState,
-        shippingZip,
-        shippingCountry,
+        address,
+        address2,
+        city,
+        state,
+        zip,
+        country,
         paymentMethod,
         itemsPrice,
         shippingPrice,
@@ -92,9 +84,9 @@ const PlaceOrderScreen: React.FC<RouteComponentProps> = ({ history }) => {
               <h3>Shipping Address:</h3>
               <ul>
                 <li>{`${user?.fullName}`}</li>
-                <address>{`${shippingAddress} ${shippingAddress2}`.toUpperCase()}</address>
-                <address>{`${shippingCity},${shippingState} ${shippingZip}`.toUpperCase()}</address>
-                <address>{`${shippingCountry}`.toUpperCase()}</address>
+                <address>{`${address} ${address2}`.toUpperCase()}</address>
+                <address>{`${city}, ${state} ${zip}`.toUpperCase()}</address>
+                <address>{`${country}`.toUpperCase()}</address>
                 <li>{`Phone: ${user?.phone}`}</li>
                 <li>{`Email: ${user?.email}`}</li>
               </ul>

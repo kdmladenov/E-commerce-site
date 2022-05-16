@@ -1,5 +1,5 @@
 import CartItemType from '../../CartItemType';
-import ShippingAddressFullType from '../../ShippingAddressFullType';
+import AddressType from '../../AddressType';
 
 interface CartAddAction {
   type: 'CART_ADD_ITEM';
@@ -15,7 +15,7 @@ interface CartRemoveItemAction {
 }
 interface CartSaveShippingAddressAction {
   type: 'CART_SAVE_SHIPPING_ADDRESS';
-  payload: ShippingAddressFullType;
+  payload: AddressType;
 }
 interface CartSavePaymentMethodAction {
   type: 'CART_SAVE_PAYMENT_METHOD';

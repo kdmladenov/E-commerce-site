@@ -128,13 +128,9 @@ const OrderScreen: React.FC<RouteComponentProps<{ orderId: string }>> = ({ match
               <h3>Shipping Address:</h3>
               <ul>
                 <li>{`${user?.fullName}`}</li>
-                <address>
-                  {`${order?.shippingAddress} ${order?.shippingAddress2}`.toUpperCase()}
-                </address>
-                <address>
-                  {`${order?.shippingCity},${order?.shippingState} ${order?.shippingZip}`.toUpperCase()}
-                </address>
-                <address>{`${order?.shippingCountry}`.toUpperCase()}</address>
+                <address>{`${order?.address} ${order?.address2}`.toUpperCase()}</address>
+                <address>{`${order?.city},${order?.state} ${order?.zip}`.toUpperCase()}</address>
+                <address>{`${order?.country}`.toUpperCase()}</address>
                 <li>{`Phone: ${user?.phone}`}</li>
                 <li>{`Email: ${user?.email}`}</li>
               </ul>

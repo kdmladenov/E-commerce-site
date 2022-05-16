@@ -9,7 +9,7 @@ import {
 } from '../constants/cartConstants';
 import { BASE_URL } from '../../constants/constants';
 import CartItemType from '../../models/CartItemType';
-import ShippingAddressFullType from '../../models/ShippingAddressFullType';
+import AddressType from '../../models/AddressType';
 import StateType from '../../models/state/StateType';
 import { Dispatch } from 'redux';
 import CartActionType from '../../models/state/actions/CartActionType';
@@ -61,7 +61,7 @@ export const removeFromCart =
   };
 
 export const saveShippingAddress =
-  (data: ShippingAddressFullType) => async (dispatch: Dispatch<CartActionType>) => {
+  (data: AddressType) => async (dispatch: Dispatch<CartActionType>) => {
     dispatch({
       type: CART_SAVE_SHIPPING_ADDRESS,
       payload: data

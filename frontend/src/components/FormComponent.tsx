@@ -234,7 +234,9 @@ const FormComponent: React.FC<FormComponentProps> = ({
               ? 'Reset Password'
               : screen !== 'shipping'
               ? 'Save Changes'
-              : 'Proceed to Payment'}
+              : `Proceed to Payment ${
+                  Object.values(form).some((input) => input.touched) ? '& Update Profile' : ''
+                }`}
           </Button>
         )}
         {Object.values(form).some((input) => input.touched) &&

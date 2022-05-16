@@ -27,6 +27,11 @@
   padding-top: 0px;
 }
 
+.shipping_screen .button_container {
+  height: 42px;
+  border-radius: 1000px;
+}
+
 @media (max-width: 768px) {
   .address_container {
     padding: 40px 20px;
