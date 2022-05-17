@@ -1,36 +1,60 @@
-import productCategoriesEnum from '../constants/product-categories.enum.js';
-import { product as PRODUCT } from '../constants/constants.js';
+import { specification as SPECIFICATION } from '../constants/constants.js';
 
 export default {
-  title: (value: string) =>
-    !value ||
-    (typeof value === 'string' &&
-      value.length >= PRODUCT.MIN_NAME_LENGTH &&
-      value.length <= PRODUCT.MAX_NAME_LENGTH),
-  brand: (value: string) =>
-    !value ||
-    (typeof value === 'string' &&
-      value.length >= PRODUCT.MIN_BRAND_LENGTH &&
-      value.length <= PRODUCT.MAX_BRAND_LENGTH),
-  description: (value: string) =>
-    typeof value === 'string' &&
-    value.length >= PRODUCT.MIN_DESCRIPTION_LENGTH &&
-    value.length <= PRODUCT.MAX_DESCRIPTION_LENGTH,
-  image: (value: string) => !value || typeof value === 'string',
-  product_category: (value: string) =>
-    !value || (typeof value === 'string' && Object.keys(productCategoriesEnum).includes(value)),
-  price: (value: number) =>
+  screenSize: (value: number) =>
     !value ||
     (typeof value === 'number' &&
-      value >= PRODUCT.MIN_PRICE_VALUE &&
-      value <= PRODUCT.MAX_PRICE_VALUE),
-  stock_count: (value: number) =>
+      value >= SPECIFICATION.MIN_SCREEN_SIZE &&
+      value <= SPECIFICATION.MAX_SCREEN_SIZE),
+  screenResolution: (value: string) =>
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= SPECIFICATION.MIN_SCREEN_RESOLUTION_LENGTH &&
+      value.length <= SPECIFICATION.MAX_SCREEN_RESOLUTION_LENGTH),
+  displayType: (value: string) =>
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= SPECIFICATION.MIN_DISPLAY_TYPE_LENGTH &&
+      value.length <= SPECIFICATION.MAX_DISPLAY_TYPE_LENGTH),
+  touchScreen: (value: boolean) => !value || typeof value === 'boolean',
+  processorBrand: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.PROCESSOR_BRANDS.includes(value)),
+  processorModel: (value: string) =>
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= SPECIFICATION.MIN_PROCESSOR_MODEL_LENGTH &&
+      value.length <= SPECIFICATION.MAX_PROCESSOR_MODEL_LENGTH),
+  processorModelNumber: (value: string) =>
+    !value ||
+    (typeof value === 'string' &&
+      value.length >= SPECIFICATION.MIN_PROCESSOR_MODEL_NUMBER_LENGTH &&
+      value.length <= SPECIFICATION.MAX_PROCESSOR_MODEL_NUMBER_LENGTH),
+  storageType: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.STORAGE_TYPES.includes(value)),
+  storageCapacity: (value: number) =>
     !value ||
     (typeof value === 'number' &&
-      value >= PRODUCT.MIN_STOCK_COUNT &&
-      value <= PRODUCT.MAX_STOCK_COUNT),
-  discount: (value: number) =>
-    typeof value === 'number' &&
-    value >= PRODUCT.MIN_DISCOUNT_VALUE &&
-    value <= PRODUCT.MAX_DISCOUNT_VALUE
+      value >= SPECIFICATION.MIN_STORAGE_CAPACITY &&
+      value <= SPECIFICATION.MAX_STORAGE_CAPACITY),
+  systemMemory: (value: number) =>
+    !value ||
+    (typeof value === 'number' &&
+      value >= SPECIFICATION.MIN_SYSTEM_MEMORY &&
+      value <= SPECIFICATION.MAX_SYSTEM_MEMORY),
+  graphicsType: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.GRAPHICS_TYPES.includes(value)),
+  graphicsBrand: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.GRAPHICS_BRANDS.includes(value)),
+  graphicsModel: (value: number) =>
+    !value ||
+    (typeof value === 'number' &&
+      value >= SPECIFICATION.MIN_GRAPHICS_MODEL_LENGTH &&
+      value <= SPECIFICATION.MAX_GRAPHICS_MODEL_LENGTH),
+  operatingSystem: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.OPERATING_SYSTEMS.includes(value)),
+  voiceAssistant: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.VOICE_ASSISTANTS.includes(value)),
+  batteryType: (value: string) =>
+    !value || (typeof value === 'string' && SPECIFICATION.BATTERY_TYPES.includes(value)),
+  backlitKeyboard: (value: boolean) => !value || typeof value === 'boolean'
 };

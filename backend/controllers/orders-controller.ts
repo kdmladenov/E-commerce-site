@@ -11,7 +11,7 @@ import errorHandler from '../middleware/errorHandler.js';
 import { authMiddleware, roleMiddleware } from '../authentication/auth.middleware.js';
 
 import createOrderSchema from '../validator/create-order-schema.js';
-import updateOrderSchema from '../validator/update-order-schema.js';
+import updateOrderToPaidSchema from '../validator/update-order-to-paid-schema.js';
 
 import rolesEnum from '../constants/roles.enum.js';
 import errors from '../constants/service-errors.js';
@@ -28,12 +28,11 @@ ordersController
     '/',
     authMiddleware,
     loggedUserGuard,
-    // roleMiddleware(rolesEnum.admin),
-    validateBody('order', createOrderSchema), //TO BE FINISHED
+    validateBody('order', createOrderSchema),
     errorHandler(async (req: Request, res: Response) => {
-      const data = req.body;
+      const orderData = req.body;
       const userId = req.user.userId;
-      const { error, order } = await ordersServices.addOrderItems(ordersData)(data, userId);
+      const { error, order } = await ordersServices.addOrderItems(ordersData)(orderData, userId);
 
       res.status(201).send(order);
     })
@@ -130,7 +129,6 @@ ordersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    validateBody('order', updateOrderSchema), // TO DO
     errorHandler(async (req: Request, res: Response) => {
       const { orderId } = req.params;
       const { error, order } = await ordersServices.updateOrderToDelivered(ordersData)(+orderId);
@@ -153,7 +151,7 @@ ordersController
     '/:orderId/pay',
     authMiddleware,
     loggedUserGuard,
-    validateBody('order', updateOrderSchema), // TO DO
+    validateBody('order', updateOrderToPaidSchema), // TO DO
     errorHandler(async (req: Request, res: Response) => {
       const { role, userId } = req.user;
       const { orderId } = req.params;

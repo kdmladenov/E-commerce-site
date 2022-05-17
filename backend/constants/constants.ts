@@ -81,7 +81,7 @@ export const product = {
   MAX_SKU_LENGTH: 100,
   MIN_DIMENSIONS_LENGTH: 3,
   MAX_DIMENSIONS_LENGTH: 100,
-  DIMENSIONS_REGEX: /\d+(\.\d+|)\s?x\s?\d+(\.\d+|)(\s?x\s?\d*(\.?\d+|))?/,
+  DIMENSIONS_REGEX: /\d+(\.\d+|)\s?x\s?\d+(\.\d+|)(\s?x\s?\d*(\.?\d+|))?/
 };
 
 export const feature = {
@@ -106,9 +106,20 @@ export const forgotPassword = {
 
 export const order = {
   PAYMENT_METHODS: ['Paypal'],
+  MIN_ITEMS_PRICE: 0,
   MIN_TAX_PRICE: 0,
   MIN_SHIPPING_PRICE: 0,
-  MIN_TOTAL_PRICE: 0
+  MIN_TOTAL_PRICE: 0,
+  ORDER_ITEMS_TYPES: {
+    title: 'string',
+    qty: 'number',
+    image: 'string',
+    price: 'number',
+    productId: 'number',
+    rating: 'number',
+    reviewCount: 'number',
+    stockCount: 'number'
+  }
 };
 
 export const review = {
@@ -128,4 +139,31 @@ export const questions = {
 export const answers = {
   MIN_CONTENT_LENGTH: 2,
   MAX_CONTENT_LENGTH: 1000
+};
+export const specification = {
+  MIN_SCREEN_SIZE: 2,
+  MAX_SCREEN_SIZE: 1000,
+  MIN_SCREEN_RESOLUTION_LENGTH: 2,
+  MAX_SCREEN_RESOLUTION_LENGTH: 15,
+  MIN_DISPLAY_TYPE_LENGTH: 2,
+  MAX_DISPLAY_TYPE_LENGTH: 15,
+  PROCESSOR_BRANDS: ['AMD', 'Apple', 'Intel', 'MediaTek'],
+  MIN_PROCESSOR_MODEL_LENGTH: 2,
+  MAX_PROCESSOR_MODEL_LENGTH: 100,
+  MIN_PROCESSOR_MODEL_NUMBER_LENGTH: 2,
+  MAX_PROCESSOR_MODEL_NUMBER_LENGTH: 100,
+  STORAGE_TYPES: ['eMMC', 'SSD'],
+  MIN_STORAGE_CAPACITY: 4,
+  MAX_STORAGE_CAPACITY: 10000,
+  MIN_SYSTEM_MEMORY: 4,
+  MAX_SYSTEM_MEMORY: 1000,
+  GRAPHICS_TYPES: ['eMMC', 'SSD'],
+  GRAPHICS_BRANDS: ['AMD Radeon', 'Apple', 'Intel', 'NVIDIA', 'None'],
+  MIN_GRAPHICS_BRAND_LENGTH: 2,
+  MAX_GRAPHICS_BRAND_LENGTH: 100,
+  MIN_GRAPHICS_MODEL_LENGTH: 2,
+  MAX_GRAPHICS_MODEL_LENGTH: 100,
+  OPERATING_SYSTEMS: ['Chrome OS', 'Windows 10', 'Windows 11 Home', 'macOS Big Sur 11.0'],
+  VOICE_ASSISTANTS: ['Amazon Alexa', 'Apple Siri', 'Google Assistant', 'No'],
+  BATTERY_TYPES: ['Alkaline', 'Lithium-ion', 'Lithium-ion polymer', 'Lithium-polymer']
 };

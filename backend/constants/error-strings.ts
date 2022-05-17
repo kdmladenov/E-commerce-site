@@ -1,4 +1,9 @@
-import { user as USER, product as PRODUCT, questions as QUESTIONS } from './constants.js';
+import {
+  user as USER,
+  product as PRODUCT,
+  questions as QUESTIONS,
+  order as ORDER
+} from './constants.js';
 
 export default {
   user: {
@@ -31,5 +36,26 @@ export default {
   },
   question: {
     questionContent: `Expected valid name string with length in the range [${QUESTIONS.MIN_CONTENT_LENGTH}-${QUESTIONS.MAX_CONTENT_LENGTH}]`
+  },
+  order: {
+    orderItems: `Expected an array with ordered items with the following format ${JSON.stringify(
+      ORDER.ORDER_ITEMS_TYPES
+    )}`,
+    address: `Expected string`,
+    address2: `Expected string`,
+    city: `Expected string`,
+    zip: `Expected a string in the range [${USER.MIN_ZIP_LENGTH}-${USER.MAX_ZIP_LENGTH}]`,
+    state: `Expected string`,
+    country: `Expected string`,
+    paymentMethod: `Expected a string`,
+    itemsPrice: `Expected a number`,
+    taxPrice: `Expected a number`,
+    shippingPrice: `Expected a number`,
+    totalPrice: `Expected a number`,
+    id: `Expected a number`,
+    status: `Expected a string`,
+    update_time: `Expected a string`,
+    email_address: `Expected a string`,
+    payer: `Expected a object with string values`
   }
 };
