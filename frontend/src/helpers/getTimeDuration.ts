@@ -1,4 +1,4 @@
-const getTimeDuration = (start: string, end: Date) => {
+const getTimeDuration = (start: string | Date, end: string | Date) => {
   const startDate = new Date(start);
   const endDate = new Date(end);
 
@@ -11,13 +11,13 @@ const getTimeDuration = (start: string, end: Date) => {
     : dayDiff >= 365
     ? `1 year ago`
     : dayDiff >= 30
-    ? `${(dayDiff / 30).toFixed(0)} months ago`
+    ? `${(dayDiff / 30).toFixed(0)} month${Math.floor(dayDiff) > 30 ? 's' : ''} ago`
     : dayDiff >= 1
-    ? `${dayDiff.toFixed(0)} days ago`
+    ? `${dayDiff.toFixed(0)} day${Math.floor(dayDiff) > 1 ? 's' : ''} ago`
     : hourDiff >= 1
-    ? `${hourDiff.toFixed(0)} hours ago`
+    ? `${hourDiff.toFixed(0)} hour${Math.floor(hourDiff) > 1 ? 's' : ''} ago`
     : minuteDiff >= 1
-    ? `${minuteDiff.toFixed(0)} minutes ago`
+    ? `${minuteDiff.toFixed(0)} minute${Math.floor(minuteDiff) > 1 ? 's' : ''} ago`
     : 'just now';
 };
 

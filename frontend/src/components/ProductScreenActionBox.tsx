@@ -115,7 +115,8 @@ const ProductScreenActionBox: React.FC<{ product: ProductType }> = ({ product })
           header={
             <h3>{`Returnable until ${getDate(
               currentDate,
-              DAYS_FOR_DELIVERY + DAYS_FOR_RETURNS_AFTER_DELIVERY
+              DAYS_FOR_DELIVERY + DAYS_FOR_RETURNS_AFTER_DELIVERY,
+              false
             )}`}</h3>
           }
         >

@@ -142,43 +142,45 @@ const Reviews: React.FC<ReviewsProps> = ({
             <Message type="info">{`There are no reviews yet.`}</Message>
           )}
         </ul>
-        {reviews?.length > 0 && !isScreen && (
-          <div className="footer">
-            <Button
-              classes="text"
-              onClick={() => {
-                setEndpoint({
-                  ...endpoint,
-                  pageSize: `${
-                    endpoint.pageSize === 'pageSize=3&' ? 'pageSize=13&' : 'pageSize=3&'
-                  }`
-                });
-                scrollTo(reviewsRef);
-              }}
-            >
-              {endpoint.pageSize === 'pageSize=3&' ? (
-                <>
-                  <i className="fa fa-chevron-down" /> See more reviews (10)
-                </>
-              ) : (
-                <>
-                  <i className="fa fa-chevron-up" /> Collapse reviews
-                </>
-              )}
-            </Button>
-
-            <Button classes="text" onClick={() => history.push(`/reviews/${productId}`)}>
-              See all reviews
-            </Button>
-
+        <div className="footer">
+          {reviews?.length > 0 && !isScreen && (
+            <>
+              <Button
+                classes="text"
+                onClick={() => {
+                  setEndpoint({
+                    ...endpoint,
+                    pageSize: `${
+                      endpoint.pageSize === 'pageSize=3&' ? 'pageSize=13&' : 'pageSize=3&'
+                    }`
+                  });
+                  scrollTo(reviewsRef);
+                }}
+              >
+                {endpoint.pageSize === 'pageSize=3&' ? (
+                  <>
+                    <i className="fa fa-chevron-down" /> See more reviews (10)
+                  </>
+                ) : (
+                  <>
+                    <i className="fa fa-chevron-up" /> Collapse reviews
+                  </>
+                )}
+              </Button>
+              <Button classes="text" onClick={() => history.push(`/reviews/${productId}`)}>
+                See all reviews
+              </Button>
+            </>
+          )}
+          {isScreen && (
             <Pagination
               updateQuery={(prop, value) => setEndpoint({ ...endpoint, [prop]: value })}
               currentPage={+endpoint.page.slice('page='.length).replace('&', '')}
               pageSize={+endpoint.pageSize.slice('pageSize='.length).replace('&', '')}
               totalItems={reviews?.[0]?.totalDBItems}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

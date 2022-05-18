@@ -14,7 +14,7 @@ const ProductListScreen: React.FC<
     searchTerm: string;
   }>
 > = ({ match }) => {
-  const { searchTerm } = match?.params || '';
+  const { searchTerm } = match?.params;
 
   const [endpoint, setEndpoint] = useState(defaultEndpoint['productListScreen']);
 
@@ -23,7 +23,7 @@ const ProductListScreen: React.FC<
   useEffect(() => {
     setEndpoint({
       ...endpoint,
-      search: `search=${searchTerm}&`
+      search: `search=${searchTerm ? searchTerm : ''}&`
     });
   }, [searchTerm]);
 

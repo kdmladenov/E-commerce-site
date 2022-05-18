@@ -69,7 +69,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
 
   const isFormValid =
     rating! > PRODUCT.MIN_RATING_VALUE &&
-    rating! <= PRODUCT.MIN_RATING_VALUE &&
+    rating! <= PRODUCT.MAX_RATING_VALUE &&
     content!.length >= REVIEW.MIN_CONTENT_LENGTH &&
     content!.length <= REVIEW.MAX_CONTENT_LENGTH &&
     title!.length >= REVIEW.MIN_TITLE_LENGTH &&
