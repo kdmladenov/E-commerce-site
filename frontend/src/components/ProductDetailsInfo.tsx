@@ -13,7 +13,6 @@ import Rating from './Rating';
 import RatingWidget from './RatingWidget';
 import PriceDiscount from './PriceDiscount';
 import ProductDetailsInfoProps from '../models/components/ProductDetailsInfoProps';
-import Message from './Message';
 
 const ProductDetailsInfo: React.FC<ProductDetailsInfoProps> = ({
   productListAdmin,
@@ -89,7 +88,7 @@ const ProductDetailsInfo: React.FC<ProductDetailsInfoProps> = ({
       </div>
     </>
   ) : (
-    <Message type="info">There is no product info yet</Message>
+    <></>
   );
 };
 

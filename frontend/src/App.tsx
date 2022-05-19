@@ -63,7 +63,7 @@ const App: React.FC = () => {
       <Route path="/search/:searchTerm" component={ProductListScreen} />
       <Route path="/store/:brand" component={BrandStoreScreen} />
       <Route exact path="/" component={HomeScreen} />
-      {/* <Footer /> */}
+      <Footer />
       <Toast ref={toastCartRef} idDiv="toast_cart" />
     </BrowserRouter>
   );

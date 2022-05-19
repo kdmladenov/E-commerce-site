@@ -9,7 +9,7 @@
   margin: 0 auto;
   display: grid;
   gap: 20px;
-  padding: 0 20px;
+  padding: 0 20px 20px 20px;
   grid-template-areas:
     'slider'
     'tiles_row_1'
