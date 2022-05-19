@@ -29,7 +29,7 @@ const QuestionsAndAnswersCard: React.FC<QuestionsAndAnswersCardProps> = ({
   thumbsUp,
   thumbsDown,
   userThumbsUpList,
-  userThumbsDownList,
+  userThumbsDownList
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [contentQuestion, setContentQuestion] = useState(questionContent);
@@ -77,7 +77,11 @@ const QuestionsAndAnswersCard: React.FC<QuestionsAndAnswersCardProps> = ({
         />
       </div>
       <div className="question_and_answer">
-        <div className="question">
+        <div
+          className={`question ${
+            currentUser.userId === authorId ? 'current_user' : ''
+          }`}
+        >
           <div className="textarea ">
             {editMode ? (
               <input

@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.review_card.current_user {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2), 0 4px 8px rgba(252, 0, 0, 0.2);
+}
+
 .review_card .user_info {
   display: flex;
   justify-content: flex-start;
