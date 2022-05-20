@@ -1,12 +1,20 @@
 .product_sidebar {
+  grid-area: sidebar;
   background-color: var(--gray_background);
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   grid-template-rows: 50px 1fr;
+  overflow-y: scroll;
+}
+
+.product_sidebar::-webkit-scrollbar {
+  width: 0;
 }
 
 .product_sidebar > .button_container {
   width: fit-content;
-  margin: auto 10px auto auto
+  margin: 11px 10px 11px auto;
 }
 
 .product_sidebar .accordion_header {

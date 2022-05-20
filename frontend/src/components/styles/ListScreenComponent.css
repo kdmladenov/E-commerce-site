@@ -60,17 +60,27 @@
 }
 
 /* Delete  history button */
-.list_container ul.history_list .product_card .wish_list_btn {
-  right: 15px;
-}
-.list_container ul.history_list .product_card > button {
+.list_container ul.history_list .product_card button.delete_btn {
+  display: none;
   position: absolute;
-  top: 5px;
-  right: -3px;
-  z-index: 100;
+  top: -10px;
+  right: -10px;
+  z-index: 1000;
+  border-radius: 1000px;
+  background-color: var(--gray_background);
   color: var(--gray_dark);
-  width: 10px;
-  padding: 0;
+  border: 1px solid var(--gray_dark);
+  font-size: 13px;
+  padding: 5px 5px 5px 6px;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.list_container ul.history_list .product_card:hover button.delete_btn {
+  display: flex;
 }
 
 /* Horizontal view */

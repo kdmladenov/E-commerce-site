@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import './styles/ListScreenComponent.css';
 import { deleteBrowsingHistory } from '../state/actions/browsingHistoryActions';
-// import getSidebarInput from '../helpers/getSidebarInput';
 import getRibbonText from '../helpers/getRibbonText';
 
 import Loader from './Loader';
@@ -36,7 +35,7 @@ const ListScreenComponent: React.FC<ListScreenComponentProps> = ({
   const [hiddenSidebar, setHiddenSidebar] = useState(false);
 
   const deleteHistoryBtn = (productId: number) => (
-    <Button classes="icon" onClick={() => dispatch(deleteBrowsingHistory(productId))}>
+    <Button classes="icon delete_btn" onClick={() => dispatch(deleteBrowsingHistory(productId))}>
       <Tooltip text="Remove">
         <i className="fa fa-times" />
       </Tooltip>

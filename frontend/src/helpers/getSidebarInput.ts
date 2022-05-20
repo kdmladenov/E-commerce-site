@@ -174,7 +174,18 @@ const getSidebarInput = (database: ProductType[]) => {
         value: `filter=storage_type = '${storageType}'`,
         type: 'checkbox'
       })),
-
+    'GPU Manufacturer': Array.from(
+      new Set(Object.values(database).map((product) => product.graphicsBrand))
+    )
+      .sort()
+      .map((graphicsBrand) => ({
+        label: `${graphicsBrand} (${
+          Object.values(database).filter((product) => product.graphicsBrand === graphicsBrand)
+            .length
+        })`,
+        value: `filter=graphics_brand = '${graphicsBrand}'`,
+        type: 'checkbox'
+      })),
     'Graphics Type': Array.from(
       new Set(Object.values(database).map((product) => product.graphicsType))
     )
