@@ -9,6 +9,7 @@ footer {
 footer .button_group {
   display: flex;
   margin-right: 20px;
+  gap: 20px;
 }
 
 footer span {
@@ -20,18 +21,20 @@ footer button {
   background-color: var(--gray);
   height: 25px;
   width: 25px;
-  margin: 10px;
   border: none;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--gray_dark);
+  font-size: 17px;
+  transition: 0.5s;
 }
 
 footer button:hover {
   cursor: pointer;
   box-shadow: var(--box_shadow_angle);
+  color: var(--sky);
 }
 
 footer button:active {
