@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import ModalConfirmContentProps from '../models/components/ModalConfirmContentProps';
+import ConfirmMessageProps from '../models/components/ConfirmMessageProps';
 import Button from './Button';
 
-const ModalConfirmContent: React.FC<ModalConfirmContentProps> = ({
+const ConfirmMessage: React.FC<ConfirmMessageProps> = ({
   setIsModalOpen,
   message,
   resourceId,
@@ -29,4 +29,4 @@ const ModalConfirmContent: React.FC<ModalConfirmContentProps> = ({
   );
 };
 
-export default ModalConfirmContent;
+export default ConfirmMessage;

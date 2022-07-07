@@ -5,7 +5,7 @@ import StateType from '../models/state/StateType';
 import UserDeleteActionType from '../state/actions/UserDeleteActionType';
 import UserRestoreActionType from '../state/actions/UserRestoreActionType';
 
-interface ModalConfirmContentProps {
+interface ConfirmMessageProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   message: string;
   resourceId: number;
@@ -16,4 +16,4 @@ interface ModalConfirmContentProps {
     getState: () => StateType
   ) => Promise<void>;
 }
-export default ModalConfirmContentProps;
+export default ConfirmMessageProps;

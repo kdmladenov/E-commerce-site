@@ -1,9 +1,5 @@
 .profile_avatar {
   grid-area: avatar;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   gap: 20px;
   background: var(--white);
   border-right: 2px solid var(--gray_light);

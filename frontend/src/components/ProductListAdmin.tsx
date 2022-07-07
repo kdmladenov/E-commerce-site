@@ -21,7 +21,7 @@ import Message from './Message';
 import Button from './Button';
 import Accordion from './Accordion';
 import Pagination from './Pagination';
-import ModalConfirmContent from './ModalConfirmContent';
+import ConfirmMessage from './ConfirmMessage';
 
 const ProductListAdmin: React.FC = () => {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const ProductListAdmin: React.FC = () => {
   const deleteProductHandler = (productId: number, isDeleted: boolean) => {
     setIsModalOpen(true);
     setModalContent(
-      <ModalConfirmContent
+      <ConfirmMessage
         setIsModalOpen={setIsModalOpen}
         message={`Are your sure you want to ${!isDeleted ? 'delete' : 'restore'} this product?`}
         resourceId={productId}

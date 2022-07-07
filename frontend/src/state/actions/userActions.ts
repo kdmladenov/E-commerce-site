@@ -344,7 +344,8 @@ export const updateUserAvatarReducer =
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLInputElement>,
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.DragEvent<HTMLDivElement>,
     imageAddress?: string
   ) =>
   async (dispatch: Dispatch<UserAvatarUpdateActionType>, getState: () => StateType) => {
@@ -362,7 +363,9 @@ export const updateUserAvatarReducer =
 
       if (mode === 'file_upload') {
         // Case file upload
-        const file = (event.target as HTMLInputElement).files?.[0];
+        const file =
+          (event.target as HTMLInputElement).files?.[0] ||
+          (event as React.DragEvent<HTMLDivElement>).dataTransfer.files?.[0];
         const formData = new FormData();
         formData.append('avatar', file!);
 

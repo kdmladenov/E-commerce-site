@@ -18,8 +18,9 @@ import HeaderControls from './HeaderControls';
 import Avatar from './Avatar';
 import Tooltip from './Tooltip';
 import { useHistory } from 'react-router-dom';
-import ModalConfirmContent from './ModalConfirmContent';
+import ModalConfirmContent from './ConfirmMessage';
 import Modal from './Modal';
+import ConfirmMessage from './ConfirmMessage';
 
 const UserListAdmin: React.FC = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const UserListAdmin: React.FC = () => {
   const deleteUserHandler = (userId: number, isDeleted: boolean) => {
     setIsModalOpen(true);
     setModalContent(
-      <ModalConfirmContent
+      <ConfirmMessage
         setIsModalOpen={setIsModalOpen}
         message={`Are your sure you want to ${!isDeleted ? 'delete' : 'restore'} this user?`}
         resourceId={userId}

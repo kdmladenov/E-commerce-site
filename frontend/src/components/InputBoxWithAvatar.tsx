@@ -41,28 +41,32 @@ const InputBoxWithAvatar: React.FC<InputBoxWithAvatarProps> = ({
 
   return (
     <div className={`input_with_avatar ${!showForm ? 'button' : ''}`}>
-      {showForm && (
-        <Avatar
-          classes="image_only"
-          imageUrl={currentUserDetails?.avatar}
-          fullName={currentUserDetails?.fullName}
-        />
+      {showForm ? (
+        <>
+          <Avatar
+            classes="image_only"
+            imageUrl={currentUserDetails?.avatar}
+            fullName={currentUserDetails?.fullName}
+          />
+          <input
+            type="textarea"
+            value={content}
+            placeholder={placeholder}
+            onChange={inputHandler}
+            onKeyUp={keyPressHandler}
+          />
+
+          <p className={content.length > 0 && !isValid ? 'show_message' : ''}>{errorMessage}</p>
+
+          <Button classes="icon" onClick={() => setShowForm(!showForm)}>
+            {<i className="fa fa-times" />}
+          </Button>
+        </>
+      ) : (
+        <Button classes="text" onClick={() => setShowForm(!showForm)}>
+          {closedButtonText}
+        </Button>
       )}
-      {showForm && (
-        <input
-          type="textarea"
-          value={content}
-          placeholder={placeholder}
-          onChange={inputHandler}
-          onKeyUp={keyPressHandler}
-        />
-      )}
-      {showForm && (
-        <p className={content.length > 0 && !isValid ? 'show_message' : ''}>{errorMessage}</p>
-      )}
-      <Button classes={`${showForm ? 'icon' : 'text'}`} onClick={() => setShowForm(!showForm)}>
-        {showForm ? <i className="fa fa-times" /> : closedButtonText}
-      </Button>
     </div>
   );
 };

@@ -37,11 +37,11 @@ const AccountScreen: React.FC<
   const { success: successDeleteAvatar } = useTypedSelector((state) => state.userAvatarDelete);
 
   useEffect(() => {
-    if (!user?.email) {
+    if (!user?.email || successUpdateAvatar || successDeleteAvatar) {
       dispatch(getUserDetails(userInfo?.userId));
     }
     setActiveTab(section);
-  }, [dispatch, user, userInfo, successUpdateAvatar, successDeleteAvatar, section]);
+  }, [dispatch, userInfo, successUpdateAvatar, successDeleteAvatar, section]);
 
   return (
     <main className="account_screen">
