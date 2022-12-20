@@ -11,6 +11,7 @@ import Loader from './Loader';
 import Message from './Message';
 import Button from './Button';
 import Tooltip from './Tooltip';
+import { TEST_ACCOUNT_EMAIL, TEST_ACCOUNT_PASSWORD } from '../constants/constants';
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -74,6 +75,14 @@ const Login: React.FC = () => {
 
         <button onClick={loginHandler}>Log In</button>
       </form>
+      <Button
+        classes="test_account_btn"
+        onClick={() =>
+          dispatch(login({ email: TEST_ACCOUNT_EMAIL, password: TEST_ACCOUNT_PASSWORD }))
+        }
+      >
+        Log in with a test user
+      </Button>
       <div className="registerRedirect">
         New Customer?
         <Link to={'/register'}> Register</Link>

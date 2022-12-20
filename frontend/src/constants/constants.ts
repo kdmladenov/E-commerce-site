@@ -37,6 +37,10 @@ export const RATING_STAR_COUNT = 5;
 export const THROTTLE_DELAY = 1000;
 export const RESET_BTN_THRESHOLD_SHOW_CHAR_COUNT = 3;
 
+// Test account login
+export const TEST_ACCOUNT_EMAIL = 'admin@mail.com';
+export const TEST_ACCOUNT_PASSWORD = 'Admin1234';
+
 export const USER = {
   MIN_FULL_NAME_LENGTH: 2,
   MAX_FULL_NAME_LENGTH: 100,
