@@ -38,15 +38,10 @@ const Reviews: React.FC<ReviewsProps> = ({
   });
 
   const { userInfo } = useTypedSelector((state) => state.userLogin);
-
   const { user } = useTypedSelector((state) => state.userDetails);
-
   const { reviews, loading, error } = useTypedSelector((state) => state.reviewList);
-
   const { success: successCreate } = useTypedSelector((state) => state.reviewCreate);
-
   const { success: successDelete } = useTypedSelector((state) => state.reviewDelete);
-
   const { success: successEdit } = useTypedSelector((state) => state.reviewEdit);
 
   const {

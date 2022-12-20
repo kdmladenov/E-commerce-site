@@ -20,10 +20,13 @@ const ConfirmMessage: React.FC<ConfirmMessageProps> = ({
             dispatch(action(resourceId));
             setIsModalOpen(false);
           }}
+          classes="rounded blue_light"
         >
           Yes
         </Button>
-        <Button onClick={() => setIsModalOpen(false)}>No</Button>
+        <Button onClick={() => setIsModalOpen(false)} classes="rounded blue_light">
+          No
+        </Button>
       </div>
     </div>
   );

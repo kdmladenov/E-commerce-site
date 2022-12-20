@@ -49,7 +49,7 @@ const getAll = async (
           "userId",a.user_id,
           "fullName",u.full_name,
           "avatar",u.avatar,
-          "answerContent", a.answer_content, 
+          "answerContent",a.answer_content, 
           "dateCreated",a.date_created,
           "dateEdited",a.date_edited
           )) as answers

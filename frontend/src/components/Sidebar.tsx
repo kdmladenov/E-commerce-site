@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <div className="product_sidebar">
+    <aside className="product_sidebar">
       <Button onClick={clearAllFiltersHandler} classes="text">
         Clear filters
       </Button>
@@ -77,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </Accordion.Item>
         </Accordion>
       ))}
-    </div>
+    </aside>
   );
 };
 
