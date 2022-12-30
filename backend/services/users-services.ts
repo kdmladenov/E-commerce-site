@@ -6,7 +6,7 @@ import { DB_CONFIG, PRIVATE_KEY } from '../../config.js';
 
 import errors from '../constants/service-errors.js';
 import rolesEnum from '../constants/roles.enum.js';
-import { user as userConstants } from '../constants/constants.js';
+import { DEFAULT_AVATAR } from '../constants/constants.js';
 import { forgotPassword } from '../constants/constants.js';
 import UsersData from '../models/UsersData.js';
 import UserType from '../models/UserType.js';
@@ -332,7 +332,7 @@ const deleteUserAvatar = (usersData: UsersData) => async (userId: number) => {
     };
   }
 
-  const updatedUser = { ...existingUser, avatar: userConstants.DEFAULT_AVATAR };
+  const updatedUser = { ...existingUser, avatar: DEFAULT_AVATAR };
   await usersData.updateData(updatedUser);
 
   return {

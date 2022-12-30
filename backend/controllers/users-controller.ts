@@ -6,7 +6,7 @@ import usersData from '../data/users-data.js';
 
 import validateBody from '../middleware/validate-body.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
-import validateFile from '../middleware/validate-file.js';
+// import validateFile from '../middleware/validate-file.js';
 import uploadAvatar from '../middleware/upload-avatar.js';
 import errorHandler from '../middleware/errorHandler.js';
 
@@ -20,12 +20,18 @@ import resetPasswordSchema from '../validator/reset-password-schema.js';
 import uploadFileSchema from '../validator/upload-file-schema.js';
 
 import rolesEnum from '../constants/roles.enum.js';
-import { paging } from '../constants/constants.js';
+import {
+  GOOGLE_DRIVE_FOLDER_IDS,
+  GOOGLE_DRIVE_PUBLIC_URL,
+  paging
+} from '../constants/constants.js';
 import errors from '../constants/service-errors.js';
 import RequestQuery from '../models/RequestQuery.js';
+import uploadFile from '../helpers/uploadFile.js';
+import uploadImage from '../middleware/upload-image.js';
 
 const usersController = express.Router();
-
+// TO DO - Validate file
 usersController
 
   // @desc Register new user
@@ -275,12 +281,14 @@ usersController
     authMiddleware,
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
-    uploadAvatar.single('avatar'),
-    validateFile('uploads', uploadFileSchema),
+    uploadImage.single('avatar'),
+    // validateFile('uploads', uploadFileSchema),
     errorHandler(async (req: Request, res: Response) => {
-      const { path } = req.file;
+      const { file } = req;
 
-      res.status(201).send(path.replace(/\\/g, '/'));
+      const uploadedUserAvatarFileData = await uploadFile(file, GOOGLE_DRIVE_FOLDER_IDS.avatars);
+
+      res.status(201).send(`${GOOGLE_DRIVE_PUBLIC_URL}${uploadedUserAvatarFileData.id}`);
     })
   )
   // @desc ADD user's avatar
