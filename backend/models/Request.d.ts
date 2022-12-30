@@ -5,6 +5,6 @@ declare namespace Express {
       email: string;
       role: RolesType;
     };
-    file: { [key: string]: string };
+    file: Multer.File;
   }
 }

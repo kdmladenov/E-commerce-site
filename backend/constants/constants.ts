@@ -1,3 +1,16 @@
+export const DEFAULT_AVATAR = `storage/avatars/defaultAvatar.png`
+export const DEFAULT_IMAGE_URL= 'storage/images/defaultImage.png';
+
+export const GOOGLE_DRIVE_FOLDER_IDS = {
+  avatars: '1MCqx-bEWSrJUVtQUYQq7o2YLGyxYlYTa',
+  images: '1qaGi7F7skHGGGMXpkQKURZXIQQ-ccLS7'
+};
+
+export const GOOGLE_DRIVE_KEY_FILE_PATH =
+  '/Users/krasymladenov/Repo/E-commerce-site/google-drive-credentials.json';
+
+export const GOOGLE_DRIVE_PUBLIC_URL = 'https://drive.google.com/uc?export=view&id=';
+
 export const user = {
   MIN_FULL_NAME_LENGTH: 2,
   MAX_FULL_NAME_LENGTH: 100,
@@ -19,7 +32,6 @@ export const user = {
   MAX_PASSWORD_LENGTH: 20,
   EMAIL_REGEX: /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
   PHONE_REGEX: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-  DEFAULT_AVATAR: `storage/avatars/defaultAvatar.png`,
   PASSWORD_REGEX: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/ // letters, numbers and at least 1 uppercase
 };
 
@@ -93,9 +105,8 @@ export const feature = {
 
 export const uploads = {
   VALID_FILE_FORMATS: ['jpg', 'png', 'jpeg', 'gif', 'bmp', 'webp'],
-  MAX_FILE_SIZE: 102400, //   divide by 1000 for KB
-  MIN_FILE_SIZE: 0,
-  DEFAULT_IMAGE_URL: 'storage/images/defaultImage.png'
+  MAX_FILE_SIZE: 5120000, // 5 MB
+  MIN_FILE_SIZE: 1024 // 0.01 MB
 };
 
 export const forgotPassword = {

@@ -8,7 +8,7 @@ import featuresData from '../data/features-data.js';
 import specificationsData from '../data/specifications-data.js';
 
 import validateBody from '../middleware/validate-body.js';
-import validateFile from '../middleware/validate-file.js';
+// import validateFile from '../middleware/validate-file.js';
 import loggedUserGuard from '../middleware/loggedUserGuard.js';
 import uploadImage from '../middleware/upload-image.js';
 import errorHandler from '../middleware/errorHandler.js';
@@ -22,12 +22,17 @@ import createFeatureSchema from '../validator/create-feature-schema.js';
 import updateFeatureSchema from '../validator/update-feature-schema.js';
 
 import errors from '../constants/service-errors.js';
-import { paging } from '../constants/constants.js';
+import {
+  GOOGLE_DRIVE_FOLDER_IDS,
+  GOOGLE_DRIVE_PUBLIC_URL,
+  paging
+} from '../constants/constants.js';
 import rolesEnum from '../constants/roles.enum.js';
 import RequestQuery from '../models/RequestQuery.js';
+import uploadFile from '../helpers/uploadFile.js';
 
 const productsController = express.Router();
-
+// TO DO - Validate file
 productsController
   // @desc GET All products incl search, sort, paging
   // @route GET /products
@@ -180,13 +185,17 @@ productsController
     loggedUserGuard,
     roleMiddleware(rolesEnum.admin),
     uploadImage.single('image'),
-    validateFile('uploads', uploadFileSchema),
-    errorHandler(async (req: Request, res: Response) => {
-      const { path } = req.file;
+    // validateFile('uploads', uploadFileSchema),
+    // errorHandler(
+    async (req: Request, res: Response) => {
+      const { file } = req;
 
-      res.status(201).send(path.replace(/\\/g, '/'));
-    })
+      const uploadedProductImageFileData = await uploadFile(file, GOOGLE_DRIVE_FOLDER_IDS.images);
+
+      res.status(201).send(`${GOOGLE_DRIVE_PUBLIC_URL}${uploadedProductImageFileData.id}`);
+    }
   )
+  // )
   // @desc ADD product's image
   // @route POST /products/:productId/image
   // @access Private - Admin only

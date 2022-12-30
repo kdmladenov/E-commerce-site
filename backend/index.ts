@@ -36,9 +36,6 @@ app.use('/wishlist', wishListController);
 app.use('/questions', questionsController);
 app.use('/answers', answersController);
 
-app.use('/storage/images', express.static('storage/images'));
-app.use('/storage/avatars', express.static('storage/avatars'));
-
 app.get('/config/paypal', (req, res) => res.send(PAYPAL_CLIENT_ID));
 
 app.all('*', (req, res) => res.status(404).send({ message: 'Resource not found!' }));
