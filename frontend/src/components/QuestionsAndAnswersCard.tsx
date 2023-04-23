@@ -79,7 +79,7 @@ const QuestionsAndAnswersCard: React.FC<QuestionsAndAnswersCardProps> = ({
       <div className="question_and_answer">
         <div
           className={`question ${
-            currentUser.userId === authorId ? 'current_user' : ''
+            currentUser?.userId === authorId ? 'current_user' : ''
           }`}
         >
           <div className="textarea ">

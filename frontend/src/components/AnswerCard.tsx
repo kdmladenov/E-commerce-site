@@ -43,7 +43,7 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
   };
 
   return (
-    <li className={`answer ${currentUser.userId === authorId ? 'current_user' : ''}`}>
+    <li className={`answer ${currentUser?.userId === authorId ? 'current_user' : ''}`}>
       <div className="textarea">
         {editMode ? (
           <input

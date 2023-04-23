@@ -76,7 +76,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     title!.length <= REVIEW.MAX_TITLE_LENGTH;
 
   return (
-    <div className={`review_card card ${currentUser.userId === authorId ? 'current_user' : ''}`}>
+    <div className={`review_card card ${currentUser?.userId === authorId ? 'current_user' : ''}`}>
       <div className="user_info">
         <Avatar classes="small" imageUrl={avatar} fullName={fullName} />
       </div>
