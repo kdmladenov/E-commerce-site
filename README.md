@@ -1,4 +1,8 @@
+
+
 # E-commerce Site
+
+[![Video Demo](/assets/images/video_thumb.png)](https://youtu.be/fZxsa6Qgkcc)
 
 A Full-stack Amazon-like e-commerce site that allows users to browse and purchase products, manage their shopping cart, place orders and make payments. It also provides user profiles for managing personal information, order history, browsing history, and wishlists. Additionally, there is an admin menu for managing orders, users, and products.All of the component's code is fully custom and written from scratch without any 3rd party libraries (like Bootstrap).
 
